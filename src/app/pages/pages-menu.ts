@@ -34,10 +34,11 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
   {
     title: 'Catalogos',
-    icon: 'edit-2-outline',
+    icon: 'book-open-outline',
     children: [
       {
         title: 'Clientes',
+        icon: 'person-done-outline',
         link: '/pages/clients/clientes',
       },
       {
