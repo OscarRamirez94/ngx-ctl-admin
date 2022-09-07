@@ -1,3 +1,4 @@
+import { Address } from "./address/address";
 import { Generic } from "./generic/generic";
 
 export class Client implements Generic {
@@ -5,4 +6,5 @@ export class Client implements Generic {
   name:string;
   isActive:boolean;
   search :string;
+  address :Address;
 }
