@@ -144,7 +144,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     });
   }
 
-  displayedColumns: string[] = ['id', 'name','isActive'];
+  protected displayedColumns: string[] ;
 
 // config toastr
   config: NbToastrConfig;
