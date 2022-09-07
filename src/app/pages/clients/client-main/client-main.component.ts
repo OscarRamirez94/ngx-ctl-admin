@@ -1,7 +1,8 @@
 import {  AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NbToastrService } from '@nebular/theme';
 import { Client } from '../../../models/client';
 import { ClientService } from '../../../services/client/client.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
@@ -27,9 +28,10 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
   name: string;
   titulo:string = "Clientes";
   newClient:Client;
-  @ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
-  constructor( service:ClientService,public dialog: MatDialog) {
-    super(service);
+  //@ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
+  constructor( service:ClientService,router: Router,
+    route: ActivatedRoute,public dialog: MatDialog,toastrService: NbToastrService) {
+    super(service,router, route,toastrService);
 
   }
   ngAfterViewInit() {
@@ -39,21 +41,23 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
 
   ngOnInit() {
     this.newClient;
+
+
   }
   openDialog(): void {
 
     const dialogRef = this.dialog.open(ClientCreateComponent, {
 
-      width: '65%',
-      data: {name: this.name, animal: this.animal},
+      width: '65%'
 
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.menuTrigger.focus();
-      this.animal = result;
+    /*dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closeddd');
+      //this.menuTrigger.focus();
+
     });
+    */
   }
 
 

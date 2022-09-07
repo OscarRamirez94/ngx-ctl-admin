@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, Directive, OnInit, ViewChild } from '@angular/core';
+import { Directive, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { ActivatedRoute, Router } from '@angular/router';
+import { NbComponentStatus, NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrConfig, NbToastrService } from '@nebular/theme';
 import { Generic } from '../../../models/generic/generic';
 import { SearchCriteriaClient } from '../../../models/searchs/search-criteria-client';
 import { CommonService } from '../../../services/commons.service';
@@ -16,7 +17,13 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   @ViewChild(MatSort)
   sort: MatSort;
 
+  titulo: string;
+  model: E;
+  error: any;
+  protected redirect: string;
   protected nombreModel: string;
+
+
   sortedData: Object[];
   // config pagination
   totalRegistros=0;
@@ -27,11 +34,10 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   pageSizeOptions = [1,2,5, 10, 25, 100];
   ariaLabel="Select page";
   filterValue ="";
-  titulo: string;
   lista: E[];
   dataSource: MatTableDataSource<E>;
 
-  constructor(protected service:S) {
+  constructor(protected service:S,protected router: Router,protected route: ActivatedRoute,protected toastrService: NbToastrService) {
     this.calculateRange();
   }
 
@@ -47,7 +53,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     this.calculateRange();
   }
 
-  private calculateRange(){
+  public calculateRange(){
 
     const search: SearchCriteriaClient = new SearchCriteriaClient();
     search.pageNumber = this.paginaActual;
@@ -111,7 +117,71 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
 
     }
   }
+  public crear(): void {
+    console.log("objeto despues del form ",this.model);
+    this.service.crear(this.model).subscribe(m => {
+      console.log(m);
+      //Swal.fire('Nuevo:', `${this.nombreModel} ${m.nombre} creado con éxito`, 'success');
+     // this.router.navigate([this.redirect]);
+    }, err => {
+      if(err.status === 400){
+        this.error = err.error;
+        console.log(this.error);
+      }
+    });
+  }
 
+  public editar(): void {
+    this.service.editar(this.model).subscribe(m => {
+      console.log(m);
+      //Swal.fire('Modificado:', `${this.nombreModel} ${m.nombre} actualizado con éxito`, 'success');
+      this.router.navigate([this.redirect]);
+    }, err => {
+      if(err.status === 400){
+        this.error = err.error;
+        console.log(this.error);
+      }
+    });
+  }
 
   displayedColumns: string[] = ['id', 'name','isActive'];
+
+// config toastr
+  config: NbToastrConfig;
+  destroyByClick = true;
+  duration = 5000;
+  hasIcon = true;
+  position: NbGlobalPosition = NbGlobalPhysicalPosition.BOTTOM_RIGHT;
+  preventDuplicates = false;
+
+  positions: string[] = [
+    NbGlobalPhysicalPosition.TOP_RIGHT,
+    NbGlobalPhysicalPosition.TOP_LEFT,
+    NbGlobalPhysicalPosition.BOTTOM_LEFT,
+    NbGlobalPhysicalPosition.BOTTOM_RIGHT,
+    NbGlobalLogicalPosition.TOP_END,
+    NbGlobalLogicalPosition.TOP_START,
+    NbGlobalLogicalPosition.BOTTOM_END,
+    NbGlobalLogicalPosition.BOTTOM_START,
+  ];
+
+
+
+  private showToast(status:string, body: string) {
+    const config = {
+      status: status,
+      tittle: "Clientess",
+      destroyByClick: this.destroyByClick,
+      duration: this.duration,
+      hasIcon: this.hasIcon,
+      position: this.position,
+      preventDuplicates: this.preventDuplicates,
+    };
+    this.toastrService.show(
+      body, this.nombreModel,
+      config);
+  }
+  public toast(status:string, content:string){
+    this.showToast(status, content, );
+  }
 }
