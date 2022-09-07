@@ -28,6 +28,7 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
   name: string;
   titulo:string = "Clientes";
   displayedColumns: string[] = ['id', 'name','isActive'];
+
   newClient:Client;
   //@ViewChild('menuTrigger') menuTrigger: MatMenuTrigger;
   constructor( service:ClientService,router: Router,
