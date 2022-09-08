@@ -1,13 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Address } from '../../../models/address/address';
 import { Client } from '../../../models/client';
 import { ClientService } from '../../../services/client/client.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
-import { DialogData } from '../client-main/client-main.component';
-
 
 
 @Component({
@@ -15,16 +14,19 @@ import { DialogData } from '../client-main/client-main.component';
   templateUrl: './client-create.component.html',
   styleUrls: ['./client-create.component.scss']
 })
-export class ClientCreateComponent extends CommonListComponent<Client, ClientService> implements OnInit {
+
+export class ClientCreateComponent extends CommonListComponent<Client, ClientService> implements OnInit  {
+
+
+
   private fotoSeleccionada: File;
   constructor(
     service: ClientService,
     router: Router,
     route: ActivatedRoute,
     toastrService: NbToastrService,
-    public dialogRef: MatDialogRef<ClientCreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
 
+    private  dialogRef: MatDialogRef<ClientCreateComponent>,
 
   ) {
     super(service, router, route,toastrService);
@@ -35,15 +37,11 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
     this.nombreModel = "Cliente";
   }
 
-  ngOnInit(): void {
-  }
 
-  onNoClick(): void {
-    console.log("cierra por boton");
-    this.dialogRef.close();
-    super.ngOnInit();
+ngOnInit(): void {
+  super.paginator;
+}
 
-  }
   public seleccionarFoto(event): void {
     this.fotoSeleccionada = event.target.files[0];
     console.info(this.fotoSeleccionada);

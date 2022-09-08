@@ -1,4 +1,4 @@
-import { Directive, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Directive, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -9,10 +9,10 @@ import { SearchCriteriaClient } from '../../../models/searchs/search-criteria-cl
 import { CommonService } from '../../../services/commons.service';
 
 @Directive()
-export abstract class CommonListComponent<E extends Generic, S extends CommonService<E>> implements OnInit {
+export abstract class CommonListComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
 
   @ViewChild(MatPaginator)
-  paginator :MatPaginator;
+   paginator :MatPaginator;
 
   @ViewChild(MatSort)
   sort: MatSort;
@@ -38,13 +38,18 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   dataSource: MatTableDataSource<E>;
 
   constructor(protected service:S,protected router: Router,protected route: ActivatedRoute,protected toastrService: NbToastrService) {
-    this.calculateRange();
+    this.dataSource = new MatTableDataSource(this.lista);
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {
 
     this.calculateRange();
 
+  }
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   paginar(event:PageEvent) :void{
