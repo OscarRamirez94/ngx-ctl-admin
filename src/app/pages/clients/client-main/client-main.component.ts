@@ -31,8 +31,11 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
     const dialogRef = this.dialog.open(ClientCreateComponent, {
       width: '65%'
     }).afterClosed().subscribe(data =>{
+      if(data){
         super.calculateRange();
-      })
+
+      }
+              })
   }
 
 }

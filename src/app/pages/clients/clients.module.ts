@@ -18,7 +18,7 @@ import {MatGridListModule} from '@angular/material/grid-list';
 import { MatMenuModule} from '@angular/material/menu';
 import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-import { FormsModule as ngFormsModule } from '@angular/forms';
+import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BidiModule} from '@angular/cdk/bidi';
 import { ClientCreateComponent } from './client-create/client-create.component';
 
@@ -51,6 +51,7 @@ import { ClientCreateComponent } from './client-create/client-create.component';
     MatCardModule,
     MatCheckboxModule,
     ngFormsModule,
+    ReactiveFormsModule
 
   ],
 

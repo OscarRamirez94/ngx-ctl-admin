@@ -1,17 +1,19 @@
 <section>
+  <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
   <mat-card>
     <mat-card-title>Agregar Cliente</mat-card-title>
     <mat-card-content>
       <!--mat dialog content-->
       <mat-dialog-content >
+
       <!-- grid -->
       <div class="row">
         <div class="col-sm-4">
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Cliente</mat-label>
-              <input matInput [(ngModel)]="model.name" placeholder="Digita Cliente">
-              <mat-hint>Cliente</mat-hint>
+              <input matInput  formControlName="name" placeholder="Digita Cliente" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+              <mat-error *ngIf="submitted && f.name.errors" >Campo Requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -19,8 +21,8 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Telefono</mat-label>
-              <input matInput [(ngModel)]="model.address.phone" placeholder="Digita Telefono">
-              <mat-hint>Telefono</mat-hint>
+              <input matInput   formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Digita Telefono">
+              <mat-error *ngIf="submitted && f.name.errors" >Telefono Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -28,8 +30,8 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Atención</mat-label>
-              <input matInput [(ngModel)]="model.address.attention" placeholder="Digita Atención">
-              <mat-hint>Atención</mat-hint>
+              <input matInput   formControlName="attention" [ngClass]="{ 'is-invalid': submitted && f.attention.errors }" placeholder="Digita Atención">
+              <mat-error *ngIf="submitted && f.name.errors" >Atención Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -39,8 +41,8 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Calle</mat-label>
-              <input matInput [(ngModel)]="model.address.text" placeholder="Digita Calle">
-              <mat-hint>Calle</mat-hint>
+              <input matInput  formControlName="text" [ngClass]="{ 'is-invalid': submitted && f.text.errors }" placeholder="Digita Calle">
+              <mat-error *ngIf="submitted && f.name.errors" >Calle Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -48,8 +50,8 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Colonia</mat-label>
-              <input matInput [(ngModel)]="model.address.colonia" placeholder="Digita Colonia">
-              <mat-hint>Colonia</mat-hint>
+              <input matInput    formControlName="colonia" [ngClass]="{ 'is-invalid': submitted && f.colonia.errors }" placeholder="Digita Colonia">
+              <mat-error *ngIf="submitted && f.name.errors" >Colonia Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -60,8 +62,8 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Municipio</mat-label>
-              <input matInput [(ngModel)]="model.address.district" placeholder="Digita Municipio">
-              <mat-hint>Municipio</mat-hint>
+              <input matInput  formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }" placeholder="Digita Municipio">
+              <mat-error *ngIf="submitted && f.name.errors" >Municipio Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -69,8 +71,8 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Estado</mat-label>
-              <input matInput [(ngModel)]="model.address.state" placeholder="Digita Estado">
-              <mat-hint>Estado</mat-hint>
+              <input matInput   formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" placeholder="Digita Estado">
+              <mat-error *ngIf="submitted && f.name.errors" >Estado Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -78,8 +80,8 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Ciudad</mat-label>
-              <input matInput [(ngModel)]="model.address.city" placeholder="Digita Codigo Postal">
-              <mat-hint>Ciudad</mat-hint>
+              <input matInput  formControlName="city" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" placeholder="Digita Codigo Postal">
+              <mat-error *ngIf="submitted && f.name.errors" >Ciudad Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -90,8 +92,8 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Codigo Postal</mat-label>
-              <input matInput [(ngModel)]="model.address.postalCode" placeholder="Digita Codigo Postal">
-              <mat-hint>Codigo Postal</mat-hint>
+              <input matInput   formControlName="postalCode" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" placeholder="Digita Codigo Postal">
+              <mat-error *ngIf="submitted && f.name.errors" >Codigo Postal Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -99,13 +101,14 @@
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label>Pais</mat-label>
-              <input matInput [(ngModel)]="model.address.country" placeholder="Digita Pais">
-              <mat-hint>Pais</mat-hint>
+              <input matInput  formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" placeholder="Digita Pais">
+              <mat-error *ngIf="submitted && f.name.errors" >Pais Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
       </div>
       <!-- end grid-->
+
       </mat-dialog-content>
       <!-- mat dialog content -->
 
@@ -115,9 +118,10 @@
     <mat-card-actions align="end">
       <mat-dialog-actions align="end">
         <button mat-flat-button [mat-dialog-close]="false" color="warn" >Cancelar</button>
-        <button mat-flat-button [mat-dialog-close]="true" color="primary" cdkFocusInitial (click)="crear()">Aceptar</button>
+        <button mat-flat-button color="primary" cdkFocusInitial>Aceptar</button>
       </mat-dialog-actions>
     </mat-card-actions>
     <!--end actions -->
   </mat-card>
+</form>
   </section>
