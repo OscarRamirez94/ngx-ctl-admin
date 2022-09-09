@@ -46,12 +46,12 @@ export abstract class CommonService<E extends Generic> {
   }
 
   public editar(e: E): Observable<E> {
-    return this.http.put<E>(`${this.url}/${e.id}`, e,
+    return this.http.put<E>(`${this.url}${e.id}`, e,
       { headers: this.cabeceras });
   }
 
   public eliminar(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.url}/${id}`);
+    return this.http.delete<void>(`${this.url}${id}`);
   }
 }
 

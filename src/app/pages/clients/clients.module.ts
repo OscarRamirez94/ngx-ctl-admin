@@ -21,7 +21,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BidiModule} from '@angular/cdk/bidi';
 import { ClientCreateComponent } from './client-create/client-create.component';
-
+import {MatIconModule} from '@angular/material/icon';
+import {MatChipsModule} from '@angular/material/chips';
 @NgModule({
   declarations: [
     ClientsComponent,
@@ -51,8 +52,9 @@ import { ClientCreateComponent } from './client-create/client-create.component';
     MatCardModule,
     MatCheckboxModule,
     ngFormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    MatIconModule,
+    MatChipsModule
   ],
 
 })

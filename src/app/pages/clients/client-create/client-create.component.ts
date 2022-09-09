@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Address } from '../../../models/address/address';
@@ -19,113 +19,104 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
 
   clientForm !: FormGroup;
   submitted = false;
-  private fotoSeleccionada: File;
+  actionBtn:String = "Crear";
+
   constructor(
-    service: ClientService,
-    router: Router,
-    route: ActivatedRoute,
-    toastrService: NbToastrService,
-    private formBuilder:FormBuilder,
-    private  dialogRef: MatDialogRef<ClientCreateComponent>,
-
+    service: ClientService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
+    private formBuilder:FormBuilder, private  dialogRef: MatDialogRef<ClientCreateComponent>,
+    @Inject(MAT_DIALOG_DATA) public editData:any
   ) {
-    super(service, router, route,toastrService);
-    this.titulo = 'Agregar Clients';
-    this.model = new Client();
-    this.model.address = new Address();
-    this.redirect = '/pages/clients/clientes';
-    this.nombreModel = "Cliente";
-  }
-
-
-ngOnInit(): void {
-  this.clientForm = this.formBuilder.group({
-    name :['',Validators.required],
-    phone :['',Validators.required],
-    attention:['',Validators.required],
-    text:['',Validators.required],
-    colonia:['',Validators.required],
-    district:['',Validators.required],
-    state :['',Validators.required],
-    city:['',Validators.required],
-    postalCode:['',Validators.required],
-    country:['',Validators.required],
-
-  })
-  super.paginator;
-}
-
-  public seleccionarFoto(event): void {
-    this.fotoSeleccionada = event.target.files[0];
-    console.info(this.fotoSeleccionada);
-
-    if(this.fotoSeleccionada.type.indexOf('image') < 0){
-      this.fotoSeleccionada = null;
-     /* Swal.fire(
-        'Error al seleccionar la foto:',
-        'El archivo debe ser del tipo imagen',
-        'error');
-    }*/
-  }
-}
-   crear(): void {
-    if (this.clientForm.valid){
-
-      console.log("click en crear");
-      if(!this.fotoSeleccionada){
-        this.model.isActive = true;
-
-        console.log("super crear");
-        super.crear();
-        super.toast("success","Cliente creado con éxito");
-
-      } else {
-        this.service.crearConFoto(this.model, this.fotoSeleccionada);
-
-      }
+      super(service, router, route,toastrService);
+      this.titulo = 'Agregar Clients';
+      this.model = new Client();
+      this.model.address = new Address();
+      this.redirect = '/pages/clients/clientes';
+      this.nombreModel = "Cliente";
     }
 
-  }
-
-   editar(): void {
-    if(!this.fotoSeleccionada){
-      super.editar();
-    } else {
-      this.service.editarConFoto(this.model, this.fotoSeleccionada);
-
-    }
+  ngOnInit(): void {
+    this.setForm();
+    this.rejectForm(this.editData);
+    super.paginator;
   }
 
   get f() { return this.clientForm.controls; }
 
   onSubmit() {
-    console.log(this.clientForm.get('name').value);
-    this.model.name = this.clientForm.get('name').value;
-    this.model.isActive = true;
-    this.model.address.attention = this.clientForm.get('attention').value;
-    this.model.address.city = this.clientForm.get('city').value;
-    this.model.address.colonia = this.clientForm.get('colonia').value;
-    this.model.address.country = this.clientForm.get('country').value;
-    this.model.address.district = this.clientForm.get('district').value;
-    this.model.address.phone = this.clientForm.get('phone').value;
-    this.model.address.postalCode = this.clientForm.get('postalCode').value;
-    this.model.address.state = this.clientForm.get('state').value;
-    this.model.address.text = this.clientForm.get('text').value;
     this.submitted = true;
+      // stop here if form is invalid
+      if (this.clientForm.invalid) {
+          return;
+      }
+      if (!this.editData) {
+         this.modelClient(this.clientForm);
+         super.crear();
+         this.onReset();
+         super.toast("success","Cliente creado con éxito");
+      }  else {
+          this.editarClient();
+         }
+  }
 
-    // stop here if form is invalid
-    if (this.clientForm.invalid) {
-        return;
-    }
-    super.crear();
-    this.dialogRef.close("true");
+  onReset() {
+    this.submitted = false;
     this.clientForm.reset();
+    this.editData = null;
+    this.dialogRef.close("true");
+  }
 
-    super.toast("success","Cliente creado con éxito");
-}
+  setForm() {
+    this.clientForm = this.formBuilder.group({
+      name :['',Validators.required],
+      phone :['',Validators.required],
+      attention:['',Validators.required],
+      text:['',Validators.required],
+      colonia:['',Validators.required],
+      district:['',Validators.required],
+      state :['',Validators.required],
+      city:['',Validators.required],
+      postalCode:['',Validators.required],
+      country:['',Validators.required],
+    });
+  }
 
-onReset() {
-  this.submitted = false;
-  this.clientForm.reset();
-}
+  rejectForm(editData:any) {
+    if (editData) {
+      this.actionBtn ="Modificar";
+      this.clientForm.controls['name'].setValue(editData.name);
+      this.clientForm.controls['phone'].setValue(editData.address.phone);
+      this.clientForm.controls['attention'].setValue(editData.address.attention);
+      this.clientForm.controls['text'].setValue(editData.address.text);
+      this.clientForm.controls['colonia'].setValue(editData.address.colonia);
+      this.clientForm.controls['district'].setValue(editData.address.district);
+      this.clientForm.controls['state'].setValue(editData.address.state);
+      this.clientForm.controls['city'].setValue(editData.address.city);
+      this.clientForm.controls['postalCode'].setValue(editData.address.postalCode);
+      this.clientForm.controls['country'].setValue(editData.address.country);
+      this.clientForm.controls['name'].setValue(editData.name);
+      this.model.id = editData.id;
+    }
+  }
+
+  editarClient() {
+    this.modelClient(this.clientForm);
+    super.editar();
+    this.onReset();
+    super.toast("success","Modificado  con éxito");
+  }
+
+  modelClient(clientForm:any) {
+    this.model.name = clientForm.get('name').value;
+    this.model.isActive = true;
+    this.model.address.attention = clientForm.get('attention').value;
+    this.model.address.city = clientForm.get('city').value;
+    this.model.address.colonia = clientForm.get('colonia').value;
+    this.model.address.country = clientForm.get('country').value;
+    this.model.address.district = clientForm.get('district').value;
+    this.model.address.phone = clientForm.get('phone').value;
+    this.model.address.postalCode = clientForm.get('postalCode').value;
+    this.model.address.state = clientForm.get('state').value;
+    this.model.address.text = clientForm.get('text').value;
+  }
+
 }

@@ -74,6 +74,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
       this.lista = paginator.content as E[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
+
       this.dataSource = new MatTableDataSource(this.lista);
       console.log("sort", this.orderBy , "column", this.column)
     });
@@ -126,8 +127,6 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     console.log("objeto despues del form ",this.model);
     this.service.crear(this.model).subscribe(m => {
       console.log(m);
-      //Swal.fire('Nuevo:', `${this.nombreModel} ${m.nombre} creado con éxito`, 'success');
-     // this.router.navigate([this.redirect]);
     }, err => {
       if(err.status === 400){
         this.error = err.error;
@@ -137,10 +136,11 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   public editar(): void {
+    console.log("objeto despues del form updt",this.model);
     this.service.editar(this.model).subscribe(m => {
       console.log(m);
       //Swal.fire('Modificado:', `${this.nombreModel} ${m.nombre} actualizado con éxito`, 'success');
-      this.router.navigate([this.redirect]);
+
     }, err => {
       if(err.status === 400){
         this.error = err.error;
@@ -188,5 +188,11 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
   public toast(status:string, content:string){
     this.showToast(status, content, );
+  }
+
+  delete (id:any){
+    this.service.eliminar(id).subscribe(() => {
+
+    });
   }
 }

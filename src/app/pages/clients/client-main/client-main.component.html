@@ -32,7 +32,22 @@
             <!-- isActive Column -->
             <ng-container matColumnDef="isActive">
               <th mat-header-cell *matHeaderCellDef  mat-sort-header> Activo </th>
-              <td mat-cell *matCellDef="let element"> {{element.isActive}} </td>
+              <td mat-cell *matCellDef="let element">
+              <mat-chip color="primary" selected *ngIf="element.isActive">Activo</mat-chip>
+              <mat-chip color="warn" selected *ngIf="!element.isActive">Inactivo</mat-chip>
+              </td>
+            </ng-container>
+
+         <!-- isActive Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef > actions </th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="editarClient(element)"><mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteClient(element)" [disabled]="element.isActive === false">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
