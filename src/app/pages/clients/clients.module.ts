@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ClientsRoutingModule } from './clients-routing.module';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ClientsComponent } from './clients.component';
-import { ClientUpdateComponent } from './client-update/client-update.component';
+
 import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbUserModule } from '@nebular/theme';
 import { ClientMainComponent } from './client-main/client-main.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
@@ -23,10 +23,12 @@ import {BidiModule} from '@angular/cdk/bidi';
 import { ClientCreateComponent } from './client-create/client-create.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
+import { ClientDeleteComponent } from './client-delete/client-delete.component';
+import {MatRadioModule} from '@angular/material/radio';
 @NgModule({
   declarations: [
     ClientsComponent,
-    ClientUpdateComponent,
+    ClientDeleteComponent,
     ClientCreateComponent,
     ClientMainComponent,
   ],
@@ -54,7 +56,8 @@ import {MatChipsModule} from '@angular/material/chips';
     ngFormsModule,
     ReactiveFormsModule,
     MatIconModule,
-    MatChipsModule
+    MatChipsModule,
+    MatRadioModule
   ],
 
 })

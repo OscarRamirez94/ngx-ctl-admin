@@ -20,7 +20,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
   clientForm !: FormGroup;
   submitted = false;
   actionBtn:String = "Crear";
-
+  isChecked;
   constructor(
     service: ClientService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder:FormBuilder, private  dialogRef: MatDialogRef<ClientCreateComponent>,
@@ -43,12 +43,15 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
   get f() { return this.clientForm.controls; }
 
   onSubmit() {
+
     this.submitted = true;
       // stop here if form is invalid
+      console.log("form",this.clientForm.value)
       if (this.clientForm.invalid) {
           return;
       }
       if (!this.editData) {
+        console.log("form",this.clientForm.value)
          this.modelClient(this.clientForm);
          super.crear();
          this.onReset();
@@ -77,6 +80,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
       city:['',Validators.required],
       postalCode:['',Validators.required],
       country:['',Validators.required],
+      isActive:['',Validators.required],
     });
   }
 
@@ -84,6 +88,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
     if (editData) {
       this.actionBtn ="Modificar";
       this.clientForm.controls['name'].setValue(editData.name);
+      this.clientForm.controls['isActive'].setValue(editData.isActive);
       this.clientForm.controls['phone'].setValue(editData.address.phone);
       this.clientForm.controls['attention'].setValue(editData.address.attention);
       this.clientForm.controls['text'].setValue(editData.address.text);
@@ -95,6 +100,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
       this.clientForm.controls['country'].setValue(editData.address.country);
       this.clientForm.controls['name'].setValue(editData.name);
       this.model.id = editData.id;
+      this.isChecked = editData.isActive;
     }
   }
 
@@ -107,7 +113,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
 
   modelClient(clientForm:any) {
     this.model.name = clientForm.get('name').value;
-    this.model.isActive = true;
+    this.model.isActive = clientForm.get('isActive').value;
     this.model.address.attention = clientForm.get('attention').value;
     this.model.address.city = clientForm.get('city').value;
     this.model.address.colonia = clientForm.get('colonia').value;

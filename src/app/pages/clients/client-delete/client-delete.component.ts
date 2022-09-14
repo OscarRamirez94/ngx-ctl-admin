@@ -1,23 +1,23 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { NbComponentShape, NbComponentSize, NbComponentStatus, NbToastrService } from '@nebular/theme';
+import { NbToastrService } from '@nebular/theme';
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Client } from '../../../models/client';
 import { ClientService } from '../../../services/client/client.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Address } from '../../../models/address/address';
+
 @Component({
   selector: 'ngx-client-update',
-  templateUrl: './client-update.component.html',
-  styleUrls: ['./client-update.component.scss']
+  templateUrl: './client-delete.component.html',
+  styleUrls: ['./client-delete.component.scss']
 })
-export class ClientUpdateComponent  extends CommonListComponent<Client, ClientService> implements OnInit{
+export class ClientDeleteComponent  extends CommonListComponent<Client, ClientService> implements OnInit{
 
   contentDelete:string;
   isActive :boolean;
   constructor(
     service: ClientService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
-     private  dialogRef: MatDialogRef<ClientUpdateComponent>,
+     private  dialogRef: MatDialogRef<ClientDeleteComponent>,
     @Inject(MAT_DIALOG_DATA) public editData:any
   ) {
       super(service, router, route,toastrService);

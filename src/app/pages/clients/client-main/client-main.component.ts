@@ -7,7 +7,8 @@ import { Client } from '../../../models/client';
 import { ClientService } from '../../../services/client/client.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { ClientCreateComponent } from '../client-create/client-create.component';
-import { ClientUpdateComponent } from '../client-update/client-update.component';
+import { ClientDeleteComponent } from '../client-delete/client-delete.component';
+
 @Component({
   selector: 'ngx-client-main',
   templateUrl: './client-main.component.html',
@@ -49,7 +50,7 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
   }
 
   deleteClient(element:any){
-    this.dialog.open(ClientUpdateComponent,{
+    this.dialog.open(ClientDeleteComponent,{
       width:'25%',
       data: element
     }).afterClosed().subscribe(data =>{
