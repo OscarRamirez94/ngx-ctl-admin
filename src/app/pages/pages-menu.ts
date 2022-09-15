@@ -42,6 +42,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/clients/clientes',
       },
       {
+        title: 'Linea de transporte',
+        icon:  'car-outline',
+        link:  '/pages/transport-lines/transport-lines',
+      },
+      {
+        title: 'Profesión',
+        icon:  'award-outline',
+        link: '/pages/professions/professions',
+      },
+      {
         title: 'Update',
         link: '/pages/clients/update',
       },
@@ -53,11 +63,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Address Update',
         link: '/pages/address/address-update',
       },
-      {
-        title: 'professions',
-        link: '/pages/professions/professions',
-      },
-
     ],
   },
 

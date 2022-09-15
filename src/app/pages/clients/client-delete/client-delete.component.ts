@@ -21,7 +21,7 @@ export class ClientDeleteComponent  extends CommonListComponent<Client, ClientSe
     @Inject(MAT_DIALOG_DATA) public editData:any
   ) {
       super(service, router, route,toastrService);
-      this.titulo = 'Agregar Clients';
+      this.titulo = 'Eliminar Cliente';
       this.model = new Client();
       this.redirect = '/pages/clients/clientes';
       this.nombreModel = "Cliente";

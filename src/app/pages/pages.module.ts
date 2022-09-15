@@ -8,6 +8,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ClientsRoutingModule } from './clients/clients-routing.module';
 import { AddressRoutingModule } from './address/address-routing.module';
 import { ProfessionsRoutingModule } from './professions/professions-routing.module';
+import { TransportLineDeleteComponent } from './transport-lines/transport-line-delete/transport-line-delete.component';
+import { TransportLineCreateComponent } from './transport-lines/transport-line-create/transport-line-create.component';
+import { TransportLineMainComponent } from './transport-lines/transport-line-main/transport-line-main.component';
+import { TransportLinesRoutingModule } from './transport-lines/transport-lines-routing.module';
 
 
 @NgModule({
@@ -16,6 +20,7 @@ import { ProfessionsRoutingModule } from './professions/professions-routing.modu
     ClientsRoutingModule,
     AddressRoutingModule,
     ProfessionsRoutingModule,
+    TransportLinesRoutingModule,
     ThemeModule,
     NbMenuModule,
 
@@ -23,6 +28,7 @@ import { ProfessionsRoutingModule } from './professions/professions-routing.modu
   declarations: [
     PagesComponent,
     NotFoundComponent,
+
 
   ],
 })

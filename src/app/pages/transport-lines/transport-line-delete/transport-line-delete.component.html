@@ -1,6 +1,6 @@
 <section>
 
-  <h5 mat-dialog-title mat-card-title>{{titulo}}</h5>
+  <h5 mat-dialog-title mat-card-title>Eliminar {{nombreModel}} </h5>
 
       <!--mat dialog content-->
       <mat-dialog-content mat-card-content>
@@ -13,7 +13,7 @@
 
       <mat-dialog-actions align="end">
         <button mat-flat-button [mat-dialog-close]="false" color="primary" >Cancelar</button>
-        <button mat-flat-button color="warn" cdkFocusInitial style="float: left;" (click)="deleteClient()">Si, Eliminar</button>
+        <button mat-flat-button color="warn" cdkFocusInitial style="float: left;" (click)="deleteTransportLine()">Si, Eliminar</button>
       </mat-dialog-actions>
 
 </section>

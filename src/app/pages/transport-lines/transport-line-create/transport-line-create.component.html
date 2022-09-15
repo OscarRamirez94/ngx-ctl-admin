@@ -1,0 +1,56 @@
+<section>
+  <form [formGroup]="transportLineForm" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-title>{{titulo}}</mat-card-title>
+    <mat-card-content>
+      <!--mat dialog content-->
+      <mat-dialog-content >
+
+      <!-- grid -->
+      <div class="row"></div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label>{{titulo}}</mat-label>
+              <input matInput  formControlName="name" placeholder="Digita Cliente" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+              <mat-error *ngIf="submitted && f.name.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
+              <mat-label>Activo</mat-label>
+              <input matInput hidden formControlName="isActive">
+              <mat-radio-group  class="flex-wrap" formControlName="isActive" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
+                <mat-radio-button  class="radio-button" [value]="true"  [checked]="isChecked===true">Activo</mat-radio-button>
+                <mat-radio-button  class="radio-button" [value]="false" [checked]="isChecked===false">Inactivo</mat-radio-button>
+              </mat-radio-group>
+              <mat-error>Campo Requerio</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+      <!-- end grid-->
+
+      </mat-dialog-content>
+      <!-- mat dialog content -->
+
+    </mat-card-content>
+
+    <!-- actions -->
+    <mat-card-actions align="end">
+      <mat-dialog-actions align="end">
+        <button mat-flat-button [mat-dialog-close]="false" color="warn" >Cancelar</button>
+        <button mat-flat-button color="primary" cdkFocusInitial>{{actionBtn}}</button>
+      </mat-dialog-actions>
+    </mat-card-actions>
+    <!--end actions -->
+  </mat-card>
+</form>
+  </section>
