@@ -53,6 +53,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
         title: 'Address Update',
         link: '/pages/address/address-update',
       },
+      {
+        title: 'professions',
+        link: '/pages/professions/professions',
+      },
 
     ],
   },

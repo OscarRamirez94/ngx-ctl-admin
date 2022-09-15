@@ -7,6 +7,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ClientsRoutingModule } from './clients/clients-routing.module';
 import { AddressRoutingModule } from './address/address-routing.module';
+import { ProfessionsRoutingModule } from './professions/professions-routing.module';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { AddressRoutingModule } from './address/address-routing.module';
     PagesRoutingModule,
     ClientsRoutingModule,
     AddressRoutingModule,
+    ProfessionsRoutingModule,
     ThemeModule,
     NbMenuModule,
 

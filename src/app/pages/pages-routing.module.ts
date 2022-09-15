@@ -35,7 +35,11 @@ const routes: Routes = [{
       loadChildren: () => import('./address/address.module')
         .then(m => m.AddressModule),
     },
-
+    {
+      path: 'professions',
+      loadChildren: () => import('./professions/professions.module')
+        .then(m => m.ProfessionsModule),
+    },
     {
       path: '',
       redirectTo: 'dashboard',
