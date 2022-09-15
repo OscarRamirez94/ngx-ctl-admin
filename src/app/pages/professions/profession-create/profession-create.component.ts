@@ -8,20 +8,20 @@ import { ProfessionService } from '../../../services/profession/profession.servi
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
 @Component({
-  selector: 'ngx-professions-create',
-  templateUrl: './professions-create.component.html',
-  styleUrls: ['./professions-create.component.scss']
+  selector: 'ngx-profession-create',
+  templateUrl: './profession-create.component.html',
+  styleUrls: ['./profession-create.component.scss']
 })
-//ONIT: es el  primer  metodo de carga en el ciclo de vida de un componente de angular sin realizar  una ejeuciòn  
-export class ProfessionsCreateComponent extends CommonListComponent<Profession, ProfessionService> implements OnInit {
+//ONIT: es el  primer  metodo de carga en el ciclo de vida de un componente de angular sin realizar  una ejeuciòn
+export class ProfessionCreateComponent extends CommonListComponent<Profession, ProfessionService> implements OnInit {
   professionForm !: FormGroup;
   submitted = false;
   actionBtn: String = "Crear";
   isChecked;
   constructor(
     service: ProfessionService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
-    private formBuilder: FormBuilder, private dialogRef: MatDialogRef<ProfessionsCreateComponent>,
-    //Es para inyectar data de  un modelo a  un dialogo 
+    private formBuilder: FormBuilder, private dialogRef: MatDialogRef<ProfessionCreateComponent>,
+    //Es para inyectar data de  un modelo a  un dialogo
     @Inject(MAT_DIALOG_DATA) public editData: any
   ) {
     super(service, router, route, toastrService);
@@ -42,7 +42,7 @@ export class ProfessionsCreateComponent extends CommonListComponent<Profession, 
 
   get f() { return this.professionForm.controls; }
 
-  //Primer paso 
+  //Primer paso
   onSubmit() {
 
     this.submitted = true;
@@ -79,7 +79,7 @@ export class ProfessionsCreateComponent extends CommonListComponent<Profession, 
     });
   }
 
-  //Recibe objeto del dialog o  modal  en edit  data y se setea  el formulario  con sus valores 
+  //Recibe objeto del dialog o  modal  en edit  data y se setea  el formulario  con sus valores
   //esto hace que los pinte los datos al formulario.
   rejectForm(editData: any) {
     if (editData) {
@@ -91,7 +91,7 @@ export class ProfessionsCreateComponent extends CommonListComponent<Profession, 
     }
   }
 
-  
+
   editarClient() {
     this.modelClient(this.professionForm);
     super.editar();
@@ -99,7 +99,7 @@ export class ProfessionsCreateComponent extends CommonListComponent<Profession, 
     super.toast("success", "Modificado  con éxito");
   }
 
-  //Se setean  los  datos cargados del  formulario al  objeto de  modificar  al  modelo 
+  //Se setean  los  datos cargados del  formulario al  objeto de  modificar  al  modelo
   modelClient(professionForm: any) {
     this.model.name = professionForm.get('name').value;
     this.model.isActive = professionForm.get('isActive').value;

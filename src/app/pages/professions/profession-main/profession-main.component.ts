@@ -6,37 +6,37 @@ import { NbToastrService } from '@nebular/theme';
 import { Profession } from '../../../models/profession/profession';
 import { ProfessionService } from '../../../services/profession/profession.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
-import { ProfessionsCreateComponent } from '../professions-create/professions-create.component';
-import { ProfessionsDeleteComponent } from '../professions-delete/professions-delete.component';
+import { ProfessionCreateComponent } from '../profession-create/profession-create.component';
+import { ProfessionDeleteComponent } from '../profession-delete/profession-delete.component';
 
 @Component({
-  selector: 'ngx-professions-main',
-  templateUrl: './professions-main.component.html',
+  selector: 'ngx-profession-main',
+  templateUrl: './profession-main.component.html',
   //Se inyecta el default para los mat inputs
   //floatLabel(Etiqueta)
   providers: [
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } }
   ],
-  styleUrls: ['./professions-main.component.scss']
+  styleUrls: ['./profession-main.component.scss']
 })
 
-/*Segundo paso se agrego "extends CommonListComponent<Profession, ProfessionService> 
-va  por  un service generico 
----CommonListComponent  trae la funcionalidad de l paginator, refrescar, buscador, order by 
+/*Segundo paso se agrego "extends CommonListComponent<Profession, ProfessionService>
+va  por  un service generico
+---CommonListComponent  trae la funcionalidad de l paginator, refrescar, buscador, order by
 */
-export class ProfessionsMainComponent extends CommonListComponent<Profession, ProfessionService> {
+export class ProfessionMainComponent extends CommonListComponent<Profession, ProfessionService> {
 
   name: string;
   titulo: string = "Profesiones";
   displayedColumns: string[] = ['id', 'name', 'isActive', 'actions'];
-  //Se inyectan  objetos erados por el padre 
+  //Se inyectan  objetos erados por el padre
   constructor(service: ProfessionService, router: Router, route: ActivatedRoute, private dialog: MatDialog, toastrService: NbToastrService) {
     //Super es el cnstructor  o el accdeso ala clase abstracta.
     super(service, router, route, toastrService);
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(ProfessionsCreateComponent, {
+    const dialogRef = this.dialog.open(ProfessionCreateComponent, {
       width: '65%'
     }).afterClosed().subscribe(data => {
       if (data) {
@@ -47,7 +47,7 @@ export class ProfessionsMainComponent extends CommonListComponent<Profession, Pr
 
   editarClient(element: any) {
 
-    this.dialog.open(ProfessionsCreateComponent, {
+    this.dialog.open(ProfessionCreateComponent, {
       width: '65%',
       data: element,
 
@@ -59,7 +59,7 @@ export class ProfessionsMainComponent extends CommonListComponent<Profession, Pr
   }
 
   deleteClient(element: any) {
-    this.dialog.open(ProfessionsDeleteComponent, {
+    this.dialog.open(ProfessionDeleteComponent, {
       width: '25%',
       data: element
     }).afterClosed().subscribe(data => {
