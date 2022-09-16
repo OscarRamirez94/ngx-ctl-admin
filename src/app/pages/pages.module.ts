@@ -12,6 +12,9 @@ import { TransportLineDeleteComponent } from './transport-lines/transport-line-d
 import { TransportLineCreateComponent } from './transport-lines/transport-line-create/transport-line-create.component';
 import { TransportLineMainComponent } from './transport-lines/transport-line-main/transport-line-main.component';
 import { TransportLinesRoutingModule } from './transport-lines/transport-lines-routing.module';
+import { TransportCapacitiesModule } from './transport-capacities/transport-capacities.module';
+import { TransportTypesRoutingModule } from './transport-types/transport-types-routing.module';
+import { TransportCapacitiesRoutingModule } from './transport-capacities/transport-capacities-routing.module';
 
 
 @NgModule({
@@ -21,6 +24,8 @@ import { TransportLinesRoutingModule } from './transport-lines/transport-lines-r
     AddressRoutingModule,
     ProfessionsRoutingModule,
     TransportLinesRoutingModule,
+    TransportCapacitiesRoutingModule,
+    TransportTypesRoutingModule,
     ThemeModule,
     NbMenuModule,
 

@@ -47,6 +47,16 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:  '/pages/transport-lines/transport-lines',
       },
       {
+        title: 'Capacidad de transporte',
+        icon:  'bar-chart-2-outline',
+        link:  '/pages/transport-capacities/transport-capacities',
+      },
+      {
+        title: 'Tipo de transporte',
+        icon:  'car-outline',
+        link:  '/pages/transport-types/transport-types',
+      },
+      {
         title: 'Profesión',
         icon:  'award-outline',
         link: '/pages/professions/professions',

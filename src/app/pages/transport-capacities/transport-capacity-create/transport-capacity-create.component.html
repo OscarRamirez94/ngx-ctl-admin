@@ -1,5 +1,5 @@
 <section>
-  <form [formGroup]="transportLineForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="transportCapacityForm" (ngSubmit)="onSubmit()">
   <mat-card>
     <mat-card-title>{{titulo}}</mat-card-title>
     <mat-card-content>
@@ -7,21 +7,37 @@
       <mat-dialog-content >
 
       <!-- grid -->
-      <div class="row"></div>
+      <div class="row">
+      </div>
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group">
             <mat-form-field appearance="legacy">
-              <mat-label>{{titulo}}</mat-label>
-              <input matInput  formControlName="name" placeholder="Digita linea de transporte" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
-              <mat-error *ngIf="submitted && f.name.errors" >Campo Requerido</mat-error>
+              <mat-label>Capacidad de transporte</mat-label>
+              <input matInput  formControlName="capacity" placeholder="Digita Capacidad" [ngClass]="{ 'is-invalid': submitted && f.capacity.errors }">
+              <mat-error *ngIf="submitted && f.capacity.errors" >Campo Requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
+
       </div>
 
       <div class="row">
-        <div class="col-sm-12">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
+              <mat-label>Unidad</mat-label>
+              <input matInput hidden formControlName="unity">
+              <mat-radio-group  class="flex-wrap" formControlName="unity" [ngClass]="{ 'is-invalid': submitted && f.unity.errors }">
+                <mat-radio-button  class="radio-button" value="PIES"  [checked]="isUnity==='PIES'">PIES</mat-radio-button>
+                <mat-radio-button  class="radio-button" value="TONELADAS" [checked]="isUnity==='TONELADAS'">TONELADAS</mat-radio-button>
+              </mat-radio-group>
+              <mat-error>Campo Requerio</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-sm-6">
           <div class="form-group">
             <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
               <mat-label>Activo</mat-label>

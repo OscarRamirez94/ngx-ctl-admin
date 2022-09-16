@@ -26,7 +26,7 @@ export class TransportLineCreateComponent extends CommonListComponent<TransportL
     this.titulo = 'Agregar Linea de Transporte';
     this.model = new TransportLine();
     this.redirect = '';
-    this.nombreModel = "TransportLine";
+    this.nombreModel = "Linea de transporte";
   }
 
   ngOnInit(): void {
@@ -44,7 +44,7 @@ export class TransportLineCreateComponent extends CommonListComponent<TransportL
       return;
     }
     if (!this.editData) {
-      this.modeltransportLine(this.transportLineForm);
+      this.modelTransportLine(this.transportLineForm);
       super.crear();
       this.onReset();
       super.toast("success", "Profesion creada con éxito");
@@ -78,13 +78,13 @@ export class TransportLineCreateComponent extends CommonListComponent<TransportL
     }
   }
   editarTransportLine() {
-    this.modeltransportLine(this.transportLineForm);
+    this.modelTransportLine(this.transportLineForm);
     super.editar();
     this.onReset();
     super.toast("success", "Modificado  con éxito");
   }
 
-  modeltransportLine(transportLineForm: any) {
+  modelTransportLine(transportLineForm: any) {
     this.model.name = transportLineForm.get('name').value;
     this.model.isActive = transportLineForm.get('isActive').value;
   }

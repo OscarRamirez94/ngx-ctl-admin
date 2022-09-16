@@ -24,9 +24,17 @@
                       </ng-container>
 
                       <!-- Name Column -->
-                      <ng-container matColumnDef="name">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> CLIENTE </th>
-                          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                      <ng-container matColumnDef="capacity">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> CAPACIDAD </th>
+                          <td mat-cell *matCellDef="let element"> {{element.capacity}} </td>
+                      </ng-container>
+
+                      <!-- Name Column -->
+                      <ng-container matColumnDef="unity">
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> UNIDAD DE MEDIDA </th>
+                          <td mat-cell *matCellDef="let element">
+                            <mat-chip color="primary" selected>{{element.unity}}</mat-chip>
+                            </td>
                       </ng-container>
 
                       <!-- isActive Column -->
@@ -42,10 +50,10 @@
                       <ng-container matColumnDef="actions">
                           <th mat-header-cell *matHeaderCellDef> ACCIONES </th>
                           <td mat-cell *matCellDef="let element">
-                              <button mat-icon-button color="primary" (click)="editarTransportLine(element)">
+                              <button mat-icon-button color="primary" (click)="editarTransportCapacity(element)">
                                   <mat-icon>edit</mat-icon>
                               </button>
-                              <button mat-icon-button color="warn" (click)="deleteTransportLine(element)"
+                              <button mat-icon-button color="warn" (click)="deleteTransportCapacity(element)"
                                   [disabled]="element.isActive === false">
                                   <mat-icon>delete</mat-icon>
                               </button>

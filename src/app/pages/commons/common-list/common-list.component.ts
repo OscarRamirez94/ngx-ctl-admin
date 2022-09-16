@@ -4,6 +4,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbComponentStatus, NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrConfig, NbToastrService } from '@nebular/theme';
+import { stringify } from 'querystring';
 import { Generic } from '../../../models/generic/generic';
 import { SearchCriteriaClient } from '../../../models/searchs/search-criteria-client';
 import { CommonService } from '../../../services/commons.service';
@@ -77,7 +78,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-
+      console.log(this.dataSource.data);
 
 
     });
@@ -135,6 +136,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   public editar(): void {
+    console.log("update" + this.model);
     this.service.editar(this.model).subscribe(m => {
     }, err => {
       if(err.status === 400){
