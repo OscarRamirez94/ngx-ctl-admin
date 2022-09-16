@@ -37,19 +37,21 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   lista: E[];
   dataSource: MatTableDataSource<E>;
 
+
   constructor(protected service:S,protected router: Router,protected route: ActivatedRoute,protected toastrService: NbToastrService) {
     this.dataSource = new MatTableDataSource(this.lista);
     this.dataSource.paginator = this.paginator;
+
   }
 
   ngOnInit(): void {
-
-    this.calculateRange();
-
+   this.calculateRange();
   }
+
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+
   }
 
   paginar(event:PageEvent) :void{
@@ -66,7 +68,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     search.searchBy =this.filterValue;
     search.sortBy=this.column;
     search.sortDirection =this.orderBy;
-    console.log(search,"search by");
+
 
     this.service.getFilterCriteria(search)
     .subscribe(paginator => {
@@ -74,57 +76,54 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
       this.lista = paginator.content as E[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
-
       this.dataSource = new MatTableDataSource(this.lista);
-      console.log("sort", this.orderBy , "column", this.column)
+
+
+
     });
   }
+
   applyFilter(event: Event) {
     const fil:string  = (event.target as HTMLInputElement).value;
-
-
     if(fil !==null && fil !== ''){
-      console.log("fil", fil);
-      this.filterValue = fil;
-      this.calculateRange();
-    }else{
-      console.log("sin data fil");
-      this.filterValue ="";
-      this.calculateRange();
+        this.filterValue = fil;
+        this.calculateRange();
+    } else{
+        this.filterValue ="";
+        this.calculateRange();
     }
 
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+
   }
+
   sortData(sort: Sort) {
-    let order:String;
-    console.log("direction", sort.direction);
-
-
     if (!sort.active || sort.direction === '') {
-      console.log("1::");
-
       this.calculateRange();
-    }else{
-      console.log("2::");
+    } else {
+
       if (sort.direction == "asc"){
         this.orderBy = "ASC";
-        console.log("1:::");
       }
+
       if (sort.direction == "desc") {
         this.orderBy ="DESC";
-        console.log("2:::");
+      }
+
+      if (sort.active == 'direccion'){
+          sort.active="text";
       }
 
       this.column = sort.active;
 
-      this.calculateRange();
-
+    this.calculateRange();
     }
   }
+
   public crear(): void {
-    console.log("objeto despues del form ",this.model);
+
     this.service.crear(this.model).subscribe(m => {
       console.log(m);
     }, err => {
@@ -136,11 +135,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   public editar(): void {
-    console.log("objeto despues del form updt",this.model);
     this.service.editar(this.model).subscribe(m => {
-      console.log(m);
-      //Swal.fire('Modificado:', `${this.nombreModel} ${m.nombre} actualizado con éxito`, 'success');
-
     }, err => {
       if(err.status === 400){
         this.error = err.error;
@@ -182,17 +177,17 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
       position: this.position,
       preventDuplicates: this.preventDuplicates,
     };
-    this.toastrService.show(
+    this.toastrService.show (
       body, this.nombreModel,
       config);
   }
+
   public toast(status:string, content:string){
     this.showToast(status, content, );
   }
 
   delete (id:any){
     this.service.eliminar(id).subscribe(() => {
-
     });
   }
 }

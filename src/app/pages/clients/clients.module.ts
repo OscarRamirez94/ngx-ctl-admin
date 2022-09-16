@@ -25,12 +25,14 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
 import { ClientDeleteComponent } from './client-delete/client-delete.component';
 import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 @NgModule({
   declarations: [
     ClientsComponent,
     ClientDeleteComponent,
     ClientCreateComponent,
     ClientMainComponent,
+
   ],
   imports: [
     CommonModule,
@@ -57,7 +59,8 @@ import {MatRadioModule} from '@angular/material/radio';
     ReactiveFormsModule,
     MatIconModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatProgressSpinnerModule,
   ],
 
 })

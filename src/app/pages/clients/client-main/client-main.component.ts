@@ -22,7 +22,7 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
 
   name: string;
   titulo:string = "Clientes";
-  displayedColumns: string[] = ['id', 'name','isActive','actions'];
+  displayedColumns: string[] = ['id', 'name','isActive','direccion','actions'];
 
   constructor( service:ClientService,router: Router,route: ActivatedRoute,private dialog: MatDialog,toastrService: NbToastrService) {
     super(service,router, route,toastrService);
@@ -42,6 +42,8 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
     this.dialog.open(ClientCreateComponent,{
       width:'65%',
       data: element
+
+
     }).afterClosed().subscribe(data =>{
         if (data) {
             super.calculateRange();
