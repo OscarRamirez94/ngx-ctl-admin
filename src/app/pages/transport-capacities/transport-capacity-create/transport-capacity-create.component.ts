@@ -1,9 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { TransportTypeI } from '../../../interfaces/transport-type-i';
 import { TransportCapacity } from '../../../models/transport_capacity/transport-capacity';
+import { TransportType } from '../../../models/transport_type/transport-type';
 import { TransportCapacityService } from '../../../services/transport-capacity/transport-capacity.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -19,6 +21,8 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
   actionBtn: String = "Crear";
   isChecked;
   isUnity:String;
+  transportTypes:TransportTypeI[];
+  myControl = new FormControl('');
   constructor(
     service: TransportCapacityService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<TransportCapacityCreateComponent>,
@@ -27,14 +31,17 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
     super(service, router, route, toastrService);
     this.titulo = 'Agregar Capcidad de Transporte';
     this.model = new TransportCapacity();
+    this.model.transportType = new TransportType();
     this.redirect = '';
     this.nombreModel = "TransportCapacity";
   }
 
   ngOnInit(): void {
     this.setForm();
+    console.log("editaData",this.editData);
     this.rejectForm(this.editData);
     super.paginator;
+    this.getAllTransportType();
   }
 
   get f() { return this.transportCapacityForm.controls; }
@@ -67,6 +74,7 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
       capacity: ['', Validators.required],
       unity: ['', Validators.required],
       isActive: ['', Validators.required],
+      transportType: ['', Validators.required],
     });
   }
 
@@ -77,6 +85,7 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
       this.transportCapacityForm.controls['capacity'].setValue(editData.capacity);
       this.transportCapacityForm.controls['unity'].setValue(editData.unity);
       this.transportCapacityForm.controls['isActive'].setValue(editData.isActive);
+      this.transportCapacityForm.controls['transportType'].setValue(editData.transportType);
       this.model.id = editData.id;
       this.isChecked = editData.isActive;
       this.isUnity =editData.unity;
@@ -93,6 +102,26 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
     this.model.capacity = transportCapacityForm.get('capacity').value;
     this.model.unity = transportCapacityForm.get('unity').value;
     this.model.isActive = transportCapacityForm.get('isActive').value;
+
+  }
+  getAllTransportType(){
+    this.service.getAllTransportType().subscribe(data =>{
+      console.log("data" + data);
+      this.transportTypes = data ;
+      console.log("transportTypes" + this.transportTypes);
+    })
+  }
+
+  optionSelected(event:any){
+      this.model.transportType.id = event.id;
+
+
+  }
+  public displayProperty(value) {
+    console.log("Selected2 : ", value);
+    if (value) {
+      return value.name;
+    }
   }
 }
 

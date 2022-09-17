@@ -70,7 +70,7 @@ export class TransportTypeMainComponent extends CommonListComponent<TransportTyp
 
     this.dialog.open(TransportCapacityMainTypeComponent, {
       width: '85%',
-
+      height:'85%',
       data: element
     }).afterClosed().subscribe(data => {
       if (data) {

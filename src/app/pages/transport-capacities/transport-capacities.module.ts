@@ -25,7 +25,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { TransportCapacityMainTypeComponent } from './transport-capacity-main-type/transport-capacity-main-type.component';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -60,7 +60,8 @@ import { TransportCapacityMainTypeComponent } from './transport-capacity-main-ty
     ReactiveFormsModule,
     MatIconModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatAutocompleteModule
   ]
 })
 export class TransportCapacitiesModule { }

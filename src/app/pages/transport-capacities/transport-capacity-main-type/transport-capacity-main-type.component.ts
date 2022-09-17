@@ -21,12 +21,14 @@ export class TransportCapacityMainTypeComponent extends CommonListIdComponent<Tr
   name: string;
   titulo: string = "Capacidad de Transporte";
   displayedColumns: string[] = ['id', 'capacity', 'unity','isActive'];
+  transportTypeName:String
   constructor(service: TransportCapacityService, router: Router, route: ActivatedRoute, private dialog: MatDialog,
     toastrService: NbToastrService,
     @Inject(MAT_DIALOG_DATA) public editData: any) {
     super(service, router, route, toastrService);
     this.model = new TransportCapacity();
     this.model.id = editData.id;
+    this.transportTypeName = editData.name;
   }
 
 }

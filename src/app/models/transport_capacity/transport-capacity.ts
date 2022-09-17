@@ -1,4 +1,5 @@
 import { Generic } from "../generic/generic";
+import { TransportType } from "../transport_type/transport-type";
 
 
 export class TransportCapacity implements Generic  {
@@ -8,6 +9,6 @@ export class TransportCapacity implements Generic  {
   unity: string;
   isActive: boolean;
   search :string;
-
+  transportType:TransportType;
 
 }
