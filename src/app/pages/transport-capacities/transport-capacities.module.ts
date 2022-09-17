@@ -24,6 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { TransportCapacityMainTypeComponent } from './transport-capacity-main-type/transport-capacity-main-type.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { MatIconModule } from '@angular/material/icon';
     TransportCapacitiesComponent,
     TransportCapacityMainComponent,
     TransportCapacityCreateComponent,
-    TransportCapacityDeleteComponent
+    TransportCapacityDeleteComponent,
+    TransportCapacityMainTypeComponent
   ],
   imports: [
     CommonModule,

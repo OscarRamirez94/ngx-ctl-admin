@@ -58,7 +58,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Profesión',
-        icon:  'award-outline',
+        icon:  'menu',
         link: '/pages/professions/professions',
       },
       {

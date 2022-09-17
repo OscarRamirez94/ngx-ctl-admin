@@ -36,6 +36,16 @@ export abstract class CommonService<E extends Generic> {
     return this.http.get<any>(this.url.concat("all/search/"), { params: params });
   }
 
+  getFilterCriteriaById(search:SearchCriteriaClient, id:any): Observable<any> {
+    const params = new HttpParams()
+      .set('pageNumber', search.pageNumber)
+      .set('pageSize', search.pageSize)
+      .set('sortDirection',search.sortDirection)
+      .set('sortBy',search.sortBy)
+      .set('searchBy',search.searchBy);
+
+    return this.http.get<any>(this.url.concat("all/search/",id), { params: params });
+  }
   public ver(id: number): Observable<E> {
     return this.http.get<E>(`${this.url}/${id}`);
   }
