@@ -1,0 +1,101 @@
+<section>
+  <form [formGroup]="PersonForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+      <mat-card-title>Agregar Cliente</mat-card-title>
+      <mat-card-content>
+        <!--mat dialog content-->
+        <mat-dialog-content>
+
+          <!-- grid -->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline">
+                  <mat-label>Number</mat-label>
+                  <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="profession"
+                    [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
+                  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)"
+                    [displayWith]="displayProperty">
+                    <mat-option *ngFor="let option of professions" [value]="option">
+                      {{option.name}}
+                    </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="submitted && f.profession.errors">Campo Requerido</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Nombre</mat-label>
+                  <input matInput formControlName="firstName" placeholder="Escribe aquí ... "
+                    [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                  <mat-error *ngIf="submitted && f.firstName.errors">Campo Requerido</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Segundo nombre</mat-label>
+                  <input matInput formControlName="additionalName" placeholder="Escribe aquí ... "
+                    [ngClass]="{ 'is-invalid': submitted && f.additionalName.errors }">
+                  <mat-error *ngIf="submitted && f.additionalName.errors">Campo Requerido</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Apellido paterno</mat-label>
+                  <input matInput formControlName="lastName" placeholder="Escribe aquí ..."
+                    [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                  <mat-error *ngIf="submitted && f.lastName.errors">Campo Requerido</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Apellido materno</mat-label>
+                  <input matInput formControlName="secondName" placeholder="Escribe aquí ..."
+                    [ngClass]="{ 'is-invalid': submitted && f.secondName.errors }">
+                  <mat-error *ngIf="submitted && f.secondName.errors">Campo Requerido</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
+                  <mat-label>Activo</mat-label>
+                  <input matInput hidden formControlName="isActive">
+                  <mat-radio-group class="flex-wrap" formControlName="isActive"
+                    [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
+                    <mat-radio-button class="radio-button" [value]="true" [checked]="isChecked===true">Activo
+                    </mat-radio-button>
+                    <mat-radio-button class="radio-button" [value]="false" [checked]="isChecked===false">Inactivo
+                    </mat-radio-button>
+                  </mat-radio-group>
+                  <mat-error>Campo Requerio</mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+          <!-- end grid-->
+
+        </mat-dialog-content>
+        <!-- mat dialog content -->
+
+      </mat-card-content>
+
+      <!-- actions -->
+      <mat-card-actions align="end">
+        <mat-dialog-actions align="end">
+          <button mat-flat-button [mat-dialog-close]="false" color="warn">Cancelar</button>
+          <button mat-flat-button color="primary" cdkFocusInitial>{{actionBtn}}</button>
+        </mat-dialog-actions>
+      </mat-card-actions>
+      <!--end actions -->
+    </mat-card>
+  </form>
+</section>

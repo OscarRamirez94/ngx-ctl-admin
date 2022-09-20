@@ -15,6 +15,7 @@ import { TransportLinesRoutingModule } from './transport-lines/transport-lines-r
 import { TransportCapacitiesModule } from './transport-capacities/transport-capacities.module';
 import { TransportTypesRoutingModule } from './transport-types/transport-types-routing.module';
 import { TransportCapacitiesRoutingModule } from './transport-capacities/transport-capacities-routing.module';
+import { PersonsRoutingModule } from './persons/persons-routing.module';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { TransportCapacitiesRoutingModule } from './transport-capacities/transpo
     ClientsRoutingModule,
     AddressRoutingModule,
     ProfessionsRoutingModule,
+    PersonsRoutingModule,
     TransportLinesRoutingModule,
     TransportCapacitiesRoutingModule,
     TransportTypesRoutingModule,
