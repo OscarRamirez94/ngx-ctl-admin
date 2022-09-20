@@ -55,7 +55,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
          this.modelClient(this.clientForm);
          super.crear();
          this.onReset();
-         super.toast("success","Cliente creado con éxito");
+         //super.toast("success","Cliente creado con éxito");
       }  else {
           this.editarClient();
          }
@@ -123,6 +123,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
     this.model.address.postalCode = clientForm.get('postalCode').value;
     this.model.address.state = clientForm.get('state').value;
     this.model.address.text = clientForm.get('text').value;
+
   }
 
 }

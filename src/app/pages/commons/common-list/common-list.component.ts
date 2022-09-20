@@ -136,7 +136,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   public editar(): void {
-    console.log("update" + this.model);
+    console.log("update" + JSON.stringify(this.model));
     this.service.editar(this.model).subscribe(m => {
     }, err => {
       if(err.status === 400){

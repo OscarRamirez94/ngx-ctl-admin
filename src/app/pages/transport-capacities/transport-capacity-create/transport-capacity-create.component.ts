@@ -42,6 +42,7 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
     this.rejectForm(this.editData);
     super.paginator;
     this.getAllTransportType();
+
   }
 
   get f() { return this.transportCapacityForm.controls; }
@@ -87,6 +88,7 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
       this.transportCapacityForm.controls['isActive'].setValue(editData.isActive);
       this.transportCapacityForm.controls['transportType'].setValue(editData.transportType);
       this.model.id = editData.id;
+      this.model.transportType.id=editData.transportType.id;
       this.isChecked = editData.isActive;
       this.isUnity =editData.unity;
     }
@@ -113,11 +115,12 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
   }
 
   optionSelected(event:any){
-      this.model.transportType.id = event.id;
+
+    this.model.transportType.id = event.id;
 
 
   }
-  public displayProperty(value) {
+  displayProperty(value) {
     console.log("Selected2 : ", value);
     if (value) {
       return value.name;

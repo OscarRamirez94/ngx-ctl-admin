@@ -91,15 +91,16 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
   rejectForm(editData: any) {
     if (editData) {
       this.actionBtn = "Modificar";
-      // si solo aqui estos valores son estos 
+      // si solo aqui estos valores son estos
       this.PersonForm.controls['firstName'].setValue(editData.firstName);
       this.PersonForm.controls['additionalName'].setValue(editData.additionalName);
       this.PersonForm.controls['lastName'].setValue(editData.lastName);
       this.PersonForm.controls['secondName'].setValue(editData.secondName);
       this.PersonForm.controls['isActive'].setValue(editData.isActive);
       this.model.id = editData.id;
-      this.isChecked = editData.isActive;     
+      this.isChecked = editData.isActive;
       this.PersonForm.controls['profession'].setValue(editData.profession);
+      this.model.profession.id=editData.profession.id;
     }
   }
 

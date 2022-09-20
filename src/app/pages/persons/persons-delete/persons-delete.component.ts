@@ -30,7 +30,7 @@ export class PersonsDeleteComponent  extends CommonListComponent<Person, PersonS
 
   ngOnInit(): void {
     this.isActive = this.editData.isActive;
-    this.contentDelete = this.editData.name;
+    this.contentDelete = this.editData.firstName;
   }
 
   deleteClient() {

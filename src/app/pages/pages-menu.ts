@@ -47,37 +47,26 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link:  '/pages/transport-lines/transport-lines',
       },
       {
-        title: 'Capacidad de transporte',
-        icon:  'bar-chart-2-outline',
-        link:  '/pages/transport-capacities/transport-capacities',
-      },
-      {
         title: 'Tipo de transporte',
         icon:  'car-outline',
         link:  '/pages/transport-types/transport-types',
       },
       {
-        title: 'Profesión',
-        icon:  'menu',
-        link: '/pages/professions/professions',
+        title: 'Capacidad de transporte',
+        icon:  'bar-chart-2-outline',
+        link:  '/pages/transport-capacities/transport-capacities',
       },
       {
-        title: 'Personas',
+        title: 'Personal',
         icon:  'person-outline',
         link: '/pages/persons/persons',
       },
       {
-        title: 'Update',
-        link: '/pages/clients/update',
+        title: 'Puesto',
+        icon:  'menu',
+        link: '/pages/professions/professions',
       },
-      {
-        title: 'Address',
-        link: '/pages/address/address',
-      },
-      {
-        title: 'Address Update',
-        link: '/pages/address/address-update',
-      },
+
     ],
   },
 
