@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Person } from '../../../models/person/person';
-import { PersonService } from '../../../services/person.service';
+import { PersonService } from '../../../services/person/person.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
 @Component({
