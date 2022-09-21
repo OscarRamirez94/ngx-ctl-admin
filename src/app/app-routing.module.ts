@@ -3,24 +3,33 @@ import { NgModule } from '@angular/core';
 import {
   NbAuthComponent,
   NbLoginComponent,
-  NbLogoutComponent,
   NbRegisterComponent,
+  NbLogoutComponent,
   NbRequestPasswordComponent,
   NbResetPasswordComponent,
 } from '@nebular/auth';
+import { AuthGuard } from './guards/auth-guard.service';
+import { LogoutComponent } from './auth/logout/logout.component';
 
 export const routes: Routes = [
   {
     path: 'pages',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/pages.module')
       .then(m => m.PagesModule),
   },
   {
     path: 'auth',
+    loadChildren: () => import('./auth/auth.module')
+      .then(m => m.AuthModule),
+  },
+  {
+    path: 'auth',
     component: NbAuthComponent,
     children: [
+
       {
-        path: '',
+        path: 'auth/',
         component: NbLoginComponent,
       },
       {
@@ -33,7 +42,7 @@ export const routes: Routes = [
       },
       {
         path: 'logout',
-        component: NbLogoutComponent,
+        component: LogoutComponent,
       },
       {
         path: 'request-password',
@@ -43,11 +52,14 @@ export const routes: Routes = [
         path: 'reset-password',
         component: NbResetPasswordComponent,
       },
+
     ],
   },
-  { path: '', redirectTo: 'pages', pathMatch: 'full' },
-  { path: '**', redirectTo: 'pages' },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  //{ path: '**', redirectTo: 'pages' },
+
 ];
+
 
 const config: ExtraOptions = {
   useHash: false,

@@ -1,6 +1,6 @@
 import { ModuleWithProviders, NgModule, Optional, SkipSelf } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NbAuthModule, NbDummyAuthStrategy } from '@nebular/auth';
+import { NbAuthJWTToken, NbAuthModule, NbDummyAuthStrategy, NbPasswordAuthStrategy } from '@nebular/auth';
 import { NbSecurityModule, NbRoleProvider } from '@nebular/security';
 import { of as observableOf } from 'rxjs';
 
@@ -106,9 +106,41 @@ export const NB_CORE_PROVIDERS = [
   ...NbAuthModule.forRoot({
 
     strategies: [
-      NbDummyAuthStrategy.setup({
+      NbPasswordAuthStrategy.setup({
         name: 'email',
-        delay: 3000,
+
+        baseEndpoint: 'http://localhost:8081/microservice-ctl',
+        token: {
+          class: NbAuthJWTToken,
+
+          key: 'token', // this parameter tells where to look for the token
+        },
+          login: {
+            redirect: {
+              success: 'pages/dashboard',
+              failure: null, // stay on the same page
+            },
+            endpoint: '/api/auth/iniciarSesion',
+            method: 'post',
+          },
+          register: {
+            // ...
+            endpoint: '/api/auth/logout',
+            method: 'post',
+          },
+          logout: {
+            endpoint: '/auth/sign-out',
+            method: 'post',
+          },
+          requestPass: {
+            endpoint: '/auth/request-pass',
+            method: 'post',
+          },
+          resetPass: {
+            endpoint: '/auth/reset-pass',
+            method: 'post',
+          },
+
       }),
     ],
     forms: {
