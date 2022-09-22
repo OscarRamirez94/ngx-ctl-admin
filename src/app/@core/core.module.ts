@@ -124,6 +124,7 @@ export const NB_CORE_PROVIDERS = [
             },
             endpoint: '/api/auth/login',
             method: 'post',
+
           },
           register: {
             // ...
@@ -131,7 +132,7 @@ export const NB_CORE_PROVIDERS = [
             method: 'post',
           },
           logout: {
-            endpoint: '/auth/sign-out',
+            endpoint: '/auth/logout',
             method: 'post',
           },
           requestPass: {
