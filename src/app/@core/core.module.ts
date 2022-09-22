@@ -110,22 +110,24 @@ export const NB_CORE_PROVIDERS = [
         name: 'email',
 
         baseEndpoint: 'http://localhost:8081/microservice-ctl',
+
         token: {
           class: NbAuthJWTToken,
 
           key: 'token', // this parameter tells where to look for the token
+
         },
           login: {
             redirect: {
               success: 'pages/dashboard',
               failure: null, // stay on the same page
             },
-            endpoint: '/api/auth/iniciarSesion',
+            endpoint: '/api/auth/login',
             method: 'post',
           },
           register: {
             // ...
-            endpoint: '/api/auth/logout',
+            endpoint: '/api/auth/register',
             method: 'post',
           },
           logout: {
