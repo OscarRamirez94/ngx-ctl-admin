@@ -10,9 +10,6 @@ const routes: Routes = [{
   path: '',
   component: PagesComponent,
   children: [
-
-
-
     {
       path: 'dashboard',
       loadChildren: () => import('./dashboard/dashboard.module')
@@ -60,6 +57,12 @@ const routes: Routes = [{
       loadChildren: () => import('./persons/persons.module')
         .then(m => m.PersonsModule),
     },
+    {
+      path: 'checklist',
+      loadChildren: () => import('./check-list/check-list.module')
+        .then(m => m.CheckListModule),
+    },
+
     {
       path: '',
       redirectTo: 'dashboard',

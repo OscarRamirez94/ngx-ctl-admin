@@ -16,6 +16,7 @@ import { TransportCapacitiesModule } from './transport-capacities/transport-capa
 import { TransportTypesRoutingModule } from './transport-types/transport-types-routing.module';
 import { TransportCapacitiesRoutingModule } from './transport-capacities/transport-capacities-routing.module';
 import { PersonsRoutingModule } from './persons/persons-routing.module';
+import { CheckListRoutingModule } from './check-list/check-list-routing.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PersonsRoutingModule } from './persons/persons-routing.module';
     TransportLinesRoutingModule,
     TransportCapacitiesRoutingModule,
     TransportTypesRoutingModule,
+    CheckListRoutingModule,
     ThemeModule,
     NbMenuModule,
 
