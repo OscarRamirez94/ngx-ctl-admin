@@ -27,7 +27,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import {MatStepperModule} from '@angular/material/stepper';
 @NgModule({
   declarations: [
     CheckListComponent,
@@ -61,6 +61,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatChipsModule,
     MatRadioModule,
     MatProgressSpinnerModule,
+    MatStepperModule
   ]
 })
 export class CheckListModule { }
