@@ -12,7 +12,7 @@ export abstract class CommonService<E extends Generic> {
   constructor(protected http: HttpClient) { }
 
   getAll(): Observable<E[]> {
-    return this.http.get<E[]>(this.url);
+    return this.http.get<E[]>(this.url.concat("all"));
   }
 
   getAllPageable(page: string, size: string,orderBy: string, column: string): Observable<any> {

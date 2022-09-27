@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthGuard } from '../guards/auth-guard.service';
 
 
 
@@ -59,6 +60,7 @@ const routes: Routes = [{
     },
     {
       path: 'checklist',
+      canActivate: [AuthGuard],
       loadChildren: () => import('./check-list/check-list.module')
         .then(m => m.CheckListModule),
     },

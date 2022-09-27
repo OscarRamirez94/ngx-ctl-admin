@@ -5,7 +5,7 @@
  */
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
@@ -24,8 +24,9 @@ import {
 import { NbAuthModule } from '@nebular/auth';
 import { AuthGuard } from './guards/auth-guard.service';
 import { TokenInterceptor } from './interceptors/token.interceptor';
-
-
+import { registerLocaleData } from '@angular/common';
+import localeEsMX from '@angular/common/locales/es-MX';
+registerLocaleData(localeEsMX, 'es-MX');
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -48,7 +49,8 @@ import { TokenInterceptor } from './interceptors/token.interceptor';
   ],
   providers: [
     AuthGuard,
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'es-MX' },
   ],
   bootstrap: [AppComponent],
 })

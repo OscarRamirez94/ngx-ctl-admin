@@ -1,38 +1,130 @@
-<button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-  {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-</button>
-<mat-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Fill out your name</ng-template>
-      <mat-form-field appearance="fill">
-        <mat-label>Name</mat-label>
-        <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperNext>Next</button>
+<section>
+  <form [formGroup]="checkListForm" (ngSubmit)="onSubmit()">
+  <mat-card>
+    <mat-card-title>Check List</mat-card-title>
+    <mat-card-subtitle>Datos generales</mat-card-subtitle>
+    <mat-card-content>
+      <!--mat dialog content-->
+      <mat-dialog-content >
+
+      <!-- grid -->
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label>No: Remision/Delivery/Factura</mat-label>
+              <input matInput  formControlName="remision" placeholder="Digita Remision/Delivery/Factura" [ngClass]="{ 'is-invalid':
+               submitted && f.remision.errors }">
+              <mat-error *ngIf="submitted && f.remision.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label >Fecha</mat-label>
+              <input [disabled]="true" matInput  formControlName="date"  [matDatepicker]="picker3" [value]="date.value">
+              <mat-hint>MM/DD/YYYY</mat-hint>
+              <mat-datepicker-toggle [disabled]="true" matSuffix [for]="picker3" ></mat-datepicker-toggle>
+              <mat-datepicker #picker3></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <mat-form-field appearance="legacy">
+              <mat-label>Hora</mat-label>
+              <input matInput type="time"  formControlName="hours" placeholder="Escribe aquí ... " matTooltip="Formato de 24 Horas">
+              <mat-hint>HH/MM 24HRS</mat-hint>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="col-sm-3">
+
+        <div class="form-group">
+
+          <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
+          <mat-label>Cliente</mat-label>
+          <input type="text"
+                 placeholder="Selecciona Cliente"
+                 aria-label="Cliente"
+                 matInput
+                 formControlName="partner"
+                 [matAutocomplete]="auto"
+                 [ngClass]="{ 'is-invalid': submitted && f.partner.errors }">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)" [displayWith]="displayProperty">
+            <mat-option *ngFor="let option of clients" [value]="option">
+              {{option.name}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="submitted && f.partner.errors" >Campo Requerido</mat-error>
+        </mat-form-field>
+        </div>
+        </div>
       </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
-    <form [formGroup]="secondFormGroup">
-      <mat-form-field appearance="fill">
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-               required>
-      </mat-form-field>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button matStepperNext>Next</button>
+      <mat-card-subtitle>Datos de Transporte</mat-card-subtitle>
+
+
+      <div class="row">
+
+       <div class="col-sm-3">
+          <div class="form-group">
+        <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
+          <mat-label>Linea de Transporte</mat-label>
+          <input type="text"
+                 placeholder="Selecciona Linea de Transporte"
+                 aria-label="Linea de Transporte"
+                 matInput
+                 formControlName="transportLine"
+                 [matAutocomplete]="autoTransportLine"
+                 [ngClass]="{ 'is-invalid': submitted && f.transportLine.errors }">
+          <mat-autocomplete #autoTransportLine="matAutocomplete"
+          (optionSelected)="optionSelectedTransportLine($event.option.value)"
+          [displayWith]="displayPropertyTransportLine">
+            <mat-option *ngFor="let option of transportLines" [value]="option">
+              {{option.name}}
+            </mat-option>
+          </mat-autocomplete>
+          <mat-error *ngIf="submitted && f.transportLine.errors" >Campo Requerido</mat-error>
+        </mat-form-field>
+        </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+        <mat-form-field appearance="legacy">
+          <mat-label>Operador</mat-label>
+          <input matInput  formControlName="operator" placeholder="Digita Operador"
+           [ngClass]="{ 'is-invalid': submitted && f.operator.errors }">
+          <mat-error *ngIf="submitted && f.operator.errors" >Campo Requerido</mat-error>
+        </mat-form-field>
+         </div>
+        </div>
       </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Done</ng-template>
-    <p>You are now done.</p>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-stepper>
+
+
+
+
+
+
+
+
+      <!-- end grid-->
+
+      </mat-dialog-content>
+      <!-- mat dialog content -->
+
+    </mat-card-content>
+
+    <!-- actions -->
+    <mat-card-actions align="end">
+      <mat-dialog-actions align="end">
+        <button mat-flat-button [mat-dialog-close]="false" color="warn" >Cancelar</button>
+        <button mat-flat-button color="primary" cdkFocusInitial>{{actionBtn}}</button>
+      </mat-dialog-actions>
+    </mat-card-actions>
+    <!--end actions -->
+  </mat-card>
+</form>
+</section>

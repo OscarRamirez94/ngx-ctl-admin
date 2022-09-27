@@ -35,6 +35,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Check List',
     icon: 'book-open-outline',
+
     children: [
       {
         title: 'Check Lists',
@@ -43,6 +44,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Agregar',
+
         icon:  'car-outline',
         link:  '/pages/checklist/checklist-create',
       },
