@@ -43,6 +43,7 @@ export class CheckListCreateComponent implements OnInit {
     this.model.partner = new Client();
     this.model.transporLine = new TransportLine();
     this.model.transportCapacity = new TransportCapacity();
+    this.transportCapacities = [];
    }
 
   ngOnInit(): void {
@@ -86,7 +87,7 @@ export class CheckListCreateComponent implements OnInit {
           tractoPlacas:['',Validators.required],
           ecoCaja:['',Validators.required],
           cajaPlacas :['',Validators.required],
-          transportType:['',Validators.required],
+          tipoTransporte:['',Validators.required],
           transportCapacity:['',Validators.required],
 
           /*
@@ -180,6 +181,7 @@ export class CheckListCreateComponent implements OnInit {
   }
 
   getAllTransportCapacities(id:any){
+
     this.checkListService.getAllTransportCapacities(id).subscribe(data =>{
       this.transportCapacities = data;
       console.log( "TC", this.transportLines);

@@ -179,7 +179,7 @@
 
         <div class="col-sm-3">
           <div class="form-group">
-            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
+            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" *ngIf="transportCapacities.length>0">
             <mat-label>Capacidad de Transporte</mat-label>
             <input type="text"
                   placeholder="Selecciona Capacidad de Transporte"
