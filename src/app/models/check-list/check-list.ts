@@ -15,22 +15,25 @@ export class CheckList {
     partner: Client;
     transporLine:TransportLine;
     operator : String;
-   /*
-    ecoCaja: String;
     ecoTracto : String;
+    tractoPlacas: String;
+    ecoCaja: String;
+    cajaPlacas: String;
+    transportCapacity:TransportCapacity;
+
+   /*
+
     hours:  String;
     noSello : String;
     observation: String;
 
     rampa : String;
-    cajaPlacas: String;
 
-    tractoPlacas: String;
 
     processType:ProcessType;
     responsableOne:Person;
     responsableTwo:Person;
 
-    transportCapacity:TransportCapacity;
+
 */
 }

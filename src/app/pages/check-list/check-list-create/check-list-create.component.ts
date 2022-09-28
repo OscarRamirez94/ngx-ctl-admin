@@ -5,6 +5,8 @@ import { CheckList } from '../../../models/check-list/check-list';
 import { Client } from '../../../models/client';
 import { ProcessType } from '../../../models/process-type/process-type';
 import { TransportLine } from '../../../models/transport-line/transport-line';
+import { TransportCapacity } from '../../../models/transport_capacity/transport-capacity';
+import { TransportType } from '../../../models/transport_type/transport-type';
 import { CheckListService } from '../../../services/check-list/check-list.service';
 
 
@@ -16,8 +18,12 @@ import { CheckListService } from '../../../services/check-list/check-list.servic
 export class CheckListCreateComponent implements OnInit {
 
   checkListForm !: FormGroup;
+
   clients:Client[];
   transportLines:TransportLine[];
+  transportCapacities:TransportCapacity[];
+  transportTypes:TransportType[];
+
   submitted = false;
   actionBtn:String = "Crear";
   isChecked;
@@ -36,11 +42,14 @@ export class CheckListCreateComponent implements OnInit {
     console.log("now" + new Date())
     this.model.partner = new Client();
     this.model.transporLine = new TransportLine();
+    this.model.transportCapacity = new TransportCapacity();
    }
 
   ngOnInit(): void {
     this.getAllClients();
     this.getAllTransportLines();
+    this.getAllTransportTypes();
+
     this.setForm();
 
 
@@ -72,18 +81,25 @@ export class CheckListCreateComponent implements OnInit {
           partner:['',Validators.required],
           transportLine:['',Validators.required],
           operator:['',Validators.required],
-          /*
-          cajaPlacas :['',Validators.required],
 
-          ecoCaja:['',Validators.required],
           ecoTracto:['',Validators.required],
+          tractoPlacas:['',Validators.required],
+          ecoCaja:['',Validators.required],
+          cajaPlacas :['',Validators.required],
+          transportType:['',Validators.required],
+          transportCapacity:['',Validators.required],
+
+          /*
+
+
+
           hours:['',Validators.required],
           noSello:['',Validators.required],
           observation :['',Validators.required],
           operator:['',Validators.required],
           rampa:['',Validators.required],
 
-          tractoPlacas:['',Validators.required],
+
           processType:['',Validators.required],
           */
           /*responsableOne:['',Validators.required],
@@ -100,19 +116,26 @@ export class CheckListCreateComponent implements OnInit {
       this.model.hours = checkListForm.get('hours').value;
       this.model.processType = this.processType;
       this.model.operator = checkListForm.get('operator').value;
+
+      this.model.ecoTracto = checkListForm.get('ecoTracto').value;
+      this.model.tractoPlacas = checkListForm.get('tractoPlacas').value;
+      this.model.ecoCaja = checkListForm.get('ecoCaja').value;
+      this.model.cajaPlacas = checkListForm.get('cajaPlacas').value;
+
+
+
+
       //this.model.partner = checkListForm.get('partner').value;
       console.log("this.model",this.model)
       /*
-      this.model.cajaPlacas = checkListForm.get('cajaPlacas').value;
-      this.model.ecoCaja = checkListForm.get('ecoCaja').value;
-      this.model.ecoTracto = checkListForm.get('ecoTracto').value;
+
       this.model.hours = checkListForm.get('hours').value;
       this.model.noSello = checkListForm.get('noSello').value;
       this.model.observation = checkListForm.get('observation').value;
       this.model.operator = checkListForm.get('operator').value;
       this.model.rampa = checkListForm.get('rampa').value;
 
-      this.model.tractoPlacas = checkListForm.get('tractoPlacas').value;
+
       */
     }
     getAllClients(){
@@ -155,5 +178,49 @@ export class CheckListCreateComponent implements OnInit {
       return value.name;
     }
   }
+
+  getAllTransportCapacities(id:any){
+    this.checkListService.getAllTransportCapacities(id).subscribe(data =>{
+      this.transportCapacities = data;
+      console.log( "TC", this.transportLines);
+    })
+  }
+
+
+    optionSelectedTransportCapacity(event:TransportCapacity){
+
+      this.model.transportCapacity.id = event.id;
+
+
+    }
+
+    displayPropertyTransportCapacity(value) {
+      console.log("Selected2 : ", value);
+      if (value) {
+        return value.capacity.concat(" | ").concat( value.unity);
+      }
+    }
+
+    getAllTransportTypes(){
+      this.checkListService.getAllTransportTypes().subscribe(data =>{
+        this.transportTypes = data;
+        console.log( "TC", this.transportTypes);
+      })
+    }
+
+
+      optionSelectedTransportType(event:TransportType){
+
+        this.getAllTransportCapacities(event.id);
+
+
+      }
+
+      displayPropertyTransportType(value) {
+        console.log("Selected2 : ", value);
+        if (value) {
+          return value.name;
+        }
+      }
 
 }

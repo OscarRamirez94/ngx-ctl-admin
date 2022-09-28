@@ -104,9 +104,103 @@
       </div>
 
 
+      <div class="row">
 
+         <div class="col-sm-3">
+            <div class="form-group">
+            <mat-form-field appearance="legacy">
+            <mat-label>ecoTracto</mat-label>
+            <input matInput  formControlName="ecoTracto" placeholder="Digita ecoTracto"
+            [ngClass]="{ 'is-invalid': submitted && f.ecoTracto.errors }">
+            <mat-error *ngIf="submitted && f.ecoTracto.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+            </div>
+         </div>
 
+         <div class="col-sm-3">
+          <div class="form-group">
+          <mat-form-field appearance="legacy">
+          <mat-label>tractoPlacas</mat-label>
+          <input matInput  formControlName="tractoPlacas" placeholder="Digita tractoPlacas"
+          [ngClass]="{ 'is-invalid': submitted && f.tractoPlacas.errors }">
+          <mat-error *ngIf="submitted && f.tractoPlacas.errors" >Campo Requerido</mat-error>
+          </mat-form-field>
+          </div>
+         </div>
 
+          <div class="col-sm-3">
+            <div class="form-group">
+            <mat-form-field appearance="legacy">
+            <mat-label>ecoCaja</mat-label>
+            <input matInput  formControlName="ecoCaja" placeholder="Digita ecoCaja"
+            [ngClass]="{ 'is-invalid': submitted && f.ecoCaja.errors }">
+            <mat-error *ngIf="submitted && f.ecoCaja.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="form-group">
+            <mat-form-field appearance="legacy">
+            <mat-label>cajaPlacas</mat-label>
+            <input matInput  formControlName="cajaPlacas" placeholder="Digita cajaPlacas"
+            [ngClass]="{ 'is-invalid': submitted && f.cajaPlacas.errors }">
+            <mat-error *ngIf="submitted && f.cajaPlacas.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+            </div>
+          </div>
+
+       </div>
+
+       <div class="row">
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
+            <mat-label>Tipo de Transporte</mat-label>
+            <input type="text"
+                  placeholder="Selecciona Tipo de Transporte"
+                  aria-label="Tipo de Transporte"
+                  matInput
+                  formControlName="tipoTransporte"
+                  [matAutocomplete]="autoTransportType"
+                  [ngClass]="{ 'is-invalid': submitted && f.tipoTransporte.errors }">
+            <mat-autocomplete #autoTransportType="matAutocomplete"
+            (optionSelected)="optionSelectedTransportType($event.option.value)"
+            [displayWith]="displayPropertyTransportType">
+            <mat-option *ngFor="let option of transportTypes" [value]="option">
+               {{option.name}}
+            </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="submitted && f.tipoTransporte.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
+            <mat-label>Capacidad de Transporte</mat-label>
+            <input type="text"
+                  placeholder="Selecciona Capacidad de Transporte"
+                  aria-label="Capacidad de Transporte"
+                  matInput
+                  formControlName="transportCapacity"
+                  [matAutocomplete]="autoTransportCapacity"
+                  [ngClass]="{ 'is-invalid': submitted && f.transportCapacity.errors }">
+            <mat-autocomplete #autoTransportCapacity="matAutocomplete"
+            (optionSelected)="optionSelectedTransportCapacity($event.option.value)"
+            [displayWith]="displayPropertyTransportCapacity">
+            <mat-option *ngFor="let option of transportCapacities" [value]="option">
+               {{option.capacity}}  |  {{option.unity}}
+            </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="submitted && f.transportCapacity.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+       </div>
 
 
 
