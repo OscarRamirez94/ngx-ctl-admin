@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CheckList } from '../../../models/check-list/check-list';
 import { Client } from '../../../models/client';
+import { Person } from '../../../models/person/person';
 import { ProcessType } from '../../../models/process-type/process-type';
 import { TransportLine } from '../../../models/transport-line/transport-line';
 import { TransportCapacity } from '../../../models/transport_capacity/transport-capacity';
@@ -23,6 +24,8 @@ export class CheckListCreateComponent implements OnInit {
   transportLines:TransportLine[];
   transportCapacities:TransportCapacity[];
   transportTypes:TransportType[];
+  surveillances:Person[];
+  supervisors:Person[];
 
   submitted = false;
   actionBtn:String = "Crear";
@@ -39,10 +42,12 @@ export class CheckListCreateComponent implements OnInit {
 
   constructor(private formBuilder:FormBuilder,
     public checkListService:CheckListService) {
-    console.log("now" + new Date())
+
     this.model.partner = new Client();
     this.model.transporLine = new TransportLine();
     this.model.transportCapacity = new TransportCapacity();
+    this.model.surveillance = new Person();
+    this.model.supervisor = new Person();
     this.transportCapacities = [];
    }
 
@@ -50,7 +55,7 @@ export class CheckListCreateComponent implements OnInit {
     this.getAllClients();
     this.getAllTransportLines();
     this.getAllTransportTypes();
-
+    this.getAllPersons();
     this.setForm();
 
 
@@ -60,16 +65,14 @@ export class CheckListCreateComponent implements OnInit {
   onSubmit() {
 
     this.submitted = true;
-      // stop here if form is invalid
-      console.log("form",this.checkListForm.value)
+
       if (this.checkListForm.invalid) {
           return;
       }
 
-        console.log("form22",this.checkListForm.value)
          this.modelClient(this.checkListForm);
          this.checkListService.crear(this.model as CheckList).subscribe(data =>{
-          console.log("data",data);
+
          });
          //super.toast("success","Cliente creado con éxito");
       }
@@ -89,21 +92,14 @@ export class CheckListCreateComponent implements OnInit {
           cajaPlacas :['',Validators.required],
           tipoTransporte:['',Validators.required],
           transportCapacity:['',Validators.required],
-
-          /*
-
-
-
-          hours:['',Validators.required],
           noSello:['',Validators.required],
+          surveillance:['',Validators.required],
+          supervisor:['',Validators.required],
           observation :['',Validators.required],
-          operator:['',Validators.required],
+      /*
           rampa:['',Validators.required],
 
-
-          processType:['',Validators.required],
-          */
-          /*responsableOne:['',Validators.required],
+          responsableOne:['',Validators.required],
           responsableTwo:['',Validators.required],
 
           transportCapacity:['',Validators.required],
@@ -122,18 +118,18 @@ export class CheckListCreateComponent implements OnInit {
       this.model.tractoPlacas = checkListForm.get('tractoPlacas').value;
       this.model.ecoCaja = checkListForm.get('ecoCaja').value;
       this.model.cajaPlacas = checkListForm.get('cajaPlacas').value;
-
-
-
+      this.model.noSello = checkListForm.get('noSello').value;
+      this.model.operator = checkListForm.get('operator').value;
+      this.model.observation = checkListForm.get('observation').value;
 
       //this.model.partner = checkListForm.get('partner').value;
-      console.log("this.model",this.model)
+
       /*
 
       this.model.hours = checkListForm.get('hours').value;
-      this.model.noSello = checkListForm.get('noSello').value;
+
       this.model.observation = checkListForm.get('observation').value;
-      this.model.operator = checkListForm.get('operator').value;
+
       this.model.rampa = checkListForm.get('rampa').value;
 
 
@@ -142,18 +138,20 @@ export class CheckListCreateComponent implements OnInit {
     getAllClients(){
       this.checkListService.getAllClientes().subscribe(data =>{
         this.clients = data;
-        console.log(this.clients);
+
       })
     }
+
     optionSelected(event:Client){
-      console.log("event" + JSON.stringify(event));
+
 
       this.model.partner.id = event.id;
 
 
     }
+
     displayProperty(value) {
-      console.log("Selected2 : ", value);
+
       if (value) {
         return value.name;
       }
@@ -162,19 +160,17 @@ export class CheckListCreateComponent implements OnInit {
     getAllTransportLines(){
       this.checkListService.getAllTransportLines().subscribe(data =>{
         this.transportLines = data;
-        console.log( "TT", this.transportLines);
+
       })
     }
 
 
   optionSelectedTransportLine(event:TransportLine){
-
     this.model.transporLine.id = event.id;
-
-
   }
+
   displayPropertyTransportLine(value) {
-    console.log("Selected2 : ", value);
+
     if (value) {
       return value.name;
     }
@@ -184,45 +180,81 @@ export class CheckListCreateComponent implements OnInit {
 
     this.checkListService.getAllTransportCapacities(id).subscribe(data =>{
       this.transportCapacities = data;
-      console.log( "TC", this.transportLines);
+
     })
   }
 
-
     optionSelectedTransportCapacity(event:TransportCapacity){
-
       this.model.transportCapacity.id = event.id;
-
-
     }
 
-    displayPropertyTransportCapacity(value) {
-      console.log("Selected2 : ", value);
-      if (value) {
+  displayPropertyTransportCapacity(value) {
+
+    if (value) {
         return value.capacity.concat(" | ").concat( value.unity);
-      }
     }
+  }
 
-    getAllTransportTypes(){
-      this.checkListService.getAllTransportTypes().subscribe(data =>{
-        this.transportTypes = data;
-        console.log( "TC", this.transportTypes);
-      })
+  getAllTransportTypes(){
+    this.checkListService.getAllTransportTypes().subscribe(data =>{
+    this.transportTypes = data;
+
+    })
+
+  }
+
+
+  optionSelectedTransportType(event:TransportType){
+    this.checkListForm.controls['transportCapacity'].reset()
+    this.getAllTransportCapacities(event.id);
+  }
+
+  displayPropertyTransportType(value) {
+
+    if (value) {
+      return value.name;
     }
+  }
 
 
-      optionSelectedTransportType(event:TransportType){
+  getAllPersons(){
+    this.checkListService.getAllPersons().subscribe(data =>{
+      this.surveillances = data.filter(p =>{
 
-        this.getAllTransportCapacities(event.id);
+        return p.profession.name == "Vigilancia";
+      });
+
+      this.supervisors = data.filter(p =>{
+
+        return p.profession.name != "Vigilancia";
+      });
+
+    });
 
 
-      }
 
-      displayPropertyTransportType(value) {
-        console.log("Selected2 : ", value);
-        if (value) {
-          return value.name;
-        }
-      }
+  }
 
+
+  optionSelectedSurveillance(event:Person){
+  this.model.surveillance.id = event.id;
+}
+
+displayPropertySurveillance(value) {
+
+  if (value) {
+    return value.firstName;
+  }
+}
+
+optionSelectedSupervisor(event:Person){
+  this.model.supervisor.id = event.id;
+}
+
+displayPropertySupervisor(value) {
+
+  if (value) {
+    return value.firstName;
+  }
+}
 }

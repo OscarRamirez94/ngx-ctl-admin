@@ -107,7 +107,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logout() {
-    console.log("logout");
     return false;
   }
 }

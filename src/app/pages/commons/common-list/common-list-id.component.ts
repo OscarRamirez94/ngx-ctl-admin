@@ -74,12 +74,12 @@ export abstract class CommonListIdComponent<E extends Generic, S extends CommonS
 
     this.service.getFilterCriteriaById(search,this.model.id)
     .subscribe(paginator => {
-      console.log(paginator.totalElements)
+
       this.lista = paginator.content as E[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-      console.log(this.dataSource.data);
+
 
 
     });
@@ -127,22 +127,22 @@ export abstract class CommonListIdComponent<E extends Generic, S extends CommonS
   public crear(): void {
 
     this.service.crear(this.model).subscribe(m => {
-      console.log(m);
+
     }, err => {
       if(err.status === 400){
         this.error = err.error;
-        console.log(this.error);
+
       }
     });
   }
 
   public editar(): void {
-    console.log("update" + this.model);
+
     this.service.editar(this.model).subscribe(m => {
     }, err => {
       if(err.status === 400){
         this.error = err.error;
-        console.log(this.error);
+
       }
     });
   }

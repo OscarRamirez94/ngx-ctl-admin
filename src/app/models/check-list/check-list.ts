@@ -20,11 +20,15 @@ export class CheckList {
     ecoCaja: String;
     cajaPlacas: String;
     transportCapacity:TransportCapacity;
+    noSello : String;
+    surveillance: Person;
+    supervisor: Person;
+    observation: String;
 
    /*
 
     hours:  String;
-    noSello : String;
+
     observation: String;
 
     rampa : String;

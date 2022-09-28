@@ -2,7 +2,8 @@
   <form [formGroup]="checkListForm" (ngSubmit)="onSubmit()">
   <mat-card>
     <mat-card-title>Check List</mat-card-title>
-    <mat-card-subtitle>Datos generales</mat-card-subtitle>
+    <mat-divider></mat-divider>
+    <mat-card-subtitle><h6>Datos generales</h6></mat-card-subtitle>
     <mat-card-content>
       <!--mat dialog content-->
       <mat-dialog-content >
@@ -63,7 +64,8 @@
         </div>
         </div>
       </div>
-      <mat-card-subtitle>Datos de Transporte</mat-card-subtitle>
+      <mat-divider></mat-divider>
+      <mat-card-subtitle> <h6>Datos de Transporte </h6></mat-card-subtitle>
 
 
       <div class="row">
@@ -100,6 +102,52 @@
           <mat-error *ngIf="submitted && f.operator.errors" >Campo Requerido</mat-error>
         </mat-form-field>
          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
+            <mat-label>Tipo de Transporte</mat-label>
+            <input type="text"
+                  placeholder="Selecciona Tipo de Transporte"
+                  aria-label="Tipo de Transporte"
+                  matInput
+                  formControlName="tipoTransporte"
+                  [matAutocomplete]="autoTransportType"
+                  [ngClass]="{ 'is-invalid': submitted && f.tipoTransporte.errors }">
+            <mat-autocomplete #autoTransportType="matAutocomplete"
+            (optionSelected)="optionSelectedTransportType($event.option.value)"
+            [displayWith]="displayPropertyTransportType">
+            <mat-option *ngFor="let option of transportTypes" [value]="option">
+               {{option.name}}
+            </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="submitted && f.tipoTransporte.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline">
+            <mat-label>Capacidad de Transporte</mat-label>
+            <input type="text"
+                  placeholder="Selecciona Capacidad de Transporte"
+                  aria-label="Capacidad de Transporte"
+                  matInput
+                  formControlName="transportCapacity"
+                  [matAutocomplete]="autoTransportCapacity"
+                  [ngClass]="{ 'is-invalid': submitted && f.transportCapacity.errors }">
+            <mat-autocomplete #autoTransportCapacity="matAutocomplete"
+            (optionSelected)="optionSelectedTransportCapacity($event.option.value)"
+            [displayWith]="displayPropertyTransportCapacity">
+            <mat-option *ngFor="let option of transportCapacities" [value]="option">
+               {{option.capacity}}  |  {{option.unity}}
+            </mat-option>
+            </mat-autocomplete>
+            <mat-error *ngIf="submitted && f.transportCapacity.errors" >Campo Requerido</mat-error>
+            </mat-form-field>
+          </div>
         </div>
       </div>
 
@@ -152,59 +200,84 @@
 
        </div>
 
+
        <div class="row">
 
         <div class="col-sm-3">
           <div class="form-group">
             <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
-            <mat-label>Tipo de Transporte</mat-label>
+            <mat-label>Vigilancia</mat-label>
             <input type="text"
-                  placeholder="Selecciona Tipo de Transporte"
-                  aria-label="Tipo de Transporte"
+                  placeholder="Selecciona Personal de vigilancia"
+                  aria-label="Personal de Vigilancia"
                   matInput
-                  formControlName="tipoTransporte"
-                  [matAutocomplete]="autoTransportType"
-                  [ngClass]="{ 'is-invalid': submitted && f.tipoTransporte.errors }">
-            <mat-autocomplete #autoTransportType="matAutocomplete"
-            (optionSelected)="optionSelectedTransportType($event.option.value)"
-            [displayWith]="displayPropertyTransportType">
-            <mat-option *ngFor="let option of transportTypes" [value]="option">
-               {{option.name}}
+                  formControlName="surveillance"
+                  [matAutocomplete]="autoSurveillance"
+                  [ngClass]="{ 'is-invalid': submitted && f.surveillance.errors }">
+            <mat-autocomplete #autoSurveillance="matAutocomplete"
+            (optionSelected)="optionSelectedSurveillance($event.option.value)"
+            [displayWith]="displayPropertySurveillance">
+            <mat-option *ngFor="let option of surveillances" [value]="option">
+               {{option.firstName}}
             </mat-option>
             </mat-autocomplete>
-            <mat-error *ngIf="submitted && f.tipoTransporte.errors" >Campo Requerido</mat-error>
+            <mat-error *ngIf="submitted && f.surveillance.errors" >Campo Requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
 
         <div class="col-sm-3">
           <div class="form-group">
-            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" *ngIf="transportCapacities.length>0">
-            <mat-label>Capacidad de Transporte</mat-label>
+            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
+            <mat-label>Supervisor</mat-label>
             <input type="text"
-                  placeholder="Selecciona Capacidad de Transporte"
-                  aria-label="Capacidad de Transporte"
+                  placeholder="Calidad / Jefe de turno"
+                  aria-label="Calidad / Jefe de turno"
                   matInput
-                  formControlName="transportCapacity"
-                  [matAutocomplete]="autoTransportCapacity"
-                  [ngClass]="{ 'is-invalid': submitted && f.transportCapacity.errors }">
-            <mat-autocomplete #autoTransportCapacity="matAutocomplete"
-            (optionSelected)="optionSelectedTransportCapacity($event.option.value)"
-            [displayWith]="displayPropertyTransportCapacity">
-            <mat-option *ngFor="let option of transportCapacities" [value]="option">
-               {{option.capacity}}  |  {{option.unity}}
+                  formControlName="supervisor"
+                  [matAutocomplete]="autoSupervisor"
+                  [ngClass]="{ 'is-invalid': submitted && f.supervisor.errors }">
+            <mat-autocomplete #autoSupervisor="matAutocomplete"
+            (optionSelected)="optionSelectedSupervisor($event.option.value)"
+            [displayWith]="displayPropertySupervisor">
+            <mat-option *ngFor="let option of supervisors" [value]="option">
+               {{option.firstName}}
             </mat-option>
             </mat-autocomplete>
-            <mat-error *ngIf="submitted && f.transportCapacity.errors" >Campo Requerido</mat-error>
+            <mat-error *ngIf="submitted && f.supervisor.errors" >Campo Requerido</mat-error>
             </mat-form-field>
           </div>
         </div>
-
+        <div class="col-sm-3">
+          <div class="form-group">
+          <mat-form-field appearance="legacy">
+          <mat-label>No: Sello</mat-label>
+          <input matInput  formControlName="noSello" placeholder="Digita noSello"
+          [ngClass]="{ 'is-invalid': submitted && f.noSello.errors }">
+          <mat-error *ngIf="submitted && f.noSello.errors" >Campo Requerido</mat-error>
+          </mat-form-field>
+          </div>
+       </div>
        </div>
 
+       <mat-card-subtitle><h6>Revision de transporte</h6></mat-card-subtitle>
 
 
-      <!-- end grid-->
+
+       <div class="row">
+            <div class="col-sm-8">
+              <div class="form-group">
+              <mat-form-field class="example-full-width" appearance="legacy">
+              <mat-label>Observacion</mat-label>
+              <textarea matInput type="text" formControlName="observation" placeholder="Digita observation"
+              [ngClass]="{ 'is-invalid': submitted && f.observation.errors }"></textarea>
+              <mat-error *ngIf="submitted && f.observation.errors" >Campo Requerido</mat-error>
+              </mat-form-field>
+
+
+              </div>
+           </div>
+       </div>
 
       </mat-dialog-content>
       <!-- mat dialog content -->
