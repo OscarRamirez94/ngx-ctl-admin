@@ -17,7 +17,7 @@ export class LoginComponent  extends NbLoginComponent implements OnInit  {
   messageInvalid: string;
   ngOnInit(): void {
 
-    this.service.onTokenChange().subscribe(token=>{
+    this.service.getToken().subscribe(token=>{
       console.log("isAuth", token);
       if (token.isValid()){
         this.router.navigateByUrl("pages/dashboard");

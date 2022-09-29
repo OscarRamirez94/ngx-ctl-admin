@@ -7,6 +7,7 @@ import { Person } from '../../models/person/person';
 import { TransportLine } from '../../models/transport-line/transport-line';
 import { TransportCapacity } from '../../models/transport_capacity/transport-capacity';
 import { TransportType } from '../../models/transport_type/transport-type';
+import { AuthRoleService } from '../auth/auth-role.service';
 
 @Injectable({
   providedIn: 'root'

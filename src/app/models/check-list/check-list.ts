@@ -24,6 +24,7 @@ export class CheckList {
     surveillance: Person;
     supervisor: Person;
     observation: String;
+    noRampa : String;
 
    /*
 
@@ -31,7 +32,7 @@ export class CheckList {
 
     observation: String;
 
-    rampa : String;
+
 
 
     processType:ProcessType;

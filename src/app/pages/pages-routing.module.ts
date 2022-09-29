@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from '../guards/auth-guard.service';
+import { RoleGuard } from '../guards/role.guard';
+
 
 
 
@@ -60,7 +62,8 @@ const routes: Routes = [{
     },
     {
       path: 'checklist',
-      canActivate: [AuthGuard],
+      canActivate: [RoleGuard],
+      data: { role: 'ROLE_ADMIN' },
       loadChildren: () => import('./check-list/check-list.module')
         .then(m => m.CheckListModule),
     },

@@ -1,4 +1,4 @@
-<section>
+<section >
   <form [formGroup]="checkListForm" (ngSubmit)="onSubmit()">
   <mat-card>
     <mat-card-title>Check List</mat-card-title>
@@ -248,6 +248,17 @@
             </mat-form-field>
           </div>
         </div>
+
+        <div class="col-sm-3">
+          <div class="form-group">
+          <mat-form-field appearance="legacy">
+          <mat-label>No: Rampa</mat-label>
+          <input matInput  formControlName="noRampa" placeholder="Digita noRampa"
+          [ngClass]="{ 'is-invalid': submitted && f.noRampa.errors }">
+          <mat-error *ngIf="submitted && f.noRampa.errors" >Campo Requerido</mat-error>
+          </mat-form-field>
+          </div>
+       </div>
         <div class="col-sm-3">
           <div class="form-group">
           <mat-form-field appearance="legacy">

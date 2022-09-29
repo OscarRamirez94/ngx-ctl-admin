@@ -26,6 +26,7 @@ import { AuthGuard } from './guards/auth-guard.service';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { registerLocaleData } from '@angular/common';
 import localeEsMX from '@angular/common/locales/es-MX';
+import { RoleGuard } from './guards/role.guard';
 registerLocaleData(localeEsMX, 'es-MX');
 @NgModule({
   declarations: [AppComponent],
@@ -48,9 +49,10 @@ registerLocaleData(localeEsMX, 'es-MX');
     ThemeModule.forRoot(),
   ],
   providers: [
-    AuthGuard,
+    AuthGuard,RoleGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'es-MX' },
+
   ],
   bootstrap: [AppComponent],
 })

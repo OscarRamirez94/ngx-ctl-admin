@@ -8,6 +8,7 @@ import { ProcessType } from '../../../models/process-type/process-type';
 import { TransportLine } from '../../../models/transport-line/transport-line';
 import { TransportCapacity } from '../../../models/transport_capacity/transport-capacity';
 import { TransportType } from '../../../models/transport_type/transport-type';
+import { AuthRoleService } from '../../../services/auth/auth-role.service';
 import { CheckListService } from '../../../services/check-list/check-list.service';
 
 
@@ -40,7 +41,7 @@ export class CheckListCreateComponent implements OnInit {
   serializedDate = new FormControl(new Date().toISOString());
 
 
-  constructor(private formBuilder:FormBuilder,
+  constructor(private formBuilder:FormBuilder,private authRoleService:AuthRoleService,
     public checkListService:CheckListService) {
 
     this.model.partner = new Client();
@@ -96,6 +97,7 @@ export class CheckListCreateComponent implements OnInit {
           surveillance:['',Validators.required],
           supervisor:['',Validators.required],
           observation :['',Validators.required],
+          noRampa :['',Validators.required],
       /*
           rampa:['',Validators.required],
 
@@ -121,7 +123,7 @@ export class CheckListCreateComponent implements OnInit {
       this.model.noSello = checkListForm.get('noSello').value;
       this.model.operator = checkListForm.get('operator').value;
       this.model.observation = checkListForm.get('observation').value;
-
+      this.model.noRampa = checkListForm.get('noRampa').value;
       //this.model.partner = checkListForm.get('partner').value;
 
       /*
@@ -256,5 +258,9 @@ displayPropertySupervisor(value) {
   if (value) {
     return value.firstName;
   }
+}
+role(role:string){
+
+  return this.authRoleService.hasRole(role);
 }
 }

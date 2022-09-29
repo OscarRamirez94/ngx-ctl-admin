@@ -46,12 +46,12 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
 
     this.submitted = true;
       // stop here if form is invalid
-      console.log("form",this.clientForm.value)
+
       if (this.clientForm.invalid) {
           return;
       }
       if (!this.editData) {
-        console.log("form",this.clientForm.value)
+
          this.modelClient(this.clientForm);
          super.crear();
          this.onReset();
