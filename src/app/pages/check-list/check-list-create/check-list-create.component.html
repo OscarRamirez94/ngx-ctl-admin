@@ -229,22 +229,22 @@
         <div class="col-sm-3">
           <div class="form-group">
             <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline" >
-            <mat-label>Supervisor</mat-label>
+            <mat-label>Responsable</mat-label>
             <input type="text"
                   placeholder="Calidad / Jefe de turno"
                   aria-label="Calidad / Jefe de turno"
                   matInput
-                  formControlName="supervisor"
-                  [matAutocomplete]="autoSupervisor"
-                  [ngClass]="{ 'is-invalid': submitted && f.supervisor.errors }">
-            <mat-autocomplete #autoSupervisor="matAutocomplete"
-            (optionSelected)="optionSelectedSupervisor($event.option.value)"
-            [displayWith]="displayPropertySupervisor">
-            <mat-option *ngFor="let option of supervisors" [value]="option">
+                  formControlName="responsible"
+                  [matAutocomplete]="autoUser"
+                  [ngClass]="{ 'is-invalid': submitted && f.responsible.errors }">
+            <mat-autocomplete #autoUser="matAutocomplete"
+            (optionSelected)="optionSelectedUser($event.option.value)"
+            [displayWith]="displayPropertyUser">
+            <mat-option *ngFor="let option of responsibles" [value]="option">
                {{option.firstName}}
             </mat-option>
             </mat-autocomplete>
-            <mat-error *ngIf="submitted && f.supervisor.errors" >Campo Requerido</mat-error>
+            <mat-error *ngIf="submitted && f.responsible.errors" >Campo Requerido</mat-error>
             </mat-form-field>
           </div>
         </div>

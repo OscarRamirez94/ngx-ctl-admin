@@ -7,6 +7,7 @@ import { Person } from '../../models/person/person';
 import { TransportLine } from '../../models/transport-line/transport-line';
 import { TransportCapacity } from '../../models/transport_capacity/transport-capacity';
 import { TransportType } from '../../models/transport_type/transport-type';
+import { User } from '../../models/user/user';
 import { AuthRoleService } from '../auth/auth-role.service';
 
 @Injectable({
@@ -19,6 +20,7 @@ export class CheckListService {
   urlTransportCapacity = 'http://localhost:8081/microservice-ctl/transport-capacity/';
   urlTransportType = 'http://localhost:8081/microservice-ctl/transport-type/';
   urlPersons = 'http://localhost:8081/microservice-ctl/person/';
+  urlUsers = 'http://localhost:8081/microservice-ctl/users/';
  constructor(public http: HttpClient) {
  }
 
@@ -47,6 +49,8 @@ getAllTransportTypes(): Observable<TransportType[]> {
 getAllPersons(): Observable<Person[]> {
   return this.http.get<Person[]>(this.urlPersons.concat("all/"));
 }
-
+getAllUsersIsResposible(): Observable<User[]> {
+  return this.http.get<User[]>(this.urlUsers.concat("all/isResponsible"));
+}
 
 }

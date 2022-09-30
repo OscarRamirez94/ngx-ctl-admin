@@ -5,6 +5,7 @@ import { ProcessType } from "../process-type/process-type";
 import { Person } from "../person/person";
 import { TransportLine } from "../transport-line/transport-line";
 import { TransportCapacity } from "../transport_capacity/transport-capacity";
+import { User } from "../user/user";
 
 export class CheckList {
     id:number;
@@ -22,7 +23,7 @@ export class CheckList {
     transportCapacity:TransportCapacity;
     noSello : String;
     surveillance: Person;
-    supervisor: Person;
+    responsible: User;
     observation: String;
     noRampa : String;
 

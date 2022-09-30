@@ -8,6 +8,7 @@ import { ProcessType } from '../../../models/process-type/process-type';
 import { TransportLine } from '../../../models/transport-line/transport-line';
 import { TransportCapacity } from '../../../models/transport_capacity/transport-capacity';
 import { TransportType } from '../../../models/transport_type/transport-type';
+import { User } from '../../../models/user/user';
 import { AuthRoleService } from '../../../services/auth/auth-role.service';
 import { CheckListService } from '../../../services/check-list/check-list.service';
 
@@ -26,7 +27,8 @@ export class CheckListCreateComponent implements OnInit {
   transportCapacities:TransportCapacity[];
   transportTypes:TransportType[];
   surveillances:Person[];
-  supervisors:Person[];
+  responsibles:User[];
+
 
   submitted = false;
   actionBtn:String = "Crear";
@@ -48,7 +50,7 @@ export class CheckListCreateComponent implements OnInit {
     this.model.transporLine = new TransportLine();
     this.model.transportCapacity = new TransportCapacity();
     this.model.surveillance = new Person();
-    this.model.supervisor = new Person();
+    this.model.responsible = new User();
     this.transportCapacities = [];
    }
 
@@ -57,6 +59,7 @@ export class CheckListCreateComponent implements OnInit {
     this.getAllTransportLines();
     this.getAllTransportTypes();
     this.getAllPersons();
+    this.getResponsibles();
     this.setForm();
 
 
@@ -95,7 +98,7 @@ export class CheckListCreateComponent implements OnInit {
           transportCapacity:['',Validators.required],
           noSello:['',Validators.required],
           surveillance:['',Validators.required],
-          supervisor:['',Validators.required],
+          responsible:['',Validators.required],
           observation :['',Validators.required],
           noRampa :['',Validators.required],
       /*
@@ -226,11 +229,11 @@ export class CheckListCreateComponent implements OnInit {
         return p.profession.name == "Vigilancia";
       });
 
-      this.supervisors = data.filter(p =>{
+     /* this.supervisors = data.filter(p =>{
 
         return p.profession.name != "Vigilancia";
       });
-
+*/
     });
 
 
@@ -249,11 +252,21 @@ displayPropertySurveillance(value) {
   }
 }
 
-optionSelectedSupervisor(event:Person){
-  this.model.supervisor.id = event.id;
+
+getResponsibles(){
+  this.checkListService.getAllUsersIsResposible().subscribe(data =>{
+    this.responsibles = data
+  });
+
+
+
 }
 
-displayPropertySupervisor(value) {
+optionSelectedUser(event:Person){
+  this.model.responsible.id = event.id;
+}
+
+displayPropertyUser(value) {
 
   if (value) {
     return value.firstName;
