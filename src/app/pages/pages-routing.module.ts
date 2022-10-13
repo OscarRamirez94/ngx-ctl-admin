@@ -67,7 +67,11 @@ const routes: Routes = [{
       loadChildren: () => import('./check-list/check-list.module')
         .then(m => m.CheckListModule),
     },
-
+    {
+      path: 'users',
+      loadChildren: () => import('./users/users.module')
+        .then(m => m.UsersModule),
+    },
     {
       path: '',
       redirectTo: 'dashboard',

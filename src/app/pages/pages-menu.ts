@@ -45,8 +45,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Agregar',
 
-        icon:  'car-outline',
-        link:  '/pages/checklist/checklist-create',
+        icon: 'car-outline',
+        link: '/pages/checklist/checklist-create',
       },
 
 
@@ -64,28 +64,33 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
       {
         title: 'Linea de transporte',
-        icon:  'car-outline',
-        link:  '/pages/transport-lines/transport-lines',
+        icon: 'car-outline',
+        link: '/pages/transport-lines/transport-lines',
       },
       {
         title: 'Tipo de transporte',
-        icon:  'car-outline',
-        link:  '/pages/transport-types/transport-types',
+        icon: 'car-outline',
+        link: '/pages/transport-types/transport-types',
       },
       {
         title: 'Capacidad de transporte',
-        icon:  'bar-chart-2-outline',
-        link:  '/pages/transport-capacities/transport-capacities',
+        icon: 'bar-chart-2-outline',
+        link: '/pages/transport-capacities/transport-capacities',
       },
       {
         title: 'Personal',
-        icon:  'person-outline',
+        icon: 'person-outline',
         link: '/pages/persons/persons',
       },
       {
         title: 'Puesto',
-        icon:  'menu',
+        icon: 'menu',
         link: '/pages/professions/professions',
+      },
+      {
+        title: 'Usuarios',
+        icon: 'menu',
+        link: '/pages/users/users',
       },
 
     ],

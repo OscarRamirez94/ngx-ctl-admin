@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbComponentStatus, NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrConfig, NbToastrService } from '@nebular/theme';
 import { stringify } from 'querystring';
+import { Observable, Subject } from 'rxjs';
 import { Generic } from '../../../models/generic/generic';
 import { SearchCriteriaClient } from '../../../models/searchs/search-criteria-client';
 import { CommonService } from '../../../services/commons.service';
@@ -123,16 +124,19 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     }
   }
 
-  public crear(): void {
-
+  public crear(): Observable<Boolean> {
+    var subject = new Subject<boolean>();
     this.service.crear(this.model).subscribe(m => {
+      subject.next(true);
       console.log(m);
     }, err => {
       if(err.status === 400){
         this.error = err.error;
         console.log(this.error);
       }
+      subject.next(false);
     });
+    return subject.asObservable();
   }
 
   public editar(): void {

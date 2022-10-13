@@ -17,6 +17,7 @@ import { TransportTypesRoutingModule } from './transport-types/transport-types-r
 import { TransportCapacitiesRoutingModule } from './transport-capacities/transport-capacities-routing.module';
 import { PersonsRoutingModule } from './persons/persons-routing.module';
 import { CheckListRoutingModule } from './check-list/check-list-routing.module';
+import { UsersRoutingModule } from './users/users-routing.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { CheckListRoutingModule } from './check-list/check-list-routing.module';
     ClientsRoutingModule,
     AddressRoutingModule,
     ProfessionsRoutingModule,
+    UsersRoutingModule,
     PersonsRoutingModule,
     TransportLinesRoutingModule,
     TransportCapacitiesRoutingModule,
