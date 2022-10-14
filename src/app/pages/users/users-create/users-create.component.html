@@ -6,9 +6,7 @@
         nbSpinnerMessage="Cargando ...">
             <mat-card-title>Agregar Cliente</mat-card-title>
             <mat-card-content nb-card-body>
-                <!--mat dialog ok, ahora borra desde la bd el usuario que se creo por que el email es unico y dara error para 
-                    probar de nuevo, primero user_roles tu id, y luego tabla user el id va? en el s ivguienatlee  saig  rnegoa spongo otro usuario  
-                    si quires tengo otra cuenta, si o modifica el correo de la tabla  scontent-->
+                <!--mat dialog content-->
                 <mat-dialog-content>
 
                     <!-- grid -->
@@ -163,7 +161,7 @@
             <mat-card-actions align="end">
                 <mat-dialog-actions align="end">
                     <button mat-flat-button [mat-dialog-close]="false" color="warn">Cancelar</button>
-                    <button mat-flat-button color="primary" cdkFocusInitial>{{actionBtn}}</button>
+                    <button [disabled]="loading" mat-flat-button color="primary" cdkFocusInitial>{{actionBtn}}</button>
                 </mat-dialog-actions>
             </mat-card-actions>
             <!--end actions -->

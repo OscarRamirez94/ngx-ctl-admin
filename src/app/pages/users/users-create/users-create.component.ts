@@ -25,8 +25,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   roleList: string[] = ['ROLE_ADMIN', 'ROLE_USERS', 'ROLE_SUPER'];
   selectedOptions: string[] = [];
   loading = false;
-  //aqui copia lo que te pase y agregar este modulo, espera de acuerdo NbSpinnerModule, y modificar el html asi ahora te lo paso mientras add el module
-  
+
 
   constructor(
     service: UserPostService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
@@ -55,7 +54,6 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   onSubmit() {
 
     this.submitted = true;
-    // stop here if form is invalid, puedes probar con firerox? y a mimir de todos modos ya casi esta xD vale voy aprobar a firefox  hehe
 
     if (this.userForm.invalid) {
       return;
@@ -71,12 +69,11 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
           this.loading = false;
         }
       });
-     
-      //super.toast("success","Cliente creado con éxito");
+
     } else {
       this.editarClient();
     }
-    
+
   }
 
   onReset() {

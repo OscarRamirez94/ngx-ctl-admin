@@ -23,12 +23,11 @@ import { UsersDeleteComponent } from '../users-delete/users-delete.component';
 export class UsersMainComponent extends CommonListComponent<User, UserService> {
   name: string;
   titulo: string = "Usuarios";
-  displayedColumns: string[] = ['id', 'username', 'firstName', 'additionalName',  'isActive', 'actions'];
-  
- 
-  //Se inyectan  objetos erados por el padre
+  displayedColumns: string[] = ['id', 'firstName', 'additionalName',  'isActive', 'actions'];
+
+
+
   constructor(service: UserService, router: Router, route: ActivatedRoute, private dialog: MatDialog, toastrService: NbToastrService) {
-    //Super es el cnstructor  o el accdeso ala clase abstracta.
     super(service, router, route, toastrService);
   }
 
