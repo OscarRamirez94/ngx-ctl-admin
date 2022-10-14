@@ -18,7 +18,7 @@ export class CheckListMainComponent extends CommonListComponent<CheckList,CheckL
   titulo:string = "CheckList";
   displayedColumns: string[] = ['id','remision','date','hours','partner',
   'transportLine','transportType',
-  'noSello','surveillance','responsible','noRampa','actions' ];
+  'noSello','actions' ];
 
   constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService) {
