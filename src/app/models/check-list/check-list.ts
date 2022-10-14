@@ -7,14 +7,16 @@ import { TransportLine } from "../transport-line/transport-line";
 import { TransportCapacity } from "../transport_capacity/transport-capacity";
 import { User } from "../user/user";
 
-export class CheckList {
-    id:number;
+export class CheckList implements Generic{
+    id: number;
+    name: string;
+    search :string;
     remision: String;
     date: Date;
     hours :String;
     processType:ProcessType;
     partner: Client;
-    transporLine:TransportLine;
+    transportLine:TransportLine;
     operator : String;
     ecoTracto : String;
     tractoPlacas: String;
@@ -27,19 +29,4 @@ export class CheckList {
     observation: String;
     noRampa : String;
 
-   /*
-
-    hours:  String;
-
-    observation: String;
-
-
-
-
-    processType:ProcessType;
-    responsableOne:Person;
-    responsableTwo:Person;
-
-
-*/
 }

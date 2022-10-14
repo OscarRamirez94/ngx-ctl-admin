@@ -9,11 +9,12 @@ import { TransportCapacity } from '../../models/transport_capacity/transport-cap
 import { TransportType } from '../../models/transport_type/transport-type';
 import { User } from '../../models/user/user';
 import { AuthRoleService } from '../auth/auth-role.service';
+import { CommonService } from '../commons.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CheckListService {
+export class CheckListService extends CommonService<CheckList> {
   url = 'http://localhost:8081/microservice-ctl/check-list/';
   urlClient = 'http://localhost:8081/microservice-ctl/partner/';
   urlTransportLine = 'http://localhost:8081/microservice-ctl/transport-line/';
@@ -21,8 +22,10 @@ export class CheckListService {
   urlTransportType = 'http://localhost:8081/microservice-ctl/transport-type/';
   urlPersons = 'http://localhost:8081/microservice-ctl/person/';
   urlUsers = 'http://localhost:8081/microservice-ctl/users/';
- constructor(public http: HttpClient) {
- }
+
+  constructor(http: HttpClient) {
+    super(http);
+  }
 
 
  public crear(checkList: CheckList): Observable<any> {

@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { TransportLinesRoutingModule } from './transport-lines-routing.module';
 import { TransportLinesComponent } from './transport-lines.component';
 import { ThemeModule } from '../../@theme/theme.module';
@@ -31,7 +30,7 @@ import { TransportLineDeleteComponent } from './transport-line-delete/transport-
     TransportLinesComponent,
     TransportLineCreateComponent,
     TransportLineMainComponent,
-    TransportLineDeleteComponent
+    TransportLineDeleteComponent,
   ],
   imports: [
     CommonModule,

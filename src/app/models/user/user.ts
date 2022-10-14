@@ -17,8 +17,8 @@ export class User implements Generic  {
   isActive: boolean;
   search :string;
   roles:Role[];
-
-
+  profession:Profession;
+  isResponsible: boolean;
 
 
 
