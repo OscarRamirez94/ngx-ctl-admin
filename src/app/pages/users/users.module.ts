@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
 import { UsersMainComponent } from './users-main/users-main.component';
+import { UsersProfileComponent } from './users-profile/users-profile.component';
 import { UsersDeleteComponent } from './users-delete/users-delete.component';
 import { ThemeModule } from '../../@theme/theme.module';
 import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbUserModule } from '@nebular/theme';
@@ -34,7 +35,8 @@ import { MatSelectModule } from '@angular/material/select';
     UsersComponent,
     UsersMainComponent,
     UserCreateComponent,
-    UsersDeleteComponent
+    UsersDeleteComponent,
+    UsersProfileComponent
   ],
   imports: [
     CommonModule,
