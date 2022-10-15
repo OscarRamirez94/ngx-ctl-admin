@@ -78,6 +78,11 @@ const routes: Routes = [{
       pathMatch: 'full',
     },
     {
+      path: 'init',
+      loadChildren: () => import('./init/init.module')
+        .then(m => m.InitModule),
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },

@@ -36,12 +36,16 @@ registerLocaleData(localeEsMX, 'es-MX');
     HttpClientModule,
     AppRoutingModule,
     NbAuthModule,
+
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbDatepickerModule.forRoot(),
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
+
+
+
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),

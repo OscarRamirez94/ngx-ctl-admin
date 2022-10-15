@@ -12,6 +12,9 @@ import {
   NbSelectModule,
   NbIconModule,
   NbThemeModule,
+  NbBadgeModule,
+  NbCardModule,
+  NbButtonGroupModule,
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
@@ -38,6 +41,7 @@ import { DEFAULT_THEME } from './styles/theme.default';
 import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
+import { MatChipsModule } from '@angular/material/chips';
 
 const NB_MODULES = [
   NbLayoutModule,
@@ -52,6 +56,8 @@ const NB_MODULES = [
   NbSelectModule,
   NbIconModule,
   NbEvaIconsModule,
+  MatChipsModule,
+  NbButtonGroupModule
 ];
 const COMPONENTS = [
   HeaderComponent,

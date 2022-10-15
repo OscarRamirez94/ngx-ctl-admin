@@ -47,7 +47,7 @@ export abstract class CommonService<E extends Generic> {
     return this.http.get<any>(this.url.concat("all/search/",id), { params: params });
   }
   public ver(id: number): Observable<E> {
-    return this.http.get<E>(`${this.url}/${id}`);
+    return this.http.get<E>(this.url+id);
   }
 
   public crear(e: E): Observable<E> {

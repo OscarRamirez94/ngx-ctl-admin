@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
 import { UserData } from '../../../@core/data/users';
@@ -6,6 +6,9 @@ import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
+import { ClientService } from '../../../services/client/client.service';
+import { Client } from '../../../models/client';
+import { HeadService } from '../../../services/head/head.service';
 
 @Component({
   selector: 'ngx-header',
@@ -17,7 +20,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
-
+  clients:Client[];
+  client: Client;
+  clientName:string;
   themes = [
     {
       value: 'default',
@@ -39,6 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ];
 
   currentTheme = 'default';
+  currentClient :string;
 
   userMenu = [ { title: 'Mi Perfil', link: '/pages/users/users-profile' }, { title: 'Cerrar Sesión',link: '/auth/logout'  } ];
 
@@ -48,22 +54,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private userService: UserData,
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService,
-              private authService: NbAuthService ) {
+              private authService: NbAuthService,
+              private clientService:ClientService,
+              private headService:HeadService ) {
 
                 this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
-        console.log("aa" +token.getName())
+
         if (token.isValid()) {
 
-          this.user = "Bienvenido " + token.getPayload()['firstName']; // here we receive a payload from the token and assigns it to our `user` variable
+          this.user = "Bienvenido " + token.getPayload()['firstName']
         }
 
       });
   }
 
   ngOnInit() {
-    this.currentTheme = this.themeService.currentTheme;
 
+    this.currentTheme = this.themeService.currentTheme;
+    this.currentClient = this.getClientLs();
+
+    this.getAllClients();
    /* this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
       .subscribe((users: any) => this.user = users.nick);
@@ -94,6 +105,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.themeService.changeTheme(themeName);
   }
 
+  changeClient(client: any) {
+
+    this.headService.saveClientLS(client);
+    this.headService.disparadorClient.emit(client);
+    this.currentClient = client
+  }
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
     this.layoutService.changeLayoutSize();
@@ -109,4 +126,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   logout() {
     return false;
   }
+
+  getAllClients(){
+    this.clientService.getAll().subscribe(data =>{
+      this.clients = data as Client[];
+    })
+  }
+  getClientLs():string{
+    return this.headService.getClientLS();
+  }
+
+
 }

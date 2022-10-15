@@ -3,12 +3,19 @@
     <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
       <nb-icon icon="menu-2-outline"></nb-icon>
     </a>
-    <a class="logo" href="#" (click)="navigateHome()"><span>APILMAC</span></a>
+    <a class="logo" href="#" (click)="navigateHome()"><span>APILMAC</span>
+    </a>
+
   </div>
+<!--
   <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">
     <nb-option *ngFor="let theme of themes" [value]="theme.value"> {{ theme.name }}</nb-option>
 
   </nb-select>
+-->
+
+
+
 </div>
 
 <div class="header-container">
@@ -17,14 +24,34 @@
     <nb-action class="control-item">
       <nb-search type="rotate-layout"></nb-search>
     </nb-action>
-    <nb-action class="control-item" icon="email-outline"></nb-action>
-    <nb-action class="control-item" icon="bell-outline"></nb-action>
+
+
+    <nb-action class="user-action">
+      <nb-select [selected]="currentClient" (selectedChange)="changeClient($event)" status="primary">
+      <nb-option *ngFor="let client of clients" [value]="client.name"> {{ client.name }}</nb-option>
+    </nb-select>
+    <nb-action class="user-action" *ngIf="currentClient">
+
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip color="primary" selected>Cliente Seleccionado : {{currentClient}}</mat-chip>
+      </mat-chip-list>
+
+    </nb-action>
+    <nb-action class="user-action" *ngIf="!currentClient">
+      <mat-chip-list aria-label="Fish selection">
+        <mat-chip color="accent" selected>Selecciona Un Cliente </mat-chip>
+      </mat-chip-list>
+    </nb-action>
+  </nb-action>
     <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
                [name]="user"
                [picture]="user">
       </nb-user>
+
+
     </nb-action>
   </nb-actions>
+
 </div>
