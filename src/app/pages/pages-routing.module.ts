@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from '../guards/auth-guard.service';
 import { RoleGuard } from '../guards/role.guard';
+import { HeadClientGuard } from '../guards/head-client.guard';
 
 
 
@@ -62,7 +63,7 @@ const routes: Routes = [{
     },
     {
       path: 'checklist',
-      canActivate: [RoleGuard],
+      canActivate: [RoleGuard,HeadClientGuard],
       data: { role: 'ROLE_ADMIN' },
       loadChildren: () => import('./check-list/check-list.module')
         .then(m => m.CheckListModule),
@@ -79,6 +80,7 @@ const routes: Routes = [{
     },
     {
       path: 'init',
+
       loadChildren: () => import('./init/init.module')
         .then(m => m.InitModule),
     },
