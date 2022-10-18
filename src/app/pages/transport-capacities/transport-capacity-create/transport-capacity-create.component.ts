@@ -6,6 +6,7 @@ import { NbToastrService } from '@nebular/theme';
 import { TransportTypeI } from '../../../interfaces/transport-type-i';
 import { TransportCapacity } from '../../../models/transport_capacity/transport-capacity';
 import { TransportType } from '../../../models/transport_type/transport-type';
+import { HeadService } from '../../../services/head/head.service';
 import { TransportCapacityService } from '../../../services/transport-capacity/transport-capacity.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -26,9 +27,10 @@ export class TransportCapacityCreateComponent extends CommonListComponent<Transp
   constructor(
     service: TransportCapacityService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<TransportCapacityCreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.titulo = 'Agregar Capcidad de Transporte';
     this.model = new TransportCapacity();
     this.model.transportType = new TransportType();

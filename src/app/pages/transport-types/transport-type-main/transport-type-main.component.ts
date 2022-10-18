@@ -4,6 +4,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { TransportType } from '../../../models/transport_type/transport-type';
+import { HeadService } from '../../../services/head/head.service';
 import { TransportTypeService } from '../../../services/transport-type/transport-type.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { TransportCapacityCreateComponent } from '../../transport-capacities/transport-capacity-create/transport-capacity-create.component';
@@ -28,9 +29,10 @@ export class TransportTypeMainComponent extends CommonListComponent<TransportTyp
 
   displayedColumns: string[] = ['id', 'name', 'isActive','capacities', 'actions'];
   constructor(service: TransportTypeService, router: Router, route: ActivatedRoute,
-    private dialog: MatDialog, toastrService: NbToastrService) {
+    private dialog: MatDialog, toastrService: NbToastrService,
+    headService:HeadService) {
 
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
   }
 
   openDialog(): void {

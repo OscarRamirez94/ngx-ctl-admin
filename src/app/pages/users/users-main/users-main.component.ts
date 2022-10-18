@@ -4,6 +4,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { User } from '../../../models/user/user';
+import { HeadService } from '../../../services/head/head.service';
 import { UserService } from '../../../services/user/user.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { UserCreateComponent } from '../users-create/users-create.component';
@@ -27,8 +28,10 @@ export class UsersMainComponent extends CommonListComponent<User, UserService> {
 
 
 
-  constructor(service: UserService, router: Router, route: ActivatedRoute, private dialog: MatDialog, toastrService: NbToastrService) {
-    super(service, router, route, toastrService);
+  constructor(service: UserService, router: Router, route: ActivatedRoute,
+    private dialog: MatDialog, toastrService: NbToastrService,
+    headService:HeadService) {
+    super(service, router, route, toastrService,headService);
   }
 
   openDialog(): void {

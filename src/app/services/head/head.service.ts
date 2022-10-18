@@ -7,7 +7,7 @@ import { Client } from '../../models/client';
 })
 export class HeadService {
 
-  @Output() disparadorClient : EventEmitter<number> = new EventEmitter();
+  @Output() disparadorClient : EventEmitter<string> = new EventEmitter();
   constructor() { }
 
   saveClientLS(clientName:any){

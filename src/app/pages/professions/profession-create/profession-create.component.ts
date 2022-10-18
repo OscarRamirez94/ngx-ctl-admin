@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Profession } from '../../../models/profession/profession';
+import { HeadService } from '../../../services/head/head.service';
 import { ProfessionService } from '../../../services/profession/profession.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -22,9 +23,10 @@ export class ProfessionCreateComponent extends CommonListComponent<Profession, P
     service: ProfessionService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<ProfessionCreateComponent>,
     //Es para inyectar data de  un modelo a  un dialogo
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.titulo = 'Agregar Profesion';
     this.model = new Profession();
     this.redirect = '';

@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { TransportLine } from '../../../models/transport-line/transport-line';
+import { HeadService } from '../../../services/head/head.service';
 import { TransportLineService } from '../../../services/transport-line/transport-line.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -19,9 +20,10 @@ export class TransportLineDeleteComponent extends CommonListComponent<TransportL
   constructor(
     service: TransportLineService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private dialogRef: MatDialogRef<TransportLineDeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.titulo = 'Eliminar Linea de Transporte';
     this.model = new TransportLine();
     this.redirect = '';

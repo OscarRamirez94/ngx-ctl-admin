@@ -6,6 +6,7 @@ import { NbToastrService } from '@nebular/theme';
 import { Professionl } from '../../../interfaces/profession-i';
 import { Profession } from '../../../models/profession/profession';
 import { UserPost } from '../../../models/user/user-post';
+import { HeadService } from '../../../services/head/head.service';
 import { UserPostService } from '../../../services/user/user-post.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -29,9 +30,10 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
 
   constructor(
     service: UserPostService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.model = new UserPost();
     this.model.profession = new Profession();
     this.titulo = 'Mi perfil';

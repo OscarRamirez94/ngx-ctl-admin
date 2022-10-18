@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { TransportCapacity } from '../../../models/transport_capacity/transport-capacity';
+import { HeadService } from '../../../services/head/head.service';
 import { TransportCapacityService } from '../../../services/transport-capacity/transport-capacity.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -19,9 +20,10 @@ export class TransportCapacityDeleteComponent extends CommonListComponent<Transp
   constructor(
     service: TransportCapacityService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private dialogRef: MatDialogRef<TransportCapacityDeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.titulo = 'Eliminar Capacidad de Transporte';
     this.model = new TransportCapacity();
     this.redirect = '';

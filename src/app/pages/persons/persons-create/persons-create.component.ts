@@ -6,6 +6,7 @@ import { NbToastrService } from '@nebular/theme';
 import { Professionl } from '../../../interfaces/profession-i';
 import { Person } from '../../../models/person/person';
 import { Profession } from '../../../models/profession/profession';
+import { HeadService } from '../../../services/head/head.service';
 import { PersonService } from '../../../services/person/person.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -28,9 +29,10 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
   constructor(
     service: PersonService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<PersonsCreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.titulo = 'Agregar Clients';
     this.model = new Person();
     this.model.profession = new Profession();

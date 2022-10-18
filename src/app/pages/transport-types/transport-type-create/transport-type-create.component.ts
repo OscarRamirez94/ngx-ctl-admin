@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { TransportType } from '../../../models/transport_type/transport-type';
+import { HeadService } from '../../../services/head/head.service';
 import { TransportTypeService } from '../../../services/transport-type/transport-type.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -22,9 +23,10 @@ export class TransportTypeCreateComponent extends CommonListComponent<TransportT
   constructor(
     service: TransportTypeService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<TransportTypeCreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.titulo = 'Agregar Tipo de Transporte';
     this.model = new TransportType();
     this.redirect = '';

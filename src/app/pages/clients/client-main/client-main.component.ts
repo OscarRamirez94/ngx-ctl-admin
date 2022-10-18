@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Client } from '../../../models/client';
 import { ClientService } from '../../../services/client/client.service';
+import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { ClientCreateComponent } from '../client-create/client-create.component';
 import { ClientDeleteComponent } from '../client-delete/client-delete.component';
@@ -24,8 +25,10 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
   titulo:string = "Clientes";
   displayedColumns: string[] = ['id', 'name','direccion','isActive','actions'];
 
-  constructor( service:ClientService,router: Router,route: ActivatedRoute,private dialog: MatDialog,toastrService: NbToastrService) {
-    super(service,router, route,toastrService);
+  constructor( service:ClientService,router: Router,route: ActivatedRoute,
+    private dialog: MatDialog,toastrService: NbToastrService,
+    headService:HeadService) {
+    super(service,router, route,toastrService,headService);
   }
 
   openDialog(): void {

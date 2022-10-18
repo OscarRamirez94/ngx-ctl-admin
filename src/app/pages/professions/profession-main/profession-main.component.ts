@@ -4,6 +4,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Profession } from '../../../models/profession/profession';
+import { HeadService } from '../../../services/head/head.service';
 import { ProfessionService } from '../../../services/profession/profession.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { ProfessionCreateComponent } from '../profession-create/profession-create.component';
@@ -30,9 +31,11 @@ export class ProfessionMainComponent extends CommonListComponent<Profession, Pro
   titulo: string = "Profesiones";
   displayedColumns: string[] = ['id', 'name', 'isActive', 'actions'];
   //Se inyectan  objetos erados por el padre
-  constructor(service: ProfessionService, router: Router, route: ActivatedRoute, private dialog: MatDialog, toastrService: NbToastrService) {
+  constructor(service: ProfessionService, router: Router, route: ActivatedRoute,
+    private dialog: MatDialog, toastrService: NbToastrService,
+    headService:HeadService) {
     //Super es el cnstructor  o el accdeso ala clase abstracta.
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
   }
 
   openDialog(): void {

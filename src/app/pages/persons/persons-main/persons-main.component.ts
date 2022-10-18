@@ -4,6 +4,7 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Person } from '../../../models/person/person';
+import { HeadService } from '../../../services/head/head.service';
 import { PersonService } from '../../../services/person/person.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { PersonsCreateComponent } from '../persons-create/persons-create.component';
@@ -22,8 +23,9 @@ export class PersonsMainComponent extends CommonListComponent<Person, PersonServ
   name: string;
   titulo: string = "Personas";
   displayedColumns: string[] = ['id', 'firstName', 'additionalName', 'lastName', 'secondName', 'isActive', 'actions'];
-  constructor(service: PersonService, router: Router, route: ActivatedRoute, private dialog: MatDialog, toastrService: NbToastrService) {
-    super(service, router, route, toastrService);
+  constructor(service: PersonService, router: Router, route: ActivatedRoute,
+    private dialog: MatDialog, toastrService: NbToastrService,headService:HeadService) {
+    super(service, router, route, toastrService,headService);
   }
 
   openDialog(): void {

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { CheckList } from '../../../models/check-list/check-list';
 import { CheckListService } from '../../../services/check-list/check-list.service';
+import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { CheckListCreateComponent } from '../check-list-create/check-list-create.component';
 
@@ -21,8 +22,9 @@ export class CheckListMainComponent extends CommonListComponent<CheckList,CheckL
   'noSello','actions' ];
 
   constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
-    toastrService: NbToastrService) {
-    super(service,router, route,toastrService);
+    toastrService: NbToastrService,
+    headService:HeadService) {
+    super(service,router, route,toastrService,headService);
   }
 
   openDialog(): void {

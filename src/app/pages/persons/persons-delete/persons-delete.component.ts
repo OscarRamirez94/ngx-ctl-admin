@@ -3,6 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { Person } from '../../../models/person/person';
+import { HeadService } from '../../../services/head/head.service';
 import { PersonService } from '../../../services/person/person.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -19,9 +20,10 @@ export class PersonsDeleteComponent  extends CommonListComponent<Person, PersonS
   constructor(
     service: PersonService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private dialogRef: MatDialogRef<PersonsDeleteComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.titulo = 'Agregar profesion';
     this.model = new Person();
     this.redirect = '';

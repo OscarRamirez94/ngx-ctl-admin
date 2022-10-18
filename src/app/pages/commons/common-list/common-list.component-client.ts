@@ -12,7 +12,7 @@ import { CommonService } from '../../../services/commons.service';
 import { HeadService } from '../../../services/head/head.service';
 
 @Directive()
-export abstract class CommonListComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
+export abstract class CommonListClientComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
 
   @ViewChild(MatPaginator)
    paginator :MatPaginator;
@@ -25,7 +25,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   error: any;
   protected redirect: string;
   protected nombreModel: string;
-
+  loading :boolean = false;
 
   sortedData: Object[];
   // config pagination
@@ -38,6 +38,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   ariaLabel="Select page";
   filterValue ="";
   lista: E[];
+  clientName:string = this.headService.getClientLS();
   dataSource: MatTableDataSource<E>;
 
 
@@ -51,7 +52,13 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   ngOnInit(): void {
-   this.calculateRange();
+
+  this.calculateRange(this.clientName);
+
+   this.headService.disparadorClient.subscribe(data =>{
+    this.clientName =  data;
+    this.calculateRange(this.clientName);
+   })
   }
 
   ngAfterViewInit() {
@@ -63,11 +70,11 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   paginar(event:PageEvent) :void{
     this.paginaActual = event.pageIndex;
     this.totalPorPagina = event.pageSize;
-    this.calculateRange();
+    this.calculateRange(this.clientName);
   }
 
-  public calculateRange(){
-
+  public calculateRange(clientName:string){
+    this.loading = true;
     const search: SearchCriteriaClient = new SearchCriteriaClient();
     search.pageNumber = this.paginaActual;
     search.pageSize = this.totalPorPagina;
@@ -76,7 +83,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     search.sortDirection =this.orderBy;
 
 
-    this.service.getFilterCriteria(search)
+    this.service.getFilterCriteriaClient(search,this.clientName)
     .subscribe(paginator => {
       console.log(paginator.totalElements)
       this.lista = paginator.content as E[];
@@ -84,7 +91,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
       console.log(this.dataSource.data);
-
+      this.loading = false;
 
     });
   }
@@ -93,10 +100,10 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     const fil:string  = (event.target as HTMLInputElement).value;
     if(fil !==null && fil !== ''){
         this.filterValue = fil;
-        this.calculateRange();
+        this.calculateRange(this.clientName);
     } else{
         this.filterValue ="";
-        this.calculateRange();
+        this.calculateRange(this.clientName);
     }
 
     if (this.dataSource.paginator) {
@@ -107,7 +114,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
 
   sortData(sort: Sort) {
     if (!sort.active || sort.direction === '') {
-      this.calculateRange();
+      this.calculateRange(this.clientName);
     } else {
 
       if (sort.direction == "asc"){
@@ -124,7 +131,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
 
       this.column = sort.active;
 
-    this.calculateRange();
+    this.calculateRange(this.clientName);
     }
   }
 

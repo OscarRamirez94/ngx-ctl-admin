@@ -3,28 +3,34 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { Client } from '../../../models/client';
 import { TransportLine } from '../../../models/transport-line/transport-line';
+import { HeadService } from '../../../services/head/head.service';
 import { TransportLineService } from '../../../services/transport-line/transport-line.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
+import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
 
 @Component({
   selector: 'ngx-transport-line-create',
   templateUrl: './transport-line-create.component.html',
   styleUrls: ['./transport-line-create.component.scss']
 })
-export class TransportLineCreateComponent extends CommonListComponent<TransportLine, TransportLineService> implements OnInit {
+export class TransportLineCreateComponent extends CommonListClientComponent<TransportLine, TransportLineService> implements OnInit {
   transportLineForm !: FormGroup;
   submitted = false;
   actionBtn: String = "Crear";
   isChecked;
+
   constructor(
     service: TransportLineService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<TransportLineCreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData: any
+    @Inject(MAT_DIALOG_DATA) public editData: any,
+    headService:HeadService
   ) {
-    super(service, router, route, toastrService);
+    super(service, router, route, toastrService,headService);
     this.titulo = 'Agregar Linea de Transporte';
     this.model = new TransportLine();
+    this.model.partner = new Client();
     this.redirect = '';
     this.nombreModel = "Linea de transporte";
   }
@@ -85,7 +91,10 @@ export class TransportLineCreateComponent extends CommonListComponent<TransportL
   }
 
   modelTransportLine(transportLineForm: any) {
+    this.model.partner.name = this.headService.getClientLS();
     this.model.name = transportLineForm.get('name').value;
     this.model.isActive = transportLineForm.get('isActive').value;
+    console.log("super", this.model.partner.name)
+
   }
 }

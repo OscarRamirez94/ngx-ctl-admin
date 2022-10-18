@@ -14,6 +14,7 @@ import { TransportType } from '../../../models/transport_type/transport-type';
 import { User } from '../../../models/user/user';
 import { AuthRoleService } from '../../../services/auth/auth-role.service';
 import { CheckListService } from '../../../services/check-list/check-list.service';
+import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
 
@@ -49,9 +50,10 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     private formBuilder:FormBuilder,
     private authRoleService:AuthRoleService,
     private  dialogRef: MatDialogRef<CheckListCreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData:any
+    @Inject(MAT_DIALOG_DATA) public editData:any,
+    headService:HeadService
     ) {
-      super(service, router, route,toastrService);
+      super(service, router, route,toastrService,headService);
       this.model = new CheckList();
     this.model.partner = new Client();
     this.model.transportLine = new TransportLine();
