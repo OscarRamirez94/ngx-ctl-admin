@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { NbGlobalPosition, NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService, NbToastrService } from '@nebular/theme';
 
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   clients:Client[];
   client: Client;
   clientName:string;
+  position: NbGlobalPosition
   themes = [
     {
       value: 'default',
@@ -56,7 +57,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private breakpointService: NbMediaBreakpointsService,
               private authService: NbAuthService,
               private clientService:ClientService,
-              private headService:HeadService ) {
+              private headService:HeadService,
+              private toastrService: NbToastrService ) {
 
                 this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
@@ -109,7 +111,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.headService.saveClientLS(client);
     this.headService.disparadorClient.emit(client);
-    this.currentClient = client
+    //this.currentClient = client
+    this.toastrService.primary("Trabajando con : " + client ,"Cliente seleccionado");
+
   }
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
