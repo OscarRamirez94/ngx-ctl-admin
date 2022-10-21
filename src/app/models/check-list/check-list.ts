@@ -6,6 +6,7 @@ import { Person } from "../person/person";
 import { TransportLine } from "../transport-line/transport-line";
 import { TransportCapacity } from "../transport_capacity/transport-capacity";
 import { User } from "../user/user";
+import { Pallet } from "../pallet/pallet";
 
 export class CheckList implements Generic{
     id: number;
@@ -28,5 +29,5 @@ export class CheckList implements Generic{
     responsible: User;
     observation: String;
     noRampa : String;
-
+    pallets: Pallet[];
 }

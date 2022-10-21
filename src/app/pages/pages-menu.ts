@@ -48,7 +48,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'car-outline',
         link: '/pages/checklist/checklist-create',
       },
+      {
+        title: 'Pallet',
 
+        icon: 'car-outline',
+        link: '/pages/checklist/pallet-main',
+      },
 
 
     ],

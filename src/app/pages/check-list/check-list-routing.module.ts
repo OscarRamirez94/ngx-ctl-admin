@@ -4,6 +4,7 @@ import { AuthGuard } from '../../guards/auth-guard.service';
 import { CheckListCreateComponent } from './check-list-create/check-list-create.component';
 import { CheckListMainComponent } from './check-list-main/check-list-main.component';
 import { CheckListComponent } from './check-list.component';
+import { PalletMainComponent } from './pallet/pallet-main/pallet-main.component';
 
 const routes: Routes = [
   {
@@ -18,6 +19,10 @@ const routes: Routes = [
       {
         path: 'checklist-create',
         component: CheckListCreateComponent,
+      },
+      {
+        path: 'pallet-main/:id',
+        component: PalletMainComponent
       }
 
     ],

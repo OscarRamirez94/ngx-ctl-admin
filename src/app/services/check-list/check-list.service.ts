@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CheckList } from '../../models/check-list/check-list';
 import { Client } from '../../models/client';
+import { PalletSave } from '../../models/pallet/pallet-save';
 import { Person } from '../../models/person/person';
 import { TransportLine } from '../../models/transport-line/transport-line';
 import { TransportCapacity } from '../../models/transport_capacity/transport-capacity';
@@ -22,7 +23,7 @@ export class CheckListService extends CommonService<CheckList> {
   urlTransportType = 'http://localhost:8081/microservice-ctl/transport-type/';
   urlPersons = 'http://localhost:8081/microservice-ctl/person/';
   urlUsers = 'http://localhost:8081/microservice-ctl/users/';
-
+  urlPallet = 'http://localhost:8081/microservice-ctl/pallet/';
   constructor(http: HttpClient) {
     super(http);
   }
@@ -54,6 +55,15 @@ getAllPersons(): Observable<Person[]> {
 }
 getAllUsersIsResposible(): Observable<User[]> {
   return this.http.get<User[]>(this.urlUsers.concat("all/isResponsible"));
+}
+getById(id:any):Observable<CheckList>{
+  return this.http.get<CheckList>(this.url.concat(id));
+}
+
+
+public savePallets(palletSave:PalletSave): Observable<any> {
+  console.log("service",palletSave)
+  return this.http.post<any>(this.urlPallet, palletSave);
 }
 
 }

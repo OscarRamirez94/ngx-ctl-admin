@@ -3,10 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { CheckList } from '../../../models/check-list/check-list';
+import { Pallet } from '../../../models/pallet/pallet';
 import { CheckListService } from '../../../services/check-list/check-list.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { CheckListCreateComponent } from '../check-list-create/check-list-create.component';
+import { PalletMainComponent } from '../pallet/pallet-main/pallet-main.component';
 
 @Component({
   selector: 'ngx-check-list-main',
@@ -17,9 +19,9 @@ export class CheckListMainComponent extends CommonListComponent<CheckList,CheckL
 
   name: string;
   titulo:string = "CheckList";
-  displayedColumns: string[] = ['id','remision','date','hours','partner',
+  displayedColumns: string[] = ['id','remision','date','hours',
   'transportLine','transportType',
-  'noSello','actions' ];
+  'noSello','pallets','actions' ];
 
   constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,
@@ -37,7 +39,9 @@ export class CheckListMainComponent extends CommonListComponent<CheckList,CheckL
       });
   }
 
-
+  addPallet(element:CheckList): void {
+    this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
+  }
 
   editarClient(element:any){
     this.dialog.open(CheckListCreateComponent,{

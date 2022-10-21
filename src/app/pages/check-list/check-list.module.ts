@@ -33,11 +33,15 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatDividerModule} from '@angular/material/divider';
+import { PalletMainComponent } from './pallet/pallet-main/pallet-main.component';
+import {MatListModule} from '@angular/material/list';
+
 @NgModule({
   declarations: [
     CheckListComponent,
     CheckListMainComponent,
-    CheckListCreateComponent
+    CheckListCreateComponent,
+    PalletMainComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +75,8 @@ import {MatDividerModule} from '@angular/material/divider';
     MatNativeDateModule,
     MatTooltipModule,
     MatAutocompleteModule,
-    MatDividerModule
+    MatDividerModule,
+    MatListModule
   ]
 })
 export class CheckListModule { }
