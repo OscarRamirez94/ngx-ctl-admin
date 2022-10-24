@@ -20,7 +20,7 @@ export class TransportLineCreateComponent extends CommonListClientComponent<Tran
   submitted = false;
   actionBtn: String = "Crear";
   isChecked;
-
+  clientHead;
   constructor(
     service: TransportLineService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<TransportLineCreateComponent>,
@@ -36,6 +36,7 @@ export class TransportLineCreateComponent extends CommonListClientComponent<Tran
   }
 
   ngOnInit(): void {
+    this.clientHead =  this.headService.getClientLS();
     this.setForm();
     this.rejectForm(this.editData);
     super.paginator;

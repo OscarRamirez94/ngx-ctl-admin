@@ -22,7 +22,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Telefono</mat-label>
               <input matInput   formControlName="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" placeholder="Digita Telefono">
-              <mat-error *ngIf="submitted && f.name.errors" >Telefono Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.phone.errors" >Telefono Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -31,7 +31,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Atención</mat-label>
               <input matInput   formControlName="attention" [ngClass]="{ 'is-invalid': submitted && f.attention.errors }" placeholder="Digita Atención">
-              <mat-error *ngIf="submitted && f.name.errors" >Atención Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.attention.errors" >Atención Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -42,7 +42,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Calle</mat-label>
               <input matInput  formControlName="text" [ngClass]="{ 'is-invalid': submitted && f.text.errors }" placeholder="Digita Calle">
-              <mat-error *ngIf="submitted && f.name.errors" >Calle Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.text.errors" >Calle Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -51,7 +51,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Colonia</mat-label>
               <input matInput    formControlName="colonia" [ngClass]="{ 'is-invalid': submitted && f.colonia.errors }" placeholder="Digita Colonia">
-              <mat-error *ngIf="submitted && f.name.errors" >Colonia Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.colonia.errors" >Colonia Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -63,7 +63,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Municipio</mat-label>
               <input matInput  formControlName="district" [ngClass]="{ 'is-invalid': submitted && f.district.errors }" placeholder="Digita Municipio">
-              <mat-error *ngIf="submitted && f.name.errors" >Municipio Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.district.errors" >Municipio Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -72,7 +72,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Estado</mat-label>
               <input matInput   formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" placeholder="Digita Estado">
-              <mat-error *ngIf="submitted && f.name.errors" >Estado Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.state.errors" >Estado Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -81,7 +81,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Ciudad</mat-label>
               <input matInput  formControlName="city" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" placeholder="Digita Codigo Postal">
-              <mat-error *ngIf="submitted && f.name.errors" >Ciudad Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.city.errors" >Ciudad Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -93,7 +93,7 @@
             <mat-form-field appearance="legacy">
               <mat-label>Codigo Postal</mat-label>
               <input matInput   formControlName="postalCode" [ngClass]="{ 'is-invalid': submitted && f.postalCode.errors }" placeholder="Digita Codigo Postal">
-              <mat-error *ngIf="submitted && f.name.errors" >Codigo Postal Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.postalCode.errors" >Codigo Postal Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -102,21 +102,21 @@
             <mat-form-field appearance="legacy">
               <mat-label>Pais</mat-label>
               <input matInput  formControlName="country" [ngClass]="{ 'is-invalid': submitted && f.country.errors }" placeholder="Digita Pais">
-              <mat-error *ngIf="submitted && f.name.errors" >Pais Requerio</mat-error>
+              <mat-error *ngIf="submitted && f.country.errors" >Pais Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>
 
         <div class="col-sm-4">
           <div class="form-group">
-            <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
-              <mat-label>Activo</mat-label>
+            <mat-form-field #field floatLabel="always" appearance="legacy" >
+              <mat-label>Estatus</mat-label>
               <input matInput hidden formControlName="isActive">
               <mat-radio-group  class="flex-wrap" formControlName="isActive" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
                 <mat-radio-button  class="radio-button" [value]="true"  [checked]="isChecked===true">Activo</mat-radio-button>
                 <mat-radio-button  class="radio-button" [value]="false" [checked]="isChecked===false">Inactivo</mat-radio-button>
               </mat-radio-group>
-              <mat-error>Campo Requerio</mat-error>
+              <mat-error>Estatus Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>

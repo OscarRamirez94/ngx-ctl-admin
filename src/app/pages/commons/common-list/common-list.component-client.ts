@@ -38,7 +38,7 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
   ariaLabel="Select page";
   filterValue ="";
   lista: E[];
-  clientName:string = this.headService.getClientLS();
+  clientName:string;
   dataSource: MatTableDataSource<E>;
 
 
@@ -53,9 +53,10 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
 
   ngOnInit(): void {
 
+  this.clientName =  this.headService.getClientLS();
   this.calculateRange(this.clientName);
 
-   this.headService.disparadorClient.subscribe(data =>{
+  this.headService.disparadorClient.subscribe(data =>{
     this.clientName =  data;
     this.calculateRange(this.clientName);
    })
@@ -83,7 +84,7 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
     search.sortDirection =this.orderBy;
 
 
-    this.service.getFilterCriteriaClient(search,this.clientName)
+    this.service.getFilterCriteriaClient(search,clientName)
     .subscribe(paginator => {
       console.log(paginator.totalElements)
       this.lista = paginator.content as E[];
@@ -94,6 +95,8 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
       this.loading = false;
 
     });
+
+
   }
 
   applyFilter(event: Event) {
