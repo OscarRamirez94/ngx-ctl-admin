@@ -1,7 +1,7 @@
 <section>
   <form [formGroup]="transportLineForm" (ngSubmit)="onSubmit()">
   <mat-card >
-    <mat-card-title>{{titulo}} {{clientHead}}</mat-card-title>
+    <mat-card-title>{{titulo}}</mat-card-title>
     <mat-card-content>
       <!--mat dialog content-->
       <mat-dialog-content >
@@ -12,7 +12,7 @@
         <div class="col-sm-12">
           <div class="form-group">
             <mat-form-field appearance="legacy">
-              <mat-label>{{titulo}}</mat-label>
+              <mat-label>Linea de transporte</mat-label>
               <input matInput  formControlName="name" placeholder="Digita linea de transporte" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
               <mat-error *ngIf="submitted && f.name.errors" >Campo Requerido</mat-error>
             </mat-form-field>
@@ -24,7 +24,7 @@
         <div class="col-sm-12">
           <div class="form-group">
             <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
-              <mat-label>Activo</mat-label>
+              <mat-label>Estatus</mat-label>
               <input matInput hidden formControlName="isActive">
               <mat-radio-group  class="flex-wrap" formControlName="isActive" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
                 <mat-radio-button  class="radio-button" [value]="true"  [checked]="isChecked===true">Activo</mat-radio-button>
