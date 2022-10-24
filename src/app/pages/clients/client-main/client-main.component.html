@@ -1,5 +1,5 @@
 <div class="col-md-12">
-  <nb-card>
+  <nb-card accent="primary">
     <nb-card-header>Clientes </nb-card-header>
     <nb-card-body>
       <section>
@@ -15,7 +15,7 @@
         </mat-form-field>
         <!-- end filter -->
         <div class="mat-elevation-z8">
-          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+          <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" >
             <!-- Name Column -->
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header > CLIENTE </th>

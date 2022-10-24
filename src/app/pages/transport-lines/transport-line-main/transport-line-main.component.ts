@@ -25,8 +25,8 @@ implements OnInit  {
 
   name: string;
   titulo: string = "Lineas de Transporte";
-  displayedColumns: string[] = ['id', 'name', 'isActive','client', 'actions'];
-
+  displayedColumns: string[] = ['name', 'isActive', 'actions'];
+  clientName =  this.headService.getClientLS();
   constructor(service: TransportLineService, router: Router, route: ActivatedRoute,
      private dialog: MatDialog, toastrService: NbToastrService,
      headService:HeadService) {
@@ -41,7 +41,7 @@ implements OnInit  {
     }).afterClosed().subscribe(data => {
 
       if (data) {
-        super.calculateRange(super.clientName);
+        super.calculateRange(this.clientName);
       }
     });
   }
@@ -54,7 +54,7 @@ implements OnInit  {
 
     }).afterClosed().subscribe(data => {
       if (data) {
-        super.calculateRange(super.clientName);
+        super.calculateRange(this.clientName);
       }
     })
   }
@@ -65,7 +65,7 @@ implements OnInit  {
       data: element
     }).afterClosed().subscribe(data => {
       if (data) {
-        super.calculateRange(super.clientName);
+        super.calculateRange(this.clientName);
       }
     })
   }

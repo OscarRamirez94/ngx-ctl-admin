@@ -54,7 +54,7 @@ export class TransportLineCreateComponent extends CommonListClientComponent<Tran
       this.modelTransportLine(this.transportLineForm);
       super.crear();
       this.onReset();
-      super.toast("success", "Profesion creada con éxito");
+      super.toast("success", "Lineade transporte creada con éxito");
     } else {
       this.editarTransportLine();
     }
