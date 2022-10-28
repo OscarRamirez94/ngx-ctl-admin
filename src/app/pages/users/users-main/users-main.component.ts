@@ -24,7 +24,7 @@ import { UsersDeleteComponent } from '../users-delete/users-delete.component';
 export class UsersMainComponent extends CommonListComponent<User, UserService> {
   name: string;
   titulo: string = "Usuarios";
-  displayedColumns: string[] = ['id', 'firstName', 'additionalName',  'isActive', 'actions'];
+  displayedColumns: string[] = ['id', 'firstName', 'additionalName',  'isActive','isResponsible', 'actions'];
 
 
 

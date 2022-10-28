@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
 import { Professionl } from '../../../interfaces/profession-i';
 import { Profession } from '../../../models/profession/profession';
@@ -27,11 +28,13 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
   selectedOptions: string[] = [];
   loading = false;
   editData = new UserPost();
+  email:string;
 
   constructor(
     service: UserPostService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder,
-    headService:HeadService
+    headService:HeadService,
+    private authService: NbAuthService
   ) {
     super(service, router, route, toastrService,headService);
     this.model = new UserPost();
@@ -39,6 +42,16 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
     this.titulo = 'Mi perfil';
     this.redirect = '/pages/clients/clientes';
     this.nombreModel = "Cliente";
+
+    this.authService.onTokenChange()
+    .subscribe((token: NbAuthJWTToken) => {
+
+      if (token.isValid()) {
+
+        this.email =token.getPayload()['sub']
+      }
+
+    });
 
   }
 
@@ -84,7 +97,6 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
 
   setForm() {
     this.userForm = this.formBuilder.group({
-      username: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -103,7 +115,6 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
     if (editData) {
       console.log("lista roles", editData.roles)
       this.actionBtn = "Modificar";
-      this.userForm.controls['username'].setValue(editData.username);
       this.userForm.controls['email'].setValue(editData.email);
       this.userForm.controls['password'].setValue(editData.password);
       this.userForm.controls['firstName'].setValue(editData.firstName);
@@ -138,7 +149,6 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
   }
 
   modelClient(userForm: any) {
-    this.model.username = userForm.get('username').value,
       this.model.email = userForm.get('email').value,
       this.model.password = userForm.get('password').value,
       this.model.firstName = userForm.get('firstName').value,

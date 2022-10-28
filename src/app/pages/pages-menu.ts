@@ -92,11 +92,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'menu',
         link: '/pages/users/users',
       },
-      {
-        title: 'Init',
-        icon: 'menu',
-        link: '/pages/init/init',
-      },
     ],
   },
 

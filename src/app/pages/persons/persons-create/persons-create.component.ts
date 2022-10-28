@@ -64,7 +64,7 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
       this.modelClient(this.PersonForm);
       super.crear();
       this.onReset();
-      super.toast("success", "Cliente creado con éxito");
+      super.toast("success", "Personal creado con éxito");
     } else {
       this.editarClient();
     }
@@ -82,7 +82,7 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
     // aqui esta el error ah ya  vi  me  falta  mandar ataraer los demas campos verdad?
     this.PersonForm = this.formBuilder.group({
       firstName: ['', Validators.required],
-      additionalName: ['', Validators.required],
+      additionalName: [''],
       lastName: ['', Validators.required],
       secondName: ['', Validators.required],
       isActive: ['', Validators.required],

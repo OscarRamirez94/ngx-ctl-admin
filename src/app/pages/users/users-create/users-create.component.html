@@ -4,24 +4,15 @@
         nbSpinnerStatus="danger"
         nbSpinnerSize="large"
         nbSpinnerMessage="Cargando ...">
-            <mat-card-title>Agregar Cliente</mat-card-title>
+            <mat-card-title>Agregar Usuario</mat-card-title>
             <mat-card-content nb-card-body>
                 <!--mat dialog content-->
                 <mat-dialog-content>
 
                     <!-- grid -->
                     <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Nombre de usuario</mat-label>
-                                    <input matInput formControlName="username" placeholder="Digita el Nombre de Usuario"
-                                        [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
-                                    <mat-error *ngIf="submitted && f.username.errors">Campo Requerido</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
+
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>E-mail</mat-label>
@@ -31,19 +22,10 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Password</mat-label>
-                                    <input matInput formControlName="password" placeholder="Digita password"
-                                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-                                    <mat-error *ngIf="submitted && f.password.errors">Campo Requerido</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
+
                     </div>
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Nombre</mat-label>
@@ -53,7 +35,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Digita Segundo Nombre</mat-label>
@@ -63,7 +45,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Apellido Paterno</mat-label>
@@ -73,9 +55,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Apellido Materno</mat-label>
@@ -87,12 +67,11 @@
                         </div>
                     </div>
 
-
                     <div class="row">
-                        <div class="col-sm-4">
-                            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline">
+                        <div class="col-sm-3">
+                            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy">
                                 <mat-label>PUESTO</mat-label>
-                                <input type="text" placeholder="Pick one" aria-label="Number" matInput
+                                <input type="text" placeholder="Selecciona un puesto" aria-label="Number" matInput
                                     formControlName="profession" [matAutocomplete]="auto"
                                     [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
                                 <mat-autocomplete #auto="matAutocomplete"
@@ -105,8 +84,8 @@
                                 <mat-error *ngIf="submitted && f.profession.errors">Campo Requerido</mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="col-sm-4">
-                            <mat-form-field appearance="fill">
+                        <div class="col-sm-3">
+                            <mat-form-field appearance="legacy">
                                 <mat-label>Roles</mat-label>
                                 <mat-select formControlName="roles" [compareWith]="compareObjects" multiple
                                     [(ngModel)]="selectedOptions">
@@ -114,39 +93,34 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                    </div>
-                    <div class="row">
-
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
+                          <div class="form-group">
                             <div class="form-group">
-                                <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
-                                    <mat-label>Activo</mat-label>
-                                    <input matInput hidden formControlName="isActive">
-                                    <mat-radio-group class="flex-wrap" formControlName="isActive"
-                                        [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
-                                        <mat-radio-button class="radio-button" [value]="true"
-                                            [checked]="isChecked===true">Activo</mat-radio-button>
-                                        <mat-radio-button class="radio-button" [value]="false"
-                                            [checked]="isChecked===false">Inactivo</mat-radio-button>
-                                    </mat-radio-group>
-                                    <mat-error>Campo Requerio</mat-error>
-                                </mat-form-field>
+                              <mat-form-field #field floatLabel="always" appearance="legacy" >
+                                <mat-label>Resposable</mat-label>
+                                <input matInput hidden formControlName="isResponsible">
+                                <mat-radio-group  class="flex-wrap" formControlName="isResponsible" [ngClass]="{ 'is-invalid': submitted && f.isResponsible.errors }">
+                                  <mat-radio-button  class="radio-button" [value]="true"  [checked]="isResponsible===true">Activo</mat-radio-button>
+                                  <mat-radio-button  class="radio-button" [value]="false" [checked]="isResponsible===false">Inactivo</mat-radio-button>
+                                </mat-radio-group>
+                                <mat-error>Resposable Requerio</mat-error>
+                              </mat-form-field>
                             </div>
+                          </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
-                                <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
-                                    <mat-label>Activo</mat-label>
-                                    <input matInput hidden formControlName="isResponsible">
-                                    <mat-radio-group class="flex-wrap" formControlName="isResponsible"
-                                        [ngClass]="{ 'is-invalid': submitted && f.isResponsible.errors }">
-                                        <mat-radio-button class="radio-button" [value]="true"
-                                            [checked]="isChecked===true">Activo</mat-radio-button>
-                                        <mat-radio-button class="radio-button" [value]="false"
-                                            [checked]="isChecked===false">Inactivo</mat-radio-button>
-                                    </mat-radio-group>
-                                    <mat-error>Campo Requerio</mat-error>
+                              <div class="form-group">
+                                <mat-form-field #field floatLabel="always" appearance="legacy" >
+                                  <mat-label>Estatus</mat-label>
+                                  <input matInput hidden formControlName="isActive">
+                                  <mat-radio-group  class="flex-wrap" formControlName="isActive" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
+                                    <mat-radio-button  class="radio-button" [value]="true"  [checked]="isChecked===true">Activo</mat-radio-button>
+                                    <mat-radio-button  class="radio-button" [value]="false" [checked]="isChecked===false">Inactivo</mat-radio-button>
+                                  </mat-radio-group>
+                                  <mat-error>Estatus Requerio</mat-error>
                                 </mat-form-field>
+                              </div>
                             </div>
                         </div>
                     </div>

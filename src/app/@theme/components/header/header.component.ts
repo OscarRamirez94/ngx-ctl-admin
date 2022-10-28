@@ -47,7 +47,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = 'default';
   currentClient :string;
 
-  userMenu = [ { title: 'Mi Perfil', link: '/pages/users/users-profile' }, { title: 'Cerrar Sesión',link: '/auth/logout'  } ];
+  userMenu = [ { title: 'Mi Perfil', link: '/pages/users/users-profile' },
+  { title: 'Cerrar Sesión',link: '/auth/logout'  } ];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -65,7 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
         if (token.isValid()) {
 
-          this.user = "Bienvenido " + token.getPayload()['firstName']
+          this.user = "Bienvenido " + token.getPayload()['sub']
         }
 
       });

@@ -67,7 +67,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       super.crear().subscribe(data =>{
         if (data){
           this.onReset();
-          super.toast("success", "Cliente creado con éxito");
+          super.toast("success", "Usuario creado con éxito");
           this.loading = false;
         }
       });
@@ -87,11 +87,9 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
 
   setForm() {
     this.userForm = this.formBuilder.group({
-      username: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required],
       firstName: ['', Validators.required],
-      additionalName: ['', Validators.required],
+      additionalName: [''],
       lastName: ['', Validators.required],
       secondName: ['', Validators.required],
       isActive: ['', Validators.required],
@@ -106,9 +104,8 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     if (editData) {
       console.log("lista roles", editData.roles)
       this.actionBtn = "Modificar";
-      this.userForm.controls['username'].setValue(editData.username);
+
       this.userForm.controls['email'].setValue(editData.email);
-      this.userForm.controls['password'].setValue(editData.password);
       this.userForm.controls['firstName'].setValue(editData.firstName);
       this.userForm.controls['additionalName'].setValue(editData.additionalName);
       this.userForm.controls['lastName'].setValue(editData.lastName);
@@ -141,16 +138,15 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   }
 
   modelClient(userForm: any) {
-    this.model.username = userForm.get('username').value,
+
       this.model.email = userForm.get('email').value,
-      this.model.password = userForm.get('password').value,
       this.model.firstName = userForm.get('firstName').value,
       this.model.additionalName = userForm.get('additionalName').value,
       this.model.lastName = userForm.get('lastName').value,
       this.model.secondName = userForm.get('secondName').value,
       this.model.isActive = userForm.get('isActive').value;
-    this.model.roles = userForm.get('roles').value;
-    this.model.isResponsible = userForm.get('isResponsible').value;
+      this.model.roles = userForm.get('roles').value;
+      this.model.isResponsible = userForm.get('isResponsible').value;
   }
   compareObjects(o1: any, o2: any) {
     if (o1.name == o2.name) {

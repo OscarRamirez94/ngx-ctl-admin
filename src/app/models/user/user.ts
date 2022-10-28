@@ -7,7 +7,6 @@ import { Role } from "./role";
 export class User implements Generic  {
   id: number ;
   name: string;
-  username: string;
   email: string;
   password: string;
   firstName: string;

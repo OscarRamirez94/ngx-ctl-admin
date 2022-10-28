@@ -21,8 +21,8 @@ import { PersonsDeleteComponent } from '../persons-delete/persons-delete.compone
 export class PersonsMainComponent extends CommonListComponent<Person, PersonService> {
 
   name: string;
-  titulo: string = "Personas";
-  displayedColumns: string[] = ['id', 'firstName', 'additionalName', 'lastName', 'secondName', 'isActive', 'actions'];
+  titulo: string = "Personal";
+  displayedColumns: string[] = ['firstName', 'additionalName', 'lastName', 'secondName', 'isActive', 'actions'];
   constructor(service: PersonService, router: Router, route: ActivatedRoute,
     private dialog: MatDialog, toastrService: NbToastrService,headService:HeadService) {
     super(service, router, route, toastrService,headService);
