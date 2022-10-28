@@ -7,7 +7,7 @@ import { TransportTypeDeleteComponent } from './transport-type-delete/transport-
 import { TransportTypeMainComponent } from './transport-type-main/transport-type-main.component';
 import { TransportTypeCreateComponent } from './transport-type-create/transport-type-create.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,13 +24,24 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-
+import { TransportTypeInsertedComponent } from './transport-type-inserted/transport-type-inserted.component';
+import { MatStepperModule} from '@angular/material/stepper';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { TransportTypeCapacityComponent } from './transport-type-capacity/transport-type-capacity.component';
+import { TransportTypeCapacityCreateComponent } from './transport-type-capacity-create/transport-type-capacity-create.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { TransportTypeCapacityDeleteComponent } from './transport-type-capacity-delete/transport-type-capacity-delete.component';
 @NgModule({
   declarations: [
     TransportTypesComponent,
     TransportTypeDeleteComponent,
     TransportTypeMainComponent,
-    TransportTypeCreateComponent
+    TransportTypeCreateComponent,
+    TransportTypeInsertedComponent,
+    TransportTypeCapacityComponent,
+    TransportTypeCapacityCreateComponent,
+    TransportTypeCapacityDeleteComponent
   ],
   imports: [
     CommonModule,
@@ -58,7 +69,12 @@ import { MatIconModule } from '@angular/material/icon';
     ReactiveFormsModule,
     MatIconModule,
     MatChipsModule,
-    MatRadioModule
+    MatRadioModule,
+    MatStepperModule,
+    MatDividerModule,
+    MatTooltipModule,
+    NbTagModule,
+    MatAutocompleteModule
   ]
 })
 export class TransportTypesModule { }

@@ -69,8 +69,8 @@ export class TransportTypeMainComponent extends CommonListComponent<TransportTyp
   }
 
   showCapacities(element: any) {
-
-    this.dialog.open(TransportCapacityMainTypeComponent, {
+    this.router.navigate(['pages/transport-types/capacity/' + element.id]);
+    /*this.dialog.open(TransportCapacityMainTypeComponent, {
       width: '85%',
       height:'85%',
       data: element
@@ -78,7 +78,8 @@ export class TransportTypeMainComponent extends CommonListComponent<TransportTyp
       if (data) {
         super.calculateRange();
       }
-    })
+    })*/
   }
+
 
 }

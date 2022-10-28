@@ -7,4 +7,5 @@ export class TransportType implements Generic  {
   name: string;
   isActive: boolean;
   search :string;
+  transportCapacity:TransportCapacity[]=[];
 }

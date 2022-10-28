@@ -8,6 +8,7 @@ import { HeadService } from '../../../services/head/head.service';
 import { TransportCapacityService } from '../../../services/transport-capacity/transport-capacity.service';
 import { CommonListIdComponent } from '../../commons/common-list/common-list-id.component';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
+import { TransportTypeCreateComponent } from '../../transport-types/transport-type-create/transport-type-create.component';
 
 @Component({
   selector: 'ngx-transport-capacity-main-type',
