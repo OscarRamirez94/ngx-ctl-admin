@@ -1,6 +1,6 @@
 <div class="col-md-12">
 
-  <nb-card>
+  <nb-card accent="primary">
       <nb-card-header>{{titulo}} </nb-card-header>
       <nb-card-body>
           <section>
@@ -32,18 +32,20 @@
                       <ng-container matColumnDef="capacities">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>CAPACIDADES</th>
                         <td mat-cell *matCellDef="let element">
-                        <button  mat-icon-button color="primary" (click)="showCapacities(element)">
-                          <mat-icon>list</mat-icon> capacidades
+                        <button  mat-icon-button color="primary" appearance="outline" (click)="showCapacities(element)">
+                          <mat-icon>list</mat-icon> Capacidades
                       </button>
                         </td>
                     </ng-container>
 
                       <!-- isActive Column -->
                       <ng-container matColumnDef="isActive">
-                          <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTIVO </th>
+                          <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTATUS </th>
                           <td mat-cell *matCellDef="let element">
-                              <mat-chip color="primary" selected *ngIf="element.isActive">Activo</mat-chip>
-                              <mat-chip color="warn" selected *ngIf="!element.isActive">Inactivo</mat-chip>
+                            <nb-tag-list>
+                                <nb-tag status="primary" appearance="outline" *ngIf="element.isActive" text="Activo"></nb-tag>
+                                <nb-tag status="warning" appearance="outline" *ngIf="!element.isActive" text="Inactivo"></nb-tag>
+                          </nb-tag-list>
                           </td>
                       </ng-container>
 

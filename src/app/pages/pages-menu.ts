@@ -68,12 +68,12 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/clients/clientes',
       },
       {
-        title: 'Linea de transporte',
+        title: 'Lineas de transporte',
         icon: 'car-outline',
         link: '/pages/transport-lines/transport-lines',
       },
       {
-        title: 'Tipo de transporte',
+        title: 'Tipos de transporte',
         icon: 'car-outline',
         link: '/pages/transport-types/transport-types',
       },
@@ -83,7 +83,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         link: '/pages/persons/persons',
       },
       {
-        title: 'Puesto',
+        title: 'Puestos',
         icon: 'menu',
         link: '/pages/professions/professions',
       },

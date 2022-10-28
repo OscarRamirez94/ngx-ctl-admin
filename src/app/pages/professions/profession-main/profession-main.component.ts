@@ -28,7 +28,7 @@ va  por  un service generico
 export class ProfessionMainComponent extends CommonListComponent<Profession, ProfessionService> {
 
   name: string;
-  titulo: string = "Profesiones";
+  titulo: string = "Puestos";
   displayedColumns: string[] = ['id', 'name', 'isActive', 'actions'];
   //Se inyectan  objetos erados por el padre
   constructor(service: ProfessionService, router: Router, route: ActivatedRoute,
@@ -40,7 +40,7 @@ export class ProfessionMainComponent extends CommonListComponent<Profession, Pro
 
   openDialog(): void {
     const dialogRef = this.dialog.open(ProfessionCreateComponent, {
-      width: '65%'
+      width: '25%'
     }).afterClosed().subscribe(data => {
       if (data) {
         super.calculateRange();
@@ -51,7 +51,7 @@ export class ProfessionMainComponent extends CommonListComponent<Profession, Pro
   editarClient(element: any) {
 
     this.dialog.open(ProfessionCreateComponent, {
-      width: '65%',
+      width: '25%',
       data: element,
 
     }).afterClosed().subscribe(data => {

@@ -1,6 +1,6 @@
 <div class="col-md-12">
 
-    <nb-card>
+    <nb-card accent="primary">
         <nb-card-header>{{titulo}} </nb-card-header>
         <nb-card-body>
             <section>
@@ -19,22 +19,24 @@
                     <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
                         <!-- Id Column -->
                         <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
                             <td mat-cell *matCellDef="let element"> {{element.id}} </td>
                         </ng-container>
 
                         <!-- Name Column -->
                         <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Cliente </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> PUESTO </th>
                             <td mat-cell *matCellDef="let element"> {{element.name}} </td>
                         </ng-container>
 
                         <!-- isActive Column -->
                         <ng-container matColumnDef="isActive">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Activo </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTATUS </th>
                             <td mat-cell *matCellDef="let element">
-                                <mat-chip color="primary" selected *ngIf="element.isActive">Activo</mat-chip>
-                                <mat-chip color="warn" selected *ngIf="!element.isActive">Inactivo</mat-chip>
+                              <nb-tag-list>
+                                <nb-tag status="primary" appearance="outline" *ngIf="element.isActive" text="Activo"></nb-tag>
+                                <nb-tag status="warning" appearance="outline" *ngIf="!element.isActive" text="Inactivo"></nb-tag>
+                              </nb-tag-list>
                             </td>
                         </ng-container>
 

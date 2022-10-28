@@ -50,17 +50,21 @@
 }
 
 .flex-wrap {
+
   display: flex;
-  flex-wrap: wrap;
   flex-direction: row;
+  margin: -1px 1px;
+  height: 20px;
 
 }
 
 .radio-button {
-  padding: 2px 2px 2px 2px;
+  margin-left: 1px;
+
 }
 
 .wrap-label-text {
   white-space: normal;
 }
+
 

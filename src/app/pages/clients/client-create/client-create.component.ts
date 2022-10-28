@@ -110,7 +110,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
     this.modelClient(this.clientForm);
     super.editar();
     this.onReset();
-    super.toast("success","Modificado  con éxito");
+    super.toast("success","Cliente modificado con éxito");
   }
 
   modelClient(clientForm:any) {

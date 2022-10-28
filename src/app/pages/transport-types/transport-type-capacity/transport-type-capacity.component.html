@@ -1,6 +1,6 @@
 <mat-card>
-  <mat-card-title>Capicidad de transporte </mat-card-title>
-  <mat-card-subtitle>{{transportTypeName}}</mat-card-subtitle>
+  <mat-card-title>Capicidades de transporte </mat-card-title>
+  <mat-card-subtitle>{{transportType.name}}</mat-card-subtitle>
   <mat-card-content align="end">
     <section>
       <div class="example-button-row">
@@ -30,16 +30,20 @@
           <ng-container matColumnDef="unity">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> UNIDAD DE MEDIDA </th>
               <td mat-cell *matCellDef="let element">
-                <mat-chip color="primary" selected>{{element.unity}}</mat-chip>
-                </td>
+                <nb-tag-list>
+                  <nb-tag status="primary" appearance="outline"  text="{{element.unity}}"></nb-tag>
+                </nb-tag-list>
+              </td>
           </ng-container>
 
           <!-- isActive Column -->
           <ng-container matColumnDef="isActive">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> ACTIVO </th>
               <td mat-cell *matCellDef="let element">
-                  <mat-chip color="primary" selected *ngIf="element.isActive">Activo</mat-chip>
-                  <mat-chip color="warn" selected *ngIf="!element.isActive">Inactivo</mat-chip>
+                <nb-tag-list>
+                  <nb-tag status="primary" appearance="outline" *ngIf="element.isActive" text="Activo"></nb-tag>
+                  <nb-tag status="warning" appearance="outline" *ngIf="!element.isActive" text="Inactivo"></nb-tag>
+                </nb-tag-list>
               </td>
           </ng-container>
 

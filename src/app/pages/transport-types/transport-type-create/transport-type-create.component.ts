@@ -27,7 +27,7 @@ export class TransportTypeCreateComponent extends CommonListComponent<TransportT
     headService:HeadService
   ) {
     super(service, router, route, toastrService,headService);
-    this.titulo = 'Agregar Tipo de Transporte';
+    this.titulo = 'Tipo de Transporte';
     this.model = new TransportType();
     this.redirect = '';
     this.nombreModel = "Tipo de transporte";
@@ -51,7 +51,7 @@ export class TransportTypeCreateComponent extends CommonListComponent<TransportT
       this.modelTransportType(this.transportTypeForm);
       super.crear();
       this.onReset();
-      super.toast("success", "Profesion creada con éxito");
+      super.toast("success", "Tipo de transporte creado con éxito");
     } else {
       this.editarTransportType();
     }
@@ -85,7 +85,7 @@ export class TransportTypeCreateComponent extends CommonListComponent<TransportT
     this.modelTransportType(this.transportTypeForm);
     super.editar();
     this.onReset();
-    super.toast("success", "Modificado  con éxito");
+    super.toast("success", "Tipo de transporte modificado  con éxito");
   }
 
   modelTransportType(transportLineForm: any) {

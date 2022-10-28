@@ -5,7 +5,7 @@ import { PersonsRoutingModule } from './persons-routing.module';
 import { PersonsComponent } from './persons.component';
 import { PersonsMainComponent } from './persons-main/persons-main.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -63,6 +63,7 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatRadioModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
+    NbTagModule
   ]
 })
 export class PersonsModule { }

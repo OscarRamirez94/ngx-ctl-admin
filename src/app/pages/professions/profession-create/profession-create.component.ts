@@ -27,14 +27,14 @@ export class ProfessionCreateComponent extends CommonListComponent<Profession, P
     headService:HeadService
   ) {
     super(service, router, route, toastrService,headService);
-    this.titulo = 'Agregar Profesion';
+    this.titulo = 'Puesto';
     this.model = new Profession();
     this.redirect = '';
-    this.nombreModel = "Profesion";
+    this.nombreModel = "Puesto";
   }
 
   ngOnInit(): void {
-    console.log('Prueba de onINIT');
+
     console.log(this.editData + "data");
     this.setForm();
 
@@ -58,7 +58,7 @@ export class ProfessionCreateComponent extends CommonListComponent<Profession, P
       this.modelClient(this.professionForm);
       super.crear();
       this.onReset();
-      super.toast("success", "Profesion creada con éxito");
+      super.toast("success", "Puesto creado con éxito");
     } else {
       this.editarClient();
     }
@@ -98,7 +98,7 @@ export class ProfessionCreateComponent extends CommonListComponent<Profession, P
     this.modelClient(this.professionForm);
     super.editar();
     this.onReset();
-    super.toast("success", "Modificado  con éxito");
+    super.toast("success", "Puesto modificado con éxito");
   }
 
   //Se setean  los  datos cargados del  formulario al  objeto de  modificar  al  modelo

@@ -110,7 +110,7 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
     this.modelClient(this.PersonForm);
     super.editar();
     this.onReset();
-    super.toast("success", "Modificado  con éxito");
+    super.toast("success", "Personal modificado con éxito");
   }
 
   //Setaear aqui siempre  los campos

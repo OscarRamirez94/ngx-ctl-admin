@@ -23,14 +23,14 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="form-group">
-            <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
-              <mat-label>Activo</mat-label>
+            <mat-form-field #field floatLabel="always" appearance="legacy" >
+              <mat-label>Estatus</mat-label>
               <input matInput hidden formControlName="isActive">
               <mat-radio-group  class="flex-wrap" formControlName="isActive" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
                 <mat-radio-button  class="radio-button" [value]="true"  [checked]="isChecked===true">Activo</mat-radio-button>
                 <mat-radio-button  class="radio-button" [value]="false" [checked]="isChecked===false">Inactivo</mat-radio-button>
               </mat-radio-group>
-              <mat-error>Campo Requerio</mat-error>
+              <mat-error>Estatus Requerio</mat-error>
             </mat-form-field>
           </div>
         </div>

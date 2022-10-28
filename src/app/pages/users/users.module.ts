@@ -7,7 +7,7 @@ import { UsersMainComponent } from './users-main/users-main.component';
 import { UsersProfileComponent } from './users-profile/users-profile.component';
 import { UsersDeleteComponent } from './users-delete/users-delete.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbTagModule, NbUserModule } from '@nebular/theme';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -66,7 +66,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatRadioModule,
     MatAutocompleteModule,
     MatSelectModule,
-    NbSpinnerModule
+    NbSpinnerModule,
+    NbTagModule
   ]
 })
 export class UsersModule { }
