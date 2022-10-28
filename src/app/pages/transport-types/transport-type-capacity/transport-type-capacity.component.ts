@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { TransportCapacity } from '../../../models/transport_capacity/transport-capacity';
@@ -25,6 +25,7 @@ export class TransportTypeCapacityComponent  extends CommonListIdComponent<Trans
   id:any;
   constructor(service: TransportCapacityService, router: Router, route: ActivatedRoute,
     private dialog: MatDialog,
+    @Inject(MAT_DIALOG_DATA) public editData: any,
     toastrService: NbToastrService, private transportTypeService: TransportTypeService) {
     super(service, router, route, toastrService);
     this.model = new TransportCapacity();
@@ -35,8 +36,8 @@ export class TransportTypeCapacityComponent  extends CommonListIdComponent<Trans
 
 
   ngOnInit(): void {
-    this.id =  this.route.snapshot.paramMap.get('id');
-    this.model.id = this.id;
+    this.id =  this.editData.id;
+    this.model.id = this.editData.id;
     this.getTransportType(this.id);
     super.ngOnInit();
   }

@@ -24,10 +24,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { TransportTypeInsertedComponent } from './transport-type-inserted/transport-type-inserted.component';
 import { MatStepperModule} from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { TransportTypeCapacityComponent } from './transport-type-capacity/transport-type-capacity.component';
 import { TransportTypeCapacityCreateComponent } from './transport-type-capacity-create/transport-type-capacity-create.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -38,7 +37,6 @@ import { TransportTypeCapacityDeleteComponent } from './transport-type-capacity-
     TransportTypeDeleteComponent,
     TransportTypeMainComponent,
     TransportTypeCreateComponent,
-    TransportTypeInsertedComponent,
     TransportTypeCapacityComponent,
     TransportTypeCapacityCreateComponent,
     TransportTypeCapacityDeleteComponent

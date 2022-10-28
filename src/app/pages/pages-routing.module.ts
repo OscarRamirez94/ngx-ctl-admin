@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 
 import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { AuthGuard } from '../guards/auth-guard.service';
 import { RoleGuard } from '../guards/role.guard';
 import { HeadClientGuard } from '../guards/head-client.guard';
 
@@ -35,11 +34,6 @@ const routes: Routes = [{
       path: 'transport-lines',
       loadChildren: () => import('./transport-lines/transport-lines.module')
         .then(m => m.TransportLinesModule),
-    },
-    {
-      path: 'transport-capacities',
-      loadChildren: () => import('./transport-capacities/transport-capacities.module')
-        .then(m => m.TransportCapacitiesModule),
     },
     {
       path: 'transport-types',

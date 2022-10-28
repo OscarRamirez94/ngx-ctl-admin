@@ -7,8 +7,7 @@ import { TransportType } from '../../../models/transport_type/transport-type';
 import { HeadService } from '../../../services/head/head.service';
 import { TransportTypeService } from '../../../services/transport-type/transport-type.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
-import { TransportCapacityCreateComponent } from '../../transport-capacities/transport-capacity-create/transport-capacity-create.component';
-import { TransportCapacityMainTypeComponent } from '../../transport-capacities/transport-capacity-main-type/transport-capacity-main-type.component';
+import { TransportTypeCapacityComponent } from '../transport-type-capacity/transport-type-capacity.component';
 import { TransportTypeCreateComponent } from '../transport-type-create/transport-type-create.component';
 import { TransportTypeDeleteComponent } from '../transport-type-delete/transport-type-delete.component';
 
@@ -69,16 +68,16 @@ export class TransportTypeMainComponent extends CommonListComponent<TransportTyp
   }
 
   showCapacities(element: any) {
-    this.router.navigate(['pages/transport-types/capacity/' + element.id]);
-    /*this.dialog.open(TransportCapacityMainTypeComponent, {
+   // this.router.navigate(['pages/transport-types/capacity/' + element.id]);
+    this.dialog.open(TransportTypeCapacityComponent, {
       width: '85%',
-      height:'85%',
+      height:'70%',
       data: element
     }).afterClosed().subscribe(data => {
       if (data) {
         super.calculateRange();
       }
-    })*/
+    })
   }
 
 
