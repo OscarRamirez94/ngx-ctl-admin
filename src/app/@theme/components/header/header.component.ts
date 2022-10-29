@@ -112,7 +112,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     this.headService.saveClientLS(client);
     this.headService.disparadorClient.emit(client);
-    //this.currentClient = client
+    this.currentClient = client
     this.toastrService.primary("Trabajando con : " + client ,"Cliente seleccionado");
 
   }

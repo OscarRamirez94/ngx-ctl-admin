@@ -23,8 +23,7 @@ const routes: Routes = [
       {
         path: 'pallet-main/:id',
         component: PalletMainComponent
-      }
-
+      },
     ],
   },
 ];

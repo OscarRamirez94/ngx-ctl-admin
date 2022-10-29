@@ -1,28 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { CheckList } from '../../../models/check-list/check-list';
-import { Pallet } from '../../../models/pallet/pallet';
 import { CheckListService } from '../../../services/check-list/check-list.service';
 import { HeadService } from '../../../services/head/head.service';
-import { CommonListComponent } from '../../commons/common-list/common-list.component';
+import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
 import { CheckListCreateComponent } from '../check-list-create/check-list-create.component';
-import { PalletMainComponent } from '../pallet/pallet-main/pallet-main.component';
+
 
 @Component({
   selector: 'ngx-check-list-main',
   templateUrl: './check-list-main.component.html',
   styleUrls: ['./check-list-main.component.scss']
 })
-export class CheckListMainComponent extends CommonListComponent<CheckList,CheckListService> {
+export class CheckListMainComponent extends CommonListClientComponent<CheckList,CheckListService> {
 
   name: string;
   titulo:string = "CheckList";
   displayedColumns: string[] = ['id','remision','date','hours',
   'transportLine','transportType',
   'noSello','pallets','actions' ];
-
+  clientName =  this.headService.getClientLS();
   constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,
     headService:HeadService) {
@@ -34,9 +33,11 @@ export class CheckListMainComponent extends CommonListComponent<CheckList,CheckL
       width: '65%'
     }).afterClosed().subscribe(data =>{
       if (data) {
-        super.calculateRange();
+        super.calculateRange(this.clientName);
       }
       });
+
+      //this.router.navigate(['pages/checklist/checklist-create-test']);
   }
 
   addPallet(element:CheckList): void {
@@ -51,7 +52,7 @@ export class CheckListMainComponent extends CommonListComponent<CheckList,CheckL
 
     }).afterClosed().subscribe(data =>{
         if (data) {
-            super.calculateRange();
+            super.calculateRange(this.clientName);
         }
       })
   }
@@ -62,7 +63,7 @@ export class CheckListMainComponent extends CommonListComponent<CheckList,CheckL
       data: element
     }).afterClosed().subscribe(data =>{
         if (data) {
-            super.calculateRange();
+            super.calculateRange(this.clientName);
         }
       })
   }

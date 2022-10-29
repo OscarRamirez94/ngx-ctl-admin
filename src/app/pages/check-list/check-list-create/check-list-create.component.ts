@@ -1,4 +1,3 @@
-import { Overlay } from '@angular/cdk/overlay';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -23,313 +22,273 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
   templateUrl: './check-list-create.component.html',
   styleUrls: ['./check-list-create.component.scss']
 })
-export class CheckListCreateComponent extends CommonListComponent<CheckList, CheckListService> implements OnInit {
-
-  checkListForm !: FormGroup;
-
+export class CheckListCreateComponent extends CommonListComponent<CheckList, CheckListService> implements OnInit  {
   clients:Client[];
   transportLines:TransportLine[];
   transportCapacities:TransportCapacity[];
   transportTypes:TransportType[];
   surveillances:Person[];
   responsibles:User[];
-  submitted = false;
-  actionBtn:String = "Crear";
-  isChecked;
   processType:ProcessType = new ProcessType(1,true,"Descargar");
   myControl = new FormControl('');
+  partner=this.headService.getClientLS();
+  submitted = false;
+  actionBtn:String = "Crear";
   date = new FormControl(new Date());
   serializedDate = new FormControl(new Date().toISOString());
+  isEditable= true;
+  firstFormGroup = this._formBuilder.group({
+    date :[new Date(),Validators.required],
+    remision:['',Validators.required],
+    hours:['',Validators.required],
+    partner :[{ value : this.partner,disabled: true},Validators.required],
+  });
+
+  secondFormGroup = this._formBuilder.group({
+    transportLine:['',Validators.required],
+    operator:['',Validators.required],
+    tipoTransporte:['',Validators.required],
+    transportCapacity:['',Validators.required],
+    ecoTracto:['',Validators.required],
+    tractoPlacas:['',Validators.required],
+    ecoCaja:['',Validators.required],
+    cajaPlacas :['',Validators.required],
+    surveillance:['',Validators.required],
+    responsible:['',Validators.required],
+    noSello:['',Validators.required],
+    noRampa :['',Validators.required],
+  });
+
+  thirdFormGroup = this._formBuilder.group({
+    observation :[''],
+  });
 
 
-
-
-  constructor(
-    service:CheckListService,
-    router: Router, route: ActivatedRoute, toastrService: NbToastrService,
-    private formBuilder:FormBuilder,
-    private authRoleService:AuthRoleService,
+  constructor(service:CheckListService,router: Router, route: ActivatedRoute, toastrService: NbToastrService,
+    private _formBuilder:FormBuilder,private authRoleService:AuthRoleService,headService:HeadService,
     private  dialogRef: MatDialogRef<CheckListCreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData:any,
-    headService:HeadService
-    ) {
+    @Inject(MAT_DIALOG_DATA) public editData:any,)
+    {
       super(service, router, route,toastrService,headService);
       this.model = new CheckList();
-    this.model.partner = new Client();
-    this.model.transportLine = new TransportLine();
-    this.model.transportCapacity = new TransportCapacity();
-    this.model.surveillance = new Person();
-    this.model.responsible = new User();
-    this.transportCapacities = [];
-    this.titulo = 'Agregar Clients';
-    this.redirect = '/pages/clients/clientes';
-    this.nombreModel = "Check List";
-   }
+      this.model.partner = new Client();
+      this.model.transportLine = new TransportLine();
+      this.model.transportCapacity = new TransportCapacity();
+      this.model.surveillance = new Person();
+      this.model.responsible = new User();
+      this.transportCapacities = [];
+      this.titulo = 'Agregar Clients';
+      this.redirect = '/pages/clients/clientes';
+      this.nombreModel = "Check List";
+    }
 
+  get f() { return this.firstFormGroup.controls; }
+  get f2() { return this.secondFormGroup.controls; }
+  get f3() { return this.thirdFormGroup.controls; }
 
 
   ngOnInit(): void {
-
-    this.setForm();
-    this.rejectForm(this.editData);
-    super.paginator;
-
-
     this.getAllClients();
     this.getAllTransportLines();
     this.getAllTransportTypes();
     this.getAllPersons();
     this.getResponsibles();
-
-
-
-  }
-  get f() { return this.checkListForm.controls; }
-
-  onSubmit() {
-    this.submitted = true;
-      if (this.checkListForm.invalid) {
-          return;
-      }
-      if (!this.editData) {
-        this.modelClient(this.checkListForm);
-        /*this.service.crear(this.model as CheckList).subscribe(data =>{
-
-        });
-        */
-        super.crear();
-        this.onReset();
-      } else {
-        this.editarClient();
-      }
+    this.rejectForm(this.editData);
+    super.paginator;
   }
 
-  onReset() {
-        this.submitted = false;
-        this.checkListForm.reset();
-        this.editData = null;
-        this.dialogRef.close("true");
-      }
+  // get Client
+  getAllClients(){
+    this.service.getAllClientes().subscribe(data =>{
+      this.clients = data;
+    })
+  }
 
-  setForm() {
-        this.checkListForm = this.formBuilder.group({
-          date :[new Date(),Validators.required],
-          remision:['',Validators.required],
-          hours:['',Validators.required],
-          partner:['',Validators.required],
-          transportLine:['',Validators.required],
-          operator:['',Validators.required],
+  optionSelected(event:Client){
+    this.model.partner.id = event.id;
+  }
 
-          ecoTracto:['',Validators.required],
-          tractoPlacas:['',Validators.required],
-          ecoCaja:['',Validators.required],
-          cajaPlacas :['',Validators.required],
-          tipoTransporte:['',Validators.required],
-          transportCapacity:['',Validators.required],
-          noSello:['',Validators.required],
-          surveillance:['',Validators.required],
-          responsible:['',Validators.required],
-          observation :['',Validators.required],
-          noRampa :['',Validators.required],
-
-        });
+  displayProperty(value) {
+    if (value) {
+      return value.name;
     }
-
-    modelClient(checkListForm:any) {
-
-      this.model.date = checkListForm.get('date').value;
-      this.model.remision = checkListForm.get('remision').value;
-      this.model.hours = checkListForm.get('hours').value;
-      this.model.processType = this.processType;
-      this.model.operator = checkListForm.get('operator').value;
-
-      this.model.ecoTracto = checkListForm.get('ecoTracto').value;
-      this.model.tractoPlacas = checkListForm.get('tractoPlacas').value;
-      this.model.ecoCaja = checkListForm.get('ecoCaja').value;
-      this.model.cajaPlacas = checkListForm.get('cajaPlacas').value;
-      this.model.noSello = checkListForm.get('noSello').value;
-      this.model.operator = checkListForm.get('operator').value;
-      this.model.observation = checkListForm.get('observation').value;
-      this.model.noRampa = checkListForm.get('noRampa').value;
-
-    }
-    getAllClients(){
-      this.service.getAllClientes().subscribe(data =>{
-        this.clients = data;
-
-      })
-    }
-
-    optionSelected(event:Client){
-
-
-      this.model.partner.id = event.id;
-
-
-    }
-
-    displayProperty(value) {
-
-      if (value) {
-        return value.name;
-      }
-    }
-
-    getAllTransportLines(){
-      this.service.getAllTransportLines().subscribe(data =>{
-        this.transportLines = data;
-
-      })
-    }
-
+  }
+// get transport line
+  getAllTransportLines(){
+    this.service.getAllTransportLines().subscribe(data =>{
+      this.transportLines = data;
+    })
+  }
 
   optionSelectedTransportLine(event:TransportLine){
     this.model.transportLine.id = event.id;
   }
 
   displayPropertyTransportLine(value) {
-
     if (value) {
       return value.name;
     }
   }
 
+  // get capacities
   getAllTransportCapacities(id:any){
-
     this.service.getAllTransportCapacities(id).subscribe(data =>{
       this.transportCapacities = data;
-
     })
   }
 
-    optionSelectedTransportCapacity(event:TransportCapacity){
-      this.model.transportCapacity.id = event.id;
-    }
+  optionSelectedTransportCapacity(event:TransportCapacity){
+    this.model.transportCapacity.id = event.id;
+  }
 
   displayPropertyTransportCapacity(value) {
-
     if (value) {
         return value.capacity.concat(" | ").concat( value.unity);
     }
   }
 
+  // get transporTypes
   getAllTransportTypes(){
-    this.service.getAllTransportTypes().subscribe(data =>{
-    this.transportTypes = data;
-
+      this.service.getAllTransportTypes().subscribe(data =>{
+      this.transportTypes = data;
     })
-
   }
 
-
   optionSelectedTransportType(event:TransportType){
-    this.checkListForm.controls['transportCapacity'].reset()
+    this.secondFormGroup.controls['transportCapacity'].reset()
     this.getAllTransportCapacities(event.id);
   }
 
   displayPropertyTransportType(value) {
-
     if (value) {
       return value.name;
     }
   }
 
-
+  // get persons vigilancias
   getAllPersons(){
     this.service.getAllPersons().subscribe(data =>{
       this.surveillances = data.filter(p =>{
 
         return p.profession.name == "Vigilancia";
       });
-
-     /* this.supervisors = data.filter(p =>{
-
-        return p.profession.name != "Vigilancia";
-      });
-*/
     });
-
-
-
   }
 
 
   optionSelectedSurveillance(event:Person){
-  this.model.surveillance.id = event.id;
-}
-
-displayPropertySurveillance(value) {
-
-  if (value) {
-    return value.firstName;
+    this.model.surveillance.id = event.id;
   }
-}
 
-
-getResponsibles(){
-  this.service.getAllUsersIsResposible().subscribe(data =>{
-    this.responsibles = data
-  });
-
-
-
-}
-
-optionSelectedUser(event:Person){
-  this.model.responsible.id = event.id;
-}
-
-displayPropertyUser(value) {
-
-  if (value) {
-    return value.firstName;
+  displayPropertySurveillance(value) {
+    if (value) {
+      return value.firstName;
+    }
   }
-}
-role(role:string){
 
-  return this.authRoleService.hasRole(role);
-}
-
-rejectForm(editData:any) {
-  if (editData) {
-
-    console.log("EDITAR::" + JSON.stringify(editData))
-    this.actionBtn ="Modificar";
-
-    this.checkListForm.controls['date'].setValue(editData.date);
-    this.checkListForm.controls['remision'].setValue(editData.remision);
-    this.checkListForm.controls['hours'].setValue(editData.hours);
-    this.checkListForm.controls['partner'].setValue(editData.partner);
-    this.checkListForm.controls['transportLine'].setValue(editData.transportLine);
-    this.checkListForm.controls['operator'].setValue(editData.operator);
-    this.checkListForm.controls['ecoTracto'].setValue(editData.ecoTracto);
-    this.checkListForm.controls['tractoPlacas'].setValue(editData.tractoPlacas);
-    this.checkListForm.controls['ecoCaja'].setValue(editData.ecoCaja);
-    this.checkListForm.controls['cajaPlacas'].setValue(editData.cajaPlacas);
-    this.checkListForm.controls['tipoTransporte'].setValue(editData.transportCapacity.transportType);
-    this.checkListForm.controls['transportCapacity'].setValue(editData.transportCapacity);
-    this.checkListForm.controls['noSello'].setValue(editData.noSello);
-    this.checkListForm.controls['surveillance'].setValue(editData.surveillance);
-    this.checkListForm.controls['responsible'].setValue(editData.responsible);
-    this.checkListForm.controls['observation'].setValue(editData.observation);
-    this.checkListForm.controls['noRampa'].setValue(editData.noRampa);
-    this.model.id = editData.id;
-    this.isChecked = editData.isActive;
-
-
-    this.model.partner.id=editData.partner.id;
-    this.model.transportLine.id=editData.transportLine.id;
-    //this.model.tran.id=editData.tipoTransporte.id;
-    this.model.transportCapacity.id=editData.transportCapacity.id;
-    this.model.surveillance.id=editData.surveillance.id;
-
+  // get persons responsibles
+  getResponsibles(){
+    this.service.getAllUsersIsResposible().subscribe(data =>{
+      this.responsibles = data
+    });
   }
-}
 
-editarClient() {
-  this.modelClient(this.checkListForm);
-  super.editar();
-  this.onReset();
-  super.toast("success","Modificado  con éxito");
-}
+  optionSelectedUser(event:Person){
+    this.model.responsible.id = event.id;
+  }
+
+  displayPropertyUser(value) {
+    if (value) {
+      return value.firstName;
+    }
+  }
+
+  role(role:string){
+    return this.authRoleService.hasRole(role);
+  }
+
+  onSubmit() {
+    this.submitted = true;
+      if (this.firstFormGroup.invalid && this.secondFormGroup.invalid ) {
+          return;
+      }
+      if (!this.editData) {
+        this.modelCheckList(this.firstFormGroup,this.secondFormGroup,this.thirdFormGroup);
+        super.crear();
+        this.onReset();
+      }else {
+        this.editarClient();
+      }
+    }
+
+  modelCheckList(firstFormGroup:any, secondFormGroup:any,thirdFormGroup:any){
+    this.model.date = firstFormGroup.get('date').value;
+    this.model.remision = firstFormGroup.get('remision').value;
+    this.model.hours = firstFormGroup.get('hours').value;
+    this.model.partner.name =firstFormGroup.get('partner').value;
+
+    this.model.processType = this.processType;
+
+    this.model.operator = secondFormGroup.get('operator').value;
+    this.model.ecoTracto = secondFormGroup.get('ecoTracto').value;
+    this.model.tractoPlacas = secondFormGroup.get('tractoPlacas').value;
+    this.model.ecoCaja = secondFormGroup.get('ecoCaja').value;
+    this.model.cajaPlacas = secondFormGroup.get('cajaPlacas').value;
+    this.model.noSello = secondFormGroup.get('noSello').value;
+    this.model.operator = secondFormGroup.get('operator').value;
+    this.model.noRampa = secondFormGroup.get('noRampa').value;
+
+    this.model.observation = thirdFormGroup.get('observation').value;
+  }
+
+  onReset() {
+    this.submitted = false;
+    this.firstFormGroup.reset();
+    this.secondFormGroup.reset();
+    this.thirdFormGroup.reset();
+    this.editData = null;
+    this.dialogRef.close("true");
+  }
+
+  rejectForm(editData:any) {
+    if (editData) {
+
+      console.log("EDITAR::" + JSON.stringify(editData))
+      this.actionBtn ="Modificar";
+
+      this.firstFormGroup.controls['date'].setValue(editData.date);
+      this.firstFormGroup.controls['remision'].setValue(editData.remision);
+      this.firstFormGroup.controls['hours'].setValue(editData.hours);
+      this.firstFormGroup.controls['partner'].setValue(this.partner);
+      this.secondFormGroup.controls['transportLine'].setValue(editData.transportLine);
+      this.secondFormGroup.controls['operator'].setValue(editData.operator);
+      this.secondFormGroup.controls['ecoTracto'].setValue(editData.ecoTracto);
+      this.secondFormGroup.controls['tractoPlacas'].setValue(editData.tractoPlacas);
+      this.secondFormGroup.controls['ecoCaja'].setValue(editData.ecoCaja);
+      this.secondFormGroup.controls['cajaPlacas'].setValue(editData.cajaPlacas);
+      this.secondFormGroup.controls['tipoTransporte'].setValue(editData.transportCapacity.transportType);
+      this.secondFormGroup.controls['transportCapacity'].setValue(editData.transportCapacity);
+      this.secondFormGroup.controls['noSello'].setValue(editData.noSello);
+      this.secondFormGroup.controls['surveillance'].setValue(editData.surveillance);
+      this.secondFormGroup.controls['responsible'].setValue(editData.responsible);
+      this.secondFormGroup.controls['noRampa'].setValue(editData.noRampa);
+      this.thirdFormGroup.controls['observation'].setValue(editData.observation);
+      this.model.id = editData.id;
+
+      this.model.partner.id=editData.partner.id;
+      this.model.transportLine.id=editData.transportLine.id;
+      //this.model.tran.id=editData.tipoTransporte.id;
+      this.model.transportCapacity.id=editData.transportCapacity.id;
+      this.model.surveillance.id=editData.surveillance.id;
+      this.model.responsible.id=editData.responsible.id;
+    }
+  }
+
+  editarClient() {
+    this.modelCheckList(this.firstFormGroup,this.secondFormGroup,this.thirdFormGroup);
+    super.editar();
+    this.onReset();
+    super.toast("success","Modificado  con éxito");
+  }
+
 }

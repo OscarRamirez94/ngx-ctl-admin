@@ -36,12 +36,13 @@ import {MatDividerModule} from '@angular/material/divider';
 import { PalletMainComponent } from './pallet/pallet-main/pallet-main.component';
 import {MatListModule} from '@angular/material/list';
 
+
 @NgModule({
   declarations: [
     CheckListComponent,
     CheckListMainComponent,
     CheckListCreateComponent,
-    PalletMainComponent
+    PalletMainComponent,
   ],
   imports: [
     CommonModule,
