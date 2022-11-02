@@ -9,6 +9,7 @@ import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { ClientService } from '../../../services/client/client.service';
 import { Client } from '../../../models/client';
 import { HeadService } from '../../../services/head/head.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -59,7 +60,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private authService: NbAuthService,
               private clientService:ClientService,
               private headService:HeadService,
-              private toastrService: NbToastrService ) {
+              private toastrService: NbToastrService ,
+              private route:Router) {
 
                 this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
@@ -114,6 +116,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headService.disparadorClient.emit(client);
     this.currentClient = client
     this.toastrService.primary("Trabajando con : " + client ,"Cliente seleccionado");
+    this.route.navigateByUrl('pages/dashboard');
+
 
   }
   toggleSidebar(): boolean {

@@ -1,0 +1,300 @@
+
+
+<div class="row" style="position: relative;">
+  <div class="col-md-12 col-lg-4 col-xxxl-4" style="position: relative;">
+    <nb-card>
+      <nb-card-header>Detalle</nb-card-header>
+      <nb-card-body>
+        <p>{{totalRegistros}}</p>
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+  <div class="col-md-12 col-lg-4 col-xxxl-4">
+    <nb-card>
+      <nb-card-header>Datepicker With Range</nb-card-header>
+      <nb-card-body>
+        <input nbInput placeholder="Range Picker">
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-12 col-lg-4 col-xxxl-4">
+    <nb-card>
+      <nb-card-header>Datepicker With Disabled Min Max Values</nb-card-header>
+      <nb-card-body>
+        <input nbInput placeholder="Min Max Picker">
+
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<nb-accordion multi>
+  <nb-accordion-item>
+    <nb-accordion-item-header accent="primary">
+      Agregar
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+
+      <form [formGroup]="formTemplate" (ngSubmit)="onSubmitTemplate()">
+        <nb-card accent="primary">
+          <nb-card-header>Generar Formulario</nb-card-header>
+          <nb-card-body>
+
+            <!-- grid -->
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Cantidad de Pallets</mat-label>
+                    <input matInput  formControlName="cantidad" placeholder="Digita Cantidad" >
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                    <mat-label>Producto</mat-label>
+                    <input type="text"
+                           placeholder="Selecciona Producto"
+                           matInput
+                           formControlName="producto"
+                           [matAutocomplete]="autoProducto"
+                           >
+                    <mat-autocomplete #autoProducto="matAutocomplete"
+                    (optionSelected)="optionSelectedProduct($event.option.value)"
+                    [displayWith]="displayPropertyProduct">
+                      <mat-option *ngFor="let option of products" [value]="option">
+                        {{option.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Codigo</mat-label>
+                    <input matInput   formControlName="codigo">
+                  </mat-form-field>
+                </div>
+              </div>
+              <!--
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Lote</mat-label>
+                    <input matInput  formControlName="lote">
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </div>
+                      -->
+
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <button mat-flat-button color="primary" [disabled]="temple()===true">Generar</button>
+                  <button mat-flat-button type="button" color="warn" (click)="resetTemplate()">Limpiar</button>
+                </div>
+              </div>
+            </div>
+            <!-- end grid-->
+
+          </nb-card-body>
+        </nb-card>
+      </form>
+      <br>
+      <mat-divider></mat-divider>
+      <form [formGroup]="form">
+          <nb-card accent="primary" *ngIf="temple()">
+            <nb-card-header>Agrega Pallets</nb-card-header>
+            <nb-card-body>
+            <div formArrayName="items" *ngFor="let creds of form.get('items')?.['controls']; let i = index">
+              <div class="row col-lg-12" [formGroupName]="i">
+                <div class="col-sm-2">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Lincecia</mat-label>
+                      <input matInput  formControlName="ua">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                   <mat-form-field appearance="legacy">
+                      <mat-label>Cantidad * Tarima</mat-label>
+                      <input matInput  formControlName="amount">
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-2">
+                    <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                      <mat-label>UM</mat-label>
+                      <input type="text"
+                             placeholder="Selecciona UM"
+                             matInput
+                             formControlName="um"
+                             [matAutocomplete]="autoUM">
+                      <mat-autocomplete #autoUM="matAutocomplete"
+                      (optionSelected)="optionSelectedUMSave($event.option.value,i)"
+                      [displayWith]="displayPropertyUM">
+                        <mat-option *ngFor="let option of unities" [value]="option">
+                          {{option.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-1">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>lote</mat-label>
+                      <input matInput  formControlName="lote">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-2">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Caducidad</mat-label>
+                      <input matInput type="date"  formControlName="expiration">
+                    </mat-form-field>
+                </div>
+
+                <div class="col-sm-2">
+                    <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                      <mat-label>Producto</mat-label>
+                      <input type="text"
+                             placeholder="Selecciona Producto"
+                             matInput
+                             formControlName="producto"
+                             [matAutocomplete]="autoProducto">
+                      <mat-autocomplete #autoProducto="matAutocomplete"
+                      (optionSelected)="optionSelectedProductSave($event.option.value,i)"
+                      [displayWith]="displayPropertyProduct">
+                        <mat-option *ngFor="let option of products" [value]="option">
+                          {{option.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <!--
+                <div class="col-sm-1">
+                    <mat-form-field appearance="legacy" hidden>
+                      <mat-label>Código</mat-label>
+                      <input matInput   formControlName="codigo">
+                    </mat-form-field>
+
+                </div>
+                -->
+                <div class="col-sm-1">
+                  <button mat-icon-button color="warn" (click)="deleteItem(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </div>
+
+              <mat-divider></mat-divider>
+            </div>
+
+          <br>
+            <div class="row">
+              <div class="col-sm-10">
+              </div>
+
+              <div class="col-sm-2">
+                <button mat-flat-button color="primary" type="submit" (click)="submit()">Guardar</button>
+              </div>
+            </div>
+            <!-- end grid-->
+          </nb-card-body>
+        </nb-card>
+      </form>
+      <br>
+    </nb-accordion-item-body>
+  </nb-accordion-item>
+
+  <nb-accordion-item>
+    <nb-accordion-item-header>
+     Pallets
+    </nb-accordion-item-header>
+    <nb-accordion-item-body>
+      <nb-card accent="primary">
+        <nb-card-header>Pallets</nb-card-header>
+        <nb-card-body>
+            <div class="example-button-row">
+              <!--
+              <button mat-flat-button color="primary" (click)="openDialog()">Agregar</button>
+              -->
+            </div>
+            <div class="row">
+              <div class="col-sm-3">
+                <mat-form-field appearance="standard">
+                  <mat-label>Buscar </mat-label>
+                  <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+                </mat-form-field>
+              </div>
+            </div>
+            <!-- filter -->
+
+            <!-- end filter -->
+            <div class="mat-elevation-z8">
+              <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" >
+                <!-- Name Column -->
+                <ng-container matColumnDef="noPallet">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > NO.PALLET </th>
+                  <td mat-cell *matCellDef="let element"> {{dataSource.filteredData.indexOf(element) +1}}  </td>
+                </ng-container>
+                <ng-container matColumnDef="ua">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > LINCENCIA</th>
+                  <td mat-cell *matCellDef="let element"> {{element.ua}} </td>
+                </ng-container>
+                <ng-container matColumnDef="amount">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > CANTIDAD * TARIMA </th>
+                  <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+                </ng-container>
+                <ng-container matColumnDef="um">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > UM </th>
+                  <td mat-cell *matCellDef="let element"> {{element.um.name}} </td>
+                </ng-container>
+                <ng-container matColumnDef="lote">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header >LOTE</th>
+                  <td mat-cell *matCellDef="let element"> {{element.lote}} </td>
+                </ng-container>
+                <ng-container matColumnDef="expiration">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > CADUCIDAD </th>
+                  <td mat-cell *matCellDef="let element"> {{element.expiration}} </td>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <th mat-header-cell *matHeaderCellDef > ACCIONES </th>
+                  <td mat-cell *matCellDef="let element">
+                    <button mat-icon-button color="primary" ><mat-icon>edit</mat-icon>
+                    </button>
+                    <button mat-icon-button color="warn">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                <!-- Row shown when there is no matching data. -->
+                <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No se encontraron coincidencias "{{input.value}}"</td>
+
+                </tr>
+              </table>
+            <!--Paginator -->
+            <mat-paginator [length]="totalRegistros" [pageSize]="totalPorPagina"
+                          [pageIndex]="paginaActual" [pageSizeOptions]="pageSizeOptions"
+                          (page)="paginar($event)" aria-label="arialLabel"
+                          showFirstLastButtons>
+            </mat-paginator>
+            <!--End Paginator -->
+            </div>
+        </nb-card-body>
+      </nb-card>
+    </nb-accordion-item-body>
+
+  </nb-accordion-item>
+</nb-accordion>
+

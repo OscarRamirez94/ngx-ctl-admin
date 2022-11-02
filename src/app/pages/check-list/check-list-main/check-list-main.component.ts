@@ -41,8 +41,10 @@ export class CheckListMainComponent extends CommonListClientComponent<CheckList,
   }
 
   addPallet(element:CheckList): void {
+    //this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
     this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
   }
+
 
   editarClient(element:any){
     this.dialog.open(CheckListCreateComponent,{

@@ -13,6 +13,7 @@ import { TransportTypesRoutingModule } from './transport-types/transport-types-r
 import { PersonsRoutingModule } from './persons/persons-routing.module';
 import { CheckListRoutingModule } from './check-list/check-list-routing.module';
 import { UsersRoutingModule } from './users/users-routing.module';
+import { ProductRoutingModule } from './product/product-routing.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { UsersRoutingModule } from './users/users-routing.module';
     TransportLinesRoutingModule,
     TransportTypesRoutingModule,
     CheckListRoutingModule,
+    ProductRoutingModule,
     ThemeModule,
     NbMenuModule,
 

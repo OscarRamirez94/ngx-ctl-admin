@@ -1,10 +1,9 @@
 import { CheckList } from "../check-list/check-list";
 import { Generic } from "../generic/generic";
-import { Product } from "../product/product";
 import { Unity } from "../unity/unity";
 
 
-export class Pallet implements Generic {
+export class Pallett implements Generic {
 
   id: number ;
   name: string;
@@ -15,6 +14,6 @@ export class Pallet implements Generic {
   lote:string;
   expiration:Date;
   codigo:string;
-  product:Product;
+  producto:string;
   ua:string;
 }

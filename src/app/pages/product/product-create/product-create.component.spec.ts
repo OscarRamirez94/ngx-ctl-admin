@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PalletMainComponent } from './pallet-main.component';
+import { ProductCreateComponent } from './product-create.component';
 
-describe('PalletMainComponent', () => {
-  let component: PalletMainComponent;
-  let fixture: ComponentFixture<PalletMainComponent>;
+describe('ProductCreateComponent', () => {
+  let component: ProductCreateComponent;
+  let fixture: ComponentFixture<ProductCreateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PalletMainComponent ]
+      declarations: [ ProductCreateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PalletMainComponent);
+    fixture = TestBed.createComponent(ProductCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
