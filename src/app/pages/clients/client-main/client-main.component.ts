@@ -37,8 +37,10 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
     }).afterClosed().subscribe(data =>{
       if (data) {
         super.calculateRange();
+
       }
       });
+
   }
 
   editarClient(element:any){
@@ -50,6 +52,7 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
     }).afterClosed().subscribe(data =>{
         if (data) {
             super.calculateRange();
+
         }
       })
   }

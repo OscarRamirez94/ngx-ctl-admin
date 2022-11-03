@@ -10,6 +10,8 @@ import { ClientService } from '../../../services/client/client.service';
 import { Client } from '../../../models/client';
 import { HeadService } from '../../../services/head/head.service';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'ngx-header',
@@ -18,6 +20,7 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  myControl = new FormControl('');
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
@@ -25,6 +28,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   client: Client;
   clientName:string;
   position: NbGlobalPosition
+
   themes = [
     {
       value: 'default',
@@ -48,8 +52,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = 'default';
   currentClient :string;
 
-  userMenu = [ { title: 'Mi Perfil', link: '/pages/users/users-profile' },
-  { title: 'Cerrar Sesión',link: '/auth/logout'  } ];
+  userMenu = [
+  { title: 'Mi Perfil', link: '/pages/users/users-profile' },
+  { title: 'Cerrar Sesión',link: '/auth/logout'  }
+];
 
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
@@ -61,25 +67,60 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private clientService:ClientService,
               private headService:HeadService,
               private toastrService: NbToastrService ,
-              private route:Router) {
+              private route:Router,
+              private dialog: MatDialog) {
 
-                this.authService.onTokenChange()
+      this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
-
         if (token.isValid()) {
-
           this.user = "Bienvenido " + token.getPayload()['sub']
         }
 
       });
+
+
   }
 
-  ngOnInit() {
+  optionSelected(event:Client){
+    console.log(event.id + event.name);
+    this.currentClient = event.name;
+    this.headService.saveClient(event.id.toString());
+    this.headService.saveNameClient(event.name);
+    this.headService.disparadorClient.emit(event.id.toString());
+    this.toastrService.primary("Trabajando con : " + event.name ,"Cliente seleccionado");
+    this.route.navigateByUrl('pages/dashboard');
 
+  }
+
+  displayProperty(value) {
+    if (value) {
+      return value.name;
+    }
+  }
+  ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-    this.currentClient = this.getClientLs();
+
+    // notifica cuando se inserta un nuevo cliente en catalogo
+    this.headService.disparadorClientComp.subscribe(data =>{
+      this.myControl.setValue(data);
+      this.currentClient = data.name;
+    });
+
+    let id =  this.getClientLs();
+    console.log(id);
+
+    if (id !==null ){
+      this.clientService.ver(+id).subscribe(data =>{
+        this.currentClient = data.name
+        this.myControl.setValue(data);
+      })
+
+
+    }
 
     this.getAllClients();
+
+
    /* this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
       .subscribe((users: any) => this.user = users.nick);
@@ -110,16 +151,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.themeService.changeTheme(themeName);
   }
 
-  changeClient(client: any) {
-
-    this.headService.saveClientLS(client);
-    this.headService.disparadorClient.emit(client);
-    this.currentClient = client
-    this.toastrService.primary("Trabajando con : " + client ,"Cliente seleccionado");
-    this.route.navigateByUrl('pages/dashboard');
-
-
-  }
   toggleSidebar(): boolean {
     this.sidebarService.toggle(true, 'menu-sidebar');
     this.layoutService.changeLayoutSize();
@@ -137,10 +168,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getAllClients(){
+
     this.clientService.getAll().subscribe(data =>{
       this.clients = data as Client[];
     })
+
   }
+
   getClientLs():string{
     return this.headService.getClientLS();
   }

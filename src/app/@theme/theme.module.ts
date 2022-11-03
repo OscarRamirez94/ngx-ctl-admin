@@ -17,7 +17,7 @@ import {
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {
   FooterComponent,
   HeaderComponent,
@@ -41,7 +41,9 @@ import { COSMIC_THEME } from './styles/theme.cosmic';
 import { CORPORATE_THEME } from './styles/theme.corporate';
 import { DARK_THEME } from './styles/theme.dark';
 import { MatChipsModule } from '@angular/material/chips';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
 const NB_MODULES = [
   NbLayoutModule,
   NbMenuModule,
@@ -57,7 +59,12 @@ const NB_MODULES = [
   NbEvaIconsModule,
   MatChipsModule,
   NbButtonGroupModule,
-  NbToastrModule
+  NbToastrModule,
+  MatDialogModule,
+  MatAutocompleteModule,
+  MatInputModule,
+  ngFormsModule,
+  ReactiveFormsModule,
 ];
 const COMPONENTS = [
   HeaderComponent,

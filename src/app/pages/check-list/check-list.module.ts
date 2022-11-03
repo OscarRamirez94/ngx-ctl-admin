@@ -9,7 +9,7 @@ import { CheckListCreateComponent } from './check-list-create/check-list-create.
 import { ThemeModule } from '../../@theme/theme.module';
 
 
-import { NbAccordionModule, NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbUserModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbListModule, NbUserModule } from '@nebular/theme';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule } from '@angular/material/form-field';
@@ -82,7 +82,8 @@ import { CheckListPalletComponent } from './check-list-pallet/check-list-pallet.
     MatExpansionModule,
     MatTabsModule,
     NbAccordionModule,
-    NbBadgeModule
+    NbBadgeModule,
+    NbListModule
   ]
 })
 export class CheckListModule { }

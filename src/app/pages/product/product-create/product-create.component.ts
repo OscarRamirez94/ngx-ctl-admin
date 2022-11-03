@@ -19,7 +19,7 @@ export class ProductCreateComponent  extends CommonListClientComponent<Product, 
   submitted = false;
   actionBtn: String = "Crear";
   isChecked;
-  clientHead;
+  clientId;
   constructor(
     service: ProductService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<ProductCreateComponent>,
@@ -35,7 +35,7 @@ export class ProductCreateComponent  extends CommonListClientComponent<Product, 
   }
 
   ngOnInit(): void {
-    this.clientHead =  this.headService.getClientLS();
+    this.clientId =  this.headService.getClientLS();
     this.setForm();
     this.rejectForm(this.editData);
     super.paginator;
@@ -77,7 +77,6 @@ export class ProductCreateComponent  extends CommonListClientComponent<Product, 
   rejectForm(editData: any) {
     if (editData) {
       this.actionBtn = "Modificar";
-      this.titulo ="Modificar Transporte de Linea"
       this.productForm.controls['name'].setValue(editData.name);
       this.productForm.controls['code'].setValue(editData.code);
       this.productForm.controls['isActive'].setValue(editData.isActive);
@@ -92,12 +91,12 @@ export class ProductCreateComponent  extends CommonListClientComponent<Product, 
     super.toast("success", "Product modificado con éxito");
   }
 
-  modelTransportLine(transportLineForm: any) {
-    this.model.partner.name = this.headService.getClientLS();
-    this.model.name = transportLineForm.get('name').value;
-    this.model.code = transportLineForm.get('code').value;
-    this.model.isActive = transportLineForm.get('isActive').value;
-    console.log("super", this.model.partner.name)
+  modelTransportLine(productForm: any) {
+    this.model.partner.id = this.clientId;
+    this.model.name = productForm.get('name').value;
+    this.model.code = productForm.get('code').value;
+    this.model.isActive = productForm.get('isActive').value;
+
 
   }
 }

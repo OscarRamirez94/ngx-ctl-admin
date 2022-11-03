@@ -22,7 +22,7 @@ export class PersonsMainComponent extends CommonListComponent<Person, PersonServ
 
   name: string;
   titulo: string = "Personal";
-  displayedColumns: string[] = ['firstName', 'additionalName', 'lastName', 'secondName', 'isActive', 'actions'];
+  displayedColumns: string[] = ['firstName', 'additionalName', 'lastName', 'secondName','profession', 'isActive', 'actions'];
   constructor(service: PersonService, router: Router, route: ActivatedRoute,
     private dialog: MatDialog, toastrService: NbToastrService,headService:HeadService) {
     super(service, router, route, toastrService,headService);

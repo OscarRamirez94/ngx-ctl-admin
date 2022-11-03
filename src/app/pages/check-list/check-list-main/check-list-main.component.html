@@ -32,11 +32,6 @@
               <td mat-cell *matCellDef="let element"> {{element.date}} </td>
             </ng-container>
 
-            <ng-container matColumnDef="hours">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header > HORA </th>
-              <td mat-cell *matCellDef="let element"> {{element.hours}} </td>
-            </ng-container>
-
             <ng-container matColumnDef="transportLine">
               <th mat-header-cell *matHeaderCellDef mat-sort-header >LINEA TRANSPORTE </th>
               <td mat-cell *matCellDef="let element"> {{element.transportLine.name}} </td>

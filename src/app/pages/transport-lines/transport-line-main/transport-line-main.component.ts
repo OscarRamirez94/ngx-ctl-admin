@@ -19,14 +19,14 @@ import { TransportLineDeleteComponent } from '../transport-line-delete/transport
   ],
   styleUrls: ['./transport-line-main.component.scss']
 })
-export class TransportLineMainComponent extends CommonListClientComponent<TransportLine, TransportLineService>
-implements OnInit  {
+export class TransportLineMainComponent extends CommonListClientComponent<TransportLine, TransportLineService> implements OnInit  {
 
 
   name: string;
   titulo: string = "Lineas de Transporte";
   displayedColumns: string[] = ['name', 'isActive', 'actions'];
   clientName =  this.headService.getClientLS();
+
   constructor(service: TransportLineService, router: Router, route: ActivatedRoute,
      private dialog: MatDialog, toastrService: NbToastrService,
      headService:HeadService) {

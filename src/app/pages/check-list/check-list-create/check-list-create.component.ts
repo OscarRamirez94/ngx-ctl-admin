@@ -31,16 +31,14 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
   responsibles:User[];
   processType:ProcessType = new ProcessType(1,true,"Descargar");
   myControl = new FormControl('');
-  partner=this.headService.getClientLS();
+  clientId;
+  partner=this.headService.getNameClientLS();
   submitted = false;
   actionBtn:String = "Crear";
-  date = new FormControl(new Date());
-  serializedDate = new FormControl(new Date().toISOString());
   isEditable= true;
+
   firstFormGroup = this._formBuilder.group({
-    date :[new Date(),Validators.required],
     remision:['',Validators.required],
-    hours:['',Validators.required],
     partner :[{ value : this.partner,disabled: true},Validators.required],
   });
 
@@ -88,6 +86,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
 
   ngOnInit(): void {
+    this.clientId =  this.headService.getClientLS();
     this.getAllClients();
     this.getAllTransportLines();
     this.getAllTransportTypes();
@@ -182,7 +181,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
   displayPropertySurveillance(value) {
     if (value) {
-      return value.firstName;
+      return value.firstName + ' ' + value.lastName;
     }
   }
 
@@ -222,13 +221,10 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     }
 
   modelCheckList(firstFormGroup:any, secondFormGroup:any,thirdFormGroup:any){
-    this.model.date = firstFormGroup.get('date').value;
+
     this.model.remision = firstFormGroup.get('remision').value;
-    this.model.hours = firstFormGroup.get('hours').value;
-    this.model.partner.name =firstFormGroup.get('partner').value;
-
+    this.model.partner.id =this.clientId;
     this.model.processType = this.processType;
-
     this.model.operator = secondFormGroup.get('operator').value;
     this.model.ecoTracto = secondFormGroup.get('ecoTracto').value;
     this.model.tractoPlacas = secondFormGroup.get('tractoPlacas').value;
@@ -256,9 +252,8 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       console.log("EDITAR::" + JSON.stringify(editData))
       this.actionBtn ="Modificar";
 
-      this.firstFormGroup.controls['date'].setValue(editData.date);
+
       this.firstFormGroup.controls['remision'].setValue(editData.remision);
-      this.firstFormGroup.controls['hours'].setValue(editData.hours);
       this.firstFormGroup.controls['partner'].setValue(this.partner);
       this.secondFormGroup.controls['transportLine'].setValue(editData.transportLine);
       this.secondFormGroup.controls['operator'].setValue(editData.operator);

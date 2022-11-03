@@ -15,14 +15,15 @@ import { ProductDeleteComponent } from '../product-delete/product-delete.compone
   templateUrl: './product-main.component.html',
   styleUrls: ['./product-main.component.scss']
 })
-export class ProductMainComponent extends CommonListClientComponent<Product, ProductService>
-implements OnInit  {
+export class ProductMainComponent extends CommonListClientComponent<Product, ProductService> implements OnInit  {
 
 
   name: string;
   titulo: string = "Productos";
   displayedColumns: string[] = ['name','code', 'isActive', 'actions'];
   clientName =  this.headService.getClientLS();
+
+
   constructor(service: ProductService, router: Router, route: ActivatedRoute,
      private dialog: MatDialog, toastrService: NbToastrService,
      headService:HeadService) {
@@ -32,6 +33,7 @@ implements OnInit  {
 
 
   openDialog(): void {
+    console.log("clientName", this.clientName);
     const dialogRef = this.dialog.open(ProductCreateComponent, {
       width: '35%'
     }).afterClosed().subscribe(data => {

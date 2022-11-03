@@ -23,5 +23,7 @@ export class PalletService extends CommonService<Pallet> {
   constructor(http: HttpClient) {
     super(http);
    }
-
+   public totalByCheckList(id: number): Observable<number> {
+    return this.http.get<number>(this.url+'total/'+id);
+  }
 }

@@ -36,7 +36,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   checkListId;
   palletForm !: FormGroup;
   checkList:CheckList;
-
+  totalCantidad:number = 0;
 
   disabledTemplate:boolean=true;
   form: FormGroup;
@@ -94,7 +94,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     this.getProducts();
     this.getUnities();
     this.template();
-
+    this.calculaTotales();
   }
 
   initForm(){
@@ -115,7 +115,6 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   submit() {
 
     if (this.form.invalid){
-      console.log("invalid form")
       return ;
     }
 
@@ -130,7 +129,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
     super.toast("success","Se Agregaron: "+ this.form.value['items'].length + " con éxito");
     this.limpiarPallets();
-
+    this.calculaTotales();
   }
 
   addDTO(x:any){
@@ -180,7 +179,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
     console.log("cantidad", cantidad)
     for (let step = 0; step < cantidad; step++) {
-      console.log("step", step)
+
       let pallet:Pallett =  new Pallett();
 
       pallet.amount = null;
@@ -190,7 +189,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
       pallet.expiration = null;
       pallet.um = null;
       pallet.ua = null;
-      console.log('pallet',pallet);
+
       this.attachmentArP.push(pallet);
     }
     this.addCreds();
@@ -263,13 +262,15 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
   temple():Boolean{
     const add = <FormArray>this.form.controls.items;
-    console.log("***add",add.length);
+
     if (add.length === 0){
       return false;
     }
     return true;
   }
   calculaTotales(){
-
+    this.service.totalByCheckList(this.id).subscribe(data =>{
+      this.totalCantidad = data;
+    });
   }
 }

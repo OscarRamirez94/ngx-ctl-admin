@@ -38,7 +38,7 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
   ariaLabel="Select page";
   filterValue ="";
   lista: E[];
-  clientName:string;
+  clientName:any;
   dataSource: MatTableDataSource<E>;
 
 

@@ -22,6 +22,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
   submitted = false;
   actionBtn:String = "Crear";
   isChecked;
+  clientOg:string;
   constructor(
     service: ClientService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder:FormBuilder, private  dialogRef: MatDialogRef<ClientCreateComponent>,
@@ -38,6 +39,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
 
   ngOnInit(): void {
     this.setForm();
+    this.getClienteOriginal(this.editData);
     this.rejectForm(this.editData);
     super.paginator;
   }
@@ -57,10 +59,14 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
          this.modelClient(this.clientForm);
          super.crear();
          this.onReset();
+
+
          //super.toast("success","Cliente creado con éxito");
       }  else {
           this.editarClient();
-         }
+      }
+      //notifica
+
   }
 
   onReset() {
@@ -111,6 +117,10 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
     super.editar();
     this.onReset();
     super.toast("success","Cliente modificado con éxito");
+    console.log("data anterior",this.clientOg)
+    this.headService.saveClient(this.model.id.toString());
+    this.headService.disparadorClientComp.emit(this.model);
+
   }
 
   modelClient(clientForm:any) {
@@ -128,4 +138,9 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
 
   }
 
+  getClienteOriginal(editData:any){
+    if (editData) {
+      this.clientOg = editData.name;
+    }
+  }
 }

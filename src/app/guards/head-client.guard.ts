@@ -22,9 +22,9 @@ export class HeadClientGuard implements CanActivate {
 
 
 
-    let clientName = this.headService.getClientLS();
-      console.log(clientName);
-      if (clientName) {
+    let clientId = this.headService.getClientLS();
+      console.log(clientId);
+      if (clientId) {
         return true;
       }
       //swal('Acceso denegado', `Hola ${this.authService.usuario.username} no tienes acceso a este recurso!`, 'warning');

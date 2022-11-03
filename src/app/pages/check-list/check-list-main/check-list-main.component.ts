@@ -18,9 +18,7 @@ export class CheckListMainComponent extends CommonListClientComponent<CheckList,
 
   name: string;
   titulo:string = "CheckList";
-  displayedColumns: string[] = ['id','remision','date','hours',
-  'transportLine','transportType',
-  'noSello','pallets','actions' ];
+  displayedColumns: string[] = ['id','remision','date','transportLine','transportType','noSello','pallets','actions' ];
   clientName =  this.headService.getClientLS();
   constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,

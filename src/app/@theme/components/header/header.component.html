@@ -24,34 +24,49 @@
     <nb-action class="control-item">
       <nb-search type="rotate-layout"></nb-search>
     </nb-action>
-
-
     <nb-action class="user-action">
-      <nb-select [selected]="currentClient" (selectedChange)="changeClient($event)" status="primary">
-      <nb-option *ngFor="let client of clients" [value]="client.name"> {{ client.name }}</nb-option>
-    </nb-select>
-    <nb-action class="user-action" *ngIf="currentClient">
+      <form class="example-form">
+        <mat-form-field #field  appearance="legacy" class="example-full-width">
+          <mat-label>Cliente</mat-label>
+          <input type="text"
+                placeholder="Selecciona Cliente"
+                aria-label="Number"
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="autoClient"
+                >
+          <mat-autocomplete #autoClient="matAutocomplete"
+          (optionSelected)="optionSelected($event.option.value)"
+          [displayWith]="displayProperty">
+          <mat-option *ngFor="let option of clients" [value]="option">
+             {{option.name}}
+          </mat-option>
+          </mat-autocomplete>
+          </mat-form-field>
+      </form>
+    </nb-action>
 
+    <nb-action class="user-action" *ngIf="currentClient">
       <mat-chip-list aria-label="Fish selection">
         <mat-chip color="primary" selected>Cliente Seleccionado : {{currentClient}}</mat-chip>
       </mat-chip-list>
-
     </nb-action>
+
     <nb-action class="user-action" *ngIf="!currentClient">
       <mat-chip-list aria-label="Fish selection">
         <mat-chip color="accent" selected>Selecciona Un Cliente </mat-chip>
       </mat-chip-list>
     </nb-action>
-  </nb-action>
+
+
     <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
       <nb-user [nbContextMenu]="userMenu"
                [onlyPicture]="userPictureOnly"
                [name]="user"
                [picture]="user">
       </nb-user>
-
-
     </nb-action>
+
   </nb-actions>
 
 </div>

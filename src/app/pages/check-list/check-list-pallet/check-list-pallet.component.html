@@ -1,40 +1,27 @@
 
-
 <div class="row" style="position: relative;">
-  <div class="col-md-12 col-lg-4 col-xxxl-4" style="position: relative;">
-    <nb-card>
-      <nb-card-header>Detalle</nb-card-header>
+  <div class="col-md-12 col-lg-6 col-xxxl-4" style="position: relative;">
+    <nb-card status="primary">
+      <nb-card-header>Remision : {{checkList?.remision}}
+        <nb-badge text={{checkList?.date}} status="danger" position="top left"></nb-badge>
+      </nb-card-header>
       <nb-card-body>
-        <p>{{totalRegistros}}</p>
-
-      </nb-card-body>
-    </nb-card>
-  </div>
-
-  <div class="col-md-12 col-lg-4 col-xxxl-4">
-    <nb-card>
-      <nb-card-header>Datepicker With Range</nb-card-header>
-      <nb-card-body>
-        <input nbInput placeholder="Range Picker">
-
-      </nb-card-body>
-    </nb-card>
-  </div>
-  <div class="col-md-12 col-lg-4 col-xxxl-4">
-    <nb-card>
-      <nb-card-header>Datepicker With Disabled Min Max Values</nb-card-header>
-      <nb-card-body>
-        <input nbInput placeholder="Min Max Picker">
-
+        <mat-list role="list">
+          <mat-list-item role="listitem">Total Pallets : {{this.totalRegistros}}</mat-list-item>
+          <mat-list-item role="listitem">Cantidad total: {{totalCantidad}}</mat-list-item>
+        </mat-list>
       </nb-card-body>
     </nb-card>
   </div>
 </div>
 
+<nb-card accent="info">
 <nb-accordion multi>
   <nb-accordion-item>
-    <nb-accordion-item-header accent="primary">
+    <nb-accordion-item-header>
+
       Agregar
+
     </nb-accordion-item-header>
     <nb-accordion-item-body>
 
@@ -297,4 +284,8 @@
 
   </nb-accordion-item>
 </nb-accordion>
+</nb-card>
+
+
+
 

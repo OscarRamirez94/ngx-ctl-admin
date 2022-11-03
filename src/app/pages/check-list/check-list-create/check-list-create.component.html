@@ -24,11 +24,12 @@
           </div>
         </div>
 
+        <!--
         <div class="col-sm-3">
           <div class="form-group">
             <mat-form-field appearance="legacy">
               <mat-label >Fecha</mat-label>
-              <input [disabled]="true" matInput  formControlName="date"
+              <input  matInput type="datetime-local" formControlName="date"
               [matDatepicker]="picker3" [value]="date.value">
               <mat-hint>MM/DD/YYYY</mat-hint>
               <mat-datepicker-toggle [disabled]="true" matSuffix [for]="picker3" ></mat-datepicker-toggle>
@@ -47,7 +48,7 @@
             </mat-form-field>
           </div>
         </div>
-
+-->
         <div class="col-sm-3">
           <div class="form-group">
             <mat-form-field appearance="legacy">
@@ -221,7 +222,7 @@
              (optionSelected)="optionSelectedSurveillance($event.option.value)"
              [displayWith]="displayPropertySurveillance">
              <mat-option *ngFor="let option of surveillances" [value]="option">
-                {{option.firstName}}
+                {{option.firstName}} {{option.lastName}}
              </mat-option>
              </mat-autocomplete>
              <mat-error *ngIf="submitted && f2.surveillance.errors" >Campo Requerido</mat-error>
