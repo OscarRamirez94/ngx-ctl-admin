@@ -37,12 +37,16 @@ import {MatListModule} from '@angular/material/list';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatTabsModule} from '@angular/material/tabs';
 import { CheckListPalletComponent } from './check-list-pallet/check-list-pallet.component';
+import { CheckListPalletCreateComponent } from './check-list-pallet-create/check-list-pallet-create.component';
+import { CheckListPalletDeleteComponent } from './check-list-pallet-delete/check-list-pallet-delete.component';
 @NgModule({
   declarations: [
     CheckListComponent,
     CheckListMainComponent,
     CheckListCreateComponent,
     CheckListPalletComponent,
+    CheckListPalletCreateComponent,
+    CheckListPalletDeleteComponent,
 
   ],
   imports: [

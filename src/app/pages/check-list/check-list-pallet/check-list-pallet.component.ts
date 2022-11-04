@@ -16,6 +16,8 @@ import { PalletService } from '../../../services/pallet/pallet.service';
 import { ProductService } from '../../../services/product/product.service';
 import { UnityService } from '../../../services/unity/unity.service';
 import { CommonListIdComponent } from '../../commons/common-list/common-list-id.component';
+import { CheckListPalletCreateComponent } from '../check-list-pallet-create/check-list-pallet-create.component';
+import { CheckListPalletDeleteComponent } from '../check-list-pallet-delete/check-list-pallet-delete.component';
 
 
 @Component({
@@ -41,7 +43,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   disabledTemplate:boolean=true;
   form: FormGroup;
   formTemplate: FormGroup;
-  palletSave:PalletSave2 = new PalletSave2();
+
 
   unities:Unity[] = [];
   products:Product[] = [];
@@ -78,7 +80,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     super(service,router, route,toastrService);
     this.model = new Pallet();
     this.model.id = this.id;
-
+    this.nombreModel = "Pallets";
   }
 
   ngOnInit(): void {
@@ -117,23 +119,27 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     if (this.form.invalid){
       return ;
     }
+    let palletSave:PalletSave2 = new PalletSave2();
+    palletSave.checkListId = this.id;
+    palletSave.palletsDTO =[];
+    this.form.value['items'].map(x => palletSave.palletsDTO.push(this.addDTO(x)));
 
-    this.form.value['items'].map(x => this.addDTO(x));
-    this.palletSave.checkListId = this.id;
-    console.log("datos a guardar", this.palletSave)
-    this.palletService.crear(this.palletSave).subscribe(data =>{
+    console.log("datos a guardar", palletSave)
+    this.palletService.crear(palletSave).subscribe(data =>{
       console.log(data);
       super.paginator;
       super.calculateRange();
+      this.calculaTotales();
     });
-
     super.toast("success","Se Agregaron: "+ this.form.value['items'].length + " con éxito");
     this.limpiarPallets();
-    this.calculaTotales();
+
+
   }
 
-  addDTO(x:any){
+  addDTO(x:any):Pallet{
     console.log("x", x)
+    let pallet:PalletSave2;
     let pallettoDto:Pallet = new Pallet();
     pallettoDto.ua = x.ua;
     pallettoDto.amount = x.amount;
@@ -143,7 +149,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     pallettoDto.um = x.um;
     pallettoDto.codigo =x.codigo;
     pallettoDto.product = x.producto;
-    this.palletSave.palletsDTO.push(pallettoDto);
+    return pallettoDto;
 
   }
   addCreds() {
@@ -203,6 +209,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     this.form.controls.items.reset();
     this.attachmentArP = [];
     this.submitted = false;
+
     //this.formTemplate.reset();
   }
 
@@ -272,5 +279,30 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     this.service.totalByCheckList(this.id).subscribe(data =>{
       this.totalCantidad = data;
     });
+  }
+
+  editDialog(element:any): void {
+    const dialogRef = this.dialog.open(CheckListPalletCreateComponent, {
+      width: '65%',
+      data:element
+    }).afterClosed().subscribe(data =>{
+      if (data) {
+        super.calculateRange();
+        this.calculaTotales();
+      }
+      });
+  }
+
+  deleteDialog(element:any): void {
+    const dialogRef = this.dialog.open(CheckListPalletDeleteComponent, {
+      data:element
+    }).afterClosed().subscribe(data =>{
+      console.log("data", data);
+      if (data) {
+        super.calculateRange();
+        this.calculaTotales();
+      }
+
+      });
   }
 }
