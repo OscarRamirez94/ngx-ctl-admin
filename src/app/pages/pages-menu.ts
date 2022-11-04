@@ -87,6 +87,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'menu',
         link: '/pages/professions/professions',
       },
+
       {
         title: 'Usuarios',
         icon: 'menu',

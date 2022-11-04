@@ -1,6 +1,7 @@
 import { EventEmitter, Injectable, Output } from '@angular/core';
 
 import { Client } from '../../models/client';
+import { Notification } from '../../models/notification/notification';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,7 @@ import { Client } from '../../models/client';
 export class HeadService {
 
   @Output() disparadorClient : EventEmitter<string> = new EventEmitter();
-  @Output() disparadorClientComp : EventEmitter<Client> = new EventEmitter();
+  @Output() disparadorClientComp : EventEmitter<Notification> = new EventEmitter();
   constructor() { }
 /*
   saveClientLS(clientName:any){

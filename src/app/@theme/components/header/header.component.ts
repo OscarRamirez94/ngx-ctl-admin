@@ -12,6 +12,8 @@ import { HeadService } from '../../../services/head/head.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
+import { Notification } from '../../../models/notification/notification';
+import { Console } from 'console';
 
 @Component({
   selector: 'ngx-header',
@@ -24,11 +26,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
+  username:string;
   clients:Client[];
   client: Client;
   clientName:string;
   position: NbGlobalPosition
-
+  idL =  this.getClientLs();
   themes = [
     {
       value: 'default',
@@ -73,7 +76,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.authService.onTokenChange()
       .subscribe((token: NbAuthJWTToken) => {
         if (token.isValid()) {
-          this.user = "Bienvenido " + token.getPayload()['sub']
+          this.user = "Bienvenido " + token.getPayload()['sub'];
+          this.username = token.getPayload()['username'];
         }
 
       });
@@ -89,7 +93,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.headService.disparadorClient.emit(event.id.toString());
     this.toastrService.primary("Trabajando con : " + event.name ,"Cliente seleccionado");
     this.route.navigateByUrl('pages/dashboard');
-
   }
 
   displayProperty(value) {
@@ -100,31 +103,38 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
 
-    // notifica cuando se inserta un nuevo cliente en catalogo
-    this.headService.disparadorClientComp.subscribe(data =>{
-      this.myControl.setValue(data);
-      this.currentClient = data.name;
-    });
+    console.log(this.idL);
 
-    let id =  this.getClientLs();
-    console.log(id);
-
-    if (id !==null ){
-      this.clientService.ver(+id).subscribe(data =>{
+    if (this.idL !==null ){
+      this.clientService.ver(+this.idL).subscribe(data =>{
         this.currentClient = data.name
         this.myControl.setValue(data);
       })
-
-
     }
 
     this.getAllClients();
+    // notifica cuando se inserta un nuevo cliente en catalogo
+    this.headService.disparadorClientComp.subscribe(data =>{
+      let notifica:Notification =  data as Notification;
+        if (data.isActive){
+          this.myControl.setValue(notifica.client);
+          this.currentClient = notifica.client.name;
+        }else {
+          console.log("id" + data.localId);
+          this.getAllClients();
+          this.clientService.ver(+data.localId).subscribe(data2 =>{
+            this.getAllClients();
+            console.log("data", data2)
+            this.myControl.setValue(data2);
+            this.currentClient = notifica.client.name;
+          })
+        }
+    });
 
-
-   /* this.userService.getUsers()
+    /* this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
       .subscribe((users: any) => this.user = users.nick);
-*/
+    */
     const { xl } = this.breakpointService.getBreakpointsMap();
     this.themeService.onMediaQueryChange()
       .pipe(

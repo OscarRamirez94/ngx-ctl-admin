@@ -29,10 +29,10 @@ export abstract class CommonListIdComponent<E extends Generic, S extends CommonS
   // config pagination
   totalRegistros=0;
   paginaActual = 0;
-  totalPorPagina = 1;
+  totalPorPagina = 10;
   orderBy ="ASC";
   column ="id";
-  pageSizeOptions = [1,2,5, 10, 25, 100];
+  pageSizeOptions = [10, 25,50,100];
   ariaLabel="Select page";
   filterValue ="";
   lista: E[];
