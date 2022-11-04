@@ -18,4 +18,5 @@ export class UserPost implements Generic  {
   roles:string[];
   isResponsible: boolean;
   profession:Profession;
+  username:string;
 }

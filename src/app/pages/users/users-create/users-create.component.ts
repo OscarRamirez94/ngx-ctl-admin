@@ -87,6 +87,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
 
   setForm() {
     this.userForm = this.formBuilder.group({
+      username: ['', Validators.required],
       email: ['', Validators.required],
       firstName: ['', Validators.required],
       additionalName: [''],
@@ -104,7 +105,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     if (editData) {
       console.log("lista roles", editData.roles)
       this.actionBtn = "Modificar";
-
+      this.userForm.controls['username'].setValue(editData.username);
       this.userForm.controls['email'].setValue(editData.email);
       this.userForm.controls['firstName'].setValue(editData.firstName);
       this.userForm.controls['additionalName'].setValue(editData.additionalName);
@@ -138,7 +139,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   }
 
   modelClient(userForm: any) {
-
+      this.model.username = userForm.get('username').value,
       this.model.email = userForm.get('email').value,
       this.model.firstName = userForm.get('firstName').value,
       this.model.additionalName = userForm.get('additionalName').value,

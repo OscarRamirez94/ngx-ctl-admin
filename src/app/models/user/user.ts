@@ -18,7 +18,7 @@ export class User implements Generic  {
   roles:Role[];
   profession:Profession;
   isResponsible: boolean;
-
+  username:string;
 
 
 

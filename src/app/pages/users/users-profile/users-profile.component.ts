@@ -48,7 +48,7 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
 
       if (token.isValid()) {
 
-        this.email =token.getPayload()['sub']
+        this.email =token.getPayload()['username']
       }
 
     });
