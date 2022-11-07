@@ -23,6 +23,17 @@
                             </div>
                         </div>
 
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                              <mat-form-field appearance="legacy">
+                                  <mat-label>Username</mat-label>
+                                  <input matInput formControlName="username" placeholder="Digita Username"
+                                      [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+                                  <mat-error *ngIf="submitted && f.username.errors">Campo Requerido</mat-error>
+                              </mat-form-field>
+                          </div>
+                      </div>
+
                     </div>
                     <div class="row">
                         <div class="col-sm-3">
