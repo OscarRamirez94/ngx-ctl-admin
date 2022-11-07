@@ -28,6 +28,7 @@ import { registerLocaleData } from '@angular/common';
 import localeEsMX from '@angular/common/locales/es-MX';
 import { RoleGuard } from './guards/role.guard';
 import { HeadClientGuard } from './guards/head-client.guard';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 registerLocaleData(localeEsMX, 'es-MX');
 @NgModule({
   declarations: [AppComponent],
@@ -52,6 +53,7 @@ registerLocaleData(localeEsMX, 'es-MX');
     }),
     CoreModule.forRoot(),
     ThemeModule.forRoot(),
+    RxReactiveFormsModule.forRoot(),
   ],
   providers: [
     AuthGuard,RoleGuard,HeadClientGuard,

@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { CheckList } from '../../../models/check-list/check-list';
 import { Pallet } from '../../../models/pallet/pallet';
 import { PalletSave2 } from '../../../models/pallet/pallet-save copy';
 import { Pallett } from '../../../models/pallet/pallett';
+import { ResponsePallet } from '../../../models/pallet/ResponsePallet';
 import { Product } from '../../../models/product/product';
 import { Unity } from '../../../models/unity/unity';
 import { CheckListService } from '../../../services/check-list/check-list.service';
@@ -51,8 +53,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   product:Product;
   unity:Unity;
   attachmentArP:Pallett[] = [];
-
-
+  response:ResponsePallet =  new ResponsePallet();
 
 
   step = 0;
@@ -91,12 +92,14 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     this.checkListService.ver(this.id).subscribe(data =>{
       this.checkList = data as CheckList;
     })
+
     super.ngOnInit();
     this.initForm();
     this.getProducts();
     this.getUnities();
     this.template();
     this.calculaTotales();
+
   }
 
   initForm(){
@@ -125,13 +128,29 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     this.form.value['items'].map(x => palletSave.palletsDTO.push(this.addDTO(x)));
 
     console.log("datos a guardar", palletSave)
-    this.palletService.crear(palletSave).subscribe(data =>{
-      console.log(data);
+    this.palletService.crear(palletSave).subscribe(data=>{
+
+
       super.paginator;
       super.calculateRange();
       this.calculaTotales();
+      let error:any = data as any;
+      this.response.totalDuplicated = error.totalDuplicated ;
+      this.response.totalRegistered = error.totalRegistered ;
+      this.response.uas = error.uas ;
+      let total =  this.response.totalDuplicated + this.response.totalRegistered;
+
+
+      if (this.response.totalRegistered>0){
+        super.toast("success","Se Agregaron: "+ this.response.totalRegistered + "/" + total +" con éxito");
+
+      }
+      if (this.response.totalDuplicated>0){
+        super.toast("danger","Se encontraron: "+ this.response.totalDuplicated + "/"+ total + " duplicados");
+
+      }
     });
-    super.toast("success","Se Agregaron: "+ this.form.value['items'].length + " con éxito");
+
     this.limpiarPallets();
 
 
@@ -163,7 +182,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
           producto :[this.product,Validators.required],
           codigo :[item.codigo,Validators.required],
           um: ['',Validators.required],
-          ua: ['',Validators.required],
+          ua: ['',[RxwebValidators.unique(),Validators.required]],
           expiration: item.expiration,
         }));
     })
@@ -200,6 +219,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     }
     this.addCreds();
     this.formTemplate.reset();
+
   }
   limpiarPallets(){
 
@@ -305,4 +325,8 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
       });
   }
+
+
+
 }
+

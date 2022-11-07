@@ -46,6 +46,7 @@
     "@nebular/eva-icons": "8.0.0",
     "@nebular/security": "8.0.0",
     "@nebular/theme": "8.0.0",
+    "@rxweb/reactive-form-validators": "^2.1.7",
     "@swimlane/ngx-charts": "^14.0.0",
     "@swimlane/ngx-datatable": "^20.0.0",
     "angular2-chartjs": "0.4.1",
@@ -114,7 +115,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "npm run lint",
-        "pre-push": "npm test --watch false"
+      "pre-push": "npm test --watch false"
     }
-}
+  }
 }

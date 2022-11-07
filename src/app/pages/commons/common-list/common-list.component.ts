@@ -134,9 +134,15 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
       subject.next(true);
       console.log(m);
     }, err => {
+      console.log('error', err)
       if(err.status === 400){
         this.error = err.error;
         console.log(this.error);
+      }
+      if(err.status === 404){
+        this.error = err.error;
+        console.log(this.error);
+        this.toast("danger",err.error.message)
       }
       subject.next(false);
     });

@@ -13,6 +13,18 @@
       </nb-card-body>
     </nb-card>
   </div>
+  <div *ngIf="response?.totalDuplicated>0" class="col-md-12 col-lg-6 col-xxxl-4" style="position: relative;">
+    <nb-card status="danger">
+      <nb-card-header>Duplicados
+
+      </nb-card-header>
+      <nb-card-body>
+        <mat-list role="list" >
+          <mat-list-item role="listitem" *ngFor="let item of response?.uas">UA: {{item}}</mat-list-item>
+        </mat-list>
+      </nb-card-body>
+    </nb-card>
+  </div>
 </div>
 
 <nb-card accent="info">
@@ -69,6 +81,7 @@
                   </mat-form-field>
                 </div>
               </div>
+
               <!--
               <div class="col-sm-3">
                 <div class="form-group">
@@ -103,10 +116,14 @@
             <div formArrayName="items" *ngFor="let creds of form.get('items')?.['controls']; let i = index">
               <div class="row col-lg-12" [formGroupName]="i">
                 <div class="col-sm-2">
+
                     <mat-form-field appearance="legacy">
                       <mat-label>Lincecia</mat-label>
-                      <input matInput  formControlName="ua">
-                    </mat-form-field>
+                      <input matInput  formControlName="ua"
+                      >
+                      <mat-error *ngIf="creds.controls.ua.errors?.unique">Licencia duplicada  </mat-error>
+                    </mat-form-field >
+
                 </div>
                 <div class="col-sm-2">
                    <mat-form-field appearance="legacy">
@@ -177,6 +194,7 @@
                     <mat-icon>delete</mat-icon>
                   </button>
                 </div>
+
               </div>
 
               <mat-divider></mat-divider>
@@ -197,6 +215,7 @@
         </nb-card>
       </form>
       <br>
+
     </nb-accordion-item-body>
   </nb-accordion-item>
 
@@ -286,6 +305,7 @@
   </nb-accordion-item>
 </nb-accordion>
 </nb-card>
+
 
 
 

@@ -213,8 +213,14 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       }
       if (!this.editData) {
         this.modelCheckList(this.firstFormGroup,this.secondFormGroup,this.thirdFormGroup);
-        super.crear();
-        this.onReset();
+        super.crear().subscribe(data =>{
+          if (data){
+            this.onReset();
+          }else {
+
+          }
+        });
+
       }else {
         this.editarClient();
       }
