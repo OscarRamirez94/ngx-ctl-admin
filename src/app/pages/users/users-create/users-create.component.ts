@@ -23,6 +23,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   actionBtn: String = "Crear";
   isChecked;
   isResponsible;
+  isUser;
   roleList: string[] = ['ROLE_ADMIN', 'ROLE_USERS', 'ROLE_SUPER'];
   selectedOptions: string[] = [];
   loading = false;
@@ -97,7 +98,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       roles: ['', Validators.required],
       isResponsible: ['', Validators.required],
       profession: ['', Validators.required],
-
+      isUser: ['', Validators.required],
     });
   }
 
@@ -113,8 +114,9 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       this.userForm.controls['secondName'].setValue(editData.secondName);
       this.userForm.controls['isActive'].setValue(editData.isActive);
       this.userForm.controls['roles'].setValue(editData.roles);
-      this.userForm.controls['isResponsible'].setValue(editData.roles);
+      this.userForm.controls['isResponsible'].setValue(editData.isResponsible);
       this.userForm.controls['profession'].setValue(editData.profession);
+      this.userForm.controls['isUser'].setValue(editData.isUser);
 
       console.log("roles edit", editData.roles);
       editData.roles.forEach(p => {
@@ -125,6 +127,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       this.model.id = editData.id;
       this.isChecked = editData.isActive;
       this.isResponsible = editData.isResponsible;
+      this.isUser = editData.isUser;
       this.model.profession.id = editData.profession.id;
       console.log("form", this.userForm.value)
 
@@ -132,10 +135,17 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     }
   }
   editarClient() {
+    this.loading = true;
     this.modelClient(this.userForm);
-    super.editar();
-    this.onReset();
-    super.toast("success", "Modificado  con éxito");
+    super.editar().subscribe(data =>{
+      if (data){
+        this.onReset();
+        super.toast("success", "Modificado  con éxito");
+        this.loading= false;
+      }
+
+    });
+
   }
 
   modelClient(userForm: any) {
@@ -148,6 +158,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       this.model.isActive = userForm.get('isActive').value;
       this.model.roles = userForm.get('roles').value;
       this.model.isResponsible = userForm.get('isResponsible').value;
+      this.model.isUser = userForm.get('isUser').value;
   }
   compareObjects(o1: any, o2: any) {
     if (o1.name == o2.name) {

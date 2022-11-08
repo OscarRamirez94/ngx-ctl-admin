@@ -149,15 +149,19 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     return subject.asObservable();
   }
 
-  public editar(): void {
+  public editar(): Observable<Boolean> {
     console.log("update" + JSON.stringify(this.model));
+    var subject = new Subject<boolean>()
     this.service.editar(this.model).subscribe(m => {
+      subject.next(true);
     }, err => {
       if(err.status === 400){
         this.error = err.error;
         console.log(this.error);
       }
+      subject.next(false);
     });
+    return subject.asObservable();
   }
 
   protected displayedColumns: string[] ;

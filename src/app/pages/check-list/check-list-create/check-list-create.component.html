@@ -250,7 +250,7 @@
              (optionSelected)="optionSelectedUser($event.option.value)"
              [displayWith]="displayPropertyUser">
              <mat-option *ngFor="let option of responsibles" [value]="option">
-                {{option.firstName}}
+              {{option.firstName}} {{option.lastName}}
              </mat-option>
              </mat-autocomplete>
              <mat-error *ngIf="submitted && f2.responsible.errors" >Campo Requerido</mat-error>

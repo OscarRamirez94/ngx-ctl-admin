@@ -1,15 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { Professionl } from '../../../interfaces/profession-i';
-import { Profession } from '../../../models/profession/profession';
+import { UserPassword } from '../../../models/user/user-password';
 import { UserPost } from '../../../models/user/user-post';
-import { HeadService } from '../../../services/head/head.service';
 import { UserPostService } from '../../../services/user/user-post.service';
-import { CommonListComponent } from '../../commons/common-list/common-list.component';
+
 
 @Component({
   selector: 'ngx-users-profile',
@@ -17,7 +16,7 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
   styleUrls: ['./users-profile.component.scss']
 })
 
-export class UsersProfileComponent extends CommonListComponent<UserPost, UserPostService> implements OnInit {
+export class UsersProfileComponent implements OnInit {
   professions: Professionl[];
   userForm !: FormGroup;
   submitted = false;
@@ -29,20 +28,17 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
   loading = false;
   editData = new UserPost();
   email:string;
-
+  usuario:UserPost;
+  userPassword;
   constructor(
-    service: UserPostService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
+    private service: UserPostService,
+    private authService: NbAuthService,
     private formBuilder: FormBuilder,
-    headService:HeadService,
-    private authService: NbAuthService
+    private toastrService: NbToastrService,
+    private router:Router
   ) {
-    super(service, router, route, toastrService,headService);
-    this.model = new UserPost();
-    this.model.profession = new Profession();
-    this.titulo = 'Mi perfil';
-    this.redirect = '/pages/clients/clientes';
-    this.nombreModel = "Cliente";
 
+    this.userPassword  = new UserPassword();
     this.authService.onTokenChange()
     .subscribe((token: NbAuthJWTToken) => {
 
@@ -56,11 +52,32 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
   }
 
   ngOnInit(): void {
-    this.getAllProfessions();
-    this.setForm();
-    this.rejectForm(this.editData);
-    super.paginator;
+    this.service.userByUsername(this.email).subscribe(data =>{
+      this.usuario = data as UserPost;
+      this.setForm();
+    })
+
   }
+  setForm() {
+    this.userForm = this.formBuilder.group({
+      id: [{value: this.usuario?.id, disabled: true}, Validators.required],
+      username: [{value: this.usuario?.username, disabled: true}, Validators.required],
+      email: [{value: this.usuario?.email, disabled: true}, Validators.required],
+      firstName: [{value: this.usuario?.firstName, disabled: true}, Validators.required],
+      additionalName: [{value: this.usuario?.additionalName, disabled: true}],
+      lastName: [{value: this.usuario?.lastName, disabled: true}, Validators.required],
+      secondName: [{value: this.usuario?.secondName, disabled: true}, Validators.required],
+      profession: [{value: this.usuario?.profession.name, disabled: true}, Validators.required],
+      password :['',[
+        RxwebValidators.password(
+          {validation:{maxLength: 10,minLength: 5,digit: true,specialCharacter: true}, }
+          ),
+          Validators.required]],
+
+    });
+  }
+
+
 
   get f() { return this.userForm.controls; }
 
@@ -71,116 +88,25 @@ export class UsersProfileComponent extends CommonListComponent<UserPost, UserPos
     if (this.userForm.invalid) {
       return;
     }
-    this.loading = true;
-    if (!this.editData) {
 
-      this.modelClient(this.userForm);
-      super.crear().subscribe(data =>{
-        if (data){
-          this.onReset();
-          super.toast("success", "Cliente creado con éxito");
-          this.loading = false;
-        }
-      });
+    this.userPassword.id =this.userForm.get('id').value,
+    this.userPassword.password =this.userForm.get('password').value,
 
-    } else {
-      this.editarClient();
-    }
-
-  }
-
-  onReset() {
-    this.submitted = false;
-    this.userForm.reset();
-    this.editData = null;
-  }
-
-  setForm() {
-    this.userForm = this.formBuilder.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      firstName: ['', Validators.required],
-      additionalName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      secondName: ['', Validators.required],
-      isActive: ['', Validators.required],
-      roles: ['', Validators.required],
-      isResponsible: ['', Validators.required],
-      profession: ['', Validators.required],
-
-    });
-  }
-
-  rejectForm(editData: UserPost) {
-    if (editData) {
-      console.log("lista roles", editData.roles)
-      this.actionBtn = "Modificar";
-      this.userForm.controls['email'].setValue(editData.email);
-      this.userForm.controls['password'].setValue(editData.password);
-      this.userForm.controls['firstName'].setValue(editData.firstName);
-      this.userForm.controls['additionalName'].setValue(editData.additionalName);
-      this.userForm.controls['lastName'].setValue(editData.lastName);
-      this.userForm.controls['secondName'].setValue(editData.secondName);
-      this.userForm.controls['isActive'].setValue(editData.isActive);
-      this.userForm.controls['roles'].setValue(editData.roles);
-      this.userForm.controls['isResponsible'].setValue(editData.roles);
-      this.userForm.controls['profession'].setValue(editData.profession);
-
-      console.log("roles edit", editData.roles);
-      editData.roles.forEach(p => {
-        this.selectedOptions.push(p['name']);
-
-      })
-
-      this.model.id = editData.id;
-      this.isChecked = editData.isActive;
-      this.isResponsible = editData.isResponsible;
-      this.model.profession.id = editData.profession.id;
-      console.log("form", this.userForm.value)
+    this.service.updatePassword(this.userPassword).subscribe(data =>{
+      this.toastrService.success("success","se modificó correctamente tu password")
+      setTimeout(() => {
+        localStorage.removeItem('auth_app_token');
+        localStorage.removeItem('cid');
+        localStorage.removeItem('cn');
+        this.router.navigateByUrl('/auth/login');
+      }, 2000)
 
 
-    }
-  }
-  editarClient() {
-    this.modelClient(this.userForm);
-    super.editar();
-    this.onReset();
-    super.toast("success", "Modificado  con éxito");
-  }
-
-  modelClient(userForm: any) {
-      this.model.email = userForm.get('email').value,
-      this.model.password = userForm.get('password').value,
-      this.model.firstName = userForm.get('firstName').value,
-      this.model.additionalName = userForm.get('additionalName').value,
-      this.model.lastName = userForm.get('lastName').value,
-      this.model.secondName = userForm.get('secondName').value,
-      this.model.isActive = userForm.get('isActive').value;
-    this.model.roles = userForm.get('roles').value;
-    this.model.isResponsible = userForm.get('isResponsible').value;
-  }
-  compareObjects(o1: any, o2: any) {
-    if (o1.name == o2.name) {
-      return true;
-    }
-    return false
-  }
-  optionSelected(event: any) {
-    this.model.profession.id = event.id;
 
 
-  }
-  public displayProperty(value) {
-    console.log("Selected2 : ", value);
-    if (value) {
-      return value.name;
-    }
-  }
-  getAllProfessions() {
-    this.service.getAllProfessions().subscribe(data => {
 
-      this.professions = data;
-      console.log("professions" + this.professions);
     })
+
+
   }
 }

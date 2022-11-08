@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { map, Observable, startWith } from 'rxjs';
 import { Professionl } from '../../../interfaces/profession-i';
 import { Person } from '../../../models/person/person';
 import { Profession } from '../../../models/profession/profession';
@@ -18,6 +19,10 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
 
 
 export class PersonsCreateComponent extends CommonListComponent<Person, PersonService> implements OnInit {
+
+
+
+
 
   PersonForm !: FormGroup;
   submitted = false;
@@ -40,6 +45,7 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
     this.nombreModel = "Cliente";
   }
 
+
   ngOnInit(): void {
     this.setForm();
     this.rejectForm(this.editData);
@@ -47,6 +53,7 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
     // se manda a llamarel metodo creado
     //este es el de abajo
     this.getAllProfessions();
+
   }
 
   get f() { return this.PersonForm.controls; }

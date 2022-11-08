@@ -27,7 +27,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
   transportLines:TransportLine[];
   transportCapacities:TransportCapacity[];
   transportTypes:TransportType[];
-  surveillances:Person[];
+  surveillances:User[];
   responsibles:User[];
   processType:ProcessType = new ProcessType(1,true,"Descargar");
   myControl = new FormControl('');
@@ -73,7 +73,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       this.model.partner = new Client();
       this.model.transportLine = new TransportLine();
       this.model.transportCapacity = new TransportCapacity();
-      this.model.surveillance = new Person();
+      this.model.surveillance = new User();
       this.model.responsible = new User();
       this.transportCapacities = [];
       this.titulo = 'Agregar Clients';
@@ -90,7 +90,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     this.clientId =  this.headService.getClientLS();
     this.getAllTransportLines(this.clientId);
     this.getAllTransportTypes();
-    this.getAllPersons();
+
     this.getResponsibles();
     this.rejectForm(this.editData);
     super.paginator;
@@ -164,15 +164,9 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     }
   }
 
-  // get persons vigilancias
-  getAllPersons(){
-    this.service.getAllPersons().subscribe(data =>{
-      this.surveillances = data.filter(p =>{
 
-        return p.profession.name == "Vigilancia";
-      });
-    });
-  }
+
+
 
 
   optionSelectedSurveillance(event:Person){
@@ -188,7 +182,12 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
   // get persons responsibles
   getResponsibles(){
     this.service.getAllUsersIsResposible().subscribe(data =>{
-      this.responsibles = data
+      this.responsibles = data.filter(p =>{
+        return p.profession.name !== "Vigilancia";
+      });
+      this.surveillances = data.filter(p =>{
+        return p.profession.name == "Vigilancia";
+      });
     });
   }
 
@@ -198,7 +197,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
   displayPropertyUser(value) {
     if (value) {
-      return value.firstName;
+      return value.firstName + ' ' + value.lastName;
     }
   }
 

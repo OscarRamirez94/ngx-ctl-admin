@@ -134,6 +134,21 @@
                               </div>
                             </div>
                         </div>
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <div class="form-group">
+                              <mat-form-field #field floatLabel="always" appearance="legacy" >
+                                <mat-label>Usuario</mat-label>
+                                <input matInput hidden formControlName="isUser">
+                                <mat-radio-group  class="flex-wrap" formControlName="isUser" [ngClass]="{ 'is-invalid': submitted && f.isUser.errors }">
+                                  <mat-radio-button  class="radio-button" [value]="true"  [checked]="isUser===true">Usuario</mat-radio-button>
+                                  <mat-radio-button  class="radio-button" [value]="false" [checked]="isUser===false">Sin Usuario</mat-radio-button>
+                                </mat-radio-group>
+                                <mat-error>Usuario Requerio</mat-error>
+                              </mat-form-field>
+                            </div>
+                          </div>
+                      </div>
                     </div>
                     <!-- end grid-->
 

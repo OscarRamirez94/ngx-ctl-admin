@@ -1,49 +1,64 @@
 <section>
-    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="userForm" *ngIf="userForm" (ngSubmit)="onSubmit()">
         <mat-card accent="danger" size="tiny" [nbSpinner]="loading"
         nbSpinnerStatus="danger"
         nbSpinnerSize="large"
         nbSpinnerMessage="Cargando ...">
-            <mat-card-title>{{titulo}} {{email}}</mat-card-title>
+            <mat-card-title>Mi Perfil {{usuario.firstName}} {{usuario.additionalName}} {{usuario.lastName}} {{usuario.secondName}}</mat-card-title>
             <mat-card-content nb-card-body>
                 <!--mat dialog content-->
                 <mat-dialog-content>
 
                     <!-- grid -->
                     <div class="row">
-                        <div class="col-sm-4">
+
+                                <input matInput formControlName="id" hidden placeholder="Digita el Nombre de Usuario"
+                                    [ngClass]="{ 'is-invalid':f.id.errors }">
+
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Nombre de usuario</mat-label>
                                     <input matInput formControlName="username" placeholder="Digita el Nombre de Usuario"
-                                        [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
-                                    <mat-error *ngIf="submitted && f.username.errors">Campo Requerido</mat-error>
+                                        [ngClass]="{ 'is-invalid':f.username.errors }">
+                                    <mat-error *ngIf="f.username.errors">Campo Requerido</mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>E-mail</mat-label>
                                     <input matInput formControlName="email" placeholder="Digita E-mail"
                                         [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-                                    <mat-error *ngIf="submitted && f.email.errors">Campo Requerido</mat-error>
+                                    <mat-error *ngIf="f.email.errors">Campo Requerido</mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
+                          <div class="form-group">
+                            <mat-form-field appearance="legacy">
+                              <mat-label>Puesto</mat-label>
+                              <input matInput formControlName="profession" placeholder="Digita Puesto"
+                                  [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
+                              <mat-error *ngIf="f.profession.errors">Campo Requerido</mat-error>
+                          </mat-form-field>
+                          </div>
+                      </div>
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Password</mat-label>
-                                    <input matInput formControlName="password" placeholder="Digita password"
-                                        [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
-                                    <mat-error *ngIf="submitted && f.password.errors">Campo Requerido</mat-error>
+                                    <input matInput matTooltip="Minimo 5, Maximo 10, Un numero, Un caracter Especial" type="password" formControlName="password" placeholder="Digita password">
+                                        <mat-error *ngIf="userForm.controls.password.errors?.required">Password Requerido  </mat-error>
+                                        <mat-error *ngIf="userForm.controls.password.errors?.password">Min 5, Max 10, Un numero, Un caracter Especial </mat-error>
                                 </mat-form-field>
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Nombre</mat-label>
@@ -53,7 +68,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Digita Segundo Nombre</mat-label>
@@ -63,7 +78,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Apellido Paterno</mat-label>
@@ -73,83 +88,20 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <div class="form-group">
+                        <div class="col-sm-3">
+                          <div class="form-group">
                                 <mat-form-field appearance="legacy">
                                     <mat-label>Apellido Materno</mat-label>
                                     <input matInput formControlName="secondName" placeholder="Digita Apellido Materno"
                                         [ngClass]="{ 'is-invalid': submitted && f.secondName.errors }">
                                     <mat-error *ngIf="submitted && f.secondName.errors">Campo Requerido</mat-error>
                                 </mat-form-field>
-                            </div>
-                        </div>
+                          </div>
+                    </div>
                     </div>
 
 
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <mat-form-field class="example-full-width" #field floatLabel="always" appearance="outline">
-                                <mat-label>PUESTO</mat-label>
-                                <input type="text" placeholder="Pick one" aria-label="Number" matInput
-                                    formControlName="profession" [matAutocomplete]="auto"
-                                    [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
-                                <mat-autocomplete #auto="matAutocomplete"
-                                    (optionSelected)="optionSelected($event.option.value)"
-                                    [displayWith]="displayProperty">
-                                    <mat-option *ngFor="let option of professions" [value]="option">
-                                        {{option.name}}
-                                    </mat-option>
-                                </mat-autocomplete>
-                                <mat-error *ngIf="submitted && f.profession.errors">Campo Requerido</mat-error>
-                            </mat-form-field>
-                        </div>
-                        <div class="col-sm-4">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Roles</mat-label>
-                                <mat-select formControlName="roles" [compareWith]="compareObjects" multiple
-                                    [(ngModel)]="selectedOptions">
-                                    <mat-option *ngFor="let role of roleList" [value]="role">{{role}}</mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                    <div class="row">
 
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
-                                    <mat-label>Activo</mat-label>
-                                    <input matInput hidden formControlName="isActive">
-                                    <mat-radio-group class="flex-wrap" formControlName="isActive"
-                                        [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
-                                        <mat-radio-button class="radio-button" [value]="true"
-                                            [checked]="isChecked===true">Activo</mat-radio-button>
-                                        <mat-radio-button class="radio-button" [value]="false"
-                                            [checked]="isChecked===false">Inactivo</mat-radio-button>
-                                    </mat-radio-group>
-                                    <mat-error>Campo Requerio</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <mat-form-field #field floatLabel="always" appearance="outline" class="radio-container">
-                                    <mat-label>Activo</mat-label>
-                                    <input matInput hidden formControlName="isResponsible">
-                                    <mat-radio-group class="flex-wrap" formControlName="isResponsible"
-                                        [ngClass]="{ 'is-invalid': submitted && f.isResponsible.errors }">
-                                        <mat-radio-button class="radio-button" [value]="true"
-                                            [checked]="isChecked===true">Activo</mat-radio-button>
-                                        <mat-radio-button class="radio-button" [value]="false"
-                                            [checked]="isChecked===false">Inactivo</mat-radio-button>
-                                    </mat-radio-group>
-                                    <mat-error>Campo Requerio</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
                     <!-- end grid-->
 
                 </mat-dialog-content>
@@ -160,8 +112,7 @@
             <!-- actions -->
             <mat-card-actions align="end">
                 <mat-dialog-actions align="end">
-                    <button mat-flat-button [mat-dialog-close]="false" color="warn">Cancelar</button>
-                    <button [disabled]="loading" mat-flat-button color="primary" cdkFocusInitial>{{actionBtn}}</button>
+                    <button mat-flat-button color="primary" type="submit" >Cambiar Password</button>
                 </mat-dialog-actions>
             </mat-card-actions>
             <!--end actions -->

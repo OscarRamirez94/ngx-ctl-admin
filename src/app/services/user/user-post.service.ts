@@ -23,4 +23,7 @@ export class UserPostService extends CommonService<UserPost>  {
   userByUsername(username:string): Observable<UserPost> {
     return this.http.get<UserPost>(this.url.concat("username/",username));
   }
+  updatePassword(userPassword:any): Observable<any> {
+    return this.http.put<any>(`${this.url + 'change-password/'}${userPassword.id}`, userPassword);
+  }
 }

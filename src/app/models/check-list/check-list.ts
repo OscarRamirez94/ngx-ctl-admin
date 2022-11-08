@@ -24,7 +24,7 @@ export class CheckList implements Generic{
     cajaPlacas: String;
     transportCapacity:TransportCapacity;
     noSello : String;
-    surveillance: Person;
+    surveillance: User;
     responsible: User;
     observation: String;
     noRampa : String;

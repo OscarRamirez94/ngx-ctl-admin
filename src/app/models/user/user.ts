@@ -19,8 +19,5 @@ export class User implements Generic  {
   profession:Profession;
   isResponsible: boolean;
   username:string;
-
-
-
-
+  isUser: boolean;
 }

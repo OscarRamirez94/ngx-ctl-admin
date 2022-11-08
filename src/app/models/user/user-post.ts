@@ -19,4 +19,5 @@ export class UserPost implements Generic  {
   isResponsible: boolean;
   profession:Profession;
   username:string;
+  isUser: boolean;
 }
