@@ -7,6 +7,7 @@ import { CheckListService } from '../../../services/check-list/check-list.servic
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
 import { CheckListCreateComponent } from '../check-list-create/check-list-create.component';
+import { CheckListDeleteComponent } from '../check-list-delete/check-list-delete.component';
 
 
 @Component({
@@ -15,15 +16,21 @@ import { CheckListCreateComponent } from '../check-list-create/check-list-create
   styleUrls: ['./check-list-main.component.scss']
 })
 export class CheckListMainComponent extends CommonListClientComponent<CheckList,CheckListService> {
+  hidden = false;
 
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
+  }
   name: string;
   titulo:string = "CheckList";
-  displayedColumns: string[] = ['id','remision','date','transportLine','transportType','noSello','pallets','actions' ];
+  displayedColumns: string[] = ['id','remision','date','transportLine','transportType','noSello','status','pallets','actions' ];
   clientName =  this.headService.getClientLS();
   constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,
     headService:HeadService) {
     super(service,router, route,toastrService,headService);
+    this.redirect = '/pages/clients/clientes';
+    this.nombreModel = "CheckList";
   }
 
   openDialog(): void {
@@ -40,7 +47,7 @@ export class CheckListMainComponent extends CommonListClientComponent<CheckList,
 
   addPallet(element:CheckList): void {
     //this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
-    this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
+    this.router.navigate(['pages/checklist/pallet-main/' + element.id + '/' + element.status]);
   }
 
 
@@ -58,7 +65,7 @@ export class CheckListMainComponent extends CommonListClientComponent<CheckList,
   }
 
   deleteClient(element:any){
-    this.dialog.open(CheckListCreateComponent,{
+    this.dialog.open(CheckListDeleteComponent,{
       width:'25%',
       data: element
     }).afterClosed().subscribe(data =>{
@@ -66,6 +73,14 @@ export class CheckListMainComponent extends CommonListClientComponent<CheckList,
             super.calculateRange(this.clientName);
         }
       })
+  }
+
+  closeRemision(element:any){
+    this.service.updateStatus(element).subscribe(data =>{
+      super.toast("success","Se finalizó la remision")
+      super.calculateRange(this.clientName);
+    });
+
   }
 
 }

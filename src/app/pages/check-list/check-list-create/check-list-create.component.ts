@@ -36,6 +36,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
   submitted = false;
   actionBtn:String = "Crear";
   isEditable= true;
+  status:string;
 
   firstFormGroup = this._formBuilder.group({
     remision:['',Validators.required],
@@ -87,8 +88,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
   ngOnInit(): void {
     this.clientId =  this.headService.getClientLS();
-    this.getAllClients();
-    this.getAllTransportLines();
+    this.getAllTransportLines(this.clientId);
     this.getAllTransportTypes();
     this.getAllPersons();
     this.getResponsibles();
@@ -113,8 +113,8 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     }
   }
 // get transport line
-  getAllTransportLines(){
-    this.service.getAllTransportLines().subscribe(data =>{
+  getAllTransportLines(id:any){
+    this.service.getAllTransportLines(id).subscribe(data =>{
       this.transportLines = data;
     })
   }
@@ -254,7 +254,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
   rejectForm(editData:any) {
     if (editData) {
-
+      this.status =  editData.status;
       console.log("EDITAR::" + JSON.stringify(editData))
       this.actionBtn ="Modificar";
 

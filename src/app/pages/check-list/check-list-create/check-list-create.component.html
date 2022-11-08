@@ -314,7 +314,7 @@
         <mat-dialog-actions align="end">
           <button mat-flat-button color="accent" matStepperPrevious>Regresar</button>
           <button mat-flat-button color="warn" (click)="stepper.reset()" *ngIf="editData===null">Limpiar</button>
-          <button mat-flat-button color="primary" (click)='onSubmit()' >{{actionBtn}}</button>
+          <button mat-flat-button color="primary" [disabled]="status === 'close'" (click)='onSubmit()' >{{actionBtn}}</button>
         </mat-dialog-actions>
       </mat-card-actions>
     </div>

@@ -29,4 +29,5 @@ export class CheckList implements Generic{
     observation: String;
     noRampa : String;
     pallets: Pallet[];
+    status:string;
 }
