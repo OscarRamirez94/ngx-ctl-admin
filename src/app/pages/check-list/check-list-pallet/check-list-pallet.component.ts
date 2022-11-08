@@ -3,13 +3,14 @@ import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@ang
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { RxwebValidators } from '@rxweb/reactive-form-validators';
+import { NumericValueType, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { CheckList } from '../../../models/check-list/check-list';
 import { Pallet } from '../../../models/pallet/pallet';
 import { PalletSave2 } from '../../../models/pallet/pallet-save copy';
 import { Pallett } from '../../../models/pallet/pallett';
 import { ResponsePallet } from '../../../models/pallet/ResponsePallet';
 import { Product } from '../../../models/product/product';
+import { TotalPalletDTO } from '../../../models/totals/total-pallet-dto';
 import { Unity } from '../../../models/unity/unity';
 import { CheckListService } from '../../../services/check-list/check-list.service';
 import { HeadService } from '../../../services/head/head.service';
@@ -31,7 +32,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
   name: string;
   titulo:string = "Pallets";
-  displayedColumns: string[] = ['noPallet','ua','amount','um','lote','expiration','actions'];
+  displayedColumns: string[] = ['noPallet','name','code','ua','amount','um','lote','expiration','actions'];
   id:any;
 
   submitted = false;
@@ -54,29 +55,21 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   unity:Unity;
   attachmentArP:Pallett[] = [];
   response:ResponsePallet =  new ResponsePallet();
-
-
+  totalPalletDTO:TotalPalletDTO = new TotalPalletDTO();
+  clientId;
+  status;
   step = 0;
 
-  setStep(index: number) {
-    this.step = index;
-  }
 
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
   constructor( service:PalletService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,
     private checkListService:CheckListService,
-    headService:HeadService,
+    private headService:HeadService,
     private fb: FormBuilder,
     private productService:ProductService,
     private unityService:UnityService,
-    private palletService:PalletSave2Service
+    private palletService:PalletSave2Service,
+
     ) {
     super(service,router, route,toastrService);
     this.model = new Pallet();
@@ -88,11 +81,11 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     super.paginator;
     this.id = +this.route.snapshot.paramMap.get("id");
     this.model.id = +this.route.snapshot.paramMap.get("id");
-    console.log(this.id)
+    this.status = this.route.snapshot.paramMap.get("status");
     this.checkListService.ver(this.id).subscribe(data =>{
       this.checkList = data as CheckList;
     })
-
+    this.clientId =  this.headService.getClientLS();
     super.ngOnInit();
     this.initForm();
     this.getProducts();
@@ -111,7 +104,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
   template(){
     this.formTemplate = this.fb.group({
-      cantidad :['',Validators.required],
+      cantidad :['',[RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:false }),Validators.required]],
       producto :['',Validators.required],
       codigo :[{ value : '',disabled: true},Validators.required],
     });
@@ -177,7 +170,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
     this.attachmentArP.forEach((item) => {
       formArray.push(this.fb.group({
-          amount: [item.amount,Validators.required],
+          amount: [item.amount,[RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:false }),Validators.required]],
           lote:   ['',Validators.required],
           producto :[this.product,Validators.required],
           codigo :[item.codigo,Validators.required],
@@ -244,7 +237,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   }
 
   getProducts(){
-    this.productService.getAll().subscribe(data =>{
+    this.productService.getAllProductsByPartner(this.clientId).subscribe(data =>{
       this.products = data as Product[];
     })
   }
@@ -297,7 +290,12 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   }
   calculaTotales(){
     this.service.totalByCheckList(this.id).subscribe(data =>{
-      this.totalCantidad = data;
+      console.log("data",data);
+      let data2 :any =  data as any;
+      this.totalPalletDTO.total = data2.total;
+      this.totalPalletDTO.productoTotal = data2.productoTotal;
+      let mapToArray = Array.from(this.totalPalletDTO.productoTotal.values());
+      console.log('mapToArray' , mapToArray)
     });
   }
 

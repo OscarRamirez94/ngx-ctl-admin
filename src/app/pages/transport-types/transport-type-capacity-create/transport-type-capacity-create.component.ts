@@ -111,7 +111,7 @@ constructor(
   rejectForm(editable: any) {
     if (editable !==false) {
       this.actionBtn = "Modificar";
-      this.titulo ="Modificar Capacidad de transporte"
+      this.titulo ="Capacidad de transporte"
       this.transportCapacityForm.controls['capacity'].setValue(editable.capacity);
       this.transportCapacityForm.controls['unity'].setValue(editable.unity);
       this.transportCapacityForm.controls['isActive'].setValue(editable.isActive);

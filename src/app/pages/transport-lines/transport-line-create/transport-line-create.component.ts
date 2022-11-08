@@ -28,7 +28,7 @@ export class TransportLineCreateComponent extends CommonListClientComponent<Tran
     headService:HeadService
   ) {
     super(service, router, route, toastrService,headService);
-    this.titulo = 'Agregar Linea de Transporte';
+    this.titulo = 'Linea de Transporte';
     this.model = new TransportLine();
     this.model.partner = new Client();
     this.redirect = '';
@@ -77,7 +77,6 @@ export class TransportLineCreateComponent extends CommonListClientComponent<Tran
   rejectForm(editData: any) {
     if (editData) {
       this.actionBtn = "Modificar";
-      this.titulo ="Modificar Transporte de Linea"
       this.transportLineForm.controls['name'].setValue(editData.name);
       this.transportLineForm.controls['isActive'].setValue(editData.isActive);
       this.model.id = editData.id;

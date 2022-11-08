@@ -74,7 +74,7 @@ export class TransportTypeCreateComponent extends CommonListComponent<TransportT
   rejectForm(editData: any) {
     if (editData) {
       this.actionBtn = "Modificar";
-      this.titulo ="Modificar Transporte de Linea"
+
       this.transportTypeForm.controls['name'].setValue(editData.name);
       this.transportTypeForm.controls['isActive'].setValue(editData.isActive);
       this.model.id = editData.id;

@@ -38,8 +38,8 @@ getAllClientes(): Observable<Client[]> {
   return this.http.get<Client[]>(this.urlClient.concat("all"));
 }
 
-getAllTransportLines(): Observable<TransportLine[]> {
-  return this.http.get<TransportLine[]>(this.urlTransportLine.concat("all"));
+getAllTransportLines(id): Observable<TransportLine[]> {
+  return this.http.get<TransportLine[]>(this.urlTransportLine.concat("all/partner/",id));
 }
 
 getAllTransportCapacities(id:any): Observable<TransportCapacity[]> {
@@ -65,5 +65,11 @@ public savePallets(palletSave:PalletSave): Observable<any> {
   console.log("service",palletSave)
   return this.http.post<any>(this.urlPallet, palletSave);
 }
+
+
+updateStatus(palletSave:any): Observable<any> {
+  return this.http.put<any>(`${this.url + 'status/'}${palletSave.id}`, palletSave);
+}
+
 
 }
