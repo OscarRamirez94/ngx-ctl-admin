@@ -78,11 +78,13 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'car-outline',
         link: '/pages/transport-types/transport-types',
       },
+      /*
       {
         title: 'Personal',
         icon: 'person-outline',
         link: '/pages/persons/persons',
       },
+      */
       {
         title: 'Puestos',
         icon: 'menu',
