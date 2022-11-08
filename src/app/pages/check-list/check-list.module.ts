@@ -92,7 +92,7 @@ import { CheckListDeleteComponent } from './check-list-delete/check-list-delete.
     NbBadgeModule,
     NbListModule,
     MatBadgeModule,
-    NbTagModule
+    NbTagModule,
   ]
 })
 export class CheckListModule { }

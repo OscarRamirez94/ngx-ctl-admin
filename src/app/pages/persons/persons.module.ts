@@ -26,7 +26,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { PersonsCreateComponent } from './persons-create/persons-create.component';
 import { PersonsDeleteComponent } from './persons-delete/persons-delete.component';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -63,7 +63,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
     MatRadioModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
-    NbTagModule
+    NbTagModule,
+    MatTooltipModule
   ]
 })
 export class PersonsModule { }

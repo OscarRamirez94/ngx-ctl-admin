@@ -2,13 +2,13 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Modulos',
+    title: 'Tablero',
     icon: 'shopping-cart-outline',
     link: '/pages/dashboard',
     home: true,
   },
 
-  {
+ /* {
     title: 'Modulos',
     icon: 'edit-2-outline',
     children: [
@@ -31,7 +31,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
     ],
   },
-
+*/
   {
     title: 'Check List',
     icon: 'book-open-outline',
@@ -42,6 +42,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'person-done-outline',
         link: '/pages/checklist/checklist',
       },
+     /*
       {
         title: 'Agregar',
 
@@ -54,7 +55,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'car-outline',
         link: '/pages/checklist/pallet-main',
       },
-
+*/
 
     ],
   },

@@ -51,9 +51,9 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="form-group">
-                <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy">
+                <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
                   <mat-label>Puesto</mat-label>
-                  <input type="text" placeholder="Selecciona un puesto" aria-label="Number" matInput formControlName="profession"
+                  <input type="text" matTooltip="Despegable" placeholder="Selecciona un puesto" aria-label="Number" matInput formControlName="profession"
                     [matAutocomplete]="auto" [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
                   <mat-autocomplete #auto="matAutocomplete" (optionSelected)="optionSelected($event.option.value)"
                     [displayWith]="displayProperty">
