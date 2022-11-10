@@ -38,9 +38,14 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
     children: [
       {
-        title: 'Check Lists',
+        title: 'Check In',
         icon: 'person-done-outline',
         link: '/pages/checklist/checklist',
+      },
+      {
+        title: 'Chek Out',
+        icon: 'person-done-outline',
+        link: '/pages/checkout/checkout',
       },
      /*
       {
@@ -59,6 +64,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
 
     ],
   },
+
   {
     title: 'Catalogos',
     icon: 'book-open-outline',

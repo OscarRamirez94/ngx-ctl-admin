@@ -12,7 +12,7 @@ import { CommonService } from '../../../services/commons.service';
 import { HeadService } from '../../../services/head/head.service';
 
 @Directive()
-export abstract class CommonListClientComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
+export abstract class CommonListCheckComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
 
   @ViewChild(MatPaginator)
    paginator :MatPaginator;
@@ -20,14 +20,13 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
   @ViewChild(MatSort)
   sort: MatSort;
 
-  processTypeId:number;
   titulo: string;
   model: E;
   error: any;
   protected redirect: string;
   protected nombreModel: string;
   loading :boolean = false;
-
+  processTypeId:string;
   sortedData: Object[];
   // config pagination
   totalRegistros=0;
@@ -85,7 +84,7 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
     search.sortDirection =this.orderBy;
 
 
-    this.service.getFilterCriteriaClient(search,clientName)
+    this.service.getFilterCriteriaClientProcess(search,clientName,this.processTypeId)
     .subscribe(paginator => {
       console.log(paginator.totalElements)
       this.lista = paginator.content as E[];

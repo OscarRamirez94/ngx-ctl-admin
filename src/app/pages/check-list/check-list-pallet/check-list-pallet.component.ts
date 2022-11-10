@@ -6,7 +6,7 @@ import { NbToastrService } from '@nebular/theme';
 import { NumericValueType, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { CheckList } from '../../../models/check-list/check-list';
 import { Pallet } from '../../../models/pallet/pallet';
-import { PalletSave2 } from '../../../models/pallet/pallet-save copy';
+import { PalletSave2 } from '../../../models/pallet/pallet-save2';
 import { Pallett } from '../../../models/pallet/pallett';
 import { ResponsePallet } from '../../../models/pallet/ResponsePallet';
 import { Product } from '../../../models/product/product';

@@ -68,6 +68,13 @@ const routes: Routes = [{
         .then(m => m.CheckListModule),
     },
     {
+      path: 'checkout',
+      //canActivate: [RoleGuard,HeadClientGuard],
+      data: { role: 'ROLE_ADMIN' },
+      loadChildren: () => import('./check-out/check-out.module')
+        .then(m => m.CheckOutModule),
+    },
+    {
       path: 'users',
       loadChildren: () => import('./users/users.module')
         .then(m => m.UsersModule),

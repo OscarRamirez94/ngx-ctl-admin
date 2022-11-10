@@ -1,42 +1,44 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { CheckList } from '../../../models/check-list/check-list';
+import { CheckOut } from '../../../models/check-out/check-out';
 import { CheckListService } from '../../../services/check-list/check-list.service';
+import { CheckOutService } from '../../../services/check-out/check-out.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListCheckComponent } from '../../commons/common-list/common-list.component-check';
 import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
-import { CheckListCreateComponent } from '../check-list-create/check-list-create.component';
-import { CheckListDeleteComponent } from '../check-list-delete/check-list-delete.component';
-
+import { CheckOutCreateComponent } from '../check-out-create/check-out-create.component';
+import { CheckOutDeleteComponent } from '../check-out-delete/check-out-delete.component';
 
 @Component({
-  selector: 'ngx-check-list-main',
-  templateUrl: './check-list-main.component.html',
-  styleUrls: ['./check-list-main.component.scss']
+  selector: 'ngx-check-out-main',
+  templateUrl: './check-out-main.component.html',
+  styleUrls: ['./check-out-main.component.scss']
 })
-export class CheckListMainComponent extends CommonListCheckComponent<CheckList,CheckListService> {
+export class CheckOutMainComponent extends CommonListCheckComponent<CheckOut,CheckOutService> {
   hidden = false;
 
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
   }
+
+  processTypeId:string ="2";
   name: string;
-  processTypeId:string ="1";
-  titulo:string = "CheckList";
+  titulo:string = "CheckOut";
   displayedColumns: string[] = ['id','remision','date','transportLine','transportType','noSello','status','pallets','actions' ];
   clientName =  this.headService.getClientLS();
-  constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
+  constructor( service:CheckOutService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,
     headService:HeadService) {
     super(service,router, route,toastrService,headService);
     this.redirect = '/pages/clients/clientes';
-    this.nombreModel = "CheckList";
+    this.nombreModel = "CheckOut";
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CheckListCreateComponent, {
+    const dialogRef = this.dialog.open(CheckOutCreateComponent, {
       width: '65%'
     }).afterClosed().subscribe(data =>{
       if (data) {
@@ -47,14 +49,14 @@ export class CheckListMainComponent extends CommonListCheckComponent<CheckList,C
       //this.router.navigate(['pages/checklist/checklist-create-test']);
   }
 
-  addPallet(element:CheckList): void {
+  addPallet(element:CheckOut): void {
     //this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
     this.router.navigate(['pages/checklist/pallet-main/' + element.id + '/' + element.status]);
   }
 
 
   editarClient(element:any){
-    this.dialog.open(CheckListCreateComponent,{
+    this.dialog.open(CheckOutCreateComponent,{
       width:'65%',
       data: element
 
@@ -67,7 +69,7 @@ export class CheckListMainComponent extends CommonListCheckComponent<CheckList,C
   }
 
   deleteClient(element:any){
-    this.dialog.open(CheckListDeleteComponent,{
+    this.dialog.open(CheckOutDeleteComponent,{
       width:'25%',
       data: element
     }).afterClosed().subscribe(data =>{

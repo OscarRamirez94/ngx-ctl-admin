@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { CheckList } from '../../../models/check-list/check-list';
+import { CheckOut } from '../../../models/check-out/check-out';
 import { Client } from '../../../models/client';
 import { Person } from '../../../models/person/person';
 import { ProcessType } from '../../../models/process-type/process-type';
@@ -13,23 +14,24 @@ import { TransportType } from '../../../models/transport_type/transport-type';
 import { User } from '../../../models/user/user';
 import { AuthRoleService } from '../../../services/auth/auth-role.service';
 import { CheckListService } from '../../../services/check-list/check-list.service';
+import { CheckOutService } from '../../../services/check-out/check-out.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
 
 @Component({
-  selector: 'ngx-check-list-create',
-  templateUrl: './check-list-create.component.html',
-  styleUrls: ['./check-list-create.component.scss']
+  selector: 'ngx-check-out-create',
+  templateUrl: './check-out-create.component.html',
+  styleUrls: ['./check-out-create.component.scss']
 })
-export class CheckListCreateComponent extends CommonListComponent<CheckList, CheckListService> implements OnInit  {
+export class CheckOutCreateComponent extends CommonListComponent<CheckOut, CheckOutService> implements OnInit  {
   clients:Client[];
   transportLines:TransportLine[];
   transportCapacities:TransportCapacity[];
   transportTypes:TransportType[];
   surveillances:User[];
   responsibles:User[];
-  processType:ProcessType = new ProcessType(1,true,"in");
+  processType:ProcessType = new ProcessType(2,true,"Out");
   myControl = new FormControl('');
   clientId;
   partner=this.headService.getNameClientLS();
@@ -64,13 +66,13 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
   });
 
 
-  constructor(service:CheckListService,router: Router, route: ActivatedRoute, toastrService: NbToastrService,
+  constructor(service:CheckOutService,router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private _formBuilder:FormBuilder,private authRoleService:AuthRoleService,headService:HeadService,
-    private  dialogRef: MatDialogRef<CheckListCreateComponent>,
+    private  dialogRef: MatDialogRef<CheckOutCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public editData:any,)
     {
       super(service, router, route,toastrService,headService);
-      this.model = new CheckList();
+      this.model = new CheckOut();
       this.model.partner = new Client();
       this.model.transportLine = new TransportLine();
       this.model.transportCapacity = new TransportCapacity();
@@ -218,7 +220,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
             super.toast("success","Se inserto con éxito");
             this.onReset();
           }else {
-           // super.toast("warning","Ocurrio un error");
+
           }
         });
 

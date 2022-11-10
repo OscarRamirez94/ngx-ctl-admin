@@ -5,7 +5,7 @@ import { CheckList } from '../../models/check-list/check-list';
 import { Client } from '../../models/client';
 import { Pallet } from '../../models/pallet/pallet';
 import { PalletSave } from '../../models/pallet/pallet-save';
-import { PalletSave2 } from '../../models/pallet/pallet-save copy';
+import { PalletSave2 } from '../../models/pallet/pallet-save2';
 import { Person } from '../../models/person/person';
 import { TransportLine } from '../../models/transport-line/transport-line';
 import { TransportCapacity } from '../../models/transport_capacity/transport-capacity';

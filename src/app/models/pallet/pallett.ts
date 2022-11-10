@@ -1,4 +1,5 @@
 import { CheckList } from "../check-list/check-list";
+import { CheckOut } from "../check-out/check-out";
 import { Generic } from "../generic/generic";
 import { Unity } from "../unity/unity";
 
@@ -16,4 +17,5 @@ export class Pallett implements Generic {
   codigo:string;
   producto:string;
   ua:string;
+  checkOut:CheckOut;
 }
