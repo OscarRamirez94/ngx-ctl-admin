@@ -48,7 +48,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   products:Product[] = [];
   transportLines:TransportLine[] = [];
 
-  options: string[] = ['REMISION', 'FECHA','LINEA DE TRANSPORTE','PRODUCTO','LOTE'];
+  options: string[] = ['TODOS','REMISION', 'FECHA','LINEA DE TRANSPORTE','PRODUCTO','LOTE'];
 
   constructor(service: PalletService, router: Router, route: ActivatedRoute,
      private dialog: MatDialog, toastrService: NbToastrService,
