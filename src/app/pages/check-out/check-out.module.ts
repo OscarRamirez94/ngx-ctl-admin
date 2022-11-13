@@ -34,13 +34,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBadgeModule } from '@angular/material/badge';
+import { CheckOutPalletComponent } from './check-out-pallet/check-out-pallet.component';
+import { CheckOutPalletTestComponent } from './check-out-pallet-test/check-out-pallet-test.component';
 
 @NgModule({
   declarations: [
     CheckOutComponent,
     CheckOutMainComponent,
     CheckOutCreateComponent,
-    CheckOutDeleteComponent
+    CheckOutDeleteComponent,
+    CheckOutPalletComponent,
+    CheckOutPalletTestComponent
   ],
   imports: [
     CommonModule,
