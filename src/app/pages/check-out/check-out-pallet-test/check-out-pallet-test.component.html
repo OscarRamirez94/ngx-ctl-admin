@@ -134,6 +134,11 @@
   <nb-card accent="primary">
       <nb-card-header>{{titulo}} </nb-card-header>
       <nb-card-body>
+        <section *ngIf="selection.selected.length>0">
+          <div class="example-button-row">
+            <button di mat-flat-button color="primary"  (click)="save()" >Agregar {{selection.selected.length}}</button>
+          </div>
+        </section>
           <section>
               <!-- filter -->
               <mat-form-field appearance="standard">
@@ -229,3 +234,6 @@
       </nb-card-body>
   </nb-card>
 </div>
+
+
+

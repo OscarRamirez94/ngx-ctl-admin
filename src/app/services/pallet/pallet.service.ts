@@ -26,4 +26,8 @@ export class PalletService extends CommonService<Pallet> {
    public totalByCheckList(id: number): Observable<number> {
     return this.http.get<number>(this.url+'total/'+id);
   }
+
+  public validate(e: any): Observable<any> {
+    return this.http.post<any>(this.url+'validate', e);
+  }
 }

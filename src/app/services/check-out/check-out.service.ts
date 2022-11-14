@@ -26,6 +26,7 @@ export class CheckOutService extends CommonService<CheckOut> {
   urlPersons = 'http://localhost:8081/microservice-ctl/person/';
   urlUsers = 'http://localhost:8081/microservice-ctl/users/';
   urlPallet = 'http://localhost:8081/microservice-ctl/pallet/';
+
   constructor(http: HttpClient) {
     super(http);
   }
@@ -71,5 +72,10 @@ public savePallets(palletSave:PalletSave): Observable<any> {
 
 updateStatus(palletSave:any): Observable<any> {
   return this.http.put<any>(`${this.url + 'status/'}${palletSave.id}`, palletSave);
+}
+
+ saveOut(pallets:any): Observable<any> {
+  console.log("service",pallets)
+  return this.http.post<any>(this.url+"save-out", pallets);
 }
 }

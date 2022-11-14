@@ -131,7 +131,7 @@ export class CheckListPalletCreateComponent extends CommonListComponent<Pallet, 
   }
 
   getProducts(){
-    this.productService.getAll().subscribe(data =>{
+    this.productService.getAllProductsByPartner(this.editData.checkList.partner.id).subscribe(data =>{
       this.products = data as Product[];
     })
   }

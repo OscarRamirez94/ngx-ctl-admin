@@ -4,7 +4,9 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { json } from '@rxweb/reactive-form-validators';
 import { PalletI } from '../../../interfaces/pallet-i';
+import { CheckOutSave } from '../../../models/check-out/CheckOutSave';
 import { Pallet } from '../../../models/pallet/pallet';
 import { Product } from '../../../models/product/product';
 import { TransportLine } from '../../../models/transport-line/transport-line';
@@ -15,6 +17,7 @@ import { TransportLineService } from '../../../services/transport-line/transport
 import { CommonListCheckComponent } from '../../commons/common-list/common-list.component-check';
 import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
 import { CommonListPalletComponent } from '../../commons/common-list/common-list.component-pallet';
+import { CheckOutPalletComponent } from '../check-out-pallet/check-out-pallet.component';
 
 @Component({
   selector: 'ngx-check-out-pallet-test',
@@ -36,7 +39,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   transportLineVisible:boolean=false;
   productVisible:boolean=false;
   loteVisible:boolean=false;
-
+  pageSizeOptions = [2, 25,50,100];
 
   remisionControl = new FormControl('', []);
   fechaControl = new FormControl('', []);
@@ -47,8 +50,10 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
 
   products:Product[] = [];
   transportLines:TransportLine[] = [];
-
   options: string[] = ['TODOS','REMISION', 'FECHA','LINEA DE TRANSPORTE','PRODUCTO','LOTE'];
+
+  checkOutdId:number;
+  checkOutRemision:string;
 
   constructor(service: PalletService, router: Router, route: ActivatedRoute,
      private dialog: MatDialog, toastrService: NbToastrService,
@@ -59,6 +64,8 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   }
 
   ngOnInit(): void {
+    this.checkOutdId  = +this.route.snapshot.paramMap.get("id");
+    this.checkOutRemision = this.route.snapshot.paramMap.get("remision");
     this.getProductos();
     this.getTL();
     super.ngOnInit();
@@ -170,31 +177,40 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
     this.productVisible = false;
   }
 
-  selection = new SelectionModel<PalletI>(true, []);
+  save(){
+    this.map = new Map()
+    var result = this.selection.selected.map(ar => (
+    {
+      checkOutId: this.checkOutdId,
+      pallet: ar,
+      remisionIn:ar.checkList.remision,
 
-  /** Whether the number of selected elements matches the total number of rows. */
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
-    return numSelected === numRows;
+    }),
+ );
+
+
+
+    console.log("resiult", result);
+
+
+    let map = new Map()
+      result.forEach((currentValue) => { map.has(currentValue.remisionIn)
+       ? map.get(currentValue.remisionIn).push({name: currentValue.remisionIn, pallet: currentValue.pallet})
+       : map.set(currentValue.remisionIn, [{name: currentValue.remisionIn, pallet: currentValue.pallet}])
+      });
+
+   this.map = map;
+
+   const dialogRef = this.dialog.open(CheckOutPalletComponent, {
+    width: '35%',
+    data:[this.map, this.checkOutRemision,result,this.checkOutdId]
+    }).afterClosed().subscribe(data =>{
+      if (data) {
+
+        super.calculateRange();
+      }
+    });
   }
 
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
-  toggleAllRows() {
-    if (this.isAllSelected()) {
-      this.selection.clear();
-      return;
-    }
 
-    this.selection.select(...this.dataSource.data);
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: PalletI): string {
-    console.log("row", row)
-    if (!row) {
-      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
-    }
-   return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
-  }
 }

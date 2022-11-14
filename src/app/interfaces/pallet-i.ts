@@ -1,3 +1,4 @@
+import { CheckList } from "../models/check-list/check-list";
 import { CheckOut } from "../models/check-out/check-out";
 import { Product } from "../models/product/product";
 import { Unity } from "../models/unity/unity";
@@ -15,5 +16,6 @@ export interface PalletI {
   codigo:string;
   product:Product;
   ua:string;
+  checkList:CheckList;
   checkOut:CheckOut;
 }

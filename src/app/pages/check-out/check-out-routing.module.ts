@@ -19,7 +19,7 @@ const routes: Routes = [
         component: CheckOutPalletComponent
       },
       {
-        path: 'pallet-main-test/:id/:status',
+        path: 'pallet-main-test/:id/:remision',
         component: CheckOutPalletTestComponent
       },
 

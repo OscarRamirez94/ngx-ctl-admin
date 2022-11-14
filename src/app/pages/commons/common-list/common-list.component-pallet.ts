@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { AfterViewInit, Directive, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -43,8 +44,8 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
   option:string;
   filterBy:string;
   dataSource: MatTableDataSource<PalletI>;
-
-
+  selection = new SelectionModel<PalletI>(true, []);
+  map = new Map();
   constructor(protected service:S,protected router: Router,
     protected route: ActivatedRoute,
     protected toastrService: NbToastrService,
@@ -78,6 +79,7 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
   }
 
   public calculateRange(){
+    this.selection.clear();
     this.loading = true;
     const search: SearchCriteriaClient = new SearchCriteriaClient();
     search.pageNumber = this.paginaActual;
@@ -212,5 +214,30 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
   delete (id:any){
     this.service.eliminar(id).subscribe(() => {
     });
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      this.map = new Map();
+      return;
+    }
+
+    this.selection.select(...this.dataSource.data);
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: PalletI): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
   }
 }
