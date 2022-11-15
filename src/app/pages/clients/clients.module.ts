@@ -5,7 +5,7 @@ import { ClientsRoutingModule } from './clients-routing.module';
 import { ThemeModule } from '../../@theme/theme.module';
 import { ClientsComponent } from './clients.component';
 
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
 import { ClientMainComponent } from './client-main/client-main.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
@@ -61,7 +61,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatChipsModule,
     MatRadioModule,
     MatProgressSpinnerModule,
-    NbTagModule
+    NbTagModule,
+    NbBadgeModule
   ],
 
 })

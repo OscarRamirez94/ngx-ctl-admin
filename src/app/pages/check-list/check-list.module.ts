@@ -9,7 +9,7 @@ import { CheckListCreateComponent } from './check-list-create/check-list-create.
 import { ThemeModule } from '../../@theme/theme.module';
 
 
-import { NbAccordionModule, NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbListModule, NbTagModule, NbUserModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbListModule, NbTagModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule } from '@angular/material/form-field';
@@ -41,6 +41,7 @@ import { CheckListPalletCreateComponent } from './check-list-pallet-create/check
 import { CheckListPalletDeleteComponent } from './check-list-pallet-delete/check-list-pallet-delete.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { CheckListDeleteComponent } from './check-list-delete/check-list-delete.component';
+import { CheckListPalletValidateComponent } from './check-list-pallet-validate/check-list-pallet-validate.component';
 @NgModule({
   declarations: [
     CheckListComponent,
@@ -50,6 +51,7 @@ import { CheckListDeleteComponent } from './check-list-delete/check-list-delete.
     CheckListPalletCreateComponent,
     CheckListPalletDeleteComponent,
     CheckListDeleteComponent,
+    CheckListPalletValidateComponent,
 
   ],
   imports: [
@@ -93,6 +95,7 @@ import { CheckListDeleteComponent } from './check-list-delete/check-list-delete.
     NbListModule,
     MatBadgeModule,
     NbTagModule,
+    NbTooltipModule
   ]
 })
 export class CheckListModule { }

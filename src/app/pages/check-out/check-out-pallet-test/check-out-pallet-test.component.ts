@@ -182,17 +182,14 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
     var result = this.selection.selected.map(ar => (
     {
       checkOutId: this.checkOutdId,
+      checkListId: ar.checkList.id,
+      checkOutRemision: this.checkOutRemision,
+      remisionIn: ar.checkList.remision,
       pallet: ar,
-      remisionIn:ar.checkList.remision,
+    }
 
-    }),
+    ),
  );
-
-
-
-    console.log("resiult", result);
-
-
     let map = new Map()
       result.forEach((currentValue) => { map.has(currentValue.remisionIn)
        ? map.get(currentValue.remisionIn).push({name: currentValue.remisionIn, pallet: currentValue.pallet})
@@ -203,11 +200,12 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
 
    const dialogRef = this.dialog.open(CheckOutPalletComponent, {
     width: '35%',
-    data:[this.map, this.checkOutRemision,result,this.checkOutdId]
+    data:[this.map,result]
     }).afterClosed().subscribe(data =>{
       if (data) {
 
         super.calculateRange();
+        super.toast("success","Se agregaron correctamente pallets a la remision: " + this.checkOutRemision);
       }
     });
   }

@@ -9,6 +9,7 @@ import { CommonListCheckComponent } from '../../commons/common-list/common-list.
 import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
 import { CheckListCreateComponent } from '../check-list-create/check-list-create.component';
 import { CheckListDeleteComponent } from '../check-list-delete/check-list-delete.component';
+import { CheckListPalletValidateComponent } from '../check-list-pallet-validate/check-list-pallet-validate.component';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class CheckListMainComponent extends CommonListCheckComponent<CheckList,C
   name: string;
   processTypeId:string ="1";
   titulo:string = "CheckList";
-  displayedColumns: string[] = ['id','remision','date','transportLine','transportType','noSello','status','pallets','actions' ];
+  displayedColumns: string[] = ['remision','date','transportLine','transportType','noSello','status','pallets','stock','actions' ];
   clientName =  this.headService.getClientLS();
   constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,
@@ -77,12 +78,21 @@ export class CheckListMainComponent extends CommonListCheckComponent<CheckList,C
       })
   }
 
-  closeRemision(element:any){
-    this.service.updateStatus(element).subscribe(data =>{
-      super.toast("success","Se finalizó la remision")
-      super.calculateRange(this.clientName);
-    });
 
+
+  closeRemision(element:any){
+    this.dialog.open(CheckListPalletValidateComponent,{
+
+      data: element
+    }).afterClosed().subscribe(data =>{
+        if (data) {
+          this.service.updateStatus(element).subscribe(data =>{
+            super.toast("success","Se finalizó la remision con éxito: " + element.remision)
+            super.calculateRange(this.clientName);
+          });
+        }
+      })
   }
+
 
 }

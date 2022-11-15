@@ -1,10 +1,10 @@
+
+
 <mat-dialog-content nb-card status="danger" class="mat-typography">
   <nb-card status="danger">
-    <nb-card-header>{{titulo}}</nb-card-header>
+    <nb-card-header>Finalizar Remisión</nb-card-header>
     <nb-card-body class="example-items-rows">
-      <p>
-        Seguro que deseas eliminar: {{contentDelete}} ?
-      </p>
+    <p> {{message}} </p>
     </nb-card-body>
   </nb-card>
 </mat-dialog-content>
@@ -12,7 +12,7 @@
 <mat-dialog-actions align="end">
     <button nbButton hero shape="semi-round" size="small" status="danger"
       [mat-dialog-close]="false" >Cancelar</button>
-    <button nbButton  hero shape="semi-round" size="small" status="primary"
-     cdkFocusInitial style="float: left;" (click)="deleteClient()">Si, Finalizar</button>
+    <button nbButton  hero shape="semi-round" size="small" status="primary" [disabled]="!disabled"
+     cdkFocusInitial style="float: left;" (click)="closeRemision()">Si, Finalizar</button>
 </mat-dialog-actions>
 

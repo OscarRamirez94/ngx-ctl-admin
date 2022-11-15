@@ -30,20 +30,20 @@ export class CheckOutPalletComponent implements OnInit   {
   map = new Map();
   message:string;
   disabled :boolean = false;
-  checkOutRemision:string;
-  checkOutdId:number;
   result:any;
   constructor(
     private  checkOutService:CheckOutService,
     private  dialogRef: MatDialogRef<CheckOutPalletComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData:any){
+    @Inject(MAT_DIALOG_DATA) public editData:any,
+    private router:Router){
 
   }
   ngOnInit(): void {
   this.map =  this.editData[0];
-  this.checkOutRemision =  this.editData[1];
-  this.result =  this.editData[2];
-  this.checkOutdId =  this.editData[3];
+  this.result =  this.editData[1];
+
+
+
   if (this.map.size>1){
     this.message = "Se encontraron pallets con distinta remision, favor de validar.";
   }else {
@@ -53,17 +53,22 @@ export class CheckOutPalletComponent implements OnInit   {
   }
   guardar(){
     let checkOutSave:CheckOutSave = new CheckOutSave();
-    checkOutSave.id =  this.checkOutdId;
+    checkOutSave.id =  this.result[0].checkOutId;
+    checkOutSave.checkListId = this.result[0].checkListId;
 
     this.result.map(a =>{
       let pallet:Pallet = a.pallet as Pallet;
       checkOutSave.palletsOut.push(pallet);
 
     })
-    console.log(checkOutSave, "checkOutSave")
+
+
+
     this.checkOutService.saveOut(checkOutSave).subscribe(data =>{
       console.log(data);
-    this.dialogRef.close("true");
+      this.dialogRef.close("true");
+      this.router.navigate(['pages/checkout/checkout']);
+
     })
 
   }

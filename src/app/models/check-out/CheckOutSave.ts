@@ -10,5 +10,6 @@ import { PalletOut } from "../pallet/pallet-out";
 
 export class CheckOutSave {
   id: number;
+  checkListId:number;
   palletsOut: Pallet[] = [];
 }

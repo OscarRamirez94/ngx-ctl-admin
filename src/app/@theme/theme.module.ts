@@ -13,7 +13,8 @@ import {
   NbIconModule,
   NbThemeModule,
   NbButtonGroupModule,
-  NbToastrModule
+  NbToastrModule,
+  NbBadgeModule
 } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbSecurityModule } from '@nebular/security';
@@ -65,6 +66,7 @@ const NB_MODULES = [
   MatInputModule,
   ngFormsModule,
   ReactiveFormsModule,
+  NbBadgeModule
 ];
 const COMPONENTS = [
   HeaderComponent,

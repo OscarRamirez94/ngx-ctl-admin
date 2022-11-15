@@ -47,15 +47,13 @@
     </nb-action>
 
     <nb-action class="user-action" *ngIf="currentClient">
-      <mat-chip-list aria-label="Fish selection">
-        <mat-chip color="primary" selected>Cliente Seleccionado : {{currentClient}}</mat-chip>
-      </mat-chip-list>
+      <nb-badge text="Cliente Seleccionado : {{currentClient}}" status="success" style="position:static;"></nb-badge>
+
     </nb-action>
 
     <nb-action class="user-action" *ngIf="!currentClient">
-      <mat-chip-list aria-label="Fish selection">
-        <mat-chip color="accent" selected>Selecciona Un Cliente </mat-chip>
-      </mat-chip-list>
+      <nb-badge text="Selecciona Un Cliente" status="danger" style="position:static;"></nb-badge>
+
     </nb-action>
 
 
