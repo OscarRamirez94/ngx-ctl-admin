@@ -74,9 +74,12 @@
             <ng-container matColumnDef="actions">
               <th mat-header-cell *matHeaderCellDef > ACCIONES </th>
               <td mat-cell *matCellDef="let element">
-                  <button mat-icon-button color="primary" (click)="closeRemision(element)" [disabled]="element.status === 'close'" ><mat-icon>done_all</mat-icon>
+              <!--
+                <button mat-icon-button color="primary" (click)="closeRemision(element)" [disabled]="element.status === 'close'" ><mat-icon>done_all</mat-icon>
+                </button>
+              -->
+                  <button mat-icon-button color="primary" (click)="viewRemision(element)" ><mat-icon>done_all</mat-icon>
                   </button>
-
                   <button mat-icon-button color="primary" (click)="editarClient(element)"><mat-icon>edit</mat-icon>
                   </button>
                   <button mat-icon-button color="warn" (click)="deleteClient(element)" [disabled]="element.status === 'close'">

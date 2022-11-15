@@ -53,7 +53,10 @@ export class CheckOutMainComponent extends CommonListCheckComponent<CheckOut,Che
     //this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
     this.router.navigate(['pages/checkout/pallet-main-test/' + element.id + '/' + element.remision]);
   }
-
+  viewRemision(element:CheckOut): void {
+    //this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
+    this.router.navigate(['pages/checkout/pallet-view/' + element.id]);
+  }
 
   editarClient(element:any){
     this.dialog.open(CheckOutCreateComponent,{
