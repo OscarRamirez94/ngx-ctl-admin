@@ -199,7 +199,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
    this.map = map;
 
    const dialogRef = this.dialog.open(CheckOutPalletComponent, {
-    width: '35%',
+
     data:[this.map,result]
     }).afterClosed().subscribe(data =>{
       if (data) {

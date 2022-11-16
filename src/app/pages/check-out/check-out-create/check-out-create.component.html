@@ -1,12 +1,15 @@
 <section>
-  <mat-card>
-    <mat-card-title>Check List</mat-card-title>
-    <mat-card-subtitle>Check Out</mat-card-subtitle>
 
-    <mat-card-content>
+  <nb-card status="primary">
+    <nb-card-header>CheckList
+
+      <nb-badge text="Check-out" status="success" style="position: relative;"></nb-badge>
+
+    </nb-card-header>
+    <nb-card-body>
 
       <!--mat dialog content-->
-      <mat-dialog-content >
+<mat-dialog-content >
 <mat-stepper linear #stepper>
   <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
     <form [formGroup]="firstFormGroup">
@@ -75,7 +78,7 @@
 
         <mat-card-actions align="end">
           <mat-dialog-actions align="end">
-            <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+            <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
           </mat-dialog-actions>
         </mat-card-actions>
     </form>
@@ -292,8 +295,8 @@
         </div>
         <mat-card-actions align="end">
           <mat-dialog-actions align="end">
-            <button mat-flat-button color="accent" matStepperPrevious>Regresar</button>
-            <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+            <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
+            <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
           </mat-dialog-actions>
         </mat-card-actions>
     </form>
@@ -315,8 +318,8 @@
    </div>
     <mat-card-actions align="end">
       <mat-dialog-actions align="end">
-        <button mat-flat-button color="accent" matStepperPrevious>Regresar</button>
-        <button mat-flat-button color="primary" matStepperNext>Siguiente</button>
+        <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
+        <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
       </mat-dialog-actions>
     </mat-card-actions>
 
@@ -328,15 +331,15 @@
     <div>
       <mat-card-actions align="end">
         <mat-dialog-actions align="end">
-          <button mat-flat-button color="accent" matStepperPrevious>Regresar</button>
-          <button mat-flat-button color="warn" (click)="stepper.reset()" *ngIf="editData===null">Limpiar</button>
-          <button mat-flat-button color="primary" [disabled]="status === 'close'" (click)='onSubmit()' >{{actionBtn}}</button>
+          <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
+          <button nbButton hero shape="semi-round" size="small" status="danger" (click)="stepper.reset()" *ngIf="editData===null">Limpiar</button>
+          <button nbButton hero shape="semi-round" size="small" status="primary" [disabled]="status === 'close'" (click)='onSubmit()' >{{actionBtn}}</button>
         </mat-dialog-actions>
       </mat-card-actions>
     </div>
   </mat-step>
 </mat-stepper>
 </mat-dialog-content>
-</mat-card-content>
-</mat-card>
+    </nb-card-body>
+  </nb-card>
 </section>

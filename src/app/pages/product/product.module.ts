@@ -5,7 +5,7 @@ import { ProductRoutingModule } from './product-routing.module';
 import { ProductComponent } from './product.component';
 import { ProductMainComponent } from './product-main/product-main.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule } from '@angular/material/form-field';
@@ -60,7 +60,8 @@ import { ProductDeleteComponent } from './product-delete/product-delete.componen
     MatChipsModule,
     MatRadioModule,
     MatProgressSpinnerModule,
-    NbTagModule
+    NbTagModule,
+    NbBadgeModule
   ]
 })
 export class ProductModule { }

@@ -3,19 +3,19 @@
   <div class="col-md-6 col-lg-4 col-xxxl-4" style="position: relative;">
     <nb-card status="primary">
       <nb-card-header>Remision : {{checkList?.remision}}
-        <nb-badge text={{checkList?.date}} status="danger" position="top left"></nb-badge>
+        <nb-badge text={{checkList?.date}} status="warning" position="top left"></nb-badge>
       </nb-card-header>
       <nb-card-body>
         <div class="row">
           <div class="col-sm-8">Total de Pallets :
           </div>
-          <div class="col-sm-4"> <nb-tag status="primary" size="small" appearance="filled" text={{this.totalRegistros}}></nb-tag></div>
+          <div class="col-sm-4"> <nb-tag status="warning" size="small" appearance="filled" text={{this.totalRegistros}}></nb-tag></div>
         </div>
         <div class="row">
           <div class="col-sm-8">Cantidad Total :
 
           </div>
-          <div class="col-sm-4"><nb-tag status="primary" size="small" appearance="filled" text={{totalPalletDTO.total}}></nb-tag> </div>
+          <div class="col-sm-4"><nb-tag status="warning" size="small" appearance="filled" text={{totalPalletDTO.total}}></nb-tag> </div>
         </div>
 
       </nb-card-body>
@@ -25,7 +25,7 @@
   <div class="col-md-4 col-lg-4 col-xxxl-4" style="position: relative;" *ngIf="totalPalletDTO.total !=0">
     <nb-card status="primary">
       <nb-card-header>Productos
-        <nb-badge text={{checkList?.date}} status="danger" position="top left"></nb-badge>
+        <nb-badge text={{checkList?.date}} status="warning" position="top left"></nb-badge>
       </nb-card-header>
       <nb-card-body>
         <div class="row" *ngFor="let item of totalPalletDTO.productoTotal | keyvalue">
@@ -33,7 +33,7 @@
           </div>
           <div class="col-sm-6">Total de Pallets:
           </div>
-          <div class="col-sm-2"> <nb-tag status="primary" size="small" appearance="filled" text={{item.value}}></nb-tag></div>
+          <div class="col-sm-2"> <nb-tag status="warning" size="small" appearance="filled" text={{item.value}}></nb-tag></div>
         </div>
       </nb-card-body>
     </nb-card>
@@ -65,7 +65,7 @@
     <nb-accordion-item-body>
 
       <form [formGroup]="formTemplate" (ngSubmit)="onSubmitTemplate()">
-        <nb-card accent="primary">
+        <nb-card status="primary">
           <nb-card-header>Generar Formulario</nb-card-header>
           <nb-card-body>
 
@@ -125,8 +125,9 @@
 
               <div class="col-sm-3">
                 <div class="form-group">
-                  <button mat-flat-button color="primary" [disabled]="temple()===true" [disabled]="status === 'close'">Generar</button>
-                  <button mat-flat-button type="button" color="warn" (click)="resetTemplate()">Limpiar</button>
+                  <button nbButton hero shape="semi-round" size="small" status="warning" (click)="resetTemplate()">Limpiar</button>
+                  <button nbButton hero shape="semi-round" size="small" status="primary" [disabled]="temple()===true" [disabled]="status === 'close'">Generar</button>
+
                 </div>
               </div>
             </div>
@@ -138,7 +139,7 @@
       <br>
       <mat-divider></mat-divider>
       <form [formGroup]="form">
-          <nb-card accent="primary" *ngIf="temple()">
+          <nb-card status="primary" *ngIf="temple()">
             <nb-card-header>Agrega Pallets</nb-card-header>
             <nb-card-body>
             <div formArrayName="items" *ngFor="let creds of form.get('items')?.['controls']; let i = index">
@@ -230,15 +231,19 @@
             </div>
 
           <br>
-            <div class="row">
+
+          <div class="row">
               <div class="col-sm-10">
               </div>
+              <div class="col-sm-2">
+                <button nbButton hero shape="semi-round" size="small" status="primary"  type="submit" (click)="submit()" [disabled]="status === 'close'">Guardar</button>
 
+              </div>
 
             </div>
-                  <div class="col-sm-2">
-                <button mat-flat-button color="primary" type="submit" (click)="submit()" [disabled]="status === 'close'">Guardar</button>
-              </div>
+
+
+
             <!-- end grid-->
           </nb-card-body>
         </nb-card>

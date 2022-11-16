@@ -36,7 +36,7 @@ export class UsersMainComponent extends CommonListComponent<User, UserService> {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(UserCreateComponent, {
-      width: '65%'
+
     }).afterClosed().subscribe(data => {
       if (data) {
         super.calculateRange();
@@ -47,7 +47,7 @@ export class UsersMainComponent extends CommonListComponent<User, UserService> {
   editarClient(element: any) {
 
     this.dialog.open(UserCreateComponent, {
-      width: '65%',
+
       data: element,
 
     }).afterClosed().subscribe(data => {

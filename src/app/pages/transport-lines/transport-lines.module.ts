@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TransportLinesRoutingModule } from './transport-lines-routing.module';
 import { TransportLinesComponent } from './transport-lines.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbTagModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbTagModule, NbUserModule } from '@nebular/theme';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -60,7 +60,8 @@ import { TransportLineDeleteComponent } from './transport-line-delete/transport-
     MatChipsModule,
     MatRadioModule,
     NbSpinnerModule,
-    NbTagModule
+    NbTagModule,
+    NbBadgeModule
   ]
 })
 export class TransportLinesModule { }

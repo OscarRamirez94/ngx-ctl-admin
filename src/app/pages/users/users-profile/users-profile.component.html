@@ -1,121 +1,117 @@
-<section>
-    <form [formGroup]="userForm" *ngIf="userForm" (ngSubmit)="onSubmit()">
-        <mat-card accent="danger" size="tiny" [nbSpinner]="loading"
-        nbSpinnerStatus="danger"
+<form [formGroup]="userForm" *ngIf="userForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <div class="row" style="position: relative;">
+      <div class="col-md-12 col-lg-12 col-xxxl-12" style="position: relative;">
+        <nb-card status="primary"   [nbSpinner]="loading"
+        nbSpinnerStatus="primary"
         nbSpinnerSize="large"
         nbSpinnerMessage="Cargando ...">
-            <mat-card-title>Mi Perfil {{usuario.firstName}} {{usuario.additionalName}} {{usuario.lastName}} {{usuario.secondName}}</mat-card-title>
-            <mat-card-content nb-card-body>
-                <!--mat dialog content-->
-                <mat-dialog-content>
+          <nb-card-header>Mi Perfil {{usuario.firstName}} {{usuario.additionalName}} {{usuario.lastName}} {{usuario.secondName}}</nb-card-header>
+          <nb-card-body>
+            <div class="row">
 
-                    <!-- grid -->
-                    <div class="row">
+              <input matInput formControlName="id" hidden placeholder="Digita el Nombre de Usuario"
+                  [ngClass]="{ 'is-invalid':f.id.errors }">
 
-                                <input matInput formControlName="id" hidden placeholder="Digita el Nombre de Usuario"
-                                    [ngClass]="{ 'is-invalid':f.id.errors }">
-
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Nombre de usuario</mat-label>
-                                    <input matInput formControlName="username" placeholder="Digita el Nombre de Usuario"
-                                        [ngClass]="{ 'is-invalid':f.username.errors }">
-                                    <mat-error *ngIf="f.username.errors">Campo Requerido</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>E-mail</mat-label>
-                                    <input matInput formControlName="email" placeholder="Digita E-mail"
-                                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
-                                    <mat-error *ngIf="f.email.errors">Campo Requerido</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                          <div class="form-group">
-                            <mat-form-field appearance="legacy">
-                              <mat-label>Puesto</mat-label>
-                              <input matInput formControlName="profession" placeholder="Digita Puesto"
-                                  [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
-                              <mat-error *ngIf="f.profession.errors">Campo Requerido</mat-error>
-                          </mat-form-field>
-                          </div>
-                      </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Password</mat-label>
-                                    <input matInput matTooltip="Minimo 5, Maximo 10, Un numero, Un caracter Especial" type="password" formControlName="password" placeholder="Digita password">
-                                        <mat-error *ngIf="userForm.controls.password.errors?.required">Password Requerido  </mat-error>
-                                        <mat-error *ngIf="userForm.controls.password.errors?.password">Min 5, Max 10, Un numero, Un caracter Especial </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Nombre de usuario</mat-label>
+                            <input matInput formControlName="username" placeholder="Digita el Nombre de Usuario"
+                                [ngClass]="{ 'is-invalid':f.username.errors }">
+                            <mat-error *ngIf="f.username.errors">Campo Requerido</mat-error>
+                        </mat-form-field>
                     </div>
-
-                    <div class="row">
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Nombre</mat-label>
-                                    <input matInput formControlName="firstName" placeholder="Digita Nombre"
-                                        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
-                                    <mat-error *ngIf="submitted && f.firstName.errors">Campo Requerido</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Digita Segundo Nombre</mat-label>
-                                    <input matInput formControlName="additionalName" placeholder="Digita Segundo Nombre"
-                                        [ngClass]="{ 'is-invalid': submitted && f.additionalName.errors }">
-                                    <mat-error *ngIf="submitted && f.additionalName.errors">Campo Requerido</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                            <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Apellido Paterno</mat-label>
-                                    <input matInput formControlName="lastName" placeholder="Digita Apellido Paterno"
-                                        [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
-                                    <mat-error *ngIf="submitted && f.lastName.errors">Campo Requerido</mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-sm-3">
-                          <div class="form-group">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Apellido Materno</mat-label>
-                                    <input matInput formControlName="secondName" placeholder="Digita Apellido Materno"
-                                        [ngClass]="{ 'is-invalid': submitted && f.secondName.errors }">
-                                    <mat-error *ngIf="submitted && f.secondName.errors">Campo Requerido</mat-error>
-                                </mat-form-field>
-                          </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>E-mail</mat-label>
+                            <input matInput formControlName="email" placeholder="Digita E-mail"
+                                [ngClass]="{ 'is-invalid': submitted && f.email.errors }">
+                            <mat-error *ngIf="f.email.errors">Campo Requerido</mat-error>
+                        </mat-form-field>
                     </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Puesto</mat-label>
+                      <input matInput formControlName="profession" placeholder="Digita Puesto"
+                          [ngClass]="{ 'is-invalid': submitted && f.profession.errors }">
+                      <mat-error *ngIf="f.profession.errors">Campo Requerido</mat-error>
+                  </mat-form-field>
+                  </div>
+              </div>
+              <div class="col-sm-3">
+                  <div class="form-group">
+                      <mat-form-field appearance="legacy">
+                          <mat-label>Password</mat-label>
+                          <input matInput matTooltip="Minimo 5, Maximo 10, Un numero, Un caracter Especial" type="password" formControlName="password" placeholder="Digita password">
+                              <mat-error *ngIf="userForm.controls.password.errors?.required">Password Requerido  </mat-error>
+                              <mat-error *ngIf="userForm.controls.password.errors?.password">Min 5, Max 10, Un numero, Un caracter Especial </mat-error>
+                      </mat-form-field>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput formControlName="firstName" placeholder="Digita Nombre"
+                                [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }">
+                            <mat-error *ngIf="submitted && f.firstName.errors">Campo Requerido</mat-error>
+                        </mat-form-field>
                     </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Digita Segundo Nombre</mat-label>
+                            <input matInput formControlName="additionalName" placeholder="Digita Segundo Nombre"
+                                [ngClass]="{ 'is-invalid': submitted && f.additionalName.errors }">
+                            <mat-error *ngIf="submitted && f.additionalName.errors">Campo Requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Apellido Paterno</mat-label>
+                            <input matInput formControlName="lastName" placeholder="Digita Apellido Paterno"
+                                [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }">
+                            <mat-error *ngIf="submitted && f.lastName.errors">Campo Requerido</mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                  <div class="form-group">
+                        <mat-form-field appearance="legacy">
+                            <mat-label>Apellido Materno</mat-label>
+                            <input matInput formControlName="secondName" placeholder="Digita Apellido Materno"
+                                [ngClass]="{ 'is-invalid': submitted && f.secondName.errors }">
+                            <mat-error *ngIf="submitted && f.secondName.errors">Campo Requerido</mat-error>
+                        </mat-form-field>
+                  </div>
+                </div>
+            </div>
+            <mat-dialog-actions align="end">
+              <div class="row">
+                <div class="col-sm-10"></div>
+                <div class="col-sm-2"><button nbButton  hero shape="semi-round" size="small" status="primary" type="submit" >Cambiar Password</button>
+                </div>
+              </div>
+
+          </mat-dialog-actions>
+              <!-- end grid-->
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </mat-dialog-content>
 
 
+</form>
 
-                    <!-- end grid-->
-
-                </mat-dialog-content>
-                <!-- mat dialog content -->
-
-            </mat-card-content>
-
-            <!-- actions -->
-            <mat-card-actions align="end">
-                <mat-dialog-actions align="end">
-                    <button mat-flat-button color="primary" type="submit" >Cambiar Password</button>
-                </mat-dialog-actions>
-            </mat-card-actions>
-            <!--end actions -->
-        </mat-card>
-    </form>
-</section>

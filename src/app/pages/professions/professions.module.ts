@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ProfessionsRoutingModule } from './professions-routing.module';
 import { ProfessionsComponent } from './professions.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -60,7 +60,8 @@ import { ProfessionDeleteComponent } from './profession-delete/profession-delete
     MatIconModule,
     MatChipsModule,
     MatRadioModule,
-    NbTagModule
+    NbTagModule,
+    NbBadgeModule
   ]
 })
 

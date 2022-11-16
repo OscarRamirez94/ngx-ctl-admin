@@ -1,12 +1,15 @@
-<section>
-  <form [formGroup]="transportCapacityForm" (ngSubmit)="onSubmit()">
-  <mat-card>
-    <mat-card-title>{{titulo}}</mat-card-title>
-    <mat-card-content>
-      <!--mat dialog content-->
-      <mat-dialog-content >
-
-      <!-- grid -->
+<form [formGroup]="transportCapacityForm" (ngSubmit)="onSubmit()">
+    <mat-dialog-content>
+      <div class="row" style="position: relative;">
+        <div class="col-md-12 col-lg-12 col-xxxl-12" style="position: relative;">
+          <nb-card status="primary">
+            <nb-card-header>{{titulo}}
+              <!--
+              <nb-badge text={{checkOut?.date}} status="danger" position="top left"></nb-badge>
+              -->
+            </nb-card-header>
+            <nb-card-body>
+                <!-- grid -->
       <div class="row">
         <div class="col-sm-6">
           <div class="form-group">
@@ -57,21 +60,19 @@
           </div>
         </div>
       </div>
-      <!-- end grid-->
+                <!-- end grid-->
+            </nb-card-body>
+          </nb-card>
+        </div>
+      </div>
+    </mat-dialog-content>
 
-      </mat-dialog-content>
-      <!-- mat dialog content -->
-
-    </mat-card-content>
-
-    <!-- actions -->
-    <mat-card-actions align="end">
       <mat-dialog-actions align="end">
-        <button mat-flat-button [mat-dialog-close]="false" color="warn" >Cancelar</button>
-        <button mat-flat-button color="primary" cdkFocusInitial>{{actionBtn}}</button>
-      </mat-dialog-actions>
-    </mat-card-actions>
-    <!--end actions -->
-  </mat-card>
+        <button nbButton hero shape="semi-round" size="small" status="danger"
+          [mat-dialog-close]="false" >Cancelar</button>
+
+        <button nbButton  hero shape="semi-round" size="small" status="primary"
+         cdkFocusInitial style="float: left;">{{actionBtn}}</button>
+
+    </mat-dialog-actions>
 </form>
-  </section>

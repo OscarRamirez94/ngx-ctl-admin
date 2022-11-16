@@ -7,7 +7,7 @@ import { TransportTypeDeleteComponent } from './transport-type-delete/transport-
 import { TransportTypeMainComponent } from './transport-type-main/transport-type-main.component';
 import { TransportTypeCreateComponent } from './transport-type-create/transport-type-create.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbActionsModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -72,7 +72,8 @@ import { TransportTypeCapacityDeleteComponent } from './transport-type-capacity-
     MatDividerModule,
     MatTooltipModule,
     NbTagModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    NbBadgeModule
   ]
 })
 export class TransportTypesModule { }

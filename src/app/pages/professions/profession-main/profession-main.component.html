@@ -1,77 +1,78 @@
-<div class="col-md-12">
 
-    <nb-card accent="primary">
-        <nb-card-header>{{titulo}} </nb-card-header>
-        <nb-card-body>
-            <section>
-                <div class="example-button-row">
-                    <button mat-flat-button color="primary" (click)="openDialog()">Agregar</button>
-                </div>
-            </section>
-            <section>
-                <!-- filter -->
-                <mat-form-field appearance="standard">
-                    <mat-label>Buscar </mat-label>
-                    <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
-                </mat-form-field>
-                <!-- end filter -->
-                <div class="mat-elevation-z8">
-                    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
-                        <!-- Id Column -->
-                        <ng-container matColumnDef="id">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
-                            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-                        </ng-container>
 
-                        <!-- Name Column -->
-                        <ng-container matColumnDef="name">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> PUESTO </th>
-                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                        </ng-container>
+<nb-card status="primary">
+  <nb-card-header>{{titulo}}</nb-card-header>
+  <nb-card-body>
+    <section>
+      <div class="example-button-row">
+        <button nbButton hero shape="semi-round" size="small" status="primary" (click)="openDialog()">Agregar</button>
 
-                        <!-- isActive Column -->
-                        <ng-container matColumnDef="isActive">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> ESTATUS </th>
-                            <td mat-cell *matCellDef="let element">
-                              <nb-tag-list>
-                                <nb-tag status="primary" appearance="outline" *ngIf="element.isActive" text="Activo"></nb-tag>
-                                <nb-tag status="warning" appearance="outline" *ngIf="!element.isActive" text="Inactivo"></nb-tag>
-                              </nb-tag-list>
-                            </td>
-                        </ng-container>
+      </div>
+  </section>
+  <section>
+      <!-- filter -->
+      <mat-form-field appearance="standard">
+        <mat-label>Buscar </mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar" #input>
+      </mat-form-field>
+  </section>
 
-                        <!-- isActive Column -->
-                        <ng-container matColumnDef="actions">
-                            <th mat-header-cell *matHeaderCellDef> actions </th>
-                            <td mat-cell *matCellDef="let element">
-                                <button mat-icon-button color="primary" (click)="editarClient(element)">
-                                    <mat-icon>edit</mat-icon>
-                                </button>
-                                <button mat-icon-button color="warn" (click)="deleteClient(element)"
-                                    [disabled]="element.isActive === false">
-                                    <mat-icon>delete</mat-icon>
-                                </button>
-                            </td>
-                        </ng-container>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)">
+        <!-- Id Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
 
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> PUESTO </th>
+            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
 
-                        <!-- Row shown when there is no matching data. -->
-                        <tr class="mat-row" *matNoDataRow>
-                            <td class="mat-cell" colspan="4">No se encontraron coincidencias "{{input.value}}"</td>
+        <!-- isActive Column -->
+        <ng-container matColumnDef="isActive">
+          <th mat-header-cell *matHeaderCellDef> ESTATUS </th>
+          <td mat-cell *matCellDef="let element">
+            <nb-badge  status="primary" style="position:static;" *ngIf="element.isActive" text="Activo"></nb-badge>
+            <nb-badge  status="warning"  style="position:static;" *ngIf="!element.isActive" text="Inactivo"></nb-badge>
+          </td>
+        </ng-container>
 
-                        </tr>
-                    </table>
-                    <!--Paginator -->
-                    <mat-paginator [length]="totalRegistros" [pageSize]="totalPorPagina" [pageIndex]="paginaActual"
-                        [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)" aria-label="arialLabel"
-                        showFirstLastButtons>
-                    </mat-paginator>
-                    <!--End Paginator -->
+        <!-- isActive Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> actions </th>
+            <td mat-cell *matCellDef="let element">
+                <button mat-icon-button color="primary" (click)="editarClient(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteClient(element)"
+                    [disabled]="element.isActive === false">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
 
-                </div>
-            </section>
-        </nb-card-body>
-    </nb-card>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4">No se encontraron coincidencias "{{input.value}}"</td>
+
+        </tr>
+    </table>
+    <!--Paginator -->
+    <mat-paginator [length]="totalRegistros" [pageSize]="totalPorPagina" [pageIndex]="paginaActual"
+        [pageSizeOptions]="pageSizeOptions" (page)="paginar($event)" aria-label="arialLabel"
+        showFirstLastButtons>
+    </mat-paginator>
+    <!--End Paginator -->
+
 </div>
+  </nb-card-body>
+</nb-card>
+
+
+

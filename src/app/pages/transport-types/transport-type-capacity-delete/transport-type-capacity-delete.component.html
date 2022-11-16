@@ -1,19 +1,18 @@
-<section>
 
-  <h5 mat-dialog-title mat-card-title>Eliminar {{nombreModel}} </h5>
+<mat-dialog-content nb-card status="danger" class="mat-typography">
+  <nb-card status="danger">
+    <nb-card-header>Eliminar {{nombreModel}}</nb-card-header>
+    <nb-card-body class="example-items-rows">
+      <p>
+        Seguro que deseas eliminar: {{this.editData.capacity}}  {{this.editData.unity}} en {{this.editData.transportType.name}}?
+      </p>
+    </nb-card-body>
+  </nb-card>
+</mat-dialog-content>
 
-      <!--mat dialog content-->
-      <mat-dialog-content mat-card-content>
-        <p>
-          Seguro que deseas eliminar: {{this.editData.capacity}}  {{this.editData.unity}} en {{this.editData.transportType.name}}?
-        </p>
-      </mat-dialog-content>
-      <!-- mat dialog content -->
-
-
-      <mat-dialog-actions align="end">
-        <button mat-flat-button [mat-dialog-close]="false" color="primary" >Cancelar</button>
-        <button mat-flat-button color="warn" cdkFocusInitial style="float: left;" (click)="deleteTransportCapacity()">Si, Eliminar</button>
-      </mat-dialog-actions>
-
-</section>
+<mat-dialog-actions align="end">
+    <button nbButton hero shape="semi-round" size="small" status="danger"
+      [mat-dialog-close]="false" >Cancelar</button>
+    <button nbButton  hero shape="semi-round" size="small" status="primary"
+     cdkFocusInitial style="float: left;" (click)="deleteTransportCapacity()">Si, Eliminar</button>
+</mat-dialog-actions>

@@ -1,56 +1,56 @@
-<section>
-  <form [formGroup]="transportLineForm" (ngSubmit)="onSubmit()">
-  <mat-card >
-    <mat-card-title>{{titulo}}</mat-card-title>
-    <mat-card-content>
-      <!--mat dialog content-->
-      <mat-dialog-content >
+<form [formGroup]="transportLineForm" (ngSubmit)="onSubmit()">
+    <mat-dialog-content>
+      <div class="row" style="position: relative;">
+        <div class="col-md-12 col-lg-12 col-xxxl-12" style="position: relative;">
+          <nb-card status="primary">
+            <nb-card-header>{{titulo}}
+              <!--
+              <nb-badge text={{checkOut?.date}} status="danger" position="top left"></nb-badge>
+              -->
+            </nb-card-header>
+            <nb-card-body>
+                <!-- grid -->
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <mat-form-field appearance="legacy">
+                        <mat-label>Linea de transporte</mat-label>
+                        <input matInput  formControlName="name" placeholder="Digita linea de transporte" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
+                        <mat-error *ngIf="submitted && f.name.errors" >Campo Requerido</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
 
-      <!-- grid -->
-      <div class="row"></div>
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="form-group">
-            <mat-form-field appearance="legacy">
-              <mat-label>Linea de transporte</mat-label>
-              <input matInput  formControlName="name" placeholder="Digita linea de transporte" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
-              <mat-error *ngIf="submitted && f.name.errors" >Campo Requerido</mat-error>
-            </mat-form-field>
-          </div>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="form-group">
+                      <mat-form-field #field floatLabel="always" appearance="legacy" >
+                        <mat-label>Estatus</mat-label>
+                        <input matInput hidden formControlName="isActive">
+                        <mat-radio-group  class="flex-wrap" formControlName="isActive" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
+                          <mat-radio-button  class="radio-button" [value]="true"  [checked]="isChecked===true">Activo</mat-radio-button>
+                          <mat-radio-button  class="radio-button" [value]="false" [checked]="isChecked===false">Inactivo</mat-radio-button>
+                        </mat-radio-group>
+                        <mat-error>Estatus Requerio</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                </div>
+                <!-- end grid-->
+            </nb-card-body>
+          </nb-card>
         </div>
       </div>
+    </mat-dialog-content>
 
-      <div class="row">
-        <div class="col-sm-12">
-          <div class="form-group">
-            <mat-form-field #field floatLabel="always" appearance="legacy" >
-              <mat-label>Estatus</mat-label>
-              <input matInput hidden formControlName="isActive">
-              <mat-radio-group  class="flex-wrap" formControlName="isActive" [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }">
-                <mat-radio-button  class="radio-button" [value]="true"  [checked]="isChecked===true">Activo</mat-radio-button>
-                <mat-radio-button  class="radio-button" [value]="false" [checked]="isChecked===false">Inactivo</mat-radio-button>
-              </mat-radio-group>
-              <mat-error>Estatus Requerio</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-
-      </div>
-      <!-- end grid-->
-
-      </mat-dialog-content>
-      <!-- mat dialog content -->
-
-    </mat-card-content>
-
-    <!-- actions -->
-    <mat-card-actions align="end">
       <mat-dialog-actions align="end">
-        <button mat-flat-button [mat-dialog-close]="false" color="warn" >Cancelar</button>
-        <button mat-flat-button color="primary" cdkFocusInitial>{{actionBtn}}</button>
-      </mat-dialog-actions>
-    </mat-card-actions>
-    <!--end actions -->
-  </mat-card>
-</form>
-  </section>
+        <button nbButton hero shape="semi-round" size="small" status="danger"
+          [mat-dialog-close]="false" >Cancelar</button>
+
+        <button nbButton  hero shape="semi-round" size="small" status="primary"
+         cdkFocusInitial style="float: left;">{{actionBtn}}</button>
+
+    </mat-dialog-actions>
+    </form>
