@@ -1,3 +1,4 @@
+
 <section>
 
     <div class="row">
@@ -9,6 +10,7 @@
         </button>
       </div>
     </div>
+
   <form [formGroup]="checkOutForm" *ngIf="checkOutForm">
 
     <div class="row" style="position: relative;">
@@ -16,7 +18,7 @@
         <nb-card status="primary">
           <nb-card-header>Remision : {{checkOut?.remision}}
             <nb-badge text={{checkOut?.date}} status="danger" position="top left"></nb-badge>
-
+            <nb-badge text={{registrado}} status="success" position="top right"></nb-badge>
 
 
 

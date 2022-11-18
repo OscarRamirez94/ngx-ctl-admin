@@ -177,11 +177,11 @@
 
                   <!-- Name Column -->
                   <ng-container matColumnDef="id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > ID </th>
+                    <th mat-header-cell *matHeaderCellDef  > ID </th>
                     <td mat-cell *matCellDef="let element"> {{element.id}}  </td>
                   </ng-container>
                   <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > PRODUCTO </th>
+                    <th mat-header-cell *matHeaderCellDef  > PRODUCTO </th>
                     <td mat-cell *matCellDef="let element"> {{element.product.name}}  </td>
                   </ng-container>
                   <ng-container matColumnDef="date">
@@ -189,35 +189,35 @@
                     <td mat-cell *matCellDef="let element"> {{element.checkList.date}}  </td>
                   </ng-container>
                   <ng-container matColumnDef="remision">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > REMISION </th>
+                    <th mat-header-cell *matHeaderCellDef  > REMISION </th>
                     <td mat-cell *matCellDef="let element"> {{element.checkList.remision}}  </td>
                   </ng-container>
                   <ng-container matColumnDef="transportLine">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > TRANSPORTE </th>
+                    <th mat-header-cell *matHeaderCellDef  > TRANSPORTE </th>
                     <td mat-cell *matCellDef="let element"> {{element.checkList.transportLine.name}}  </td>
                   </ng-container>
                   <ng-container matColumnDef="code">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > CODIGO </th>
+                    <th mat-header-cell *matHeaderCellDef  > CODIGO </th>
                     <td mat-cell *matCellDef="let element"> {{element.product.code}}  </td>
                   </ng-container>
                   <ng-container matColumnDef="ua">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > LINCENCIA</th>
+                    <th mat-header-cell *matHeaderCellDef  > LINCENCIA</th>
                     <td mat-cell *matCellDef="let element"> {{element.ua}} </td>
                   </ng-container>
                   <ng-container matColumnDef="amount">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > CANTIDAD </th>
+                    <th mat-header-cell *matHeaderCellDef  > CANTIDAD </th>
                     <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
                   </ng-container>
                   <ng-container matColumnDef="um">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > UM </th>
+                    <th mat-header-cell *matHeaderCellDef  > UM </th>
                     <td mat-cell *matCellDef="let element"> {{element.um.name}} </td>
                   </ng-container>
                   <ng-container matColumnDef="lote">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header >LOTE</th>
+                    <th mat-header-cell *matHeaderCellDef  >LOTE</th>
                     <td mat-cell *matCellDef="let element"> {{element.lote}} </td>
                   </ng-container>
                   <ng-container matColumnDef="expiration">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header > CADUCIDAD </th>
+                    <th mat-header-cell *matHeaderCellDef  > CADUCIDAD </th>
                     <td mat-cell *matCellDef="let element"> {{element.expiration}} </td>
                   </ng-container>
 

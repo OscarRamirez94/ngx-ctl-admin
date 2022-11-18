@@ -59,7 +59,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   clientId;
   status;
   step = 0;
-
+  registrado:string;
 
   constructor( service:PalletService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,
@@ -81,9 +81,14 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     super.paginator;
     this.id = +this.route.snapshot.paramMap.get("id");
     this.model.id = +this.route.snapshot.paramMap.get("id");
-    this.status = this.route.snapshot.paramMap.get("status");
+
     this.checkListService.ver(this.id).subscribe(data =>{
       this.checkList = data as CheckList;
+      this.registrado =  "Registrado por : " + this.checkList.user.firstName + " "+
+      this.checkList.user.additionalName + " "+
+      this.checkList.user.lastName + " "+
+      this.checkList.user.secondName ;
+      this.status = this.checkList.status;
     })
     this.clientId =  this.headService.getClientLS();
     super.ngOnInit();

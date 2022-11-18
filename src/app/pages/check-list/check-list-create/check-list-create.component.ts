@@ -57,6 +57,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     responsible:['',Validators.required],
     noSello:['',Validators.required],
     noRampa :['',Validators.required],
+    ubication :['',Validators.required],
   });
 
   thirdFormGroup = this._formBuilder.group({
@@ -240,7 +241,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     this.model.noSello = secondFormGroup.get('noSello').value;
     this.model.operator = secondFormGroup.get('operator').value;
     this.model.noRampa = secondFormGroup.get('noRampa').value;
-
+    this.model.ubication = secondFormGroup.get('ubication').value;
     this.model.observation = thirdFormGroup.get('observation').value;
   }
 
@@ -274,6 +275,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       this.secondFormGroup.controls['surveillance'].setValue(editData.surveillance);
       this.secondFormGroup.controls['responsible'].setValue(editData.responsible);
       this.secondFormGroup.controls['noRampa'].setValue(editData.noRampa);
+      this.secondFormGroup.controls['ubication'].setValue(editData.ubication);
       this.thirdFormGroup.controls['observation'].setValue(editData.observation);
       this.model.id = editData.id;
 

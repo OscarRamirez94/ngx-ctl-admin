@@ -58,6 +58,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     surveillance:['',Validators.required],
     responsible:['',Validators.required],
     noSello:['',Validators.required],
+    noSello2:[''],
     noRampa :['',Validators.required],
   });
 
@@ -242,7 +243,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     this.model.noSello = secondFormGroup.get('noSello').value;
     this.model.operator = secondFormGroup.get('operator').value;
     this.model.noRampa = secondFormGroup.get('noRampa').value;
-
+    this.model.noSello2 = secondFormGroup.get('noSello2').value;
     this.model.observation = thirdFormGroup.get('observation').value;
   }
 
@@ -273,6 +274,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
       this.secondFormGroup.controls['tipoTransporte'].setValue(editData.transportCapacity.transportType);
       this.secondFormGroup.controls['transportCapacity'].setValue(editData.transportCapacity);
       this.secondFormGroup.controls['noSello'].setValue(editData.noSello);
+      this.secondFormGroup.controls['noSello2'].setValue(editData.noSello2);
       this.secondFormGroup.controls['surveillance'].setValue(editData.surveillance);
       this.secondFormGroup.controls['responsible'].setValue(editData.responsible);
       this.secondFormGroup.controls['noRampa'].setValue(editData.noRampa);

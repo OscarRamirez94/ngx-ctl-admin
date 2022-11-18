@@ -14,7 +14,7 @@ import { CommonService } from '../../../services/commons.service';
 import { HeadService } from '../../../services/head/head.service';
 
 @Directive()
-export abstract class CommonListPalletComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
+export abstract class CommonListPalletOutComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
 
   @ViewChild(MatPaginator)
    paginator :MatPaginator;
@@ -33,10 +33,10 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
   // config pagination
   totalRegistros=0;
   paginaActual = 0;
-  totalPorPagina = 22;
+  totalPorPagina = 50;
   orderBy ="ASC";
-  column ="date";
-  pageSizeOptions = [22, 44, 66,100];
+  column ="id";
+  pageSizeOptions = [50,100];
   ariaLabel="Select page";
   filterValue ="";
   lista: PalletI[];
@@ -89,7 +89,7 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
     search.sortDirection =this.orderBy;
 
 
-    this.service.getFilterCriteriaClientOut(search,this.clientName,this.option,this.filterBy)
+    this.service.getFilterCriteriaLiberados(search,this.clientName)
     .subscribe(paginator => {
       console.log(paginator.totalElements)
       this.lista = paginator.content as PalletI[];
@@ -108,14 +108,16 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
     const fil:string  = (event.target as HTMLInputElement).value;
     if(fil !==null && fil !== ''){
         this.filterValue = fil;
-
+        this.calculateRange();
     } else{
         this.filterValue ="";
-
+        this.calculateRange();
     }
 
-    this.paginaActual = 0;
-    this.calculateRange();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+
   }
 
   sortData(sort: Sort) {
@@ -130,6 +132,11 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
       if (sort.direction == "desc") {
         this.orderBy ="DESC";
       }
+
+      if (sort.active == 'direccion'){
+          sort.active="text";
+      }
+
       this.column = sort.active;
 
     this.calculateRange();

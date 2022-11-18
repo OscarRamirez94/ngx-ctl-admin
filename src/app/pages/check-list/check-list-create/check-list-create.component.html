@@ -1,4 +1,4 @@
-<section>
+
 
   <nb-card status="primary">
     <nb-card-header>CheckList
@@ -76,12 +76,12 @@
         </div>
 
 
-          <mat-card-actions align="end">
+
             <mat-dialog-actions align="end">
               <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
 
             </mat-dialog-actions>
-          </mat-card-actions>
+
       </form>
     </mat-step>
     <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
@@ -294,12 +294,26 @@
             </div>
           </div>
           </div>
-          <mat-card-actions align="end">
+
+        <div class="row">
+
+          <div class="col-sm-3">
+            <div class="form-group">
+              <mat-form-field appearance="legacy">
+                <mat-label>Ubicación</mat-label>
+                <input matInput  formControlName="ubication" placeholder="Digita Ubicación"
+                [ngClass]="{ 'is-invalid': submitted && f2.ubication.errors }">
+                <mat-error *ngIf="submitted && f2.ubication.errors" >Campo Requerido</mat-error>
+                </mat-form-field>
+            </div>
+          </div>
+        </div>
+
             <mat-dialog-actions align="end">
               <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
               <button nbButton hero shape="semi-round" size="small" status="primary"  matStepperNext>Siguiente</button>
             </mat-dialog-actions>
-          </mat-card-actions>
+
       </form>
     </mat-step>
     <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable" optional>
@@ -317,12 +331,12 @@
             </div>
         </div>
     </div>
-      <mat-card-actions align="end">
+
         <mat-dialog-actions align="end">
           <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
           <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
         </mat-dialog-actions>
-      </mat-card-actions>
+
 
       </form>
     </mat-step>
@@ -330,13 +344,13 @@
     <mat-step>
       <ng-template matStepLabel>Guardar</ng-template>
       <div>
-        <mat-card-actions align="end">
+
           <mat-dialog-actions align="end">
             <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
             <button nbButton hero shape="semi-round" size="small" status="danger" (click)="stepper.reset()" *ngIf="editData===null">Limpiar</button>
             <button nbButton hero shape="semi-round" size="small" status="primary" [disabled]="status === 'close'" (click)='onSubmit()' >{{actionBtn}}</button>
           </mat-dialog-actions>
-        </mat-card-actions>
+
       </div>
     </mat-step>
   </mat-stepper>
@@ -345,4 +359,4 @@
   </nb-card>
 
 
-</section>
+

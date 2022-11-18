@@ -282,6 +282,9 @@
            </mat-form-field>
            </div>
         </div>
+        </div>
+
+        <div class="row">
          <div class="col-sm-3">
            <div class="form-group">
            <mat-form-field appearance="legacy">
@@ -291,7 +294,16 @@
            <mat-error *ngIf="submitted && f2.noSello.errors" >Campo Requerido</mat-error>
            </mat-form-field>
            </div>
-        </div>
+          </div>
+
+          <div class="col-sm-3">
+            <div class="form-group">
+            <mat-form-field appearance="legacy">
+            <mat-label>No: Sello2</mat-label>
+            <input matInput  formControlName="noSello2" placeholder="Digita noSello">
+            </mat-form-field>
+            </div>
+           </div>
         </div>
         <mat-card-actions align="end">
           <mat-dialog-actions align="end">

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InventoryInComponent } from './inventory-in/inventory-in.component';
+import { InventoryOutComponent } from './inventory-out/inventory-out.component';
 import { InventoryComponent } from './inventory.component';
 
 const routes: Routes = [
@@ -14,7 +15,7 @@ const routes: Routes = [
       },
       {
         path: 'inventory-out',
-        component: InventoryInComponent,
+        component: InventoryOutComponent,
       }
 
     ],

@@ -73,6 +73,19 @@ export abstract class CommonService<E extends Generic> {
   }
 
 
+  getFilterCriteriaLiberados(search:SearchCriteriaClient,clientName): Observable<any> {
+    const params = new HttpParams()
+      .set('pageNumber', search.pageNumber)
+      .set('pageSize', search.pageSize)
+      .set('sortDirection',search.sortDirection)
+      .set('sortBy',search.sortBy)
+      .set('searchBy',search.searchBy);
+
+    return this.http.get<any>(
+      this.url.concat("all/search/liberados/client/",clientName),
+       { params: params });
+  }
+
   getFilterCriteriaClientOutFecha(search:SearchCriteriaClient,clientName:string,option:string, filter:string): Observable<any> {
     const params = new HttpParams()
       .set('pageNumber', search.pageNumber)

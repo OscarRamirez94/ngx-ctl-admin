@@ -29,6 +29,6 @@ export class CheckOut implements Generic{
   noRampa : String;
   pallets: Pallet[];
   status:string;
-
-
+  noSello2 : String;
+  user: User;
 }

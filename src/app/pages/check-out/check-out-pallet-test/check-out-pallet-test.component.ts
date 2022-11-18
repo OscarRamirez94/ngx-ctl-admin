@@ -39,7 +39,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   transportLineVisible:boolean=false;
   productVisible:boolean=false;
   loteVisible:boolean=false;
-  pageSizeOptions = [2, 25,50,100];
+  pageSizeOptions = [25,50,100];
 
   remisionControl = new FormControl('', []);
   fechaControl = new FormControl('', []);

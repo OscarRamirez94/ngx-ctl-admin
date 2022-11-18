@@ -32,9 +32,9 @@ export class CheckOutService extends CommonService<CheckOut> {
   }
 
 
- public crear(checkList: CheckList): Observable<any> {
-  console.log("service",checkList)
-  return this.http.post<any>(this.url, checkList);
+crear(checkOut: CheckOut): Observable<CheckOut> {
+  console.log("service",CheckOut)
+  return this.http.post<CheckOut>(this.url, checkOut);
 }
 
 getAllClientes(): Observable<Client[]> {
@@ -59,8 +59,8 @@ getAllPersons(): Observable<Person[]> {
 getAllUsersIsResposible(): Observable<User[]> {
   return this.http.get<User[]>(this.urlUsers.concat("all/isResponsible"));
 }
-getById(id:any):Observable<CheckList>{
-  return this.http.get<CheckList>(this.url.concat(id));
+getById(id:any):Observable<CheckOut>{
+  return this.http.get<CheckOut>(this.url.concat(id));
 }
 
 

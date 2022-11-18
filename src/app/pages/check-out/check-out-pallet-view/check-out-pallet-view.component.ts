@@ -16,6 +16,7 @@ export class CheckOutPalletViewComponent implements OnInit {
   displayedColumns: string[] = ['id','remision','transportLine','date','name','code','ua','amount','um','lote','expiration'];
   dataSource: MatTableDataSource<PalletI>;
   lista:any[] = [];
+  registrado:string;
   constructor(
     private activatedRoute:ActivatedRoute,
     private checkOutService:CheckOutService,
@@ -36,7 +37,13 @@ export class CheckOutPalletViewComponent implements OnInit {
   getChekOutById(){
 
     this.checkOutService.getById(this.checkOutId).subscribe(data =>{
+
+
       this.checkOut = data as CheckOut;
+      this.registrado =  "Registrado por : " + this.checkOut.user.firstName + " "+
+      this.checkOut.user.additionalName + " "+
+      this.checkOut.user.lastName + " "+
+      this.checkOut.user.secondName ;
       this.lista = data.pallets;
       console.log("pallets", data.pallets);
       this.dataSource = new MatTableDataSource(data.pallets);
