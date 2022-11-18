@@ -66,6 +66,24 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
 
   {
+    title: 'Inventario',
+    icon: 'book-open-outline',
+
+    children: [
+      {
+        title: 'Disponible',
+        icon: 'person-done-outline',
+        link: '/pages/inventory/inventory-in',
+      },
+      {
+        title: 'Liberado',
+        icon: 'person-done-outline',
+        link: '/pages/inventory/inventory-out',
+      },
+    ],
+  },
+
+  {
     title: 'Catalogos',
     icon: 'book-open-outline',
     children: [

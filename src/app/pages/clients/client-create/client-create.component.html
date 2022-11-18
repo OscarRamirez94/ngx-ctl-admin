@@ -16,7 +16,9 @@
                   <mat-form-field appearance="legacy">
                     <mat-label>Cliente</mat-label>
                     <input matInput  formControlName="name" placeholder="Digita Cliente" [ngClass]="{ 'is-invalid': submitted && f.name.errors }">
-                    <mat-error *ngIf="submitted && f.name.errors" >Campo Requerido</mat-error>
+                    <mat-error *ngIf="submitted && f.name.errors.required" >Campo Requerido</mat-error>
+                    <mat-error *ngIf="f.name.errors?.onlyAlpha" >Solo se permiten caracteres</mat-error>
+
                   </mat-form-field>
                 </div>
               </div>

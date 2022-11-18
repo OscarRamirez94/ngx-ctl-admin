@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { Console } from 'console';
 import { Address } from '../../../models/address/address';
 import { Client } from '../../../models/client';
@@ -82,7 +83,9 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
 
   setForm() {
     this.clientForm = this.formBuilder.group({
-      name :['',Validators.required],
+      //^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
+      //name :['',[Validators.required,RxwebValidators.alpha()]],
+      name:['',[ Validators.required,RxwebValidators.pattern({expression:{'onlyAlpha': /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/} })]],
       phone :['',Validators.required],
       attention:['',Validators.required],
       text:['',Validators.required],

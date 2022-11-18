@@ -75,6 +75,13 @@ const routes: Routes = [{
         .then(m => m.CheckOutModule),
     },
     {
+      path: 'inventory',
+      //canActivate: [RoleGuard,HeadClientGuard],
+      data: { role: 'ROLE_ADMIN' },
+      loadChildren: () => import('./inventory/inventory.module')
+        .then(m => m.InventoryModule),
+    },
+    {
       path: 'users',
       loadChildren: () => import('./users/users.module')
         .then(m => m.UsersModule),
