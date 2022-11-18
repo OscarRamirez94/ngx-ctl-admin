@@ -1,4 +1,14 @@
 <section>
+
+    <div class="row">
+      <div class="col-md-10"></div>
+      <div class="col-md-2">
+        <button nbButton  *ngIf="checkOut.pallets.length>0"
+          hero shape="semi-round" size="small" status="success"
+          (click)="generaReport()">Descarga Formato
+        </button>
+      </div>
+    </div>
   <form [formGroup]="checkOutForm" *ngIf="checkOutForm">
 
     <div class="row" style="position: relative;">
@@ -6,6 +16,11 @@
         <nb-card status="primary">
           <nb-card-header>Remision : {{checkOut?.remision}}
             <nb-badge text={{checkOut?.date}} status="danger" position="top left"></nb-badge>
+
+
+
+
+
           </nb-card-header>
           <nb-card-body>
             <div class="row">
@@ -301,4 +316,5 @@
     </nb-card>
   </form>
 </section>
-<button nbButton  hero shape="semi-round" size="small" status="primary">Descarga Formato</button>
+
+

@@ -20,7 +20,10 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header >REMISION</th>
         <td mat-cell *matCellDef="let element"> {{element.remision}} </td>
       </ng-container>
-
+      <ng-container matColumnDef="#" class="make-gold">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > # </th>
+        <td mat-cell *matCellDef="let element"> {{dataSource.filteredData.indexOf(element) +1}}  </td>
+      </ng-container>
       <ng-container matColumnDef="date">
         <th mat-header-cell *matHeaderCellDef mat-sort-header >FECHA</th>
         <td mat-cell *matCellDef="let element"> {{element.date}} </td>
@@ -51,7 +54,8 @@
         <td mat-cell *matCellDef="let element">
           <nb-badge text="LIBERADOS" status="primary" style="position:static;" *ngIf="element.stock ==='LIBERADOS'"></nb-badge>
           <nb-badge text="DiPONIBLES" status="danger"  style="position:static;" *ngIf="element.stock ==='DISPONIBLES'"></nb-badge>
-          </td>
+          <nb-badge text="N/A" status="warning"  style="position:static;" *ngIf="element.stock ===''"></nb-badge>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="pallets">

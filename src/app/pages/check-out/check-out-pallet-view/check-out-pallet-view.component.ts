@@ -5,7 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { PalletI } from '../../../interfaces/pallet-i';
 import { CheckOut } from '../../../models/check-out/check-out';
 import { CheckOutService } from '../../../services/check-out/check-out.service';
-
+import { ReportService } from '../../../services/report/report.service';
+import { saveAs } from 'file-saver';
 @Component({
   selector: 'ngx-check-out-pallet-view',
   templateUrl: './check-out-pallet-view.component.html',
@@ -18,7 +19,8 @@ export class CheckOutPalletViewComponent implements OnInit {
   constructor(
     private activatedRoute:ActivatedRoute,
     private checkOutService:CheckOutService,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private reportService:ReportService) {
       this.dataSource = new MatTableDataSource(this.lista);
     }
 
@@ -80,6 +82,16 @@ export class CheckOutPalletViewComponent implements OnInit {
 
 
 
+
+    });
+  }
+
+
+  generaReport() {
+    let name :string = "Remision"+this.checkOut.remision + ".pdf";
+    this.reportService.generateReport(this.checkOut).subscribe(data =>{
+      const blob =new Blob([data],{type: "application/pdf"});
+    saveAs(blob, name);
 
     });
   }

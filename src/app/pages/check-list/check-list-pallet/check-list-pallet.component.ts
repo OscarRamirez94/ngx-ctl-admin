@@ -294,8 +294,8 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
       let data2 :any =  data as any;
       this.totalPalletDTO.total = data2.total;
       this.totalPalletDTO.productoTotal = data2.productoTotal;
-      let mapToArray = Array.from(this.totalPalletDTO.productoTotal.values());
-      console.log('mapToArray' , mapToArray)
+      let mapToArray = Array.from(this.totalPalletDTO?.productoTotal);
+
     });
   }
 
