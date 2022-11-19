@@ -128,5 +128,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
 
+  {
+    title: 'Tablero',
+    icon: 'book-open-outline',
+    link: '/pages/tablero/tablero-main',
 
+  },
 ];

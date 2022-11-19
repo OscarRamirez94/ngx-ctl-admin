@@ -11,7 +11,7 @@ import { CoreModule } from './@core/core.module';
 import { ThemeModule } from './@theme/theme.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 import {
   NbChatModule,
   NbDatepickerModule,
@@ -45,7 +45,7 @@ registerLocaleData(localeEsMX, 'es-MX');
     NbDialogModule.forRoot(),
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
-
+    NgxChartsModule,
 
 
     NbChatModule.forRoot({

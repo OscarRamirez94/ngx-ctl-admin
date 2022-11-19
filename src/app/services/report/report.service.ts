@@ -7,14 +7,18 @@ import { CheckOut } from '../../models/check-out/check-out';
   providedIn: 'root'
 })
 export class ReportService  {
-  private url = 'http://localhost:8081/microservice-ctl/report-out/report';
+  private url = 'http://localhost:8081/microservice-ctl/report-out/';
 
   constructor(private http: HttpClient) {
 
   }
 
   generateReport(e: CheckOut) {
-    return this.http.post(this.url, e,{ responseType: "blob" });
+    return this.http.post(this.url + "report", e,{ responseType: "blob" });
+  }
+
+  getPieChart(): Observable<any[]> {
+    return this.http.get<any[]>(this.url.concat("pie-chart"));
   }
 
 

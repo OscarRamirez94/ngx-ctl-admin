@@ -98,6 +98,11 @@ const routes: Routes = [{
         .then(m => m.InitModule),
     },
     {
+      path: 'tablero',
+      loadChildren: () => import('./tablero/tablero.module')
+        .then(m => m.TableroModule),
+    },
+    {
       path: '**',
       component: NotFoundComponent,
     },
