@@ -1,20 +1,60 @@
 @import '../../../@theme/styles/themes';
+@import '~bootstrap/scss/mixins/breakpoints';
+@import '~@nebular/theme/styles/global/breakpoints';
+
+:host ::ng-deep nb-stepper .step-content {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  button {
+    cursor: pointer;
+    margin: 0.5rem;
+  }
+}
 
 @include nb-install-component() {
   ngx-charts-bar-vertical-2d,
-  ngx-d3-bar,
-  ngx-d3-pie,
-  ngx-d3-advanced-pie,
-  ngx-d3-area-stack,
-  ngx-d3-line,
-  ngx-d3-polar {
-    display: block;
-    width: 100%;
-    height: nb-theme(card-height-medium);
+  ngx-charts-number-card,
+  .chart-info {
+    flex: 1;
+  }
 
-    ::after, ::before {
-      box-sizing: inherit;
+  .chart-info {
+    padding-top: 0.4rem;
+  }
+
+  .time-period {
+    margin-top: 1.5rem;
+  }
+
+  .value {
+    margin-top: 0.2rem;
+  }
+
+  .echart {
+    position: absolute;
+    width: calc(50% - 1.25rem);
+    height: calc(100% - 2rem);
+  }
+
+  @include media-breakpoint-between(xl, xl) {
+    ngx-charts-bar-vertical-2d {
+      flex: 2;
     }
+  }
+
+  @include media-breakpoint-between(sm, sm) {
+    ngx-charts-bar-vertical-2d {
+      flex: 2;
+    }
+  }
+}
+
+@include nb-install-component() {
+
+  ngx-charts-advanced-pie-chart {
+
+
 
     ::ng-deep {
       .pie-label {
@@ -25,22 +65,10 @@
         fill: nb-theme(text-hint-color);
       }
 
-      .chart-legend {
-        .legend-labels {
-          background: nb-theme(background-basic-color-2);
-        }
-        .legend-label {
-          color: nb-theme(text-hint-color);
-          .active .legend-label-text {
-            color: nb-theme(text-basic-color);
-          }
-        }
-      }
-
       .total-value,
       .item-value,
       .item-percent {
-        line-height: 1.25;
+        line-height: 1.20;
       }
 
       .legend-items {

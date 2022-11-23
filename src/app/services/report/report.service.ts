@@ -21,5 +21,19 @@ export class ReportService  {
     return this.http.get<any[]>(this.url.concat("pie-chart"));
   }
 
+  getProductChart(client:string): Observable<any[]> {
+    return this.http.get<any[]>(this.url.concat("product-chart/",client));
+  }
 
+  getTransportChart(client:string): Observable<any[]> {
+    return this.http.get<any[]>(this.url.concat("transport-chart/",client));
+  }
+
+  getListTopChart(client:string): Observable<any[]> {
+    return this.http.get<any[]>(this.url.concat("top-chart/",client));
+  }
+
+  downloadReportIn() {
+    return this.http.get(this.url + "excel",{ responseType: "blob" });
+  }
 }

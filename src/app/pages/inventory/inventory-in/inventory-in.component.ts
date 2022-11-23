@@ -8,7 +8,8 @@ import { PalletService } from '../../../services/pallet/pallet.service';
 import { ProductService } from '../../../services/product/product.service';
 import { TransportLineService } from '../../../services/transport-line/transport-line.service';
 import { CommonListPalletComponent } from '../../commons/common-list/common-list.component-pallet';
-
+import { saveAs } from 'file-saver';
+import { ReportService } from '../../../services/report/report.service';
 @Component({
   selector: 'ngx-inventory-in',
   templateUrl: './inventory-in.component.html',
@@ -36,7 +37,8 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
      private dialog: MatDialog, toastrService: NbToastrService,
      headService:HeadService,
      private productService:ProductService,
-     private transportLineService:TransportLineService) {
+     private transportLineService:TransportLineService,
+     private reportService:ReportService) {
     super(service, router, route, toastrService,headService);
   }
 
@@ -44,5 +46,16 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
   viewRemision(checkListId:number,status:string): void {
     //this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
     this.router.navigate(['pages/checklist/pallet-main/' + checkListId + '/' + status]);
+  }
+
+
+
+  download() {
+    let name :string = "Report.xls";
+    this.reportService.downloadReportIn().subscribe(data =>{
+      const blob =new Blob([data],{type: "application/excel"});
+    saveAs(blob, name);
+
+    });
   }
 }

@@ -7,7 +7,7 @@ import { TableroMainComponent } from './tablero-main/tablero-main.component';
 import { ThemeModule } from '../../@theme/theme.module';
 
 
-import { NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbTagModule, NbUserModule } from '@nebular/theme';
+import { NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbTagModule, NbUserModule } from '@nebular/theme';
 
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
@@ -64,6 +64,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     NbBadgeModule,
     NgxChartsModule,
     NbCardModule,
+    NbSpinnerModule
+
   ]
 })
 export class TableroModule { }

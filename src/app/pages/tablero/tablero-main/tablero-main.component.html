@@ -1,131 +1,113 @@
+<div class="row">
+  <div class="col-md-6 col-lg-6 col-xxxl-6">
+    <nb-card status="primary" [nbSpinner]="loadingMaster"
+    nbSpinnerStatus="primary"
+    nbSpinnerSize="large"
+    nbSpinnerMessage="Cargando ...">
+     <nb-card-header>Pallets</nb-card-header>
+      <nb-card-body size="tiny">
+      <ngx-charts-bar-vertical-2d
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="data"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [xAxisLabel]="xAxisLabel"
+      [yAxisLabel]="yAxisLabel"
+      [legendTitle]="legendTitle"
+      [showDataLabel]="showDataLabel"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)">
+      </ngx-charts-bar-vertical-2d>
+      </nb-card-body>
+    </nb-card>
 
-
-
-
-  <div class="row">
-    <div class="col-lg-6">
-      <nb-card>
-        <nb-card-header>Pie</nb-card-header>
-        <nb-card-body>
-          <ngx-charts-bar-vertical-2d
-          [view]="view"
-          [results]="data"
-          [scheme]="colorScheme"
-          [results]="multi"
-          [gradient]="gradient"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [legend]="showLegend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel"
-          [legendTitle]="legendTitle"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
-        </ngx-charts-bar-vertical-2d>
-        </nb-card-body>
-      </nb-card>
-    </div>
-    <div class="col-lg-6">
-      <nb-card>
-        <nb-card-header>Bar</nb-card-header>
-        <nb-card-body>
-          <ngx-charts-bar-vertical-2d
-          [view]="view"
-          [results]="data"
-          [scheme]="colorScheme"
-          [results]="multi"
-          [gradient]="gradient"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [legend]="showLegend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel"
-          [legendTitle]="legendTitle"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
-        </ngx-charts-bar-vertical-2d>
-        </nb-card-body>
-      </nb-card>
-    </div>
-    <div class="col-lg-6">
-      <nb-card>
-        <nb-card-header>Line</nb-card-header>
-        <nb-card-body>
-          <ngx-charts-bar-vertical-2d
-          [view]="view"
-          [results]="data"
-          [scheme]="colorScheme"
-          [results]="multi"
-          [gradient]="gradient"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [legend]="showLegend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel"
-          [legendTitle]="legendTitle"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
-        </ngx-charts-bar-vertical-2d>
-        </nb-card-body>
-      </nb-card>
-    </div>
-    <div class="col-lg-6">
-      <nb-card>
-        <nb-card-header>Advanced Pie</nb-card-header>
-        <nb-card-body>
-          <ngx-charts-bar-vertical-2d
-          [view]="view"
-          [results]="data"
-          [scheme]="colorScheme"
-          [results]="multi"
-          [gradient]="gradient"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [legend]="showLegend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel"
-          [legendTitle]="legendTitle"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
-        </ngx-charts-bar-vertical-2d>
-        </nb-card-body>
-      </nb-card>
-    </div>
-    <div class="col-lg-6">
-      <nb-card>
-        <nb-card-header>Area Chart</nb-card-header>
-        <nb-card-body>
-          <ngx-charts-bar-vertical-2d
-          [view]="view"
-          [results]="data"
-          [scheme]="colorScheme"
-          [results]="multi"
-          [gradient]="gradient"
-          [xAxis]="showXAxis"
-          [yAxis]="showYAxis"
-          [legend]="showLegend"
-          [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel"
-          [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel"
-          [legendTitle]="legendTitle"
-          (select)="onSelect($event)"
-          (activate)="onActivate($event)"
-          (deactivate)="onDeactivate($event)">
-        </ngx-charts-bar-vertical-2d>
-        </nb-card-body>
-      </nb-card>
-    </div>
   </div>
+   <div class="col-md-6 col-lg-6 col-xxxl-6" *ngIf="topCharts.length > 0">
+    <nb-card status="primary" [nbSpinner]="loading"
+    nbSpinnerStatus="primary"
+    nbSpinnerSize="large"
+    nbSpinnerMessage="Cargando ...">
+     <nb-card-header>Remision Antiguas
+      <nb-badge text={{client}} status="success" position="top right"></nb-badge>
+     </nb-card-header>
+      <nb-card-body>
+        <ngx-charts-advanced-pie-chart
+        [view]="view"
+        [scheme]="colorScheme"
+        [results]="topCharts"
+        [gradient]="gradient">
+      </ngx-charts-advanced-pie-chart>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  </div>
+  <div class="row">
+  <div class="col-md-6 col-lg-6 col-xxxl-6" *ngIf="productCharts.length > 0">
+    <nb-card status="primary" [nbSpinner]="loading"
+    nbSpinnerStatus="primary"
+    nbSpinnerSize="large"
+    nbSpinnerMessage="Cargando ...">
+     <nb-card-header>Producto
+      <nb-badge text={{client}} status="success" position="top right"></nb-badge>
+     </nb-card-header>
+     <nb-card-body size="tiny">
+      <ngx-charts-bar-vertical-2d
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="productCharts"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [showDataLabel]="showDataLabel"
+      [xAxisLabel]="xAxisLabelP"
+      [yAxisLabel]="yAxisLabel"
+      [legendTitle]="legendTitle">
+      </ngx-charts-bar-vertical-2d>
+      </nb-card-body>
+
+    </nb-card>
+  </div>
+  <div class="col-md-6 col-lg-6 col-xxxl-6" *ngIf="transportCharts.length>0">
+    <nb-card status="primary" [nbSpinner]="loading"
+    nbSpinnerStatus="primary"
+    nbSpinnerSize="large"
+    nbSpinnerMessage="Cargando ...">
+     <nb-card-header>Linea Transporte
+      <nb-badge text={{client}} status="success" position="top right"></nb-badge>
+     </nb-card-header>
+     <nb-card-body size="tiny">
+      <ngx-charts-bar-vertical-2d
+      [view]="view"
+      [scheme]="colorScheme"
+      [results]="transportCharts"
+      [gradient]="gradient"
+      [xAxis]="showXAxis"
+      [yAxis]="showYAxis"
+      [legend]="showLegend"
+      [showXAxisLabel]="showXAxisLabel"
+      [showYAxisLabel]="showYAxisLabel"
+      [showDataLabel]="showDataLabel"
+      [xAxisLabel]="xAxisLabelL"
+      [yAxisLabel]="yAxisLabel"
+      [legendTitle]="legendTitle">
+      </ngx-charts-bar-vertical-2d>
+      </nb-card-body>
+
+    </nb-card>
+  </div>
+</div>
+
+
+
+
+
+
