@@ -52,7 +52,7 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
 
   download() {
     let name :string = "Report.xls";
-    this.reportService.downloadReportIn().subscribe(data =>{
+    this.reportService.downloadReportIn(this.clientName).subscribe(data =>{
       const blob =new Blob([data],{type: "application/excel"});
     saveAs(blob, name);
 

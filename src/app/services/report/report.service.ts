@@ -33,7 +33,7 @@ export class ReportService  {
     return this.http.get<any[]>(this.url.concat("top-chart/",client));
   }
 
-  downloadReportIn() {
-    return this.http.get(this.url + "excel",{ responseType: "blob" });
+  downloadReportIn(client:string) {
+    return this.http.get(this.url.concat("excel/",client),{ responseType: "blob" });
   }
 }
