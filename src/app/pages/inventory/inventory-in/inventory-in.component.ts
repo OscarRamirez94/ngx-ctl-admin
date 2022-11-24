@@ -24,14 +24,8 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
   clientName =  this.headService.getClientLS();
   option:string ="TODOS";
   filterBy:string =  "TODOS";
-
-  remisionVisible:boolean=false;
-  fechaVisible:boolean=false;
-  transportLineVisible:boolean=false;
-  productVisible:boolean=false;
-  loteVisible:boolean=false;
   pageSizeOptions = [25,50,100];
-  options: string[] = ['TODOS','REMISION', 'FECHA','LINEA DE TRANSPORTE','PRODUCTO','LOTE'];
+
 
   constructor(service: PalletService, router: Router, route: ActivatedRoute,
      private dialog: MatDialog, toastrService: NbToastrService,
@@ -48,14 +42,4 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
     this.router.navigate(['pages/checklist/pallet-main/' + checkListId + '/' + status]);
   }
 
-
-
-  download() {
-    let name :string = "Report.xls";
-    this.reportService.downloadReportIn(this.clientName).subscribe(data =>{
-      const blob =new Blob([data],{type: "application/excel"});
-    saveAs(blob, name);
-
-    });
-  }
 }

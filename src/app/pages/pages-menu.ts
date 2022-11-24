@@ -83,6 +83,20 @@ export const MENU_ITEMS: NbMenuItem[] = [
     ],
   },
 
+
+  {
+    title: 'Reportes',
+    icon: 'book-open-outline',
+
+    children: [
+      {
+        title: 'Excel',
+        icon: 'person-done-outline',
+        link: '/pages/report/report-excel',
+      },
+    ],
+  },
+
   {
     title: 'Catalogos',
     icon: 'book-open-outline',

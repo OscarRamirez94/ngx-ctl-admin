@@ -1,0 +1,78 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <div class="row" style="position: relative;">
+      <div class="col-md-12 col-lg-12 col-xxxl-12" style="position: relative;">
+        <nb-card status="primary"   [nbSpinner]="loading"
+        nbSpinnerStatus="primary"
+        nbSpinnerSize="large"
+        nbSpinnerMessage="Cargando ...">
+          <nb-card-header>Reporte</nb-card-header>
+          <nb-card-body>
+              <!-- grid -->
+
+                    <!-- grid -->
+                    <div class="row">
+
+                      <div class="col-sm-3">
+                          <div class="form-group">
+                            <mat-form-field>
+                              <mat-label>Tipo de Busqueda</mat-label>
+                              <input type="text"
+                                     matTooltip="Despegable"
+                                     placeholder="Selecciona busqueda"
+                                     aria-label="Number"
+                                     matInput
+                                     formControlName="typeSearchControl"
+                                     [matAutocomplete]="autoTypeSearch"
+                                     >
+                              <mat-autocomplete #autoTypeSearch="matAutocomplete"
+                              (optionSelected)="optionSelectedTypeSearch($event)"
+                              [displayWith]="displayPropertyTypeSearch">
+                                <mat-option *ngFor="let option of options" [value]="option">
+                                  {{option}}
+                                </mat-option>
+                              </mat-autocomplete>
+                            </mat-form-field>
+                          </div>
+                      </div>
+
+                      <div class="col-sm-3" *ngIf="fechaVisible">
+                        <div class="form-group">
+                            <mat-form-field appearance="legacy">
+                                <mat-label>Fecha Inicio</mat-label>
+                                <input type="date" matInput formControlName="dateBefore" placeholder="Digita Fecha Inicio"
+                                    [ngClass]="{ 'is-invalid': submitted && f.dateBefore.errors }">
+                                <mat-error *ngIf="submitted && f.dateBefore.errors">Campo Requerido</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3" *ngIf="fechaVisible">
+                      <div class="form-group">
+                          <mat-form-field appearance="legacy">
+                              <mat-label>Fecha Final</mat-label>
+                              <input type="date" matInput formControlName="dateAfter" placeholder="Fecha Final"
+                                  [ngClass]="{ 'is-invalid': submitted && f.dateAfter.errors }">
+                              <mat-error *ngIf="submitted && f.dateAfter.errors">Campo Requerido</mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                </div>
+
+                <mat-dialog-actions align="end">
+                  <button nbButton hero shape="semi-round" size="small" status="danger"
+                    [mat-dialog-close]="false" >Cancelar</button>
+
+                  <button type="submit" [disabled]="loading" nbButton  hero shape="semi-round" size="small" status="primary"
+                   cdkFocusInitial style="float: left;">{{actionBtn}}</button>
+
+              </mat-dialog-actions>
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+
+</form>
+

@@ -36,4 +36,8 @@ export class ReportService  {
   downloadReportIn(client:string) {
     return this.http.get(this.url.concat("excel/",client),{ responseType: "blob" });
   }
+
+  downloadReportDate(client:string,dateBefore:string, dateAfter:string) {
+    return this.http.get(this.url.concat("excel/",client,"/",dateBefore,"/",dateAfter),{ responseType: "blob" });
+  }
 }
