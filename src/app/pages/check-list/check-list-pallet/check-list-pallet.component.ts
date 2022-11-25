@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { NumericValueType, RxwebValidators } from '@rxweb/reactive-form-validators';
+import { map, Observable, startWith } from 'rxjs';
+import { ProductoI } from '../../../interfaces/product-i';
 import { CheckList } from '../../../models/check-list/check-list';
 import { Pallet } from '../../../models/pallet/pallet';
 import { PalletSave2 } from '../../../models/pallet/pallet-save2';
@@ -42,14 +44,14 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   palletForm !: FormGroup;
   checkList:CheckList;
   totalCantidad:number = 0;
-
-  disabledTemplate:boolean=true;
+  disabledProducto:boolean = true;
+  disabledTemplate="true";
   form: FormGroup;
   formTemplate: FormGroup;
 
 
   unities:Unity[] = [];
-  products:Product[] = [];
+  products:ProductoI[] = [];
   code:string;
   product:Product;
   unity:Unity;
@@ -60,6 +62,8 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   status;
   step = 0;
   registrado:string;
+
+  filteredProducto: Observable<ProductoI[]>;
 
   constructor( service:PalletService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,
@@ -105,6 +109,8 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
       items: this.fb.array([]),
       checkListId: [this.id]
     });
+
+
   }
 
   template(){
@@ -113,6 +119,10 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
       producto :['',Validators.required],
       codigo :[{ value : '',disabled: true},Validators.required],
     });
+    this.filteredProducto = this.formTemplate.get("producto").valueChanges.pipe(
+      startWith(null),
+      map(product => (product ? this._filterProduct(product) : this.products.slice())),
+    );
   }
 
   submit() {
@@ -243,9 +253,20 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
   getProducts(){
     this.productService.getAllProductsByPartner(this.clientId).subscribe(data =>{
-      this.products = data as Product[];
+      this.products = data as ProductoI[];
     })
   }
+
+  private _filterProduct(value: string): ProductoI[] {
+    console.log("value",value);
+    const filterValue = value.toLowerCase();
+
+    return this.products.filter(product =>
+      product.name.toLowerCase().includes(filterValue) ||
+      product.code.toLowerCase().includes(filterValue)
+      );
+  }
+
   optionSelectedProduct(event:Product){
 
     this.code = event.code;

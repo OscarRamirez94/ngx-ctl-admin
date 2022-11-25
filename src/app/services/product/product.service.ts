@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ProductoI } from '../../interfaces/product-i';
 import { Product } from '../../models/product/product';
 import { CommonService } from '../commons.service';
 
@@ -14,7 +15,7 @@ export class ProductService extends CommonService<Product> {
    super(http);
   }
 
-  getAllProductsByPartner(id): Observable<Product[]> {
-    return this.http.get<Product[]>(this.url.concat("all/partner/",id));
+  getAllProductsByPartner(id): Observable<ProductoI[]> {
+    return this.http.get<ProductoI[]>(this.url.concat("all/partner/",id));
   }
 }

@@ -4,7 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { map, Observable, startWith } from 'rxjs';
-import { Professionl } from '../../../interfaces/profession-i';
+import { ProfessionI } from '../../../interfaces/profession-i';
 import { Person } from '../../../models/person/person';
 import { Profession } from '../../../models/profession/profession';
 import { HeadService } from '../../../services/head/head.service';
@@ -30,7 +30,7 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
   isChecked;
 
   //esta es la que va al html con datos que la setteas del data del serviecs
-  professions: Professionl[];
+  professions: ProfessionI[];
   constructor(
     service: PersonService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<PersonsCreateComponent>,

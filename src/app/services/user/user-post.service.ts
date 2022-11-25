@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Professionl } from '../../interfaces/profession-i';
+import { ProfessionI } from '../../interfaces/profession-i';
 import { User } from '../../models/user/user';
 import { UserPost } from '../../models/user/user-post';
 import { CommonService } from '../commons.service';
@@ -17,8 +17,8 @@ export class UserPostService extends CommonService<UserPost>  {
   constructor(http: HttpClient) {
     super(http);
   }
-  getAllProfessions(): Observable<Professionl[]> {
-    return this.http.get<Professionl[]>(this.urlProfession.concat("all"));
+  getAllProfessions(): Observable<ProfessionI[]> {
+    return this.http.get<ProfessionI[]>(this.urlProfession.concat("all"));
   }
   userByUsername(username:string): Observable<UserPost> {
     return this.http.get<UserPost>(this.url.concat("username/",username));

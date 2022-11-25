@@ -80,7 +80,7 @@
                   </div>
 
                   <div class="row">
-                      <div class="col-sm-3">
+                      <div class="col-sm-3" *ngIf="professions.length>0">
                           <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy">
                               <mat-label>PUESTO</mat-label>
                               <input type="text" placeholder="Selecciona un puesto" aria-label="Number" matInput
@@ -89,7 +89,7 @@
                               <mat-autocomplete #auto="matAutocomplete"
                                   (optionSelected)="optionSelected($event.option.value)"
                                   [displayWith]="displayProperty">
-                                  <mat-option *ngFor="let option of professions" [value]="option">
+                                  <mat-option *ngFor="let option of filteredProfessions | async" [value]="option">
                                       {{option.name}}
                                   </mat-option>
                               </mat-autocomplete>

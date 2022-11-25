@@ -1,6 +1,6 @@
 
 
-export interface Professionl {
+export interface ProfessionI {
   id: number ;
   name: string;
   isActive: boolean;

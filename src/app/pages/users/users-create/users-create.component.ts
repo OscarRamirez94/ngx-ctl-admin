@@ -3,7 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { Professionl } from '../../../interfaces/profession-i';
+import { map, Observable, startWith } from 'rxjs';
+import { ProfessionI } from '../../../interfaces/profession-i';
 import { Profession } from '../../../models/profession/profession';
 import { UserPost } from '../../../models/user/user-post';
 import { HeadService } from '../../../services/head/head.service';
@@ -17,7 +18,7 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
 })
 
 export class UserCreateComponent extends CommonListComponent<UserPost, UserPostService> implements OnInit {
-  professions: Professionl[];
+  professions: ProfessionI[];
   userForm !: FormGroup;
   submitted = false;
   actionBtn: String = "Crear";
@@ -27,8 +28,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   roleList: string[] = ['ROLE_ADMIN', 'ROLE_USERS', 'ROLE_SUPER'];
   selectedOptions: string[] = [];
   loading = false;
-
-
+  filteredProfessions: Observable<ProfessionI[]>;
   constructor(
     service: UserPostService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<UserCreateComponent>,
@@ -100,6 +100,11 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       profession: ['', Validators.required],
       isUser: ['', Validators.required],
     });
+
+    this.filteredProfessions = this.userForm.get("profession").valueChanges.pipe(
+      startWith(null),
+      map(profession => (profession ? this._filterProfession(profession) : this.professions.slice())),
+    );
   }
 
   rejectForm(editData: UserPost) {
@@ -180,8 +185,16 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   getAllProfessions() {
     this.service.getAllProfessions().subscribe(data => {
 
-      this.professions = data;
-      console.log("professions" + this.professions);
+      this.professions = data as ProfessionI[];
+
     })
+  }
+  private _filterProfession(value: string): ProfessionI[] {
+    console.log("value",value);
+    const filterValue = value.toLowerCase();
+
+    return this.professions.filter(profession =>
+      profession.name.toLowerCase().includes(filterValue)
+      );
   }
 }

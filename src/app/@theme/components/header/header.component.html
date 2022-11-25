@@ -3,6 +3,7 @@
     <a (click)="toggleSidebar()" href="#" class="sidebar-toggle">
       <nb-icon icon="menu-2-outline"></nb-icon>
     </a>
+
     <a class="logo" href="#" (click)="navigateHome()"><span>CLT-ADMIN</span>
     </a>
 
@@ -26,7 +27,9 @@
     </nb-action>
     <nb-action class="user-action">
       <form class="example-form">
-        <mat-form-field #field  appearance="legacy" class="example-full-width">
+        <div *ngIf="clients.length>0">
+
+        <mat-form-field #field  appearance="legacy" class="example-full-width" >
           <mat-label>Cliente</mat-label>
           <input type="text"
                 placeholder="Selecciona Cliente"
@@ -38,11 +41,12 @@
           <mat-autocomplete #autoClient="matAutocomplete"
           (optionSelected)="optionSelected($event.option.value)"
           [displayWith]="displayProperty">
-          <mat-option *ngFor="let option of clients" [value]="option">
+          <mat-option *ngFor="let option of filteredClients | async" [value]="option">
              {{option.name}}
           </mat-option>
           </mat-autocomplete>
           </mat-form-field>
+        </div>
       </form>
     </nb-action>
 

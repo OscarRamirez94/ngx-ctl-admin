@@ -3,8 +3,8 @@ import { NbGlobalPosition, NbMediaBreakpointsService, NbMenuService, NbSidebarSe
 
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
-import { map, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
+import { map, startWith, takeUntil } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { ClientService } from '../../../services/client/client.service';
 import { Client } from '../../../models/client';
@@ -14,6 +14,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { Notification } from '../../../models/notification/notification';
 import { Console } from 'console';
+import { ClientI } from '../../../interfaces/client-i';
 
 @Component({
   selector: 'ngx-header',
@@ -22,12 +23,13 @@ import { Console } from 'console';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
+  filteredClients: Observable<ClientI[]>;
   myControl = new FormControl('');
   private destroy$: Subject<void> = new Subject<void>();
   userPictureOnly: boolean = false;
   user: any;
   username:string;
-  clients:Client[];
+  clients:ClientI[] = [];
   client: Client;
   clientName:string;
   position: NbGlobalPosition
@@ -149,7 +151,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
-
+      this.filteredClients = this.myControl.valueChanges.pipe(
+        startWith(null),
+        map(client => (client ? this._filterClient(client) : this.clients.slice())),
+      );
   }
 
   ngOnDestroy() {
@@ -180,7 +185,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   getAllClients(){
 
     this.clientService.getAll().subscribe(data =>{
-      this.clients = data as Client[];
+      this.clients = data as ClientI[];
     })
 
   }
@@ -189,5 +194,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.headService.getClientLS();
   }
 
+  private _filterClient(value: string): ClientI[] {
+    console.log("value",value);
+    const filterValue = value.toLowerCase();
 
+    return this.clients.filter(client =>
+      client.name.toLowerCase().includes(filterValue)
+      );
+  }
 }

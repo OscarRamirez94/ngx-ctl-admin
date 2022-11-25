@@ -81,7 +81,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-3">
+              <div class="col-sm-3" *ngIf="products.length>0">
                 <div class="form-group">
                   <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
                     <mat-label>Producto</mat-label>
@@ -94,7 +94,7 @@
                     <mat-autocomplete #autoProducto="matAutocomplete"
                     (optionSelected)="optionSelectedProduct($event.option.value)"
                     [displayWith]="displayPropertyProduct">
-                      <mat-option *ngFor="let option of products" [value]="option">
+                      <mat-option *ngFor="let option of filteredProducto | async" [value]="option">
                         {{option.name}}
                       </mat-option>
                     </mat-autocomplete>
@@ -195,9 +195,10 @@
                 </div>
 
                 <div class="col-sm-2">
-                    <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                    <mat-form-field  class="example-full-width" #field floatLabel="always" appearance="legacy"  >
                       <mat-label>Producto</mat-label>
                       <input type="text"
+                             [disabled]="disabledTemplate =='true'"
                              placeholder="Selecciona Producto"
                              matInput
                              formControlName="producto"
@@ -205,7 +206,7 @@
                       <mat-autocomplete #autoProducto="matAutocomplete"
                       (optionSelected)="optionSelectedProductSave($event.option.value,i)"
                       [displayWith]="displayPropertyProduct">
-                        <mat-option *ngFor="let option of products" [value]="option">
+                        <mat-option *ngFor="let option of products" [value]="option" [disabled]="disabledTemplate =='true'">
                           {{option.name}}
                         </mat-option>
                       </mat-autocomplete>

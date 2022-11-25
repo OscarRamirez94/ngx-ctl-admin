@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { NbAuthJWTToken, NbAuthService } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
-import { Professionl } from '../../../interfaces/profession-i';
+import { ProfessionI } from '../../../interfaces/profession-i';
 import { UserPassword } from '../../../models/user/user-password';
 import { UserPost } from '../../../models/user/user-post';
 import { UserPostService } from '../../../services/user/user-post.service';
@@ -17,7 +17,7 @@ import { UserPostService } from '../../../services/user/user-post.service';
 })
 
 export class UsersProfileComponent implements OnInit {
-  professions: Professionl[];
+  professions: ProfessionI[];
   userForm !: FormGroup;
   submitted = false;
   actionBtn: String = "Crear";
