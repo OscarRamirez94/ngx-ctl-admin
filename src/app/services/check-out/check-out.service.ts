@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { TransportCapacityI } from '../../interfaces/transport-capacity-i';
 import { TransportLineI } from '../../interfaces/transport-line-i';
 import { TransportTypeI } from '../../interfaces/transport-type-i';
+import { UserI } from '../../interfaces/user-i';
 import { CheckList } from '../../models/check-list/check-list';
 import { CheckOut } from '../../models/check-out/check-out';
 import { Client } from '../../models/client';
@@ -59,8 +60,8 @@ getAllTransportTypes(): Observable<TransportTypeI[]> {
 getAllPersons(): Observable<Person[]> {
   return this.http.get<Person[]>(this.urlPersons.concat("all/"));
 }
-getAllUsersIsResposible(): Observable<User[]> {
-  return this.http.get<User[]>(this.urlUsers.concat("all/isResponsible"));
+getAllUsersIsResposible(): Observable<UserI[]> {
+  return this.http.get<UserI[]>(this.urlUsers.concat("all/isResponsible"));
 }
 getById(id:any):Observable<CheckOut>{
   return this.http.get<CheckOut>(this.url.concat(id));

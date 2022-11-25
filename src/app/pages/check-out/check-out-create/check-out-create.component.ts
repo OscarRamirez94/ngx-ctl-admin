@@ -7,6 +7,7 @@ import { map, Observable, startWith } from 'rxjs';
 import { TransportCapacityI } from '../../../interfaces/transport-capacity-i';
 import { TransportLineI } from '../../../interfaces/transport-line-i';
 import { TransportTypeI } from '../../../interfaces/transport-type-i';
+import { UserI } from '../../../interfaces/user-i';
 import { CheckList } from '../../../models/check-list/check-list';
 import { CheckOut } from '../../../models/check-out/check-out';
 import { Client } from '../../../models/client';
@@ -35,8 +36,9 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   transportCapacities:TransportCapacityI[] = [];
   transportTypes:TransportTypeI[] = [];
 
-  surveillances:User[];
-  responsibles:User[];
+  surveillances:UserI[]= [];
+  responsibles:UserI[]= [];
+
   processType:ProcessType = new ProcessType(2,true,"Out");
   myControl = new FormControl('');
   clientId;
@@ -48,9 +50,12 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   firstFormGroup !: FormGroup;
   secondFormGroup !: FormGroup;
   thirdFormGroup !: FormGroup;
+
   filteredTransportLines: Observable<TransportLineI[]>;
   filteredTransportTypes: Observable<TransportTypeI[]>;
   filteredTransportCapacities: Observable<TransportCapacityI[]>;
+  filteredSurveillances: Observable<UserI[]>;
+  filteredResponsibles: Observable<UserI[]>;
 
   constructor(service:CheckOutService,router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private _formBuilder:FormBuilder,private authRoleService:AuthRoleService,headService:HeadService,
@@ -83,7 +88,6 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 
     this.getResponsibles();
     this.rejectForm(this.editData);
-
     super.paginator;
   }
 
@@ -116,15 +120,24 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 
      this.filteredTransportLines = this.secondFormGroup.get("transportLine").valueChanges.pipe(
       startWith(null),
-      map(state => (state ? this._filterTransportLine(state) : this.transportLines.slice())),
+      map(transportLine => (transportLine ? this._filterTransportLine(transportLine) : this.transportLines.slice())),
     );
     this.filteredTransportTypes = this.secondFormGroup.get("tipoTransporte").valueChanges.pipe(
       startWith(null),
-      map(state => (state ? this._filterTransportType(state) : this.transportTypes.slice())),
+      map(transportType => (transportType ? this._filterTransportType(transportType) : this.transportTypes.slice())),
     );
     this.filteredTransportCapacities = this.secondFormGroup.get("transportCapacity").valueChanges.pipe(
       startWith(null),
-      map(state => (state ? this._filterTransportCapacity(state) : this.transportCapacities.slice())),
+      map(transportCapacity => (transportCapacity ? this._filterTransportCapacity(transportCapacity) : this.transportCapacities.slice())),
+    );
+
+    this.filteredSurveillances = this.secondFormGroup.get("surveillance").valueChanges.pipe(
+      startWith(null),
+      map(user => (user ? this._filterTransportSurveillance(user) : this.surveillances.slice())),
+    );
+    this.filteredResponsibles = this.secondFormGroup.get("responsible").valueChanges.pipe(
+      startWith(null),
+      map(user => (user ? this._filterTransportResponsible(user) : this.responsibles.slice())),
     );
   }
 
@@ -167,38 +180,17 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     })
   }
 
-
-
-  optionSelectedSurveillance(event:Person){
-    this.model.surveillance.id = event.id;
-  }
-
-  displayPropertySurveillance(value) {
-    if (value) {
-      return value.firstName + ' ' + value.lastName;
-    }
-  }
-
   // get persons responsibles
   getResponsibles(){
     this.service.getAllUsersIsResposible().subscribe(data =>{
-      this.responsibles = data.filter(p =>{
+      let users = data as UserI[];
+      this.responsibles = users.filter(p =>{
         return p.profession.name !== "Vigilancia";
       });
-      this.surveillances = data.filter(p =>{
+      this.surveillances = users.filter(p =>{
         return p.profession.name == "Vigilancia";
       });
     });
-  }
-
-  optionSelectedUser(event:Person){
-    this.model.responsible.id = event.id;
-  }
-
-  displayPropertyUser(value) {
-    if (value) {
-      return value.firstName + ' ' + value.lastName;
-    }
   }
 
   role(role:string){
@@ -287,6 +279,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
       this.model.transportCapacity.id=editData.transportCapacity.id;
       this.model.surveillance.id=editData.surveillance.id;
       this.model.responsible.id=editData.responsible.id;
+      this.getAllTransportCapacities(editData.transportCapacity.transportType.id);
     }
   }
 
@@ -302,7 +295,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     console.log("value",value);
     const filterValue = value.toLowerCase();
 
-    return this.transportLines.filter(state => state.name.toLowerCase().includes(filterValue));
+    return this.transportLines.filter(transportLine => transportLine.name.toLowerCase().includes(filterValue));
   }
   optionSelectedTransportLine(event:TransportLineI){
 
@@ -319,12 +312,13 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     console.log("value",value);
     const filterValue = value.toLowerCase();
 
-    return this.transportTypes.filter(state => state.name.toLowerCase().includes(filterValue));
+    return this.transportTypes.filter(transportType => transportType.name.toLowerCase().includes(filterValue));
   }
 
   optionSelectedTransportType(event:TransportType){
-    this.secondFormGroup.controls['transportCapacity'].reset()
     this.transportCapacities = [];
+    this.secondFormGroup.controls['transportCapacity'].reset()
+
     this.getAllTransportCapacities(event.id);
   }
 
@@ -341,8 +335,8 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     const filterValue = value.toLowerCase();
 
     return this.transportCapacities.filter(
-      state => state.capacity.toLowerCase().includes(filterValue) ||
-      state.unity.toLowerCase().includes(filterValue)
+      transportCapacity => transportCapacity.capacity.toLowerCase().includes(filterValue) ||
+      transportCapacity.unity.toLowerCase().includes(filterValue)
       );
   }
 
@@ -356,4 +350,48 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     }
   }
 
+  // Filtered responsibles
+
+  private _filterTransportSurveillance(value: string): UserI[] {
+    console.log("value",value);
+    const filterValue = value.toLowerCase();
+
+    return this.surveillances.filter(
+      user => user.firstName.toLowerCase().includes(filterValue) ||
+      user.lastName.toLowerCase().includes(filterValue) ||
+      user.secondName.toLowerCase().includes(filterValue)
+      );
+  }
+
+  optionSelectedSurveillance(event:Person){
+    this.model.surveillance.id = event.id;
+  }
+
+  displayPropertySurveillance(value) {
+    if (value) {
+      return value.firstName + ' ' + value.lastName;
+    }
+  }
+
+  // Filtered surveillances
+  private _filterTransportResponsible(value: string): UserI[] {
+    console.log("value",value);
+    const filterValue = value.toLowerCase();
+
+    return this.responsibles.filter(
+      user => user.firstName.toLowerCase().includes(filterValue) ||
+      user.lastName.toLowerCase().includes(filterValue) ||
+      user.secondName.toLowerCase().includes(filterValue)
+      );
+  }
+
+  optionSelectedUser(event:Person){
+    this.model.responsible.id = event.id;
+  }
+
+  displayPropertyUser(value) {
+    if (value) {
+      return value.firstName + ' ' + value.lastName;
+    }
+  }
 }

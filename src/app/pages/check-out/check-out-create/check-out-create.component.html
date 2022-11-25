@@ -1,358 +1,357 @@
 <section>
-
   <nb-card status="primary">
+
     <nb-card-header>CheckList
-
       <nb-badge text="Check-out" status="success" style="position: relative;"></nb-badge>
-
     </nb-card-header>
+
     <nb-card-body>
+      <mat-dialog-content>
+        <mat-stepper linear #stepper>
+        <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" *ngIf="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Datos generales</ng-template>
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Cliente</mat-label>
+                    <input  matInput  formControlName="partner"
+                    placeholder="Cliente" [ngClass]="{ 'is-invalid':
+                    f.partner.errors }">
+                    <mat-error *ngIf="f.partner.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
 
-      <!--mat dialog content-->
-<mat-dialog-content >
-<mat-stepper linear #stepper>
-  <mat-step [stepControl]="firstFormGroup" [editable]="isEditable">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Datos generales</ng-template>
-      <div class="row">
-        <div class="col-sm-3">
-          <div class="form-group">
-            <mat-form-field appearance="legacy">
-              <mat-label>Cliente</mat-label>
-              <input  matInput  formControlName="partner"
-              placeholder="Cliente" [ngClass]="{ 'is-invalid':
-              f.partner.errors }">
-              <mat-error *ngIf="f.partner.errors" >Campo Requerido</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
+              <!--
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label >Fecha</mat-label>
+                    <input  matInput type="datetime-local" formControlName="date"
+                    [matDatepicker]="picker3" [value]="date.value">
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle [disabled]="true" matSuffix [for]="picker3" ></mat-datepicker-toggle>
+                    <mat-datepicker #picker3></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
 
-        <!--
-        <div class="col-sm-3">
-          <div class="form-group">
-            <mat-form-field appearance="legacy">
-              <mat-label >Fecha</mat-label>
-              <input  matInput type="datetime-local" formControlName="date"
-              [matDatepicker]="picker3" [value]="date.value">
-              <mat-hint>MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle [disabled]="true" matSuffix [for]="picker3" ></mat-datepicker-toggle>
-              <mat-datepicker #picker3></mat-datepicker>
-            </mat-form-field>
-          </div>
-        </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Hora</mat-label>
+                    <input matInput type="time"  formControlName="hours" placeholder="Escribe aquí ... "
+                    matTooltip="Formato de 24 Horas">
+                    <mat-hint>HH/MM 24HRS</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
 
-        <div class="col-sm-3">
-          <div class="form-group">
-            <mat-form-field appearance="legacy">
-              <mat-label>Hora</mat-label>
-              <input matInput type="time"  formControlName="hours" placeholder="Escribe aquí ... "
-              matTooltip="Formato de 24 Horas">
-              <mat-hint>HH/MM 24HRS</mat-hint>
-            </mat-form-field>
-          </div>
-        </div>
-
-        <div class="col-sm-3">
-          <div class="form-group">
-            <mat-form-field appearance="legacy">
-              <mat-label>No: Remision/Delivery/Factura</mat-label>
-              <input matInput  formControlName="remision"
-               placeholder="Digita Remision/Delivery/Factura" [ngClass]="{ 'is-invalid':
-               f.remision.errors }">
-              <mat-error *ngIf="f.remision.errors" >Campo Requerido</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        -->
-        <div class="col-sm-3">
-          <div class="form-group">
-            <mat-form-field appearance="legacy">
-              <mat-label>Proceso</mat-label>
-              <input matInput  formControlName="processType"
-               placeholder="Proceso" [ngClass]="{ 'is-invalid':
-               f.processType.errors }">
-              <mat-error *ngIf="f.processType.errors" >Campo Requerido</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-
-        <mat-card-actions align="end">
-          <mat-dialog-actions align="end">
-            <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
-          </mat-dialog-actions>
-        </mat-card-actions>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup" [editable]="isEditable">
-    <form [formGroup]="secondFormGroup">
-      <ng-template matStepLabel>Datos de Transporte </ng-template>
-      <div class="row">
-
-        <div class="col-sm-3" *ngIf="transportLines.length>0">
-           <div class="form-group">
-         <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
-           <mat-label>Linea de Transporte</mat-label>
-           <input type="text"
-                  matTooltip="Despegable"
-                  placeholder="Selecciona Linea de Transporte"
-                  aria-label="Linea de Transporte"
-                  matInput
-                  formControlName="transportLine"
-                  [matAutocomplete]="autoTransportLine"
-                  [ngClass]="{ 'is-invalid': submitted && f2.transportLine.errors }">
-           <mat-autocomplete #autoTransportLine="matAutocomplete"
-           (optionSelected)="optionSelectedTransportLine($event.option.value)"
-           [displayWith]="displayPropertyTransportLine">
-             <mat-option *ngFor="let option of filteredTransportLines | async" [value]="option">
-               {{option.name}}
-             </mat-option>
-           </mat-autocomplete>
-           <mat-error *ngIf="submitted && f2.transportLine.errors" >Campo Requerido</mat-error>
-         </mat-form-field>
-         </div>
-         </div>
-
-         <div class="col-sm-3">
-           <div class="form-group">
-         <mat-form-field appearance="legacy">
-           <mat-label>Operador</mat-label>
-           <input matInput  formControlName="operator" placeholder="Digita Operador"
-            [ngClass]="{ 'is-invalid': submitted && f2.operator.errors }">
-           <mat-error *ngIf="submitted && f2.operator.errors" >Campo Requerido</mat-error>
-         </mat-form-field>
-          </div>
-         </div>
-
-         <div class="col-sm-3" *ngIf="transportTypes.length>0">
-           <div class="form-group">
-             <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
-             <mat-label>Tipo de Transporte</mat-label>
-             <input type="text"
-                   matTooltip="Despegable"
-                   placeholder="Selecciona Tipo de Transporte"
-                   aria-label="Tipo de Transporte"
-                   matInput
-                   formControlName="tipoTransporte"
-                   [matAutocomplete]="autoTransportType"
-                   [ngClass]="{ 'is-invalid': submitted && f2.tipoTransporte.errors }">
-             <mat-autocomplete #autoTransportType="matAutocomplete"
-             (optionSelected)="optionSelectedTransportType($event.option.value)"
-             [displayWith]="displayPropertyTransportType">
-             <mat-option *ngFor="let option of filteredTransportTypes | async" [value]="option">
-                {{option.name}}
-             </mat-option>
-             </mat-autocomplete>
-             <mat-error *ngIf="submitted && f2.tipoTransporte.errors" >Campo Requerido</mat-error>
-             </mat-form-field>
-           </div>
-         </div>
-
-         <div class="col-sm-3" *ngIf="transportCapacities.length>0">
-           <div class="form-group">
-             <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy">
-             <mat-label>Capacidad de Transporte</mat-label>
-             <input type="text"
-                   matTooltip="Despegable"
-                   placeholder="Selecciona Capacidad de Transporte"
-                   aria-label="Capacidad de Transporte"
-                   matInput
-                   formControlName="transportCapacity"
-                   [matAutocomplete]="autoTransportCapacity"
-                   [ngClass]="{ 'is-invalid': submitted && f2.transportCapacity.errors }">
-             <mat-autocomplete #autoTransportCapacity="matAutocomplete"
-             (optionSelected)="optionSelectedTransportCapacity($event.option.value)"
-             [displayWith]="displayPropertyTransportCapacity">
-             <mat-option *ngFor="let option of filteredTransportCapacities | async " [value]="option">
-                {{option.capacity}}  |  {{option.unity}}
-             </mat-option>
-             </mat-autocomplete>
-             <mat-error *ngIf="submitted && f2.transportCapacity.errors" >Campo Requerido</mat-error>
-             </mat-form-field>
-           </div>
-         </div>
-       </div>
-
-
-       <div class="row">
-
-          <div class="col-sm-3">
-             <div class="form-group">
-             <mat-form-field appearance="legacy">
-             <mat-label>ecoTracto</mat-label>
-             <input matInput  formControlName="ecoTracto" placeholder="Digita ecoTracto"
-             [ngClass]="{ 'is-invalid': submitted && f2.ecoTracto.errors }">
-             <mat-error *ngIf="submitted && f2.ecoTracto.errors" >Campo Requerido</mat-error>
-             </mat-form-field>
-             </div>
-          </div>
-
-          <div class="col-sm-3">
-           <div class="form-group">
-           <mat-form-field appearance="legacy">
-           <mat-label>tractoPlacas</mat-label>
-           <input matInput  formControlName="tractoPlacas" placeholder="Digita tractoPlacas"
-           [ngClass]="{ 'is-invalid': submitted && f2.tractoPlacas.errors }">
-           <mat-error *ngIf="submitted && f2.tractoPlacas.errors" >Campo Requerido</mat-error>
-           </mat-form-field>
-           </div>
-          </div>
-
-           <div class="col-sm-3">
-             <div class="form-group">
-             <mat-form-field appearance="legacy">
-             <mat-label>ecoCaja</mat-label>
-             <input matInput  formControlName="ecoCaja" placeholder="Digita ecoCaja"
-             [ngClass]="{ 'is-invalid': submitted && f2.ecoCaja.errors }">
-             <mat-error *ngIf="submitted && f2.ecoCaja.errors" >Campo Requerido</mat-error>
-             </mat-form-field>
-             </div>
-           </div>
-
-           <div class="col-sm-3">
-             <div class="form-group">
-             <mat-form-field appearance="legacy">
-             <mat-label>cajaPlacas</mat-label>
-             <input matInput  formControlName="cajaPlacas" placeholder="Digita cajaPlacas"
-             [ngClass]="{ 'is-invalid': submitted && f2.cajaPlacas.errors }">
-             <mat-error *ngIf="submitted && f2.cajaPlacas.errors" >Campo Requerido</mat-error>
-             </mat-form-field>
-             </div>
-           </div>
-
-        </div>
-
-
-        <div class="row">
-
-         <div class="col-sm-3">
-           <div class="form-group">
-             <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
-             <mat-label>Vigilancia</mat-label>
-             <input type="text"
-                   matTooltip="Despegable"
-                   placeholder="Selecciona Personal de vigilancia"
-                   aria-label="Personal de Vigilancia"
-                   matInput
-                   formControlName="surveillance"
-                   [matAutocomplete]="autoSurveillance"
-                   [ngClass]="{ 'is-invalid': submitted && f2.surveillance.errors }">
-             <mat-autocomplete #autoSurveillance="matAutocomplete"
-             (optionSelected)="optionSelectedSurveillance($event.option.value)"
-             [displayWith]="displayPropertySurveillance">
-             <mat-option *ngFor="let option of surveillances" [value]="option">
-                {{option.firstName}} {{option.lastName}}
-             </mat-option>
-             </mat-autocomplete>
-             <mat-error *ngIf="submitted && f2.surveillance.errors" >Campo Requerido</mat-error>
-             </mat-form-field>
-           </div>
-         </div>
-
-         <div class="col-sm-3">
-           <div class="form-group">
-             <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
-             <mat-label>Responsable</mat-label>
-             <input type="text"
-                   matTooltip="Despegable"
-                   placeholder="Calidad / Jefe de turno"
-                   aria-label="Calidad / Jefe de turno"
-                   matInput
-                   formControlName="responsible"
-                   [matAutocomplete]="autoUser"
-                   [ngClass]="{ 'is-invalid': submitted && f2.responsible.errors }">
-             <mat-autocomplete #autoUser="matAutocomplete"
-             (optionSelected)="optionSelectedUser($event.option.value)"
-             [displayWith]="displayPropertyUser">
-             <mat-option *ngFor="let option of responsibles" [value]="option">
-              {{option.firstName}} {{option.lastName}}
-             </mat-option>
-             </mat-autocomplete>
-             <mat-error *ngIf="submitted && f2.responsible.errors" >Campo Requerido</mat-error>
-             </mat-form-field>
-           </div>
-         </div>
-
-         <div class="col-sm-3">
-           <div class="form-group">
-           <mat-form-field appearance="legacy">
-           <mat-label>No: Rampa</mat-label>
-           <input matInput  formControlName="noRampa" placeholder="Digita noRampa"
-           [ngClass]="{ 'is-invalid': submitted && f2.noRampa.errors }">
-           <mat-error *ngIf="submitted && f2.noRampa.errors" >Campo Requerido</mat-error>
-           </mat-form-field>
-           </div>
-        </div>
-        </div>
-
-        <div class="row">
-         <div class="col-sm-3">
-           <div class="form-group">
-           <mat-form-field appearance="legacy">
-           <mat-label>No: Sello</mat-label>
-           <input matInput  formControlName="noSello" placeholder="Digita noSello"
-           [ngClass]="{ 'is-invalid': submitted && f2.noSello.errors }">
-           <mat-error *ngIf="submitted && f2.noSello.errors" >Campo Requerido</mat-error>
-           </mat-form-field>
-           </div>
-          </div>
-
-          <div class="col-sm-3">
-            <div class="form-group">
-            <mat-form-field appearance="legacy">
-            <mat-label>No: Sello2</mat-label>
-            <input matInput  formControlName="noSello2" placeholder="Digita noSello">
-            </mat-form-field>
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>No: Remision/Delivery/Factura</mat-label>
+                    <input matInput  formControlName="remision"
+                    placeholder="Digita Remision/Delivery/Factura" [ngClass]="{ 'is-invalid':
+                    f.remision.errors }">
+                    <mat-error *ngIf="f.remision.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              -->
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Proceso</mat-label>
+                    <input matInput  formControlName="processType"
+                    placeholder="Proceso" [ngClass]="{ 'is-invalid':
+                    f.processType.errors }">
+                    <mat-error *ngIf="f.processType.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
             </div>
-           </div>
+
+              <mat-card-actions align="end">
+                <mat-dialog-actions align="end">
+                  <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
+                </mat-dialog-actions>
+              </mat-card-actions>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup" [editable]="isEditable" *ngIf="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Datos de Transporte </ng-template>
+            <div class="row">
+
+              <div class="col-sm-3" *ngIf="transportLines.length>0">
+                <div class="form-group">
+              <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                <mat-label>Linea de Transporte</mat-label>
+                <input type="text"
+                        matTooltip="Despegable"
+                        placeholder="Selecciona Linea de Transporte"
+                        aria-label="Linea de Transporte"
+                        matInput
+                        formControlName="transportLine"
+                        [matAutocomplete]="autoTransportLine"
+                        [ngClass]="{ 'is-invalid': submitted && f2.transportLine.errors }">
+                <mat-autocomplete #autoTransportLine="matAutocomplete"
+                (optionSelected)="optionSelectedTransportLine($event.option.value)"
+                [displayWith]="displayPropertyTransportLine">
+                  <mat-option *ngFor="let option of filteredTransportLines | async" [value]="option">
+                    {{option.name}}
+                  </mat-option>
+                </mat-autocomplete>
+                <mat-error *ngIf="submitted && f2.transportLine.errors" >Campo Requerido</mat-error>
+              </mat-form-field>
+              </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="form-group">
+              <mat-form-field appearance="legacy">
+                <mat-label>Operador</mat-label>
+                <input matInput  formControlName="operator" placeholder="Digita Operador"
+                  [ngClass]="{ 'is-invalid': submitted && f2.operator.errors }">
+                <mat-error *ngIf="submitted && f2.operator.errors" >Campo Requerido</mat-error>
+              </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-3" *ngIf="transportTypes.length>0">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                  <mat-label>Tipo de Transporte</mat-label>
+                  <input type="text"
+                        matTooltip="Despegable"
+                        placeholder="Selecciona Tipo de Transporte"
+                        aria-label="Tipo de Transporte"
+                        matInput
+                        formControlName="tipoTransporte"
+                        [matAutocomplete]="autoTransportType"
+                        [ngClass]="{ 'is-invalid': submitted && f2.tipoTransporte.errors }">
+                  <mat-autocomplete #autoTransportType="matAutocomplete"
+                  (optionSelected)="optionSelectedTransportType($event.option.value)"
+                  [displayWith]="displayPropertyTransportType">
+                  <mat-option *ngFor="let option of filteredTransportTypes | async" [value]="option">
+                      {{option.name}}
+                  </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="submitted && f2.tipoTransporte.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-3" *ngIf="transportCapacities.length>0">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy">
+                  <mat-label>Capacidad de Transporte</mat-label>
+                  <input type="text"
+                        matTooltip="Despegable"
+                        placeholder="Selecciona Capacidad de Transporte"
+                        aria-label="Capacidad de Transporte"
+                        matInput
+                        formControlName="transportCapacity"
+                        [matAutocomplete]="autoTransportCapacity"
+                        [ngClass]="{ 'is-invalid': submitted && f2.transportCapacity.errors }">
+                  <mat-autocomplete #autoTransportCapacity="matAutocomplete"
+                  (optionSelected)="optionSelectedTransportCapacity($event.option.value)"
+                  [displayWith]="displayPropertyTransportCapacity">
+                  <mat-option *ngFor="let option of filteredTransportCapacities | async " [value]="option">
+                      {{option.capacity}}  |  {{option.unity}}
+                  </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="submitted && f2.transportCapacity.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </div>
+
+
+
+
+            <div class="row">
+
+                <div class="col-sm-3">
+                  <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                  <mat-label>ecoTracto</mat-label>
+                  <input matInput  formControlName="ecoTracto" placeholder="Digita ecoTracto"
+                  [ngClass]="{ 'is-invalid': submitted && f2.ecoTracto.errors }">
+                  <mat-error *ngIf="submitted && f2.ecoTracto.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                <div class="form-group">
+                <mat-form-field appearance="legacy">
+                <mat-label>tractoPlacas</mat-label>
+                <input matInput  formControlName="tractoPlacas" placeholder="Digita tractoPlacas"
+                [ngClass]="{ 'is-invalid': submitted && f2.tractoPlacas.errors }">
+                <mat-error *ngIf="submitted && f2.tractoPlacas.errors" >Campo Requerido</mat-error>
+                </mat-form-field>
+                </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                  <mat-label>ecoCaja</mat-label>
+                  <input matInput  formControlName="ecoCaja" placeholder="Digita ecoCaja"
+                  [ngClass]="{ 'is-invalid': submitted && f2.ecoCaja.errors }">
+                  <mat-error *ngIf="submitted && f2.ecoCaja.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                  <mat-label>cajaPlacas</mat-label>
+                  <input matInput  formControlName="cajaPlacas" placeholder="Digita cajaPlacas"
+                  [ngClass]="{ 'is-invalid': submitted && f2.cajaPlacas.errors }">
+                  <mat-error *ngIf="submitted && f2.cajaPlacas.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="row">
+
+              <div class="col-sm-3" *ngIf="surveillances.length>0">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                  <mat-label>Vigilancia</mat-label>
+                  <input type="text"
+                        matTooltip="Despegable"
+                        placeholder="Selecciona Personal de vigilancia"
+                        aria-label="Personal de Vigilancia"
+                        matInput
+                        formControlName="surveillance"
+                        [matAutocomplete]="autoSurveillance"
+                        [ngClass]="{ 'is-invalid': submitted && f2.surveillance.errors }">
+                  <mat-autocomplete #autoSurveillance="matAutocomplete"
+                  (optionSelected)="optionSelectedSurveillance($event.option.value)"
+                  [displayWith]="displayPropertySurveillance">
+                  <mat-option *ngFor="let option of filteredSurveillances | async" [value]="option">
+                      {{option.firstName}} {{option.lastName}}
+                  </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="submitted && f2.surveillance.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-3" *ngIf="responsibles.length>0">
+                <div class="form-group">
+                  <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                  <mat-label>Responsable</mat-label>
+                  <input type="text"
+                        matTooltip="Despegable"
+                        placeholder="Calidad / Jefe de turno"
+                        aria-label="Calidad / Jefe de turno"
+                        matInput
+                        formControlName="responsible"
+                        [matAutocomplete]="autoUser"
+                        [ngClass]="{ 'is-invalid': submitted && f2.responsible.errors }">
+                  <mat-autocomplete #autoUser="matAutocomplete"
+                  (optionSelected)="optionSelectedUser($event.option.value)"
+                  [displayWith]="displayPropertyUser">
+                  <mat-option *ngFor="let option of filteredResponsibles | async" [value]="option">
+                    {{option.firstName}} {{option.lastName}}
+                  </mat-option>
+                  </mat-autocomplete>
+                  <mat-error *ngIf="submitted && f2.responsible.errors" >Campo Requerido</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="col-sm-3">
+                <div class="form-group">
+                <mat-form-field appearance="legacy">
+                <mat-label>No: Rampa</mat-label>
+                <input matInput  formControlName="noRampa" placeholder="Digita noRampa"
+                [ngClass]="{ 'is-invalid': submitted && f2.noRampa.errors }">
+                <mat-error *ngIf="submitted && f2.noRampa.errors" >Campo Requerido</mat-error>
+                </mat-form-field>
+                </div>
+              </div>
+              </div>
+
+              <div class="row">
+              <div class="col-sm-3">
+                <div class="form-group">
+                <mat-form-field appearance="legacy">
+                <mat-label>No: Sello</mat-label>
+                <input matInput  formControlName="noSello" placeholder="Digita noSello"
+                [ngClass]="{ 'is-invalid': submitted && f2.noSello.errors }">
+                <mat-error *ngIf="submitted && f2.noSello.errors" >Campo Requerido</mat-error>
+                </mat-form-field>
+                </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                  <mat-label>No: Sello2</mat-label>
+                  <input matInput  formControlName="noSello2" placeholder="Digita noSello">
+                  </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <mat-card-actions align="end">
+                <mat-dialog-actions align="end">
+                  <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
+                  <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
+                </mat-dialog-actions>
+              </mat-card-actions>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable" optional>
+          <form [formGroup]="thirdFormGroup">
+            <ng-template matStepLabel>Revision de transporte</ng-template>
+            <div class="row">
+              <div class="col-sm-8">
+                <div class="form-group">
+                <mat-form-field class="example-full-width" appearance="legacy">
+                <mat-label>Observacion</mat-label>
+                <textarea matInput type="text" formControlName="observation" placeholder="Digita observation"
+                [ngClass]="{ 'is-invalid': submitted && f3.observation.errors }"></textarea>
+                <mat-error *ngIf="submitted && f3.observation.errors" >Campo Requerido</mat-error>
+                </mat-form-field>
+                </div>
+            </div>
         </div>
-        <mat-card-actions align="end">
-          <mat-dialog-actions align="end">
-            <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
-            <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
-          </mat-dialog-actions>
-        </mat-card-actions>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable" optional>
-    <form [formGroup]="thirdFormGroup">
-      <ng-template matStepLabel>Revision de transporte</ng-template>
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="form-group">
-          <mat-form-field class="example-full-width" appearance="legacy">
-          <mat-label>Observacion</mat-label>
-          <textarea matInput type="text" formControlName="observation" placeholder="Digita observation"
-          [ngClass]="{ 'is-invalid': submitted && f3.observation.errors }"></textarea>
-          <mat-error *ngIf="submitted && f3.observation.errors" >Campo Requerido</mat-error>
-          </mat-form-field>
+          <mat-card-actions align="end">
+            <mat-dialog-actions align="end">
+              <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
+              <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
+            </mat-dialog-actions>
+          </mat-card-actions>
+
+          </form>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Guardar</ng-template>
+          <div>
+            <mat-card-actions align="end">
+              <mat-dialog-actions align="end">
+                <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
+                <button nbButton hero shape="semi-round" size="small" status="danger" (click)="stepper.reset()" *ngIf="editData===null">Limpiar</button>
+                <button nbButton hero shape="semi-round" size="small" status="primary" [disabled]="status === 'close'" (click)='onSubmit()' >{{actionBtn}}</button>
+              </mat-dialog-actions>
+            </mat-card-actions>
           </div>
-       </div>
-   </div>
-    <mat-card-actions align="end">
-      <mat-dialog-actions align="end">
-        <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
-        <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>
-      </mat-dialog-actions>
-    </mat-card-actions>
-
-    </form>
-  </mat-step>
-
-  <mat-step>
-    <ng-template matStepLabel>Guardar</ng-template>
-    <div>
-      <mat-card-actions align="end">
-        <mat-dialog-actions align="end">
-          <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
-          <button nbButton hero shape="semi-round" size="small" status="danger" (click)="stepper.reset()" *ngIf="editData===null">Limpiar</button>
-          <button nbButton hero shape="semi-round" size="small" status="primary" [disabled]="status === 'close'" (click)='onSubmit()' >{{actionBtn}}</button>
-        </mat-dialog-actions>
-      </mat-card-actions>
-    </div>
-  </mat-step>
-</mat-stepper>
-</mat-dialog-content>
+        </mat-step>
+        </mat-stepper>
+      </mat-dialog-content>
     </nb-card-body>
   </nb-card>
 </section>

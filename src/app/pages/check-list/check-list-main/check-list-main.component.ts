@@ -56,7 +56,6 @@ export class CheckListMainComponent extends CommonListCheckComponent<CheckList,C
 
   editarClient(element:any){
     this.dialog.open(CheckListCreateComponent,{
-
       width:'65%',
       data: element
 
