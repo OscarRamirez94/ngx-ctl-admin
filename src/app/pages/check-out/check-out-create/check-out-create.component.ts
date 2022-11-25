@@ -4,7 +4,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { map, Observable, startWith } from 'rxjs';
+import { TransportCapacityI } from '../../../interfaces/transport-capacity-i';
 import { TransportLineI } from '../../../interfaces/transport-line-i';
+import { TransportTypeI } from '../../../interfaces/transport-type-i';
 import { CheckList } from '../../../models/check-list/check-list';
 import { CheckOut } from '../../../models/check-out/check-out';
 import { Client } from '../../../models/client';
@@ -28,9 +30,11 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
 })
 export class CheckOutCreateComponent extends CommonListComponent<CheckOut, CheckOutService> implements OnInit  {
   clients:Client[];
+
   transportLines:TransportLineI[] = [];
-  transportCapacities:TransportCapacity[];
-  transportTypes:TransportType[];
+  transportCapacities:TransportCapacityI[] = [];
+  transportTypes:TransportTypeI[] = [];
+
   surveillances:User[];
   responsibles:User[];
   processType:ProcessType = new ProcessType(2,true,"Out");
@@ -44,7 +48,9 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   firstFormGroup !: FormGroup;
   secondFormGroup !: FormGroup;
   thirdFormGroup !: FormGroup;
-  filteredStates: Observable<TransportLineI[]>;
+  filteredTransportLines: Observable<TransportLineI[]>;
+  filteredTransportTypes: Observable<TransportTypeI[]>;
+  filteredTransportCapacities: Observable<TransportCapacityI[]>;
 
   constructor(service:CheckOutService,router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private _formBuilder:FormBuilder,private authRoleService:AuthRoleService,headService:HeadService,
@@ -108,27 +114,20 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
        observation :[''],
      });
 
-     this.filteredStates = this.secondFormGroup.get("transportLine").valueChanges.pipe(
+     this.filteredTransportLines = this.secondFormGroup.get("transportLine").valueChanges.pipe(
       startWith(null),
-      map(state => (state ? this._filterStates(state) : this.transportLines.slice())),
+      map(state => (state ? this._filterTransportLine(state) : this.transportLines.slice())),
+    );
+    this.filteredTransportTypes = this.secondFormGroup.get("tipoTransporte").valueChanges.pipe(
+      startWith(null),
+      map(state => (state ? this._filterTransportType(state) : this.transportTypes.slice())),
+    );
+    this.filteredTransportCapacities = this.secondFormGroup.get("transportCapacity").valueChanges.pipe(
+      startWith(null),
+      map(state => (state ? this._filterTransportCapacity(state) : this.transportCapacities.slice())),
     );
   }
-  private _filterStates(value: string): TransportLineI[] {
-    console.log("value",value);
-    const filterValue = value;
 
-    return this.transportLines.filter(state => state.name.includes(filterValue));
-  }
-  optionSelectedTransportLine(event:TransportLineI){
-
-    this.model.transportLine.id = event.id ;
-  }
-  displayPropertyTransportLine(value) {
-    console.log("**",value)
-    if (value) {
-      return value.name;
-    }
-  }
   // get Client
   getAllClients(){
     this.service.getAllClientes().subscribe(data =>{
@@ -145,58 +144,28 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
       return value.name;
     }
   }
+
 // get transport line
   getAllTransportLines(id:any){
     this.service.getAllTransportLines(id).subscribe(data =>{
       this.transportLines = data as TransportLineI[];
 
     })
-
-  }
-
-
-
-
-
-
-
-  // get capacities
-  getAllTransportCapacities(id:any){
-    this.service.getAllTransportCapacities(id).subscribe(data =>{
-      this.transportCapacities = data;
-    })
-  }
-
-  optionSelectedTransportCapacity(event:TransportCapacity){
-    this.model.transportCapacity.id = event.id;
-  }
-
-  displayPropertyTransportCapacity(value) {
-    if (value) {
-        return value.capacity.concat(" | ").concat( value.unity);
-    }
   }
 
   // get transporTypes
   getAllTransportTypes(){
-      this.service.getAllTransportTypes().subscribe(data =>{
-      this.transportTypes = data;
+    this.service.getAllTransportTypes().subscribe(data =>{
+    this.transportTypes = data as TransportTypeI[];
+  })
+}
+
+  // get capacities
+  getAllTransportCapacities(id:any){
+    this.service.getAllTransportCapacities(id).subscribe(data =>{
+      this.transportCapacities = data as TransportCapacityI[];
     })
   }
-
-  optionSelectedTransportType(event:TransportType){
-    this.secondFormGroup.controls['transportCapacity'].reset()
-    this.getAllTransportCapacities(event.id);
-  }
-
-  displayPropertyTransportType(value) {
-    if (value) {
-      return value.name;
-    }
-  }
-
-
-
 
 
 
@@ -328,8 +297,63 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     super.toast("success","Modificado  con éxito");
   }
 
+  // filtered TransportLines
+  private _filterTransportLine(value: string): TransportLineI[] {
+    console.log("value",value);
+    const filterValue = value.toLowerCase();
 
+    return this.transportLines.filter(state => state.name.toLowerCase().includes(filterValue));
+  }
+  optionSelectedTransportLine(event:TransportLineI){
 
+    this.model.transportLine.id = event.id ;
+  }
+  displayPropertyTransportLine(value) {
+    console.log("**",value)
+    if (value) {
+      return value.name;
+    }
+  }
+  //filtered transportypes
+  private _filterTransportType(value: string): TransportTypeI[] {
+    console.log("value",value);
+    const filterValue = value.toLowerCase();
 
+    return this.transportTypes.filter(state => state.name.toLowerCase().includes(filterValue));
+  }
+
+  optionSelectedTransportType(event:TransportType){
+    this.secondFormGroup.controls['transportCapacity'].reset()
+    this.transportCapacities = [];
+    this.getAllTransportCapacities(event.id);
+  }
+
+  displayPropertyTransportType(value) {
+    if (value) {
+      return value.name;
+    }
+  }
+
+  // filtered transportCapacities
+
+  private _filterTransportCapacity(value: string): TransportCapacityI[] {
+    console.log("value",value);
+    const filterValue = value.toLowerCase();
+
+    return this.transportCapacities.filter(
+      state => state.capacity.toLowerCase().includes(filterValue) ||
+      state.unity.toLowerCase().includes(filterValue)
+      );
+  }
+
+  optionSelectedTransportCapacity(event:TransportCapacity){
+    this.model.transportCapacity.id = event.id;
+  }
+
+  displayPropertyTransportCapacity(value) {
+    if (value) {
+        return value.capacity.concat(" | ").concat( value.unity);
+    }
+  }
 
 }

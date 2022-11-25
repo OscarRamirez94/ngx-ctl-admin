@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TransportCapacityI } from '../../interfaces/transport-capacity-i';
 import { TransportLineI } from '../../interfaces/transport-line-i';
+import { TransportTypeI } from '../../interfaces/transport-type-i';
 import { CheckList } from '../../models/check-list/check-list';
 import { CheckOut } from '../../models/check-out/check-out';
 import { Client } from '../../models/client';
@@ -46,12 +48,12 @@ getAllTransportLines(id): Observable<TransportLineI[]> {
   return this.http.get<TransportLineI[]>(this.urlTransportLine.concat("all/partner/",id));
 }
 
-getAllTransportCapacities(id:any): Observable<TransportCapacity[]> {
-  return this.http.get<TransportCapacity[]>(this.urlTransportCapacity.concat("all/",id));
+getAllTransportCapacities(id:any): Observable<TransportCapacityI[]> {
+  return this.http.get<TransportCapacityI[]>(this.urlTransportCapacity.concat("all/",id));
 }
 
-getAllTransportTypes(): Observable<TransportType[]> {
-  return this.http.get<TransportType[]>(this.urlTransportType.concat("all"));
+getAllTransportTypes(): Observable<TransportTypeI[]> {
+  return this.http.get<TransportTypeI[]>(this.urlTransportType.concat("all"));
 }
 
 getAllPersons(): Observable<Person[]> {

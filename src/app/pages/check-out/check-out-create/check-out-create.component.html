@@ -104,7 +104,7 @@
            <mat-autocomplete #autoTransportLine="matAutocomplete"
            (optionSelected)="optionSelectedTransportLine($event.option.value)"
            [displayWith]="displayPropertyTransportLine">
-             <mat-option *ngFor="let option of filteredStates | async" [value]="option">
+             <mat-option *ngFor="let option of filteredTransportLines | async" [value]="option">
                {{option.name}}
              </mat-option>
            </mat-autocomplete>
@@ -124,7 +124,7 @@
           </div>
          </div>
 
-         <div class="col-sm-3">
+         <div class="col-sm-3" *ngIf="transportTypes.length>0">
            <div class="form-group">
              <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
              <mat-label>Tipo de Transporte</mat-label>
@@ -139,7 +139,7 @@
              <mat-autocomplete #autoTransportType="matAutocomplete"
              (optionSelected)="optionSelectedTransportType($event.option.value)"
              [displayWith]="displayPropertyTransportType">
-             <mat-option *ngFor="let option of transportTypes" [value]="option">
+             <mat-option *ngFor="let option of filteredTransportTypes | async" [value]="option">
                 {{option.name}}
              </mat-option>
              </mat-autocomplete>
@@ -148,7 +148,7 @@
            </div>
          </div>
 
-         <div class="col-sm-3">
+         <div class="col-sm-3" *ngIf="transportCapacities.length>0">
            <div class="form-group">
              <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy">
              <mat-label>Capacidad de Transporte</mat-label>
@@ -163,7 +163,7 @@
              <mat-autocomplete #autoTransportCapacity="matAutocomplete"
              (optionSelected)="optionSelectedTransportCapacity($event.option.value)"
              [displayWith]="displayPropertyTransportCapacity">
-             <mat-option *ngFor="let option of transportCapacities" [value]="option">
+             <mat-option *ngFor="let option of filteredTransportCapacities | async " [value]="option">
                 {{option.capacity}}  |  {{option.unity}}
              </mat-option>
              </mat-autocomplete>
