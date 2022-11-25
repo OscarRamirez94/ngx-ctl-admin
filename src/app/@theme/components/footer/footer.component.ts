@@ -5,13 +5,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./footer.component.scss'],
   template: `
     <span class="created-by">
-     <b>CONTROL DE INVENTARIOS</b>
+     <b>Calidad, Lealtad y Trabajo</b>
     </span>
     <div class="socials">
-      <a href="#" target="_blank" class="ion ion-social-github"></a>
-      <a href="#" target="_blank" class="ion ion-social-facebook"></a>
-      <a href="#" target="_blank" class="ion ion-social-twitter"></a>
-      <a href="#" target="_blank" class="ion ion-social-linkedin"></a>
+      <a href="#" target="_blank">
+      <img  class="img-fluid" alt="Responsive image" src="/assets/images/logopng.png">
+    </a>
+
     </div>
   `
 })

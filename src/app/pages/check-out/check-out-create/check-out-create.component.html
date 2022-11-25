@@ -89,7 +89,7 @@
       <ng-template matStepLabel>Datos de Transporte </ng-template>
       <div class="row">
 
-        <div class="col-sm-3">
+        <div class="col-sm-3" *ngIf="transportLines.length>0">
            <div class="form-group">
          <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
            <mat-label>Linea de Transporte</mat-label>
@@ -104,7 +104,7 @@
            <mat-autocomplete #autoTransportLine="matAutocomplete"
            (optionSelected)="optionSelectedTransportLine($event.option.value)"
            [displayWith]="displayPropertyTransportLine">
-             <mat-option *ngFor="let option of transportLines" [value]="option">
+             <mat-option *ngFor="let option of filteredStates | async" [value]="option">
                {{option.name}}
              </mat-option>
            </mat-autocomplete>

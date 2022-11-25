@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { map, Observable, startWith } from 'rxjs';
+import { TransportLineI } from '../../../interfaces/transport-line-i';
 import { CheckList } from '../../../models/check-list/check-list';
 import { CheckOut } from '../../../models/check-out/check-out';
 import { Client } from '../../../models/client';
@@ -26,7 +28,7 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
 })
 export class CheckOutCreateComponent extends CommonListComponent<CheckOut, CheckOutService> implements OnInit  {
   clients:Client[];
-  transportLines:TransportLine[];
+  transportLines:TransportLineI[] = [];
   transportCapacities:TransportCapacity[];
   transportTypes:TransportType[];
   surveillances:User[];
@@ -39,33 +41,10 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   actionBtn:String = "Crear";
   isEditable= true;
   status:string;
-
-  firstFormGroup = this._formBuilder.group({
-   // remision:['',Validators.required],
-    partner :[{ value : this.partner,disabled: true},Validators.required],
-    processType :[{ value : this.processType.name,disabled: true},Validators.required],
-  });
-
-  secondFormGroup = this._formBuilder.group({
-    transportLine:['',Validators.required],
-    operator:['',Validators.required],
-    tipoTransporte:['',Validators.required],
-    transportCapacity:['',Validators.required],
-    ecoTracto:['',Validators.required],
-    tractoPlacas:['',Validators.required],
-    ecoCaja:['',Validators.required],
-    cajaPlacas :['',Validators.required],
-    surveillance:['',Validators.required],
-    responsible:['',Validators.required],
-    noSello:['',Validators.required],
-    noSello2:[''],
-    noRampa :['',Validators.required],
-  });
-
-  thirdFormGroup = this._formBuilder.group({
-    observation :[''],
-  });
-
+  firstFormGroup !: FormGroup;
+  secondFormGroup !: FormGroup;
+  thirdFormGroup !: FormGroup;
+  filteredStates: Observable<TransportLineI[]>;
 
   constructor(service:CheckOutService,router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private _formBuilder:FormBuilder,private authRoleService:AuthRoleService,headService:HeadService,
@@ -92,14 +71,64 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 
   ngOnInit(): void {
     this.clientId =  this.headService.getClientLS();
+    this.initForm();
     this.getAllTransportLines(this.clientId);
     this.getAllTransportTypes();
 
     this.getResponsibles();
     this.rejectForm(this.editData);
+
     super.paginator;
   }
 
+  initForm(){
+    this.firstFormGroup = this._formBuilder.group({
+      // remision:['',Validators.required],
+       partner :[{ value : this.partner,disabled: true},Validators.required],
+       processType :[{ value : this.processType.name,disabled: true},Validators.required],
+     });
+
+     this.secondFormGroup = this._formBuilder.group({
+       transportLine:['',Validators.required],
+       operator:['',Validators.required],
+       tipoTransporte:['',Validators.required],
+       transportCapacity:['',Validators.required],
+       ecoTracto:['',Validators.required],
+       tractoPlacas:['',Validators.required],
+       ecoCaja:['',Validators.required],
+       cajaPlacas :['',Validators.required],
+       surveillance:['',Validators.required],
+       responsible:['',Validators.required],
+       noSello:['',Validators.required],
+       noSello2:[''],
+       noRampa :['',Validators.required],
+     });
+
+     this.thirdFormGroup = this._formBuilder.group({
+       observation :[''],
+     });
+
+     this.filteredStates = this.secondFormGroup.get("transportLine").valueChanges.pipe(
+      startWith(null),
+      map(state => (state ? this._filterStates(state) : this.transportLines.slice())),
+    );
+  }
+  private _filterStates(value: string): TransportLineI[] {
+    console.log("value",value);
+    const filterValue = value;
+
+    return this.transportLines.filter(state => state.name.includes(filterValue));
+  }
+  optionSelectedTransportLine(event:TransportLineI){
+
+    this.model.transportLine.id = event.id ;
+  }
+  displayPropertyTransportLine(value) {
+    console.log("**",value)
+    if (value) {
+      return value.name;
+    }
+  }
   // get Client
   getAllClients(){
     this.service.getAllClientes().subscribe(data =>{
@@ -119,19 +148,17 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 // get transport line
   getAllTransportLines(id:any){
     this.service.getAllTransportLines(id).subscribe(data =>{
-      this.transportLines = data;
+      this.transportLines = data as TransportLineI[];
+
     })
+
   }
 
-  optionSelectedTransportLine(event:TransportLine){
-    this.model.transportLine.id = event.id;
-  }
 
-  displayPropertyTransportLine(value) {
-    if (value) {
-      return value.name;
-    }
-  }
+
+
+
+
 
   // get capacities
   getAllTransportCapacities(id:any){
@@ -215,7 +242,10 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
           return;
       }
       if (!this.editData) {
+        console.log(this.secondFormGroup);
+
         this.modelCheckList(this.firstFormGroup,this.secondFormGroup,this.thirdFormGroup);
+        console.log("model", this.model);
         super.crear().subscribe(data =>{
           if (data){
             super.toast("success","Se inserto con éxito");
@@ -245,6 +275,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     this.model.noRampa = secondFormGroup.get('noRampa').value;
     this.model.noSello2 = secondFormGroup.get('noSello2').value;
     this.model.observation = thirdFormGroup.get('observation').value;
+
   }
 
   onReset() {
@@ -296,5 +327,9 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     this.onReset();
     super.toast("success","Modificado  con éxito");
   }
+
+
+
+
 
 }

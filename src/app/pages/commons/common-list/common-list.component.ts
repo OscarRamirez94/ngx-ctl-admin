@@ -129,6 +129,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   public crear(): Observable<Boolean> {
+    console.log("object a crear", JSON.stringify(this.model))
     var subject = new Subject<boolean>();
     this.service.crear(this.model).subscribe(m => {
       subject.next(true);
