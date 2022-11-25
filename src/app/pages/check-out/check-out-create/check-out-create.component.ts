@@ -41,7 +41,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   status:string;
 
   firstFormGroup = this._formBuilder.group({
-    remision:['',Validators.required],
+   // remision:['',Validators.required],
     partner :[{ value : this.partner,disabled: true},Validators.required],
     processType :[{ value : this.processType.name,disabled: true},Validators.required],
   });
@@ -232,7 +232,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 
   modelCheckList(firstFormGroup:any, secondFormGroup:any,thirdFormGroup:any){
 
-    this.model.remision = firstFormGroup.get('remision').value;
+    //this.model.remision = firstFormGroup.get('remision').value;
     this.model.partner.id =this.clientId;
     this.model.processType = this.processType;
     this.model.operator = secondFormGroup.get('operator').value;
@@ -263,7 +263,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
       this.actionBtn ="Modificar";
 
 
-      this.firstFormGroup.controls['remision'].setValue(editData.remision);
+      //this.firstFormGroup.controls['remision'].setValue(editData.remision);
       this.firstFormGroup.controls['partner'].setValue(this.partner);
       this.secondFormGroup.controls['transportLine'].setValue(editData.transportLine);
       this.secondFormGroup.controls['operator'].setValue(editData.operator);
