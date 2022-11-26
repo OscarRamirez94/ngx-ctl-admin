@@ -11,8 +11,7 @@ const routes: Routes = [
       {
         path: 'report-excel',
         component:  ReportExcelComponent,
-      }
-
+      },
     ],
   },
 ];

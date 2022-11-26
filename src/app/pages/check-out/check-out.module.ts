@@ -4,7 +4,7 @@ import { CheckOutRoutingModule } from './check-out-routing.module';
 import { CheckOutComponent } from './check-out.component';
 import { CheckOutMainComponent } from './check-out-main/check-out-main.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbAccordionModule, NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbListModule, NbTagModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbListModule, NbSpinnerModule, NbTagModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule } from '@angular/material/form-field';
@@ -90,7 +90,8 @@ import { CheckOutPalletViewComponent } from './check-out-pallet-view/check-out-p
     NbListModule,
     MatBadgeModule,
     NbTagModule,
-    NbTooltipModule
+    NbTooltipModule,
+    NbSpinnerModule
   ]
 })
 export class CheckOutModule { }
