@@ -11,7 +11,7 @@
         <nb-card-body>
             <!-- grid -->
             <div class="row">
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Cliente</mat-label>
@@ -22,7 +22,16 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
+                <div class="form-group">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Prefijo</mat-label>
+                    <input matInput   formControlName="prefix" [ngClass]="{ 'is-invalid': submitted && f.prefix.errors }" placeholder="Digita Atención">
+                    <mat-error *ngIf="submitted && f.prefix.errors" >Atención Requerio</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Telefono</mat-label>
@@ -31,7 +40,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Atención</mat-label>
@@ -40,9 +49,13 @@
                   </mat-form-field>
                 </div>
               </div>
+
+
             </div>
+
+
             <div class="row">
-              <div class="col-sm-8">
+              <div class="col-sm-6">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Calle</mat-label>
@@ -51,7 +64,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Colonia</mat-label>
@@ -60,10 +73,10 @@
                   </mat-form-field>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-sm-4">
+
+
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Municipio</mat-label>
@@ -72,7 +85,9 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-4">
+            </div>
+              <div class="row">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Estado</mat-label>
@@ -81,7 +96,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Ciudad</mat-label>
@@ -90,10 +105,8 @@
                   </mat-form-field>
                 </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Codigo Postal</mat-label>
@@ -102,7 +115,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-sm-4">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
                     <mat-label>Pais</mat-label>
@@ -111,8 +124,9 @@
                   </mat-form-field>
                 </div>
               </div>
-
-              <div class="col-sm-4">
+              </div>
+              <div class="row">
+              <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field #field floatLabel="always" appearance="legacy" >
                     <mat-label>Estatus</mat-label>
@@ -125,8 +139,8 @@
                   </mat-form-field>
                 </div>
               </div>
-
             </div>
+
             <!-- end grid-->
         </nb-card-body>
       </nb-card>

@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { map, Observable, startWith } from 'rxjs';
+import { ResponsePrefix } from '../../../interfaces/ResponsePrefix';
 import { TransportCapacityI } from '../../../interfaces/transport-capacity-i';
 import { TransportLineI } from '../../../interfaces/transport-line-i';
 import { TransportTypeI } from '../../../interfaces/transport-type-i';
@@ -18,6 +19,7 @@ import { TransportType } from '../../../models/transport_type/transport-type';
 import { User } from '../../../models/user/user';
 import { AuthRoleService } from '../../../services/auth/auth-role.service';
 import { CheckListService } from '../../../services/check-list/check-list.service';
+import { ClientService } from '../../../services/client/client.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
@@ -29,11 +31,11 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
 })
 export class CheckListCreateComponent extends CommonListComponent<CheckList, CheckListService> implements OnInit  {
   clients:Client[];
-  transportLines:TransportLine[];
-  transportCapacities:TransportCapacity[];
-  transportTypes:TransportType[];
-  surveillances:User[];
-  responsibles:User[];
+  transportLines:TransportLineI[] = [];
+  transportCapacities:TransportCapacityI[] = [];
+  transportTypes:TransportTypeI[]=[];
+  surveillances:UserI[]=[];
+  responsibles:UserI[]=[];
   processType:ProcessType = new ProcessType(1,true,"in");
   myControl = new FormControl('');
   clientId;
@@ -42,7 +44,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
   actionBtn:String = "Crear";
   isEditable= true;
   status:string;
-
+  prefijo:Client;
   firstFormGroup !: FormGroup;
   secondFormGroup !: FormGroup;
   thirdFormGroup !: FormGroup;
@@ -58,6 +60,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
   constructor(service:CheckListService,router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private _formBuilder:FormBuilder,private authRoleService:AuthRoleService,headService:HeadService,
+    private clientService:ClientService,
     private  dialogRef: MatDialogRef<CheckListCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public editData:any,)
     {
@@ -80,18 +83,28 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
 
   ngOnInit(): void {
+
     this.clientId =  this.headService.getClientLS();
+
+
     this.initForm();
+
     this.getAllTransportLines(this.clientId);
     this.getAllTransportTypes();
-
     this.getResponsibles();
+
     this.rejectForm(this.editData);
     super.paginator;
+
+    this.prefijoClient(this.clientId);
+    this.firstFormGroup.controls['remision'].setValue(this?.prefijo?.name);
   }
 
   //init
   initForm(){
+
+
+
     this.firstFormGroup = this._formBuilder.group({
       remision:['',Validators.required],
       partner :[{ value : this.partner,disabled: true},Validators.required],
@@ -118,6 +131,8 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       observation :[''],
     });
 
+
+
     this.filteredTransportLines = this.secondFormGroup.get("transportLine").valueChanges.pipe(
       startWith(null),
       map(transportLine => (transportLine ? this._filterTransportLine(transportLine) : this.transportLines.slice())),
@@ -139,6 +154,8 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       startWith(null),
       map(user => (user ? this._filterTransportResponsible(user) : this.responsibles.slice())),
     );
+
+
 
   }
   // get Client
@@ -288,16 +305,16 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     // filtered TransportLines
     private _filterTransportLine(value: string): TransportLineI[] {
       console.log("value",value);
-      const filterValue = value.toLowerCase();
+      const filterValue = value.toString().toLowerCase();
 
-      return this.transportLines.filter(transportLine => transportLine.name.toLowerCase().includes(filterValue));
+      return this.transportLines.filter(transportLine => transportLine.name.toString().toLowerCase().includes(filterValue));
     }
     optionSelectedTransportLine(event:TransportLineI){
 
       this.model.transportLine.id = event.id ;
     }
     displayPropertyTransportLine(value) {
-      console.log("**",value)
+
       if (value) {
         return value.name;
       }
@@ -305,9 +322,9 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     //filtered transportypes
     private _filterTransportType(value: string): TransportTypeI[] {
       console.log("value",value);
-      const filterValue = value.toLowerCase();
+      const filterValue = value.toString().toLowerCase();
 
-      return this.transportTypes.filter(transportType => transportType.name.toLowerCase().includes(filterValue));
+      return this.transportTypes.filter(transportType => transportType.name.toString().toLowerCase().includes(filterValue));
     }
 
     optionSelectedTransportType(event:TransportType){
@@ -327,11 +344,11 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
     private _filterTransportCapacity(value: string): TransportCapacityI[] {
       console.log("value",value);
-      const filterValue = value.toLowerCase();
+      const filterValue = value.toString().toLowerCase();
 
       return this.transportCapacities.filter(
-        transportCapacity => transportCapacity.capacity.toLowerCase().includes(filterValue) ||
-        transportCapacity.unity.toLowerCase().includes(filterValue)
+        transportCapacity => transportCapacity.capacity.toString().toLowerCase().includes(filterValue) ||
+        transportCapacity.unity.toString().toLowerCase().includes(filterValue)
         );
     }
 
@@ -349,12 +366,12 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
     private _filterTransportSurveillance(value: string): UserI[] {
       console.log("value",value);
-      const filterValue = value.toLowerCase();
+      const filterValue = value.toString().toLowerCase();
 
       return this.surveillances.filter(
-        user => user.firstName.toLowerCase().includes(filterValue) ||
-        user.lastName.toLowerCase().includes(filterValue) ||
-        user.secondName.toLowerCase().includes(filterValue)
+        user => user.firstName.toString().toLowerCase().includes(filterValue) ||
+        user.lastName.toString().toLowerCase().includes(filterValue) ||
+        user.secondName.toString().toLowerCase().includes(filterValue)
         );
     }
 
@@ -371,12 +388,12 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     // Filtered surveillances
     private _filterTransportResponsible(value: string): UserI[] {
       console.log("value",value);
-      const filterValue = value.toLowerCase();
+      const filterValue = value.toString().toLowerCase();
 
       return this.responsibles.filter(
-        user => user.firstName.toLowerCase().includes(filterValue) ||
-        user.lastName.toLowerCase().includes(filterValue) ||
-        user.secondName.toLowerCase().includes(filterValue)
+        user => user.firstName.toString().toLowerCase().includes(filterValue) ||
+        user.lastName.toString().toLowerCase().includes(filterValue) ||
+        user.secondName.toString().toLowerCase().includes(filterValue)
         );
     }
 
@@ -389,5 +406,14 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
         return value.firstName + ' ' + value.lastName;
       }
     }
+
+    private prefijoClient(clientId){
+      this.clientService.ver(clientId).subscribe(data =>{
+      this.prefijo = data as Client;
+        console.log("this.",this.prefijo);
+      })
+
+    }
+
 
 }

@@ -18,7 +18,7 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
 })
 
 export class UserCreateComponent extends CommonListComponent<UserPost, UserPostService> implements OnInit {
-  professions: ProfessionI[];
+  professions: ProfessionI[] = [];
   userForm !: FormGroup;
   submitted = false;
   actionBtn: String = "Crear";
@@ -38,10 +38,10 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     super(service, router, route, toastrService,headService);
     this.model = new UserPost();
     this.model.profession = new Profession();
-    this.titulo = 'Agregar Clients';
+    this.titulo = 'Agregar Usuario';
 
     this.redirect = '/pages/clients/clientes';
-    this.nombreModel = "Cliente";
+    this.nombreModel = "Usuario";
 
   }
 
@@ -66,9 +66,14 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
 
       this.modelClient(this.userForm);
       super.crear().subscribe(data =>{
+        console.log("data",data)
         if (data){
           this.onReset();
           super.toast("success", "Usuario creado con éxito");
+          this.loading = false;
+        } else {
+
+          console.log("ocurrio un error");
           this.loading = false;
         }
       });
@@ -143,6 +148,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     this.loading = true;
     this.modelClient(this.userForm);
     super.editar().subscribe(data =>{
+
       if (data){
         this.onReset();
         super.toast("success", "Modificado  con éxito");
@@ -191,10 +197,10 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   }
   private _filterProfession(value: string): ProfessionI[] {
     console.log("value",value);
-    const filterValue = value.toLowerCase();
+    const filterValue = value.toString().toLowerCase();
 
     return this.professions.filter(profession =>
-      profession.name.toLowerCase().includes(filterValue)
+      profession.name.toString().toLowerCase().includes(filterValue)
       );
   }
 }

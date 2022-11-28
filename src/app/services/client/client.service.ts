@@ -1,6 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ResponsePrefix } from '../../interfaces/ResponsePrefix';
+
 import { Client } from '../../models/client';
 import { CommonService } from '../commons.service';
 
@@ -32,5 +34,12 @@ public editarConFoto(alumno: Client, archivo: File): Observable<Client>{
  return this.http.put<Client>(`${this.url}/editar-con-foto/${alumno.id}`,
   formData);
 }
+
+
+getClientByPrefix(partnerId:string):Observable<ResponsePrefix>{
+   return this.http.get<ResponsePrefix>(this.url.concat("prefix/",partnerId));
+}
+
+
 
 }

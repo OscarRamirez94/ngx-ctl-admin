@@ -96,6 +96,8 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
       postalCode:['',Validators.required],
       country:['',Validators.required],
       isActive:['',Validators.required],
+      prefix:['',Validators.required],
+
     });
   }
 
@@ -114,6 +116,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
       this.clientForm.controls['postalCode'].setValue(editData.address.postalCode);
       this.clientForm.controls['country'].setValue(editData.address.country);
       this.clientForm.controls['name'].setValue(editData.name);
+      this.clientForm.controls['prefix'].setValue(editData.prefix);
       this.model.id = editData.id;
       this.isChecked = editData.isActive;
     }
@@ -129,6 +132,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
 
   modelClient(clientForm:any) {
     this.model.name = clientForm.get('name').value;
+    this.model.prefix = clientForm.get('prefix').value;
     this.model.isActive = clientForm.get('isActive').value;
     this.model.address.attention = clientForm.get('attention').value;
     this.model.address.city = clientForm.get('city').value;

@@ -92,9 +92,12 @@
             <button mat-icon-button color="primary" (click)="editarClient(element)">
               <mat-icon nbTooltip="Editar Remisión">edit</mat-icon>
             </button>
-            <button mat-icon-button color="warn" (click)="deleteClient(element)" [disabled]="element.status === 'close'">
+            <!--
+              <button mat-icon-button color="warn" (click)="deleteClient(element)" [disabled]="element.status === 'close'">
               <mat-icon nbTooltip="Eliminar Remisión">delete</mat-icon>
-            </button>
+              </button>
+            -->
+
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

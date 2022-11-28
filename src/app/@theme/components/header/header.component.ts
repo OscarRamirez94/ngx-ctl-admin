@@ -196,10 +196,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private _filterClient(value: string): ClientI[] {
     console.log("value",value);
-    const filterValue = value.toLowerCase();
+    const filterValue = value.toString().toLowerCase();
 
     return this.clients.filter(client =>
-      client.name.toLowerCase().includes(filterValue)
+      client.name.toString().toLowerCase().includes(filterValue)
       );
   }
 }
