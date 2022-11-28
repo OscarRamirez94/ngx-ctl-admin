@@ -4,6 +4,6 @@ export interface ClientI  {
   id: number ;
   name:string;
   isActive:boolean;
-  prefix:string;
+
 
 }

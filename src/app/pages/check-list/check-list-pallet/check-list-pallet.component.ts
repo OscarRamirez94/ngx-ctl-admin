@@ -34,7 +34,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
   name: string;
   titulo:string = "Pallets";
-  displayedColumns: string[] = ['noPallet','name','code','ua','amount','um','lote','expiration','actions'];
+  displayedColumns: string[] = ['name','code','ua','amount','um','lote','expiration','ubication','actions'];
   id:any;
 
   submitted = false;
@@ -176,6 +176,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     pallettoDto.um = x.um;
     pallettoDto.codigo =x.codigo;
     pallettoDto.product = x.producto;
+    pallettoDto.ubication =  x.ubication;
     return pallettoDto;
 
   }
@@ -192,6 +193,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
           um: ['',Validators.required],
           ua: ['',[RxwebValidators.unique(),Validators.required]],
           expiration: item.expiration,
+          ubication: ['',[]],
         }));
     })
 
@@ -222,7 +224,7 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
       pallet.expiration = null;
       pallet.um = null;
       pallet.ua = null;
-
+      pallet.ubication = null;
       this.attachmentArP.push(pallet);
     }
     this.addCreds();

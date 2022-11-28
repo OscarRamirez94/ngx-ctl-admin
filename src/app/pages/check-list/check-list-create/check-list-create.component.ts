@@ -4,7 +4,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { map, Observable, startWith } from 'rxjs';
-import { ResponsePrefix } from '../../../interfaces/ResponsePrefix';
 import { TransportCapacityI } from '../../../interfaces/transport-capacity-i';
 import { TransportLineI } from '../../../interfaces/transport-line-i';
 import { TransportTypeI } from '../../../interfaces/transport-type-i';
@@ -74,7 +73,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       this.transportCapacities = [];
       this.titulo = 'Agregar Clients';
       this.redirect = '/pages/clients/clientes';
-      this.nombreModel = "Check List";
+      this.nombreModel = "Registro";
     }
 
   get f() { return this.firstFormGroup.controls; }
@@ -96,8 +95,6 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     this.rejectForm(this.editData);
     super.paginator;
 
-    this.prefijoClient(this.clientId);
-    this.firstFormGroup.controls['remision'].setValue(this?.prefijo?.name);
   }
 
   //init
@@ -124,7 +121,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       responsible:['',Validators.required],
       noSello:['',Validators.required],
       noRampa :['',Validators.required],
-      ubication :['',Validators.required],
+
     });
 
     this.thirdFormGroup = this._formBuilder.group({
@@ -247,7 +244,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     this.model.noSello = secondFormGroup.get('noSello').value;
     this.model.operator = secondFormGroup.get('operator').value;
     this.model.noRampa = secondFormGroup.get('noRampa').value;
-    this.model.ubication = secondFormGroup.get('ubication').value;
+
     this.model.observation = thirdFormGroup.get('observation').value;
   }
 
@@ -281,7 +278,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       this.secondFormGroup.controls['surveillance'].setValue(editData.surveillance);
       this.secondFormGroup.controls['responsible'].setValue(editData.responsible);
       this.secondFormGroup.controls['noRampa'].setValue(editData.noRampa);
-      this.secondFormGroup.controls['ubication'].setValue(editData.ubication);
+
       this.thirdFormGroup.controls['observation'].setValue(editData.observation);
       this.model.id = editData.id;
 
@@ -407,13 +404,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       }
     }
 
-    private prefijoClient(clientId){
-      this.clientService.ver(clientId).subscribe(data =>{
-      this.prefijo = data as Client;
-        console.log("this.",this.prefijo);
-      })
 
-    }
 
 
 }

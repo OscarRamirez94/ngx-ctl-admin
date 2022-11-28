@@ -25,7 +25,7 @@ export class CheckListMainComponent extends CommonListCheckComponent<CheckList,C
   }
   name: string;
   processTypeId:string ="1";
-  titulo:string = "CheckList";
+  titulo:string = "Entrada";
   displayedColumns: string[] = ["#",'remision','date','transportLine','transportType','ubication','noSello','status','pallets','stock','actions' ];
   clientName =  this.headService.getClientLS();
   constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
@@ -33,7 +33,7 @@ export class CheckListMainComponent extends CommonListCheckComponent<CheckList,C
     headService:HeadService) {
     super(service,router, route,toastrService,headService);
     this.redirect = '/pages/clients/clientes';
-    this.nombreModel = "CheckList";
+    this.nombreModel = "Entrada";
   }
 
   openDialog(): void {

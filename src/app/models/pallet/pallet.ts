@@ -20,4 +20,5 @@ export class Pallet implements Generic {
   ua:string;
   checkOut:CheckOut;
   checkList:CheckList;
+  ubication:string;
 }

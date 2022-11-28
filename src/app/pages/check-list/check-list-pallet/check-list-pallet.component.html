@@ -162,7 +162,7 @@
                       <mat-error *ngIf="creds.controls.amount.errors?.numeric">Valor numerico  </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
                       <mat-label>UM</mat-label>
                       <input type="text"
@@ -221,6 +221,14 @@
 
                 </div>
                 -->
+
+                <div class="col-sm-1">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Ubicacion</mat-label>
+                    <input matInput type="text"  formControlName="ubication">
+                  </mat-form-field>
+              </div>
+
                 <div class="col-sm-1">
                   <button mat-icon-button color="warn" (click)="deleteItem(i)">
                     <mat-icon>delete</mat-icon>
@@ -282,10 +290,7 @@
             <div class="mat-elevation-z8">
               <table mat-table [dataSource]="dataSource" matSort (matSortChange)="sortData($event)" >
                 <!-- Name Column -->
-                <ng-container matColumnDef="noPallet" class="make-gold">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header > NO.PALLET </th>
-                  <td mat-cell *matCellDef="let element"> {{dataSource.filteredData.indexOf(element) +1}}  </td>
-                </ng-container>
+
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header > PRODUCTO </th>
                   <td mat-cell *matCellDef="let element"> {{element.product.name}}  </td>
@@ -313,6 +318,10 @@
                 <ng-container matColumnDef="expiration">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header > CADUCIDAD </th>
                   <td mat-cell *matCellDef="let element"> {{element.expiration}} </td>
+                </ng-container>
+                <ng-container matColumnDef="ubication">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header > UBICACION </th>
+                  <td mat-cell *matCellDef="let element"> {{element.ubication}} </td>
                 </ng-container>
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell *matHeaderCellDef > ACCIONES </th>

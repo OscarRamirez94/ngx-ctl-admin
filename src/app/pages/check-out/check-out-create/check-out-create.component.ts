@@ -70,9 +70,9 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
       this.model.surveillance = new User();
       this.model.responsible = new User();
       this.transportCapacities = [];
-      this.titulo = 'Agregar Clients';
+      this.titulo = 'Agregar Salida';
       this.redirect = '/pages/clients/clientes';
-      this.nombreModel = "Check List";
+      this.nombreModel = "Registro";
     }
 
   get f() { return this.firstFormGroup.controls; }

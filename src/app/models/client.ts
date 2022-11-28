@@ -7,5 +7,4 @@ export class Client implements Generic {
   isActive:boolean;
   search :string;
   address :Address;
-  prefix:string;
 }

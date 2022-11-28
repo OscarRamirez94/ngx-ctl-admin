@@ -33,17 +33,17 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
 */
   {
-    title: 'Check List',
+    title: 'Registros',
     icon: 'book-open-outline',
 
     children: [
       {
-        title: 'Check In',
+        title: 'Entradas',
         icon: 'person-done-outline',
         link: '/pages/checklist/checklist',
       },
       {
-        title: 'Chek Out',
+        title: 'Salidas',
         icon: 'person-done-outline',
         link: '/pages/checkout/checkout',
       },

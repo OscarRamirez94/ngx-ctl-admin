@@ -1,8 +1,8 @@
 
 <section>
   <nb-card status="primary">
-    <nb-card-header>CheckList
-      <nb-badge text="Check-in" status="success" style="position: relative;"></nb-badge>
+    <nb-card-header>Registros
+      <nb-badge text="Entrada" status="success" style="position: relative;"></nb-badge>
     </nb-card-header>
     <nb-card-body>
     <mat-dialog-content>
@@ -48,8 +48,6 @@
                 </div>
               </div>
   -->
-  {{prefijo?.prefix}}
-
               <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
@@ -289,21 +287,6 @@
                 </div>
               </div>
               </div>
-
-            <div class="row">
-
-              <div class="col-sm-3">
-                <div class="form-group">
-                  <mat-form-field appearance="legacy">
-                    <mat-label>Ubicación</mat-label>
-                    <input matInput  formControlName="ubication" placeholder="Digita Ubicación"
-                    [ngClass]="{ 'is-invalid': submitted && f2.ubication.errors }">
-                    <mat-error *ngIf="submitted && f2.ubication.errors" >Campo Requerido</mat-error>
-                    </mat-form-field>
-                </div>
-              </div>
-            </div>
-
                 <mat-dialog-actions align="end">
                   <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
                   <button nbButton hero shape="semi-round" size="small" status="primary"  matStepperNext>Siguiente</button>

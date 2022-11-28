@@ -31,6 +31,5 @@ export class CheckList implements Generic{
     pallets: Pallet[];
     status:string;
     stock:string;
-    ubication:String;
     user: User;
 }

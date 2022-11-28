@@ -50,6 +50,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     this.setForm();
     this.rejectForm(this.editData);
     super.paginator;
+    this.showUsername();
   }
 
   get f() { return this.userForm.controls; }
@@ -110,6 +111,10 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       startWith(null),
       map(profession => (profession ? this._filterProfession(profession) : this.professions.slice())),
     );
+
+
+
+
   }
 
   rejectForm(editData: UserPost) {
@@ -202,5 +207,18 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     return this.professions.filter(profession =>
       profession.name.toString().toLowerCase().includes(filterValue)
       );
+  }
+
+  showUsername(){
+
+    this.userForm.get('email').valueChanges.subscribe(data =>{
+
+    let arry = data.split("@");
+    let username = arry[0].replace(".","-");
+
+    this.userForm.controls['username'].setValue(username);
+
+    })
+
   }
 }

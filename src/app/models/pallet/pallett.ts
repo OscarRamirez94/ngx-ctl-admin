@@ -18,4 +18,5 @@ export class Pallett implements Generic {
   producto:string;
   ua:string;
   checkOut:CheckOut;
+  ubication:string;
 }

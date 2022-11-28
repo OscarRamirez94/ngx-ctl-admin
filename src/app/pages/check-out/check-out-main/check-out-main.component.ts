@@ -26,7 +26,7 @@ export class CheckOutMainComponent extends CommonListCheckComponent<CheckOut,Che
 
   processTypeId:string ="2";
   name: string;
-  titulo:string = "CheckOut";
+  titulo:string = "Salida";
   displayedColumns: string[] = ['remision','date','transportLine','transportType','noSello','status','pallets','actions' ];
   clientName =  this.headService.getClientLS();
   constructor( service:CheckOutService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
@@ -34,7 +34,7 @@ export class CheckOutMainComponent extends CommonListCheckComponent<CheckOut,Che
     headService:HeadService) {
     super(service,router, route,toastrService,headService);
     this.redirect = '/pages/clients/clientes';
-    this.nombreModel = "CheckOut";
+    this.nombreModel = "Salida";
   }
 
   openDialog(): void {

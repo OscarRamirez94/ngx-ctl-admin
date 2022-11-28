@@ -26,7 +26,7 @@ export class CheckListDeleteComponent extends CommonListComponent<CheckList, Che
       this.titulo = 'Eliminar Remision';
       this.model = new CheckList();
       this.redirect = '/pages/clients/clientes';
-      this.nombreModel = "CheckList";
+      this.nombreModel = "Registro";
     }
 
   ngOnInit(): void {
