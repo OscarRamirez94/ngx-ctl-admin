@@ -17,7 +17,7 @@ import { CheckOutDeleteComponent } from '../check-out-delete/check-out-delete.co
   templateUrl: './check-out-main.component.html',
   styleUrls: ['./check-out-main.component.scss']
 })
-export class CheckOutMainComponent extends CommonListCheckComponent<CheckOut,CheckOutService> {
+export class CheckOutMainComponent  extends CommonListCheckComponent<CheckOut,CheckOutService> {
   hidden = false;
 
   toggleBadgeVisibility() {
@@ -27,7 +27,7 @@ export class CheckOutMainComponent extends CommonListCheckComponent<CheckOut,Che
   processTypeId:string ="2";
   name: string;
   titulo:string = "Salida";
-  displayedColumns: string[] = ['remision','date','transportLine','transportType','noSello','status','pallets','actions' ];
+  displayedColumns: string[] = ['remision','date','transportLine','transportType','noSello','status','actions' ];
   clientName =  this.headService.getClientLS();
   constructor( service:CheckOutService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,

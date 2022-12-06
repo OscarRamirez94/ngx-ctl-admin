@@ -42,6 +42,7 @@ import { CheckListPalletDeleteComponent } from './check-list-pallet-delete/check
 import {MatBadgeModule} from '@angular/material/badge';
 import { CheckListDeleteComponent } from './check-list-delete/check-list-delete.component';
 import { CheckListPalletValidateComponent } from './check-list-pallet-validate/check-list-pallet-validate.component';
+import { CheckListPalletCloseComponent } from './check-list-pallet-close/check-list-pallet-close.component';
 @NgModule({
   declarations: [
     CheckListComponent,
@@ -52,6 +53,7 @@ import { CheckListPalletValidateComponent } from './check-list-pallet-validate/c
     CheckListPalletDeleteComponent,
     CheckListDeleteComponent,
     CheckListPalletValidateComponent,
+    CheckListPalletCloseComponent,
 
   ],
   imports: [

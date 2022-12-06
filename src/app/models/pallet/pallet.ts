@@ -21,4 +21,5 @@ export class Pallet implements Generic {
   checkOut:CheckOut;
   checkList:CheckList;
   ubication:string;
+  amountStock:number;
 }

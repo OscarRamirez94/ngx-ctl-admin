@@ -14,13 +14,21 @@ import { CommonService } from '../../../services/commons.service';
 import { HeadService } from '../../../services/head/head.service';
 
 @Directive()
-export abstract class CommonListPalletComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
+export abstract class  CommonListPalletComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
 
+  // disponibles
   @ViewChild(MatPaginator)
    paginator :MatPaginator;
 
   @ViewChild(MatSort)
   sort: MatSort;
+
+  // registrados
+  @ViewChild(MatPaginator)
+  paginatorRegistered :MatPaginator;
+
+  @ViewChild(MatSort)
+  sortRegistered: MatSort;
 
   titulo: string;
   model: E;
@@ -30,7 +38,8 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
   loading :boolean = false;
   processTypeId:string;
   sortedData: Object[];
-  // config pagination
+
+  // config pagination disponibles
   totalRegistros=0;
   paginaActual = 0;
   totalPorPagina = 22;
@@ -46,23 +55,44 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
   dataSource: MatTableDataSource<PalletI>;
   selection = new SelectionModel<PalletI>(true, []);
   map = new Map();
+  checkOutId:number;
+
+  totalRegistrosRegistered=0;
+  paginaActualRegistered = 0;
+  totalPorPaginaRegistered = 22;
+  orderByRegistered ="ASC";
+  columnRegistered ="date";
+  pageSizeOptionsRegistered = [22, 44, 66,100];
+  filterValueRegistered ="";
+  listaRegistered: PalletI[];
+  dataSourceRegistered: MatTableDataSource<PalletI>;
+
   constructor(protected service:S,protected router: Router,
     protected route: ActivatedRoute,
     protected toastrService: NbToastrService,
     protected headService:HeadService) {
+    // disponibles
     this.dataSource = new MatTableDataSource(this.lista);
     this.dataSource.paginator = this.paginator;
 
+    // registered
+
+    this.dataSourceRegistered = new MatTableDataSource(this.listaRegistered);
+    this.dataSourceRegistered.paginator = this.paginatorRegistered;
   }
 
   ngOnInit(): void {
-
+  console.log('checkOutId',this.checkOutId)
   this.clientName =  this.headService.getClientLS();
   this.calculateRange();
+  //refistered
+  this.calculateRangeRegistered();
 
   this.headService.disparadorClient.subscribe(data =>{
     this.clientName =  data;
     this.calculateRange();
+    //refistered
+    this.calculateRangeRegistered();
    })
   }
 
@@ -70,14 +100,26 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
+    //refistered
+    this.dataSourceRegistered.paginator = this.paginatorRegistered;
+    this.dataSourceRegistered.sort = this.sortRegistered;
+
   }
 
+  // disponibles
   paginar(event:PageEvent) :void{
     this.paginaActual = event.pageIndex;
     this.totalPorPagina = event.pageSize;
     this.calculateRange();
   }
+  // registered
+  paginarRegistered(event:PageEvent) :void{
+    this.paginaActualRegistered = event.pageIndex;
+    this.totalPorPaginaRegistered = event.pageSize;
+    this.calculateRangeRegistered();
+  }
 
+  //DISPONIBLES
   public calculateRange(){
     this.selection.clear();
     this.loading = true;
@@ -96,14 +138,38 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-      console.log(this.dataSource.data);
+      console.log("LISTA -DISPONIBLES", this.lista);
       this.loading = false;
 
     });
-
-
   }
 
+    //Registered
+    public calculateRangeRegistered(){
+
+      this.loading = true;
+      const search: SearchCriteriaClient = new SearchCriteriaClient();
+      search.pageNumber = this.paginaActualRegistered;
+      search.pageSize = this.totalPorPaginaRegistered;
+      search.searchBy =this.filterValueRegistered;
+      search.sortBy=this.columnRegistered;
+      search.sortDirection =this.orderByRegistered;
+
+
+      this.service.getFilterCriteriaClientOutRegistered(search,this.clientName,this.checkOutId)
+      .subscribe(paginator => {
+        console.log(paginator.totalElements)
+        this.listaRegistered = paginator.content as PalletI[];
+        this.totalRegistrosRegistered = paginator.totalElements as number;
+        this.paginatorRegistered._intl.itemsPerPageLabel ="Registros";
+        this.dataSourceRegistered = new MatTableDataSource(this.listaRegistered);
+        console.log(this.dataSourceRegistered.data);
+        this.loading = false;
+        console.log("LISTA -REGISTRADOS", this.listaRegistered);
+      });
+    }
+
+  // disponibles
   applyFilter(event: Event) {
     const fil:string  = (event.target as HTMLInputElement).value;
     if(fil !==null && fil !== ''){
@@ -118,6 +184,7 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
     this.calculateRange();
   }
 
+  // disponibles
   sortData(sort: Sort) {
     if (!sort.active || sort.direction === '') {
       this.calculateRange();
@@ -133,6 +200,40 @@ export abstract class CommonListPalletComponent<E extends Generic, S extends Com
       this.column = sort.active;
 
     this.calculateRange();
+    }
+  }
+
+  // registered
+
+  applyFilterRegistered(event: Event) {
+    const fil:string  = (event.target as HTMLInputElement).value;
+    if(fil !==null && fil !== ''){
+        this.filterValueRegistered = fil;
+
+    } else{
+        this.filterValueRegistered ="";
+
+    }
+
+    this.paginaActualRegistered = 0;
+    this.calculateRangeRegistered();
+  }
+  //registered
+  sortDataRegisted(sort: Sort) {
+    if (!sort.active || sort.direction === '') {
+      this.calculateRangeRegistered();
+    } else {
+
+      if (sort.direction == "asc"){
+        this.orderByRegistered = "ASC";
+      }
+
+      if (sort.direction == "desc") {
+        this.orderByRegistered ="DESC";
+      }
+      this.columnRegistered = sort.active;
+
+      this.calculateRangeRegistered();
     }
   }
 

@@ -5,6 +5,7 @@ import { TransportLine } from "../transport-line/transport-line";
 import { User } from "../user/user";
 import { TransportCapacity } from "../transport_capacity/transport-capacity";
 import { Pallet } from "../pallet/pallet";
+import { CheckOutDetail } from "../check-out-detail/check-out-detail";
 
 
 export class CheckOut implements Generic{
@@ -31,4 +32,5 @@ export class CheckOut implements Generic{
   status:string;
   noSello2 : String;
   user: User;
+  checkOutDetails:CheckOutDetail[];
 }

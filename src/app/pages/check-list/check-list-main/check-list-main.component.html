@@ -50,16 +50,11 @@
       </ng-container>
 
 
-      <ng-container matColumnDef="ubication">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header >UBICACIÓN</th>
-        <td mat-cell *matCellDef="let element">{{element.ubication}}</td>
-      </ng-container>
-
       <ng-container matColumnDef="stock">
         <th mat-header-cell *matHeaderCellDef mat-sort-header >STOCK</th>
         <td mat-cell *matCellDef="let element">
-          <nb-badge text="LIBERADOS" status="primary" size="medium" style="position:static;" *ngIf="element.stock ==='LIBERADOS'"></nb-badge>
-          <nb-badge text="DiPONIBLES" status="danger"  size="medium" style="position:static;" *ngIf="element.stock ==='DISPONIBLES'"></nb-badge>
+          <nb-badge text="{{element.stock}} / {{element.stockRegistered}}"  status="primary" size="medium" style="position:static;" *ngIf="element.stock !=null" ></nb-badge>
+
           <nb-badge text="N/A" status="warning"  size="medium" style="position:static;" *ngIf="element.stock ===null"></nb-badge>
         </td>
       </ng-container>
@@ -69,6 +64,7 @@
         <td mat-cell *matCellDef="let element">
           <nb-badge text="Total {{element.pallets.length}}"   status="success"  style="position:static;">
           </nb-badge>
+
         </td>
       </ng-container>
 

@@ -68,8 +68,8 @@ public savePallets(palletSave:PalletSave): Observable<any> {
 }
 
 
-updateStatus(palletSave:any): Observable<any> {
-  return this.http.put<any>(`${this.url + 'status/'}${palletSave.id}`, palletSave);
+updateStatus(checkListId:any): Observable<any> {
+  return this.http.put<any>(this.url.concat("status/",checkListId),null);
 }
 
 

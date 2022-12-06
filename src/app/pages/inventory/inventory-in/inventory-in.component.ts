@@ -20,7 +20,7 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
   actionBtn:String = "Buscar";
   name: string;
   titulo: string = "OUT";
-  displayedColumns: string[] = ['remision','transportLine','date','name','code','ua','amount','um','lote','expiration','out'];
+  displayedColumns: string[] = ['remision','transportLine','date','name','code','ua','amount','um','lote','expiration'];
   clientName =  this.headService.getClientLS();
   option:string ="TODOS";
   filterBy:string =  "TODOS";
@@ -37,8 +37,7 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
   }
 
 
-  viewRemision(checkListId:number,status:string): void {
-    //this.router.navigate(['pages/checklist/pallet-main/' + element.id]);
+  viewRemisionEntrada(checkListId:number,status:string): void {
     this.router.navigate(['pages/checklist/pallet-main/' + checkListId + '/' + status]);
   }
 

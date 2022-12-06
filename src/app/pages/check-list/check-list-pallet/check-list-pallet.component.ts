@@ -21,8 +21,10 @@ import { PalletService } from '../../../services/pallet/pallet.service';
 import { ProductService } from '../../../services/product/product.service';
 import { UnityService } from '../../../services/unity/unity.service';
 import { CommonListIdComponent } from '../../commons/common-list/common-list-id.component';
+import { CheckListPalletCloseComponent } from '../check-list-pallet-close/check-list-pallet-close.component';
 import { CheckListPalletCreateComponent } from '../check-list-pallet-create/check-list-pallet-create.component';
 import { CheckListPalletDeleteComponent } from '../check-list-pallet-delete/check-list-pallet-delete.component';
+import { CheckListPalletValidateComponent } from '../check-list-pallet-validate/check-list-pallet-validate.component';
 
 
 @Component({
@@ -30,11 +32,11 @@ import { CheckListPalletDeleteComponent } from '../check-list-pallet-delete/chec
   templateUrl: './check-list-pallet.component.html',
   styleUrls: ['./check-list-pallet.component.scss'],
 })
-export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,PalletService> implements OnInit   {
+export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,PalletService> implements OnInit   {
 
   name: string;
   titulo:string = "Pallets";
-  displayedColumns: string[] = ['name','code','ua','amount','um','lote','expiration','ubication','actions'];
+  displayedColumns: string[] = ['name','code','ua','amount','amountStock','um','lote','expiration','ubication','actions'];
   id:any;
 
   submitted = false;
@@ -48,8 +50,6 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   disabledTemplate="true";
   form: FormGroup;
   formTemplate: FormGroup;
-
-
   unities:Unity[] = [];
   products:ProductoI[] = [];
   code:string;
@@ -62,8 +62,8 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
   status;
   step = 0;
   registrado:string;
-
   filteredProducto: Observable<ProductoI[]>;
+
 
   constructor( service:PalletService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,
@@ -136,9 +136,9 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
     this.form.value['items'].map(x => palletSave.palletsDTO.push(this.addDTO(x)));
 
     console.log("datos a guardar", palletSave)
-    this.palletService.crear(palletSave).subscribe(data=>{
-
-
+    this.palletService.crear(palletSave).subscribe({
+      next: (data) =>{
+      console.log("data0",data)
       super.paginator;
       super.calculateRange();
       this.calculaTotales();
@@ -151,18 +151,26 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
 
       if (this.response.totalRegistered>0){
         super.toast("success","Se Agregaron: "+ this.response.totalRegistered + "/" + total +" con éxito");
-
+        this.closedRemision(this.checkList.remision,this.checkList.id);
+        console.log("this.remision",this.checkList.remision);
       }
       if (this.response.totalDuplicated>0){
         super.toast("danger","Se encontraron: "+ this.response.totalDuplicated + "/"+ total + " duplicados");
 
       }
+      },
+      error: (e) =>{
+        super.toast("danger","Ocurrio un error");
+      },
+      complete: () =>{
+        this.limpiarPallets();
+
+      }
     });
 
-    this.limpiarPallets();
-
-
   }
+
+
 
   addDTO(x:any):Pallet{
     console.log("x", x)
@@ -352,7 +360,30 @@ export class CheckListPalletComponent  extends CommonListIdComponent<Pallet,Pall
       });
   }
 
+  closedRemision(element:any,checkListId:any){
+    console.log('{} {}',element,checkListId)
+    this.dialog.open(CheckListPalletCloseComponent,{
 
+      data: element
+    }).afterClosed().subscribe({
+      next: (data) =>{
+        if (data){
+          this.checkListService.updateStatus(this.id).subscribe(data =>{
+            console.log(data, "status");
+            super.toast("success","Se finalizó la remision con éxito: " + element)
+            super.calculateRange();
+            this.checkList = data as CheckList;
+          });
+        }
+      },
+      error: (e) =>{
+        super.toast("danger","Ocurrio un error");
+      },
+      complete: () =>{
+        this.limpiarPallets();
 
+      }
+    });
+
+  }
 }
-

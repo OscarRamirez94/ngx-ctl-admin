@@ -1,26 +1,25 @@
-import { SelectionModel } from '@angular/cdk/collections';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { json } from '@rxweb/reactive-form-validators';
+import { NumericValueType, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { map, Observable, startWith } from 'rxjs';
-import { PalletI } from '../../../interfaces/pallet-i';
 import { ProductoI } from '../../../interfaces/product-i';
 import { TransportLineI } from '../../../interfaces/transport-line-i';
-import { CheckOutSave } from '../../../models/check-out/CheckOutSave';
+import { CheckOutDetail } from '../../../models/check-out-detail/check-out-detail';
+import { CheckOutDetailForm } from '../../../models/check-out-detail/check-out-detail-form';
+import { CheckOut } from '../../../models/check-out/check-out';
 import { Pallet } from '../../../models/pallet/pallet';
-import { Product } from '../../../models/product/product';
-import { TransportLine } from '../../../models/transport-line/transport-line';
+import { CheckOutDeatailService } from '../../../services/check-out-detail/check-out-detail.service';
 import { HeadService } from '../../../services/head/head.service';
 import { PalletService } from '../../../services/pallet/pallet.service';
 import { ProductService } from '../../../services/product/product.service';
 import { ReportService } from '../../../services/report/report.service';
 import { TransportLineService } from '../../../services/transport-line/transport-line.service';
-import { CommonListCheckComponent } from '../../commons/common-list/common-list.component-check';
-import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
 import { CommonListPalletComponent } from '../../commons/common-list/common-list.component-pallet';
+import { CheckOutDetailDeleteComponent } from '../check-out-detail-delete/check-out-detail-delete.component';
+import { CheckOutDetailComponent } from '../check-out-detail/check-out-detail.component';
 import { CheckOutPalletComponent } from '../check-out-pallet/check-out-pallet.component';
 
 @Component({
@@ -30,8 +29,11 @@ import { CheckOutPalletComponent } from '../check-out-pallet/check-out-pallet.co
 })
 export class CheckOutPalletTestComponent extends CommonListPalletComponent<Pallet, PalletService> implements OnInit  {
   searchForm !: FormGroup;
+  detailForm !: FormGroup;
+  attachmentArP:CheckOutDetailForm[] = [];
   submitted = false;
   loading = false;
+  disables = true;
   fechaVisible:boolean=false;
   remisionVisible:boolean=false;
   transportLineVisible:boolean=false;
@@ -53,13 +55,19 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   titulo: string = "OUT";
   option:string ="TODOS";
   filterBy:string =  "TODOS";
-  checkOutdId:number;
+  checkOutId:number;
   checkOutRemision:string;
-  displayedColumns: string[] = ['select','id','remision','transportLine','date','name','code','ua','amount','um','lote','expiration'];
+  displayedColumns: string[] = ['select','id','remision','transportLine','date',
+  'name','code','ua','amount','amountStock','um','lote','expiration','actions'];
+
+
+  displayedColumnsRegistered: string[] =  ['remision','transportLine','name','code','amount','stock','ua','um','lote'];
+
+  checkOutDetail:CheckOutDetail[] = [];
 
   constructor(
     service: PalletService, router: Router, route: ActivatedRoute,private dialog: MatDialog, toastrService: NbToastrService,
-    private formBuilder: FormBuilder,private reportService:ReportService,headService:HeadService,
+    private formBuilder: FormBuilder,private reportService:ReportService,headService:HeadService,private detailService:CheckOutDeatailService,
     private transportLineService:TransportLineService,private productService:ProductService) {
       super(service, router, route, toastrService,headService);
      }
@@ -67,13 +75,14 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
 
 
   ngOnInit(): void {
-    this.checkOutdId  = +this.route.snapshot.paramMap.get("id");
+    this.checkOutId  = +this.route.snapshot.paramMap.get("id");
     this.checkOutRemision = this.route.snapshot.paramMap.get("remision");
 
     this.setForm();
     this.getTransportLines();
     this.getListProduct();
     super.ngOnInit();
+
   }
   get f() { return this.searchForm.controls; }
 
@@ -376,7 +385,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
     this.map = new Map()
     var result = this.selection.selected.map(ar => (
     {
-      checkOutId: this.checkOutdId,
+      checkOutId: this.checkOutId,
       checkListId: ar.checkList.id,
       checkOutRemision: this.checkOutRemision,
       remisionIn: ar.checkList.remision,
@@ -410,5 +419,154 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
     this.option = "TODOS";
     this.calculateRange();
     this.loading = false;
+    this.detailForm.reset;
+    this.attachmentArP = [];
+  }
+
+  salidaPallet(element :any){
+
+    const dialogRef = this.dialog.open(CheckOutDetailComponent, {
+
+    data:[element,this.checkOutId]
+    }).afterClosed().subscribe(data =>{
+      if (data) {
+
+        super.calculateRange();
+        super.calculateRangeRegistered();
+        super.toast("success","Se agregaron correctamente pallets a la remision: " + this.checkOutRemision);
+      }
+    });
+  }
+
+  eliminarPallet(detailId:number,palletId:number){
+
+    const dialogRef = this.dialog.open(CheckOutDetailDeleteComponent, {
+
+    data:[detailId,palletId]
+    }).afterClosed().subscribe(data =>{
+      if (data) {
+
+        super.calculateRange();
+        super.calculateRangeRegistered();
+        super.toast("success","Se Elimino correctamente el pallet a la remision: " + this.checkOutRemision);
+      }
+    });
+  }
+
+generarFormulario(){
+    this.initDetailForm();
+    this.selection.selected.map(ar => this.pushForm(ar));
+    this.addCreds();
+}
+
+limpiarDeatail(){
+  this.attachmentArP = [];
+  this.detailForm.reset();
+}
+
+pushForm(ar:any){
+  let checkOutDetail:CheckOutDetailForm = new CheckOutDetailForm();
+  let pallet:Pallet = new Pallet();
+  pallet = ar;
+
+  checkOutDetail.amount = ar.amount;
+  checkOutDetail.checkOutId =  this.checkOutId;
+  checkOutDetail.pallet =  pallet;
+
+
+  console.log("checkoutDetail",checkOutDetail);
+
+  this.attachmentArP.push(checkOutDetail);
+  console.info("checkout size",this.attachmentArP.length);
+}
+  initDetailForm(){
+    this.attachmentArP = [];
+    this.searchForm.reset();
+    this.detailForm = this.formBuilder.group({
+      items: this.formBuilder.array([])
+    })
+  }
+
+  addCreds() {
+    const formArray = this.detailForm.controls.items as FormArray;
+    console.log("***",formArray.value);
+
+    this.attachmentArP.forEach((item) => {
+      formArray.push(this.formBuilder.group({
+
+          remision: [item.pallet.checkList.remision,[Validators.required]],
+          producto: [item.pallet.product.name,[Validators.required]],
+          licencia: [item.pallet.ua,[Validators.required]],
+          date: [item.pallet.checkList.date,[Validators.required]],
+          amount: [item.pallet.amountStock,
+            [
+              RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:false }),
+              RxwebValidators.required(),
+              RxwebValidators.maxNumber({value:item.pallet.amountStock })
+            ]
+
+          ],
+          checkListId: [item.pallet.checkList.id,Validators.required],
+          checkOutId: [item.checkOutId,Validators.required],
+          palletId :[item.pallet.id,Validators.required],
+        }));
+    })
+
+  }
+
+  removeItem(i:any){
+    const add = <FormArray>this.detailForm.controls.items;
+    const palletId =add.at(i).get("palletId").value;
+    add.removeAt(i)
+    this.attachmentArP =  this.attachmentArP.filter(detail =>{
+      return detail.pallet.id != palletId;
+    })
+  }
+
+  onSubmitDetail(){
+    console.log("console",this.detailForm.value);
+      // stop here if form is invalid
+      if (this.detailForm.invalid) {
+          return;
+      }
+      console.log("true")
+      this.detailForm.value['items'].map(x => this.checkOutDetail.push(this.addDTO(x)));
+      console.log("data a guardar", this.checkOutDetail);
+
+      this.detailService.crear(this.checkOutDetail).subscribe({
+        next: (v) =>{
+          this.onResetDetail();
+          this.limpiar()
+        },
+        error: (e) =>{
+          console.error("error",e.error.status)
+          this.toast("Error", "Ocurrio un error");
+        },
+        complete: () => console.info("complete")
+      });
+
+  }
+
+  addDTO(checkOutDetailForm:any ){
+    let pallet:Pallet = new Pallet();
+    let checkout:CheckOut= new CheckOut();
+
+    pallet.id =   checkOutDetailForm.palletId;
+    checkout.id = checkOutDetailForm.checkOutId;
+
+    let checkOutDetail:CheckOutDetail= new CheckOutDetail();
+    checkOutDetail.amount = checkOutDetailForm.amount;
+    checkOutDetail.checkOut = checkout;
+    checkOutDetail.pallet = pallet;
+    checkOutDetail.checkListId =checkOutDetailForm.checkListId;
+    return checkOutDetail;
+
+  }
+
+  onResetDetail(){
+    this.detailForm.reset();
+    this.attachmentArP =[];
+    this.checkOutDetail =[];
+    this.calculateRangeRegistered();
   }
 }

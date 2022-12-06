@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../../guards/auth-guard.service';
+import { HeadClientGuard } from '../../guards/head-client.guard';
 import { CheckOutMainComponent } from './check-out-main/check-out-main.component';
 import { CheckOutPalletTestComponent } from './check-out-pallet-test/check-out-pallet-test.component';
 import { CheckOutPalletViewComponent } from './check-out-pallet-view/check-out-pallet-view.component';
@@ -10,6 +12,7 @@ const routes: Routes = [
   {
     path: '',
     component: CheckOutComponent,
+    canActivate: [AuthGuard,HeadClientGuard],
     children: [
       {
         path: 'checkout',

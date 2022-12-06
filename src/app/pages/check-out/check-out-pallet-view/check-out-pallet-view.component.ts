@@ -7,22 +7,26 @@ import { CheckOut } from '../../../models/check-out/check-out';
 import { CheckOutService } from '../../../services/check-out/check-out.service';
 import { ReportService } from '../../../services/report/report.service';
 import { saveAs } from 'file-saver';
+import { NbToastrService } from '@nebular/theme';
 @Component({
   selector: 'ngx-check-out-pallet-view',
   templateUrl: './check-out-pallet-view.component.html',
   styleUrls: ['./check-out-pallet-view.component.scss']
 })
 export class CheckOutPalletViewComponent implements OnInit {
-  displayedColumns: string[] = ['id','remision','transportLine','date','name','code','ua','amount','um','lote','expiration'];
-  dataSource: MatTableDataSource<PalletI>;
+  displayedColumns: string[] = ['entrada','date','amount','ua','name','code','transportLine','um','lote','expiration']
+
+  dataSource: MatTableDataSource<any>;
   lista:any[] = [];
   registrado:string;
+  loading = false;
   constructor(
     private activatedRoute:ActivatedRoute,
     private checkOutService:CheckOutService,
     private formBuilder: FormBuilder,
-    private reportService:ReportService) {
-      this.dataSource = new MatTableDataSource(this.lista);
+    private reportService:ReportService,
+    private nbToasterService:NbToastrService) {
+    this.dataSource = new MatTableDataSource(this.lista);
     }
 
   checkOutId:number;
@@ -35,18 +39,18 @@ export class CheckOutPalletViewComponent implements OnInit {
   }
 
   getChekOutById(){
-
+    //let checkOutDetails:CheckOutDetail []= [];
     this.checkOutService.getById(this.checkOutId).subscribe(data =>{
 
-
+      console.info("this.", data);
       this.checkOut = data as CheckOut;
       this.registrado =  "Registrado por : " + this.checkOut.user.firstName + " "+
       this.checkOut.user.additionalName + " "+
       this.checkOut.user.lastName + " "+
       this.checkOut.user.secondName ;
-      this.lista = data.pallets;
-      console.log("pallets", data.pallets);
-      this.dataSource = new MatTableDataSource(data.pallets);
+      this.lista = data.checkOutDetails;
+      //console.log("pallets", data.pallets);
+      this.dataSource = new MatTableDataSource(data.checkOutDetails);
       this.setForm();
     })
 
@@ -95,11 +99,25 @@ export class CheckOutPalletViewComponent implements OnInit {
 
 
   generaReport() {
+    this.loading = true;
     let name :string = "Remision"+this.checkOut.remision + ".pdf";
-    this.reportService.generateReport(this.checkOut).subscribe(data =>{
-      const blob =new Blob([data],{type: "application/pdf"});
-    saveAs(blob, name);
-
+    console.log("remision", name)
+    this.reportService.generateReport(this.checkOut).subscribe({
+      next: (data) =>{
+        const blob =new Blob([data],{type: "application/pdf"});
+        saveAs(blob, name);
+        this.nbToasterService.success("Se genero correctamente:" + name ,"Success");
+      },
+      error: (e) =>{
+        console.error("error",e.error.status)
+        this.nbToasterService.danger("Ocurrio algo inesperado","Error");
+      },
+      complete: () =>{
+        console.info("complete")
+        this.loading = false;
+      }
     });
   }
+
+
 }

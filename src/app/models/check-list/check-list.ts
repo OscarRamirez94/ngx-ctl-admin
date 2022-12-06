@@ -32,4 +32,5 @@ export class CheckList implements Generic{
     status:string;
     stock:string;
     user: User;
+    stockRegistered:number;
 }

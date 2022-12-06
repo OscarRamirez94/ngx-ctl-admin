@@ -73,6 +73,19 @@ export abstract class CommonService<E extends Generic> {
   }
 
 
+  getFilterCriteriaClientOutRegistered(search:SearchCriteriaClient,clientName,checkOutId): Observable<any> {
+    const params = new HttpParams()
+      .set('pageNumber', search.pageNumber)
+      .set('pageSize', search.pageSize)
+      .set('sortDirection',search.sortDirection)
+      .set('sortBy',search.sortBy)
+      .set('searchBy',search.searchBy);
+
+    return this.http.get<any>(
+      this.url.concat("all/search/client/",clientName,"/checkOut/",checkOutId,"/registered/"),
+       { params: params });
+  }
+
   getFilterCriteriaLiberados(search:SearchCriteriaClient,clientName): Observable<any> {
     const params = new HttpParams()
       .set('pageNumber', search.pageNumber)
@@ -82,7 +95,7 @@ export abstract class CommonService<E extends Generic> {
       .set('searchBy',search.searchBy);
 
     return this.http.get<any>(
-      this.url.concat("all/search/liberados/client/",clientName),
+      this.url.concat("all/",clientName,"/"),
        { params: params });
   }
 
@@ -139,4 +152,3 @@ export abstract class CommonService<E extends Generic> {
     return this.http.delete<void>(`${this.url}${id}`);
   }
 }
-

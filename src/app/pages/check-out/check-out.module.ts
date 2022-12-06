@@ -37,6 +37,8 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { CheckOutPalletComponent } from './check-out-pallet/check-out-pallet.component';
 import { CheckOutPalletTestComponent } from './check-out-pallet-test/check-out-pallet-test.component';
 import { CheckOutPalletViewComponent } from './check-out-pallet-view/check-out-pallet-view.component';
+import { CheckOutDetailDeleteComponent } from './check-out-detail-delete/check-out-detail-delete.component';
+import { CheckOutDetailComponent } from './check-out-detail/check-out-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { CheckOutPalletViewComponent } from './check-out-pallet-view/check-out-p
     CheckOutDeleteComponent,
     CheckOutPalletComponent,
     CheckOutPalletTestComponent,
-    CheckOutPalletViewComponent
+    CheckOutPalletViewComponent,
+    CheckOutDetailDeleteComponent,
+    CheckOutDetailComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,66 @@
+<form [formGroup]="palletForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <div class="row" style="position: relative;">
+      <div class="col-md-12 col-lg-12 col-xxxl-12" style="position: relative;">
+        <nb-card status="primary">
+          <nb-card-header>Salida
+            <!--
+            <nb-badge text={{checkOut?.date}} status="danger" position="top left"></nb-badge>
+            -->
+          </nb-card-header>
+          <nb-card-body>
+              <!-- grid -->
+              <div class="row">
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Pallet #</mat-label>
+                      <input matInput  formControlName="id" placeholder="Digita ID"
+                      [ngClass]="{ 'is-invalid':  f.id.errors }">
+                      <mat-error *ngIf="f.id.errors" >Campo Requerido</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Cantidad</mat-label>
+                      <input matInput  formControlName="cantidad" placeholder="Digita Cantidad">
+
+                      <mat-error *ngIf="f.cantidad.errors.maxNumber">La cantidad supera al stock</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-sm-3">
+                  <div class="form-group">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>checkOutId</mat-label>
+                      <input matInput  formControlName="checkOutId" placeholder="Digita checkOutId"
+                      [ngClass]="{ 'is-invalid': f.checkOutId.errors }">
+                      <mat-error *ngIf="f.checkOutId.errors" >Campo Requerido</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                </div>
+
+
+
+              <!-- end grid-->
+          </nb-card-body>
+        </nb-card>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button nbButton hero shape="semi-round" size="small" status="danger"
+        [mat-dialog-close]="false" >Cancelar</button>
+
+      <button nbButton  hero shape="semi-round" size="small" status="primary"
+       cdkFocusInitial style="float: left;">{{actionBtn}}</button>
+
+  </mat-dialog-actions>
+  </form>

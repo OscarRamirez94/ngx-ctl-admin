@@ -35,6 +35,8 @@ themeSubscription: any;
 xAxisLabelP: string = 'Productos';
 xAxisLabelL: string = 'Linea Transporte';
 
+yAxisLabelCantidadProducto: string = 'Cantidad Total';
+
 client:string;
 data:any[]= [];
 productCharts:any[]= [];
@@ -120,12 +122,12 @@ getProductChart(client:string){
           "name": p.name,
           "series":[
             {
-              "name": "stock",
+              "name": "Registrado",
               "value": +p.checkin
 
             },
             {
-              "name": "Out",
+              "name": "Liberado",
               "value": +p.checkout
 
             },
