@@ -62,7 +62,6 @@ const routes: Routes = [{
     },
     {
       path: 'checklist',
-      canActivate: [RoleGuard,HeadClientGuard],
       data: { role: 'ROLE_ADMIN' },
       loadChildren: () => import('./check-list/check-list.module')
         .then(m => m.CheckListModule),
