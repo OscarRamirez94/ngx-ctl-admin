@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CheckOutDetail } from '../../models/check-out-detail/check-out-detail';
+import { CheckOutDetailRequest } from '../../models/check-out-detail/check-out-detail-request';
 import { CommonService } from '../commons.service';
 
 
@@ -17,9 +18,9 @@ export class CheckOutDeatailService extends CommonService<CheckOutDetail> {
   }
 
 
-crear(checkOutDetail: any): Observable<CheckOutDetail> {
-  console.log("service",checkOutDetail)
-  return this.http.post<CheckOutDetail>(this.url, checkOutDetail);
+crearDetail(checkOutDetailRequest: CheckOutDetailRequest): Observable<CheckOutDetail> {
+  console.log("service",checkOutDetailRequest)
+  return this.http.post<CheckOutDetail>(this.url, checkOutDetailRequest);
 }
 
 delete(detailId,palletId): Observable<any> {

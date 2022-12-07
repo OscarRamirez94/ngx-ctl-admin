@@ -5,6 +5,7 @@ import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RoleGuard } from '../guards/role.guard';
 import { HeadClientGuard } from '../guards/head-client.guard';
+import { AuthGuard } from '../guards/auth-guard.service';
 
 
 
@@ -27,6 +28,7 @@ const routes: Routes = [{
 
     {
       path: 'clients',
+
       loadChildren: () => import('./clients/clients.module')
         .then(m => m.ClientsModule),
     },
@@ -75,8 +77,7 @@ const routes: Routes = [{
     },
     {
       path: 'inventory',
-      //canActivate: [RoleGuard,HeadClientGuard],
-      data: { role: 'ROLE_ADMIN' },
+
       loadChildren: () => import('./inventory/inventory.module')
         .then(m => m.InventoryModule),
     },

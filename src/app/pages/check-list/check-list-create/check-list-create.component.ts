@@ -367,8 +367,8 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
       return this.surveillances.filter(
         user => user.firstName.toString().toLowerCase().includes(filterValue) ||
-        user.lastName.toString().toLowerCase().includes(filterValue) ||
-        user.secondName.toString().toLowerCase().includes(filterValue)
+        user.lastName.toLowerCase().includes(filterValue) ||
+        user.secondName.toLowerCase().includes(filterValue)
         );
     }
 
@@ -378,7 +378,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
     displayPropertySurveillance(value) {
       if (value) {
-        return value.firstName + ' ' + value.lastName;
+        return value.firstName + ' ' + value.additionalName  + ' ' + value.lastName + ' ' + value.secondName;
       }
     }
 
@@ -389,8 +389,8 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
       return this.responsibles.filter(
         user => user.firstName.toString().toLowerCase().includes(filterValue) ||
-        user.lastName.toString().toLowerCase().includes(filterValue) ||
-        user.secondName.toString().toLowerCase().includes(filterValue)
+        user.lastName.toLowerCase().includes(filterValue) ||
+        user.secondName.toLowerCase().includes(filterValue)
         );
     }
 
@@ -400,7 +400,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
     displayPropertyUser(value) {
       if (value) {
-        return value.firstName + ' ' + value.lastName;
+        return value.firstName + ' ' + value.additionalName  + ' ' + value.lastName + ' ' + value.secondName;
       }
     }
 

@@ -1,4 +1,5 @@
 import { NbMenuItem } from '@nebular/theme';
+import { AuthGuard } from '../guards/auth-guard.service';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -101,8 +102,10 @@ export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Catalogos',
     icon: 'book-open-outline',
+
     children: [
       {
+
         title: 'Clientes',
         icon: 'person-done-outline',
         link: '/pages/clients/clientes',

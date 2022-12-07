@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { NbAuthService, NbAuthToken } from '@nebular/auth';
 import { Observable } from 'rxjs';
 import { AuthRoleService } from '../services/auth/auth-role.service';
+import { ToastrService } from '../services/toastr/toastr.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class RoleGuard implements CanActivate {
   nbAuthToken:NbAuthToken;
   authorities:any =[];
 
-  constructor(private authService: NbAuthService,private router: Router) {
+  constructor(private authService: NbAuthService,private router: Router,private toastrService:ToastrService) {
     this.authService.onTokenChange().subscribe(data =>{
       this.authorities = data.getPayload()['authorities']
   })
@@ -24,11 +25,12 @@ export class RoleGuard implements CanActivate {
 
 
 
-    let role = next.data['role'] as string;
-      console.log(role);
+    let role = next.data['role'];
+      console.log("PARAM",role);
       if (this.hasRole(role)) {
         return true;
       }
+      this.toastrService.toast('danger','Sin permisos','No tienes acceso a este recurso');
       //swal('Acceso denegado', `Hola ${this.authService.usuario.username} no tienes acceso a este recurso!`, 'warning');
       this.router.navigateByUrl("pages/dashboard");
       return false;
@@ -36,14 +38,8 @@ export class RoleGuard implements CanActivate {
 
   }
 
- hasRole(role:string):Boolean{
-    if (this.authorities.includes(role))
-    {
-      console.log(true);
-      return true;
-    }
-    console.log(false);
-    return false;
+ hasRole(roles:String[]):Boolean{
+    return roles.some(r=> this.authorities.includes(r));
  }
 
 }

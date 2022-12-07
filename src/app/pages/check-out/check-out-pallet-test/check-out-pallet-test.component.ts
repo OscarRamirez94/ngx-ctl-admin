@@ -9,6 +9,7 @@ import { ProductoI } from '../../../interfaces/product-i';
 import { TransportLineI } from '../../../interfaces/transport-line-i';
 import { CheckOutDetail } from '../../../models/check-out-detail/check-out-detail';
 import { CheckOutDetailForm } from '../../../models/check-out-detail/check-out-detail-form';
+import { CheckOutDetailRequest } from '../../../models/check-out-detail/check-out-detail-request';
 import { CheckOut } from '../../../models/check-out/check-out';
 import { Pallet } from '../../../models/pallet/pallet';
 import { CheckOutDeatailService } from '../../../services/check-out-detail/check-out-detail.service';
@@ -33,7 +34,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   attachmentArP:CheckOutDetailForm[] = [];
   submitted = false;
   loading = false;
-  disables = true;
+  disables = false;
   fechaVisible:boolean=false;
   remisionVisible:boolean=false;
   transportLineVisible:boolean=false;
@@ -49,7 +50,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
 
   options: string[] = ['TODOS','REMISION', 'FECHA','LINEA DE TRANSPORTE','PRODUCTO','LOTE'];
   clientName =  this.headService.getClientLS();
-
+  CheckOutDetailRequest
   actionBtn:String = "Buscar";
   name: string;
   titulo: string = "OUT";
@@ -64,6 +65,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   displayedColumnsRegistered: string[] =  ['remision','transportLine','name','code','amount','stock','ua','um','lote'];
 
   checkOutDetail:CheckOutDetail[] = [];
+  checkOutDetailRequest:CheckOutDetailRequest= new CheckOutDetailRequest();
 
   constructor(
     service: PalletService, router: Router, route: ActivatedRoute,private dialog: MatDialog, toastrService: NbToastrService,
@@ -524,19 +526,34 @@ pushForm(ar:any){
   }
 
   onSubmitDetail(){
+
+
     console.log("console",this.detailForm.value);
       // stop here if form is invalid
       if (this.detailForm.invalid) {
           return;
       }
+
+      let checkout:CheckOut = new CheckOut();
+      let checkOutDetailDTO:CheckOutDetail[] = [];
+      checkout.id= this.checkOutId;
+
       console.log("true")
-      this.detailForm.value['items'].map(x => this.checkOutDetail.push(this.addDTO(x)));
+
+      this.checkOutDetailRequest.checkOut =  checkout;
+      this.checkOutDetailRequest.checkOutDetailDTO = checkOutDetailDTO;
+
+
+      this.detailForm.value['items'].map(x => this.checkOutDetailRequest.checkOutDetailDTO.push(this.addDTO(x)));
       console.log("data a guardar", this.checkOutDetail);
 
-      this.detailService.crear(this.checkOutDetail).subscribe({
+      this.detailService.crearDetail(this.checkOutDetailRequest).subscribe({
         next: (v) =>{
+
           this.onResetDetail();
           this.limpiar()
+          super.toast("success","Se agregaron correctamente pallets a la remision: " + this.checkOutRemision);
+          this.router.navigateByUrl('/pages/checkout/checkout');
         },
         error: (e) =>{
           console.error("error",e.error.status)

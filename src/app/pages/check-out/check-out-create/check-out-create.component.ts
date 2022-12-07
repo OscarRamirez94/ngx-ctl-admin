@@ -369,7 +369,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 
   displayPropertySurveillance(value) {
     if (value) {
-      return value.firstName + ' ' + value.lastName;
+      return value.firstName + ' ' + value.additionalName  + ' ' + value.lastName + ' ' + value.secondName;
     }
   }
 
@@ -391,7 +391,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 
   displayPropertyUser(value) {
     if (value) {
-      return value.firstName + ' ' + value.lastName;
+      return value.firstName + ' ' + value.additionalName  + ' ' + value.lastName + ' ' + value.secondName;
     }
   }
 }
