@@ -15,6 +15,7 @@ import { FormControl } from '@angular/forms';
 import { Notification } from '../../../models/notification/notification';
 import { Console } from 'console';
 import { ClientI } from '../../../interfaces/client-i';
+import { ToastrService } from '../../../services/toastr/toastr.service';
 
 @Component({
   selector: 'ngx-header',
@@ -33,7 +34,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   client: Client;
   clientName:string;
   position: NbGlobalPosition
-  idL =  this.getClientLs();
   themes = [
     {
       value: 'default',
@@ -71,29 +71,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private authService: NbAuthService,
               private clientService:ClientService,
               private headService:HeadService,
-              private toastrService: NbToastrService ,
+              private toastrService: ToastrService ,
               private route:Router,
               private dialog: MatDialog) {
 
-      this.authService.onTokenChange()
-      .subscribe((token: NbAuthJWTToken) => {
+      this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
         if (token.isValid()) {
           this.user = "Bienvenido " + token.getPayload()['sub'];
           this.username = token.getPayload()['username'];
         }
-
       });
-
 
   }
 
   optionSelected(event:Client){
-    console.log(event.id + event.name);
+    console.log("*",event.id + event.name);
     this.currentClient = event.name;
     this.headService.saveClient(event.id.toString());
     this.headService.saveNameClient(event.name);
     this.headService.disparadorClient.emit(event.id.toString());
-    this.toastrService.primary("Trabajando con : " + event.name ,"Cliente seleccionado");
+    this.toastrService.toast("primary","Trabajando con : " + event.name ,"Cliente seleccionado");
     this.route.navigateByUrl('pages/dashboard');
   }
 
@@ -104,34 +101,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.currentTheme = this.themeService.currentTheme;
-
-    console.log(this.idL);
-
-    if (this.idL !==null ){
-      this.clientService.ver(+this.idL).subscribe(data =>{
-        this.currentClient = data.name
-        this.myControl.setValue(data);
-      })
-    }
-
+    this.getDisparador();
     this.getAllClients();
-    // notifica cuando se inserta un nuevo cliente en catalogo
-    this.headService.disparadorClientComp.subscribe(data =>{
-      let notifica:Notification =  data as Notification;
-        if (data.isActive){
-          this.myControl.setValue(notifica.client);
-          this.currentClient = notifica.client.name;
-        }else {
-          console.log("id" + data.localId);
-          this.getAllClients();
-          this.clientService.ver(+data.localId).subscribe(data2 =>{
-            this.getAllClients();
-            console.log("data", data2)
-            this.myControl.setValue(data2);
-            this.currentClient = notifica.client.name;
-          })
-        }
-    });
+
+    if (this.getClientLs()!==null){
+        this.getClienteVer();
+    }
 
     /* this.userService.getUsers()
       .pipe(takeUntil(this.destroy$))
@@ -151,15 +126,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
       )
       .subscribe(themeName => this.currentTheme = themeName);
-      this.filteredClients = this.myControl.valueChanges.pipe(
-        startWith(null),
-        map(client => (client ? this._filterClient(client) : this.clients.slice())),
-      );
+
+
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+
   }
 
   changeTheme(themeName: string) {
@@ -183,9 +157,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   getAllClients(){
-
     this.clientService.getAll().subscribe(data =>{
       this.clients = data as ClientI[];
+      this.getFilter(this.clients);
     })
 
   }
@@ -194,12 +168,54 @@ export class HeaderComponent implements OnInit, OnDestroy {
     return this.headService.getClientLS();
   }
 
-  private _filterClient(value: string): ClientI[] {
+  private _filterClient(value: string,clientes): ClientI[] {
     console.log("value",value);
     const filterValue = value.toString().toLowerCase();
-
-    return this.clients.filter(client =>
+    clientes =  clientes.filter(client =>
       client.name.toString().toLowerCase().includes(filterValue)
       );
+    this.clients =  clientes;
+    return this.clients;
+
   }
+
+  getDisparador(){
+    this.headService.disparadorClients.subscribe(data=>{
+      if (data){
+        this.myControl.reset();
+        this.ngOnInit();
+      }else {
+        this.myControl.reset();
+        localStorage.removeItem('cid');
+        localStorage.removeItem('cn');
+        this.ngOnInit();
+      }
+
+    })
+
+  }
+
+  getFilter(clients:ClientI[]){
+    this.filteredClients = this.myControl.valueChanges.pipe(
+    startWith(null),
+    map(client => (client ? this._filterClient(client,clients) : clients.slice())),
+  );
+}
+
+getClienteVer(){
+    this.clientService.ver(+this.getClientLs()).subscribe(data =>{
+      if (data){
+        this.currentClient = data.name
+        this.myControl.setValue(data);
+      }else {
+        this.myControl.reset();
+        localStorage.removeItem('cid');
+        localStorage.removeItem('cn');
+      }
+
+    });
+}
+refresh(){
+  this.getAllClients();
+}
 }

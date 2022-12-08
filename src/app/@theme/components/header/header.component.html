@@ -27,8 +27,6 @@
     </nb-action>
     <nb-action class="user-action">
       <form class="example-form">
-        <div *ngIf="clients.length>0">
-
         <mat-form-field #field  appearance="legacy" class="example-full-width" >
           <mat-label>Cliente</mat-label>
           <input type="text"
@@ -46,8 +44,12 @@
           </mat-option>
           </mat-autocomplete>
           </mat-form-field>
-        </div>
+
+
       </form>
+      <button mat-icon-button color="warn" (click)="refresh()">
+        <mat-icon>refresh</mat-icon>
+      </button>
     </nb-action>
 
     <nb-action class="user-action" *ngIf="currentClient">

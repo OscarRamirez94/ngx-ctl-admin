@@ -45,6 +45,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButton, MatButtonModule } from '@angular/material/button';
 const NB_MODULES = [
   NbLayoutModule,
   NbMenuModule,
@@ -66,7 +68,9 @@ const NB_MODULES = [
   MatInputModule,
   ngFormsModule,
   ReactiveFormsModule,
-  NbBadgeModule
+  NbBadgeModule,
+  MatIconModule,
+  MatButtonModule
 ];
 const COMPONENTS = [
   HeaderComponent,

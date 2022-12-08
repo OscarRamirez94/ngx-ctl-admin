@@ -1,8 +1,9 @@
-import { Component} from '@angular/core';
+import { Component, Input, ViewChild} from '@angular/core';
 import { MatDialog} from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
+import { HeaderComponent } from '../../../@theme/components';
 import { Client } from '../../../models/client';
 import { ClientService } from '../../../services/client/client.service';
 import { HeadService } from '../../../services/head/head.service';
@@ -20,7 +21,6 @@ import { ClientDeleteComponent } from '../client-delete/client-delete.component'
 })
 
 export class ClientMainComponent extends CommonListComponent<Client,ClientService>   {
-
   name: string;
   titulo:string = "Clientes";
   displayedColumns: string[] = ['name','direccion','isActive','actions'];
@@ -35,24 +35,21 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
     const dialogRef = this.dialog.open(ClientCreateComponent, {
       width: '65%'
     }).afterClosed().subscribe(data =>{
-      if (data) {
-        super.calculateRange();
-
-      }
+        if (data) {
+          super.calculateRange();
+          this.headService.disparadorClients.emit(true);
+        }
       });
-
   }
 
   editarClient(element:any){
     this.dialog.open(ClientCreateComponent,{
       width:'65%',
       data: element
-
-
     }).afterClosed().subscribe(data =>{
         if (data) {
             super.calculateRange();
-
+            this.headService.disparadorClients.emit(true);
         }
       })
   }
@@ -64,6 +61,7 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
     }).afterClosed().subscribe(data =>{
         if (data) {
             super.calculateRange();
+
         }
       })
   }

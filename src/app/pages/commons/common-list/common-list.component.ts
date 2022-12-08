@@ -76,16 +76,18 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
     search.sortDirection =this.orderBy;
 
 
-    this.service.getFilterCriteria(search)
-    .subscribe(paginator => {
-      console.log(paginator.totalElements)
+    this.service.getFilterCriteria(search).subscribe({
+      next: (paginator) =>{
       this.lista = paginator.content as E[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-      console.log(this.dataSource.data);
-
-
+      },
+      error: (e) =>{
+        console.error("error",e.error.status)
+        this.toast("danger", "Ocurrio un error");
+      },
+      complete: () => console.info("complete")
     });
   }
 
@@ -131,7 +133,27 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   public crear(): Observable<Boolean> {
     console.log("object a crear", JSON.stringify(this.model))
     var subject = new Subject<boolean>();
-    this.service.crear(this.model).subscribe(m => {
+    this.service.crear(this.model)
+    .subscribe({
+      next: (m) =>{
+        subject.next(true);
+        this.toast("success","Se registro correctamente");
+      },
+      error: (err) =>{
+        if(err.status === 400){
+          this.error = err.error;
+          console.log(this.error);
+        }
+        if(err.status === 404){
+          this.error = err.error;
+          console.log(this.error);
+          this.toast("danger","Ocurrio un error inesperado")
+        }
+        subject.next(false);
+      },
+      complete: () => console.info("complete")
+    });
+    /*.subscribe(m => {
       subject.next(true);
       console.log(m);
     }, err => {
@@ -146,7 +168,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
         this.toast("danger",err.error.message)
       }
       subject.next(false);
-    });
+    });*/
     return subject.asObservable();
   }
 
@@ -208,7 +230,22 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   delete (id:any){
-    this.service.eliminar(id).subscribe(() => {
+    this.service.eliminar(id).subscribe({
+      next: (m) =>{},
+      error: (err) =>{
+        if(err.status === 400){
+          this.error = err.error;
+          console.log(this.error);
+        }
+        if(err.status === 404){
+          this.error = err.error;
+          console.log(this.error);
+
+        }
+        this.toast("danger","Ocurrio un error inesperado")
+      },
+      complete: () => console.info("complete")
     });
+
   }
 }

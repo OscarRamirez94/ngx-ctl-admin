@@ -24,7 +24,7 @@ export class TransportLineMainComponent extends CommonListClientComponent<Transp
 
   name: string;
   titulo: string = "Lineas de Transporte";
-  displayedColumns: string[] = ['name','partner', 'isActive', 'actions'];
+  displayedColumns: string[] = ['name','isActive', 'actions'];
   clientName =  this.headService.getClientLS();
 
   constructor(service: TransportLineService, router: Router, route: ActivatedRoute,

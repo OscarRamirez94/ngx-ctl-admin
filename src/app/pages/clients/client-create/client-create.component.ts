@@ -4,10 +4,8 @@ import { MatDialogRef,MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
-import { Console } from 'console';
 import { Address } from '../../../models/address/address';
 import { Client } from '../../../models/client';
-import { Notification } from '../../../models/notification/notification';
 import { ClientService } from '../../../services/client/client.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
@@ -26,7 +24,8 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
   actionBtn:String = "Crear";
   isChecked;
   clientOg:string;
-  clientO:Client;
+  clientO:string = this.headService.getNameClientLS();
+
   localId:string;
   constructor(
     service: ClientService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
@@ -35,7 +34,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
     headService:HeadService
   ) {
       super(service, router, route,toastrService,headService);
-      this.titulo = 'Agregar Clients';
+      this.titulo = 'Agregar Cliente';
       this.model = new Client();
       this.model.address = new Address();
       this.redirect = '/pages/clients/clientes';
@@ -55,22 +54,18 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
   onSubmit() {
     console.log("console",this.clientForm.value);
     this.submitted = true;
-      // stop here if form is invalid
-
       if (this.clientForm.invalid) {
           return;
       }
       if (!this.editData) {
          this.modelClient(this.clientForm);
          super.crear();
-         this.onReset();
-         this.sendNotification();
 
-         //super.toast("success","Cliente creado con éxito");
+         this.onReset();
       }  else {
           this.editarClient();
+
       }
-      //notifica
 
   }
 
@@ -83,8 +78,6 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
 
   setForm() {
     this.clientForm = this.formBuilder.group({
-      //^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
-      //name :['',[Validators.required,RxwebValidators.alpha()]],
       name:['',[ Validators.required,RxwebValidators.pattern({expression:{'onlyAlpha': /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/} })]],
       phone :['',Validators.required],
       attention:['',Validators.required],
@@ -96,8 +89,6 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
       postalCode:['',Validators.required],
       country:['',Validators.required],
       isActive:['',Validators.required],
-
-
     });
   }
 
@@ -116,7 +107,6 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
       this.clientForm.controls['postalCode'].setValue(editData.address.postalCode);
       this.clientForm.controls['country'].setValue(editData.address.country);
       this.clientForm.controls['name'].setValue(editData.name);
-
       this.model.id = editData.id;
       this.isChecked = editData.isActive;
     }
@@ -127,7 +117,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
     super.editar();
     this.onReset();
     super.toast("success","Cliente modificado con éxito");
-    this.sendNotification();
+
   }
 
   modelClient(clientForm:any) {
@@ -148,26 +138,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
   getClienteOriginal(editData:any){
     if (editData) {
       this.clientOg = editData.name;
-      this.clientO = editData;
     }
   }
-  sendNotification(){
-    let notifica =  new Notification();
-    notifica.localId = this.localId;
-    notifica.isActive = false;
-    notifica.client = this.clientO;
 
-    if  (this.clientOg === this.headService.getNameClientLS()){
-        notifica.isActive = true;
-        notifica.client = this.model;
-        this.headService.saveClient(this.model.id.toString());
-        this.headService.saveNameClient(this.model.name);
-    }
-    else {
-      notifica.localId = this.localId;
-      notifica.isActive = false;
-      notifica.client = this.clientO;
-    }
-    this.headService.disparadorClientComp.emit(notifica);
-  }
 }

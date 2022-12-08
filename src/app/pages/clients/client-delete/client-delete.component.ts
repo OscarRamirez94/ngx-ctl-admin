@@ -16,6 +16,7 @@ export class ClientDeleteComponent  extends CommonListComponent<Client, ClientSe
 
   contentDelete:string;
   isActive :boolean;
+  idLocAL = this.headService.getClientLS();
   constructor(
     service: ClientService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
      private  dialogRef: MatDialogRef<ClientDeleteComponent>,
@@ -39,6 +40,13 @@ export class ClientDeleteComponent  extends CommonListComponent<Client, ClientSe
     super.delete(this.model.id);
     this.dialogRef.close("true");
     super.toast("success","Se elimino correctamente : " + this.contentDelete);
+
+    if (this.model.id.toString()===this.idLocAL){
+      this.headService.disparadorClients.emit(false);
+    }else {
+      this.headService.disparadorClients.emit(true);
+    }
+
   }
 
 

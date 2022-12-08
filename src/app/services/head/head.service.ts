@@ -9,7 +9,8 @@ import { Notification } from '../../models/notification/notification';
 export class HeadService {
 
   @Output() disparadorClient : EventEmitter<string> = new EventEmitter();
-  @Output() disparadorClientComp : EventEmitter<Notification> = new EventEmitter();
+  //@Output() disparadorClientComp : EventEmitter<Notification> = new EventEmitter();
+  @Output() disparadorClients : EventEmitter<Boolean> = new EventEmitter();
   constructor() { }
 /*
   saveClientLS(clientName:any){
