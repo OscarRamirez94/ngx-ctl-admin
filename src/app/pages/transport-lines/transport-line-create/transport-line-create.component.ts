@@ -94,7 +94,7 @@ export class TransportLineCreateComponent extends CommonListClientComponent<Tran
     this.model.partner.id = this.clientId;
     this.model.name = transportLineForm.get('name').value;
     this.model.isActive = transportLineForm.get('isActive').value;
-    console.log("super", this.model.partner.name)
+
 
   }
 }

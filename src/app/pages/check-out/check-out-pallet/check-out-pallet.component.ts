@@ -65,7 +65,7 @@ export class CheckOutPalletComponent implements OnInit   {
 
 
     this.checkOutService.saveOut(checkOutSave).subscribe(data =>{
-      console.log(data);
+
       this.dialogRef.close("true");
       this.router.navigate(['pages/checkout/checkout']);
 

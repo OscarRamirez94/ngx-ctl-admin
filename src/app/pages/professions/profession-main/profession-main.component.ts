@@ -29,7 +29,7 @@ export class ProfessionMainComponent extends CommonListComponent<Profession, Pro
 
   name: string;
   titulo: string = "Puestos";
-  displayedColumns: string[] = ['id', 'name', 'isActive', 'actions'];
+  displayedColumns: string[] = ['name', 'isActive', 'actions'];
   //Se inyectan  objetos erados por el padre
   constructor(service: ProfessionService, router: Router, route: ActivatedRoute,
     private dialog: MatDialog, toastrService: NbToastrService,

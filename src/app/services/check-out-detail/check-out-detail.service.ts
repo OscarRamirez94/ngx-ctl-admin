@@ -19,7 +19,6 @@ export class CheckOutDeatailService extends CommonService<CheckOutDetail> {
 
 
 crearDetail(checkOutDetailRequest: CheckOutDetailRequest): Observable<CheckOutDetail> {
-  console.log("service",checkOutDetailRequest)
   return this.http.post<CheckOutDetail>(this.url, checkOutDetailRequest);
 }
 

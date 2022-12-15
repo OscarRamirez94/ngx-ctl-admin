@@ -3,7 +3,6 @@ import { MatDialog} from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { HeaderComponent } from '../../../@theme/components';
 import { Client } from '../../../models/client';
 import { ClientService } from '../../../services/client/client.service';
 import { HeadService } from '../../../services/head/head.service';
@@ -23,7 +22,7 @@ import { ClientDeleteComponent } from '../client-delete/client-delete.component'
 export class ClientMainComponent extends CommonListComponent<Client,ClientService>   {
   name: string;
   titulo:string = "Clientes";
-  displayedColumns: string[] = ['name','direccion','isActive','actions'];
+  displayedColumns: string[] = ['name','direccion','attention','isActive','actions'];
 
   constructor( service:ClientService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,

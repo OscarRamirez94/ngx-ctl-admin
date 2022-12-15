@@ -26,7 +26,7 @@ export class ProductDeleteComponent extends CommonListComponent<Product, Product
       this.titulo = 'Eliminar Producto';
       this.model = new Product();
       this.redirect = '/pages/clients/clientes';
-      this.nombreModel = "Cliente";
+      this.nombreModel = "Producto";
     }
 
   ngOnInit(): void {
@@ -38,7 +38,6 @@ export class ProductDeleteComponent extends CommonListComponent<Product, Product
     this.model.id = this.editData.id;
     super.delete(this.model.id);
     this.dialogRef.close("true");
-    super.toast("success","Se elimino correctamente : " + this.contentDelete);
   }
 
 }

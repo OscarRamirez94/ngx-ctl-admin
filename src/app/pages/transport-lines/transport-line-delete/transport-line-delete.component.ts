@@ -39,6 +39,6 @@ export class TransportLineDeleteComponent extends CommonListComponent<TransportL
     this.model.id = this.editData.id;
     super.delete(this.model.id);
     this.dialogRef.close("true");
-    super.toast("success", "Se elimino correctamente : " + this.contentDelete);
+
   }
 }

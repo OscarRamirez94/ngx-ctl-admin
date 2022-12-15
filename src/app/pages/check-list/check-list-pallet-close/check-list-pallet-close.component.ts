@@ -19,7 +19,6 @@ export class CheckListPalletCloseComponent implements OnInit{
     headService:HeadService) {}
 
   ngOnInit(): void {
-    console.log("delete,", this.editData);
     this.contentDelete = this.editData;
     this.message = "Seguro que deseas finalizar la remision : " + this.contentDelete + " ?";
 

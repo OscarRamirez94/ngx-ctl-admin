@@ -67,14 +67,12 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
 
       this.modelClient(this.userForm);
       super.crear().subscribe(data =>{
-        console.log("data",data)
         if (data){
           this.onReset();
           super.toast("success", "Usuario creado con éxito");
           this.loading = false;
         } else {
 
-          console.log("ocurrio un error");
           this.loading = false;
         }
       });
@@ -119,7 +117,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
 
   rejectForm(editData: UserPost) {
     if (editData) {
-      console.log("lista roles", editData.roles)
+
       this.actionBtn = "Modificar";
       this.userForm.controls['username'].setValue(editData.username);
       this.userForm.controls['email'].setValue(editData.email);
@@ -133,7 +131,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       this.userForm.controls['profession'].setValue(editData.profession);
       this.userForm.controls['isUser'].setValue(editData.isUser);
 
-      console.log("roles edit", editData.roles);
+
       editData.roles.forEach(p => {
         this.selectedOptions.push(p['name']);
 
@@ -144,7 +142,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       this.isResponsible = editData.isResponsible;
       this.isUser = editData.isUser;
       this.model.profession.id = editData.profession.id;
-      console.log("form", this.userForm.value)
+
 
 
     }
@@ -188,7 +186,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
 
   }
   public displayProperty(value) {
-    console.log("Selected2 : ", value);
+
     if (value) {
       return value.name;
     }
@@ -201,7 +199,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     })
   }
   private _filterProfession(value: string): ProfessionI[] {
-    console.log("value",value);
+
     const filterValue = value.toString().toLowerCase();
 
     return this.professions.filter(profession =>

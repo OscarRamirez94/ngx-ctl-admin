@@ -131,13 +131,13 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   public crear(): Observable<Boolean> {
-    console.log("object a crear", JSON.stringify(this.model))
+
     var subject = new Subject<boolean>();
     this.service.crear(this.model)
     .subscribe({
       next: (m) =>{
         subject.next(true);
-        this.toast("success","Se registro correctamente");
+        this.toast("success","Se registro con éxito");
       },
       error: (err) =>{
         if(err.status === 400){
@@ -173,7 +173,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   public editar(): Observable<Boolean> {
-    console.log("update" + JSON.stringify(this.model));
+
     var subject = new Subject<boolean>()
     this.service.editar(this.model).subscribe(m => {
       subject.next(true);
@@ -231,7 +231,9 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
 
   delete (id:any){
     this.service.eliminar(id).subscribe({
-      next: (m) =>{},
+      next: (m) =>{
+        this.toast("success","Se elimino con éxito")
+      },
       error: (err) =>{
         if(err.status === 400){
           this.error = err.error;

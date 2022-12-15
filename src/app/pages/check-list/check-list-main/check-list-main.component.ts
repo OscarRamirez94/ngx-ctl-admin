@@ -3,9 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
 import { CheckList } from '../../../models/check-list/check-list';
+import { ResponseCheckList } from '../../../models/check-list/response-check-list';
 import { CheckListService } from '../../../services/check-list/check-list.service';
+import { ResponseCheckListService } from '../../../services/check-list/response-check-list.service';
 import { HeadService } from '../../../services/head/head.service';
-import { CommonListCheckComponent } from '../../commons/common-list/common-list.component-check';
+import { CommonResponseCheckList } from '../../commons/common-list/check-list-response.ts/common-response-check-list';
 import { CheckListCreateComponent } from '../check-list-create/check-list-create.component';
 import { CheckListDeleteComponent } from '../check-list-delete/check-list-delete.component';
 import { CheckListPalletValidateComponent } from '../check-list-pallet-validate/check-list-pallet-validate.component';
@@ -16,7 +18,7 @@ import { CheckListPalletValidateComponent } from '../check-list-pallet-validate/
   templateUrl: './check-list-main.component.html',
   styleUrls: ['./check-list-main.component.scss']
 })
-export class CheckListMainComponent extends CommonListCheckComponent<CheckList,CheckListService> {
+export class CheckListMainComponent extends CommonResponseCheckList<ResponseCheckList,ResponseCheckListService> {
   hidden = false;
 
   toggleBadgeVisibility() {
@@ -27,7 +29,7 @@ export class CheckListMainComponent extends CommonListCheckComponent<CheckList,C
   titulo:string = "Entrada";
   displayedColumns: string[] = ["#",'remision','date','transportLine','transportType','noSello','status','pallets','stock','actions' ];
   clientName =  this.headService.getClientLS();
-  constructor( service:CheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
+  constructor( service:ResponseCheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,
     headService:HeadService) {
     super(service,router, route,toastrService,headService);

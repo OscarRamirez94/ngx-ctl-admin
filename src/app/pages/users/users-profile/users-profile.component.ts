@@ -93,7 +93,7 @@ export class UsersProfileComponent implements OnInit {
     this.userPassword.password =this.userForm.get('password').value,
 
     this.service.updatePassword(this.userPassword).subscribe(data =>{
-      this.toastrService.success("success","se modificó correctamente tu password")
+      this.toastrService.success("success","se modificó con éxito tu password")
       setTimeout(() => {
         localStorage.removeItem('auth_app_token');
         localStorage.removeItem('cid');

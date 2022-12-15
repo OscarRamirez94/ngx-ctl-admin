@@ -44,7 +44,7 @@ export class TransportTypeCapacityComponent  extends CommonListIdComponent<Trans
 
 
   openDialog(): void {
-    console.log("envia datos" +  this.transportType)
+
     const dialogRef = this.dialog.open(TransportTypeCapacityCreateComponent, {
 
       data:[this.transportType,false]

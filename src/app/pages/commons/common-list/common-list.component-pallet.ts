@@ -82,7 +82,7 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
   }
 
   ngOnInit(): void {
-  console.log('checkOutId',this.checkOutId)
+
   this.clientName =  this.headService.getClientLS();
   this.calculateRange();
   //refistered
@@ -133,12 +133,10 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
 
     this.service.getFilterCriteriaClientOut(search,this.clientName,this.option,this.filterBy)
     .subscribe(paginator => {
-      console.log(paginator.totalElements)
       this.lista = paginator.content as PalletI[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-      console.log("LISTA -DISPONIBLES", this.lista);
       this.loading = false;
 
     });
@@ -158,14 +156,14 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
 
       this.service.getFilterCriteriaClientOutRegistered(search,this.clientName,this.checkOutId)
       .subscribe(paginator => {
-        console.log(paginator.totalElements)
+
         this.listaRegistered = paginator.content as PalletI[];
         this.totalRegistrosRegistered = paginator.totalElements as number;
         this.paginatorRegistered._intl.itemsPerPageLabel ="Registros";
         this.dataSourceRegistered = new MatTableDataSource(this.listaRegistered);
-        console.log(this.dataSourceRegistered.data);
+
         this.loading = false;
-        console.log("LISTA -REGISTRADOS", this.listaRegistered);
+
       });
     }
 
@@ -241,7 +239,7 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
     var subject = new Subject<boolean>();
     this.service.crear(this.model).subscribe(m => {
       subject.next(true);
-      console.log(m);
+
     }, err => {
       if(err.status === 400){
         this.error = err.error;
@@ -253,7 +251,7 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
   }
 
   public editar(): void {
-    console.log("update" + JSON.stringify(this.model));
+
     this.service.editar(this.model).subscribe(m => {
     }, err => {
       if(err.status === 400){

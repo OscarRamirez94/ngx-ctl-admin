@@ -37,7 +37,6 @@ export class CheckOutService extends CommonService<CheckOut> {
 
 
 crear(checkOut: CheckOut): Observable<CheckOut> {
-  console.log("service",CheckOut)
   return this.http.post<CheckOut>(this.url, checkOut);
 }
 
@@ -69,7 +68,7 @@ getById(id:any):Observable<CheckOut>{
 
 
 public savePallets(palletSave:PalletSave): Observable<any> {
-  console.log("service",palletSave)
+
   return this.http.post<any>(this.urlPallet, palletSave);
 }
 
@@ -79,7 +78,7 @@ updateStatus(palletSave:any): Observable<any> {
 }
 
  saveOut(pallets:any): Observable<any> {
-  console.log("service",pallets)
+
   return this.http.post<any>(this.url+"save-out", pallets);
 }
 }

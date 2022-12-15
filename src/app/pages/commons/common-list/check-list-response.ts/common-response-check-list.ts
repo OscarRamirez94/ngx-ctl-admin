@@ -3,16 +3,17 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NbComponentStatus, NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrConfig, NbToastrService } from '@nebular/theme';
-import { stringify } from 'querystring';
+import { NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrConfig, NbToastrService } from '@nebular/theme';
 import { Observable, Subject } from 'rxjs';
-import { Generic } from '../../../models/generic/generic';
-import { SearchCriteriaClient } from '../../../models/searchs/search-criteria-client';
-import { CommonService } from '../../../services/commons.service';
-import { HeadService } from '../../../services/head/head.service';
+import { Generic } from '../../../../models/generic/generic';
+import { SearchCriteriaClient } from '../../../../models/searchs/search-criteria-client';
+import { CommonService } from '../../../../services/commons.service';
+import { HeadService } from '../../../../services/head/head.service';
+
+
 
 @Directive()
-export abstract class CommonListCheckComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
+export abstract class CommonResponseCheckList<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
 
   @ViewChild(MatPaginator)
    paginator :MatPaginator;
@@ -91,7 +92,6 @@ export abstract class CommonListCheckComponent<E extends Generic, S extends Comm
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-
       this.loading = false;
 
     });
@@ -138,14 +138,15 @@ export abstract class CommonListCheckComponent<E extends Generic, S extends Comm
     }
   }
 
-  public crear(): Observable<Boolean> {
+  /*public crear(): Observable<Boolean> {
     var subject = new Subject<boolean>();
     this.service.crear(this.model).subscribe(m => {
       subject.next(true);
-
+      console.log(m);
     }, err => {
       if(err.status === 400){
         this.error = err.error;
+        console.log(this.error);
       }
       subject.next(false);
     });
@@ -153,16 +154,16 @@ export abstract class CommonListCheckComponent<E extends Generic, S extends Comm
   }
 
   public editar(): void {
-
+    console.log("update" + JSON.stringify(this.model));
     this.service.editar(this.model).subscribe(m => {
     }, err => {
       if(err.status === 400){
         this.error = err.error;
-
+        console.log(this.error);
       }
     });
   }
-
+*/
   protected displayedColumns: string[] ;
 
 // config toastr

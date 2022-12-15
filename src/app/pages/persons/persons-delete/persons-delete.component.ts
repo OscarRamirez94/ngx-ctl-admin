@@ -39,7 +39,7 @@ export class PersonsDeleteComponent  extends CommonListComponent<Person, PersonS
     this.model.id = this.editData.id;
     super.delete(this.model.id);
     this.dialogRef.close("true");
-    super.toast("success", "Se elimino correctamente : " + this.contentDelete);
+    super.toast("success", "Se elimino con éxito : " + this.contentDelete);
   }
 
 

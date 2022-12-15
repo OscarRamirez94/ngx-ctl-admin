@@ -16,7 +16,6 @@ export class RoleGuard implements CanActivate {
     this.authService.onTokenChange().subscribe(data =>{
       this.authorities = data.getPayload()['authorities']
   })
-     console.log("authorities", this.authorities)
   }
 
   canActivate(
@@ -26,7 +25,6 @@ export class RoleGuard implements CanActivate {
 
 
     let role = next.data['role'];
-      console.log("PARAM",role);
       if (this.hasRole(role)) {
         return true;
       }

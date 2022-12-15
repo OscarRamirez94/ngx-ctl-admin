@@ -87,12 +87,11 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
 
     this.service.getFilterCriteriaClient(search,clientName)
     .subscribe(paginator => {
-      console.log(paginator.totalElements)
+
       this.lista = paginator.content as E[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-      console.log(this.dataSource.data);
       this.loading = false;
 
     });
@@ -143,11 +142,10 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
     var subject = new Subject<boolean>();
     this.service.crear(this.model).subscribe(m => {
       subject.next(true);
-      console.log(m);
+
     }, err => {
       if(err.status === 400){
         this.error = err.error;
-        console.log(this.error);
       }
       subject.next(false);
     });
@@ -155,12 +153,11 @@ export abstract class CommonListClientComponent<E extends Generic, S extends Com
   }
 
   public editar(): void {
-    console.log("update" + JSON.stringify(this.model));
+
     this.service.editar(this.model).subscribe(m => {
     }, err => {
       if(err.status === 400){
         this.error = err.error;
-        console.log(this.error);
       }
     });
   }

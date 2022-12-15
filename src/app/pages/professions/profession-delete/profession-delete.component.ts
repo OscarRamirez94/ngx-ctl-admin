@@ -16,7 +16,7 @@ export class ProfessionDeleteComponent extends CommonListComponent<Profession, P
 
   contentDelete: string;
   isActive: boolean;
-  public nombreModel: string="Profesion";
+  public nombreModel: string="Puesto";
   constructor(
     service: ProfessionService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private dialogRef: MatDialogRef<ProfessionDeleteComponent>,
@@ -24,7 +24,7 @@ export class ProfessionDeleteComponent extends CommonListComponent<Profession, P
     headService:HeadService
   ) {
     super(service, router, route, toastrService,headService);
-    this.titulo = 'Agregar profesion';
+    this.titulo = 'Agregar Puesto';
     this.model = new Profession();
     this.redirect = '';
     this.nombreModel = this.nombreModel;
@@ -39,7 +39,6 @@ export class ProfessionDeleteComponent extends CommonListComponent<Profession, P
     this.model.id = this.editData.id;
     super.delete(this.model.id);
     this.dialogRef.close("true");
-    super.toast("success", "Se elimino correctamente : " + this.contentDelete);
   }
 
 

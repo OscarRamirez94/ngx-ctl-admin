@@ -37,7 +37,6 @@ export class CheckOutDetailComponent implements OnInit {
    }
 
   onSubmit() {
-    console.log("console",this.palletForm.value);
     this.submitted = true;
       // stop here if form is invalid
 
@@ -72,7 +71,6 @@ export class CheckOutDetailComponent implements OnInit {
   }
 
   rejectForm(editData:any) {
-    console.log(this.editData)
     if (editData) {
       this.actionBtn ="Modificar";
       this.palletForm.controls['id'].setValue(editData[0].id);

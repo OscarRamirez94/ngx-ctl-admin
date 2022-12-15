@@ -85,7 +85,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   optionSelected(event:Client){
-    console.log("*",event.id + event.name);
     this.currentClient = event.name;
     this.headService.saveClient(event.id.toString());
     this.headService.saveNameClient(event.name);
@@ -169,7 +168,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   private _filterClient(value: string,clientes): ClientI[] {
-    console.log("value",value);
     const filterValue = value.toString().toLowerCase();
     clientes =  clientes.filter(client =>
       client.name.toString().toLowerCase().includes(filterValue)

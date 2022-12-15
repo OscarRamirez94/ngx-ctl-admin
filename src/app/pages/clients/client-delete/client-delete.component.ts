@@ -39,8 +39,6 @@ export class ClientDeleteComponent  extends CommonListComponent<Client, ClientSe
     this.model.id = this.editData.id;
     super.delete(this.model.id);
     this.dialogRef.close("true");
-    super.toast("success","Se elimino correctamente : " + this.contentDelete);
-
     if (this.model.id.toString()===this.idLocAL){
       this.headService.disparadorClients.emit(false);
     }else {

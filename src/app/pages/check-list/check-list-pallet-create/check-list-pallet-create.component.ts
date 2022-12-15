@@ -24,7 +24,7 @@ export class CheckListPalletCreateComponent extends CommonListComponent<Pallet, 
   submitted = false;
   actionBtn:String = "Crear";
   isChecked;
-  clientOg:string;
+  clientId = this.headService.getClientLS();
   unities:Unity[] = [];
   products:Product[] = [];
   code:string;
@@ -37,8 +37,7 @@ export class CheckListPalletCreateComponent extends CommonListComponent<Pallet, 
     @Inject(MAT_DIALOG_DATA) public editData:any,
     headService:HeadService,
     private productService:ProductService,
-    private unityService:UnityService,
-    private palletService:PalletSave2Service
+    private unityService:UnityService
   ) {
       super(service, router, route,toastrService,headService);
       this.titulo = 'Agregar Clients';
@@ -48,7 +47,6 @@ export class CheckListPalletCreateComponent extends CommonListComponent<Pallet, 
     }
 
   ngOnInit(): void {
-    console.log(JSON.stringify(this.editData))
     this.getProducts();
     this.getUnities();
     this.setForm();
@@ -131,7 +129,7 @@ export class CheckListPalletCreateComponent extends CommonListComponent<Pallet, 
   }
 
   getProducts(){
-    this.productService.getAllProductsByPartner(this.editData.checkList.partner.id).subscribe(data =>{
+    this.productService.getAllProductsByPartner(this.clientId).subscribe(data =>{
       this.products = data as Product[];
     })
   }

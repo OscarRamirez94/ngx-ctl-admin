@@ -52,7 +52,7 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
   get f() { return this.clientForm.controls; }
 
   onSubmit() {
-    console.log("console",this.clientForm.value);
+
     this.submitted = true;
       if (this.clientForm.invalid) {
           return;
@@ -60,11 +60,9 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
       if (!this.editData) {
          this.modelClient(this.clientForm);
          super.crear();
-
          this.onReset();
       }  else {
           this.editarClient();
-
       }
 
   }

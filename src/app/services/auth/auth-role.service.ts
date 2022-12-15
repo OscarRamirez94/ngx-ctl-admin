@@ -18,7 +18,7 @@ export class AuthRoleService  {
   this.authService.getToken().subscribe(data =>{
       this.authorities = data.getPayload()['authorities']
   })
-     console.log("authorities", this.authorities)
+
 
   }
 

@@ -19,9 +19,8 @@ export class CheckListPalletValidateComponent implements OnInit{
     headService:HeadService) {}
 
   ngOnInit(): void {
-
     this.contentDelete = this.editData.remision;
-    if (this.editData.pallets.length==0){
+    if (this.editData.calculateStock==0){
       this.message = "Remisíon sin pallets : " + this.contentDelete + " favor de validar.!";
     }else {
       this.disabled = true;

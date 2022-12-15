@@ -49,7 +49,6 @@ export class CheckOutPalletViewComponent implements OnInit {
       this.checkOut.user.lastName + " "+
       this.checkOut.user.secondName ;
       this.lista = data.checkOutDetails;
-      //console.log("pallets", data.pallets);
       this.dataSource = new MatTableDataSource(data.checkOutDetails);
       this.setForm();
     })
@@ -101,14 +100,15 @@ export class CheckOutPalletViewComponent implements OnInit {
   generaReport() {
     this.loading = true;
     let name :string = "Remision"+this.checkOut.remision + ".pdf";
-    console.log("remision", name)
+
     this.reportService.generateReport(this.checkOut).subscribe({
       next: (data) =>{
         const blob =new Blob([data],{type: "application/pdf"});
         saveAs(blob, name);
-        this.nbToasterService.success("Se genero correctamente:" + name ,"Success");
+        this.nbToasterService.success("Se genero con éxito:" + name ,"Success");
       },
       error: (e) =>{
+        this.loading = false;
         console.error("error",e.error.status)
         this.nbToasterService.danger("Ocurrio algo inesperado","Error");
       },

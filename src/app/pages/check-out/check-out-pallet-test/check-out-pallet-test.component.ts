@@ -97,7 +97,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   getListProduct(){
     this.productService.getAllProductsByPartner(this.clientName).subscribe(data =>{
       this.products = data as ProductoI[];
-      console.log("producto" +  this.products)
+
     })
   }
 
@@ -108,7 +108,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
     if (this.searchForm.invalid) {
       return;
     }
-    console.log("is valid form");
+
     this.loading = true;
     let name :string = "Report.xls";
     if (this.option ==="TODOS"){
@@ -181,7 +181,6 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
 
   optionSelectedTypeSearch(event){
     this.option = event.option.value;
-    console.log("1",event.option.value);
     this.option = event.option.value;
     if (event.option.value ==="TODOS"){
       this.searchForm.controls.date.clearValidators();
@@ -411,7 +410,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
       if (data) {
 
         super.calculateRange();
-        super.toast("success","Se agregaron correctamente pallets a la remision: " + this.checkOutRemision);
+        super.toast("success","Se agregaron con éxito pallets a la remision: " + this.checkOutRemision);
       }
     });
   }
@@ -435,7 +434,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
 
         super.calculateRange();
         super.calculateRangeRegistered();
-        super.toast("success","Se agregaron correctamente pallets a la remision: " + this.checkOutRemision);
+        super.toast("success","Se agregaron con éxito pallets a la remision: " + this.checkOutRemision);
       }
     });
   }
@@ -450,7 +449,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
 
         super.calculateRange();
         super.calculateRangeRegistered();
-        super.toast("success","Se Elimino correctamente el pallet a la remision: " + this.checkOutRemision);
+        super.toast("success","Se elimino con éxito el pallet a la remision: " + this.checkOutRemision);
       }
     });
   }
@@ -474,12 +473,7 @@ pushForm(ar:any){
   checkOutDetail.amount = ar.amount;
   checkOutDetail.checkOutId =  this.checkOutId;
   checkOutDetail.pallet =  pallet;
-
-
-  console.log("checkoutDetail",checkOutDetail);
-
   this.attachmentArP.push(checkOutDetail);
-  console.info("checkout size",this.attachmentArP.length);
 }
   initDetailForm(){
     this.attachmentArP = [];
@@ -491,8 +485,6 @@ pushForm(ar:any){
 
   addCreds() {
     const formArray = this.detailForm.controls.items as FormArray;
-    console.log("***",formArray.value);
-
     this.attachmentArP.forEach((item) => {
       formArray.push(this.formBuilder.group({
 
@@ -526,9 +518,6 @@ pushForm(ar:any){
   }
 
   onSubmitDetail(){
-
-
-    console.log("console",this.detailForm.value);
       // stop here if form is invalid
       if (this.detailForm.invalid) {
           return;
@@ -537,26 +526,18 @@ pushForm(ar:any){
       let checkout:CheckOut = new CheckOut();
       let checkOutDetailDTO:CheckOutDetail[] = [];
       checkout.id= this.checkOutId;
-
-      console.log("true")
-
       this.checkOutDetailRequest.checkOut =  checkout;
       this.checkOutDetailRequest.checkOutDetailDTO = checkOutDetailDTO;
-
-
       this.detailForm.value['items'].map(x => this.checkOutDetailRequest.checkOutDetailDTO.push(this.addDTO(x)));
-      console.log("data a guardar", this.checkOutDetail);
-
       this.detailService.crearDetail(this.checkOutDetailRequest).subscribe({
         next: (v) =>{
 
           this.onResetDetail();
           this.limpiar()
-          super.toast("success","Se agregaron correctamente pallets a la remision: " + this.checkOutRemision);
+          super.toast("success","Se agregaron con éxito pallets a la remision: " + this.checkOutRemision);
           this.router.navigateByUrl('/pages/checkout/checkout');
         },
         error: (e) =>{
-          console.error("error",e.error.status)
           this.toast("Error", "Ocurrio un error");
         },
         complete: () => console.info("complete")

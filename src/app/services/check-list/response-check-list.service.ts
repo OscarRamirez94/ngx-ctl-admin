@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TransportLineI } from '../../interfaces/transport-line-i';
 import { CheckList } from '../../models/check-list/check-list';
+import { ResponseCheckList } from '../../models/check-list/response-check-list';
 import { Client } from '../../models/client';
 import { PalletSave } from '../../models/pallet/pallet-save';
 import { Person } from '../../models/person/person';
@@ -16,7 +17,7 @@ import { CommonService } from '../commons.service';
 @Injectable({
   providedIn: 'root'
 })
-export class CheckListService extends CommonService<CheckList> {
+export class ResponseCheckListService extends CommonService<ResponseCheckList> {
   url = 'http://localhost:8081/microservice-ctl/check-list/';
   urlClient = 'http://localhost:8081/microservice-ctl/partner/';
   urlTransportLine = 'http://localhost:8081/microservice-ctl/transport-line/';
@@ -28,12 +29,6 @@ export class CheckListService extends CommonService<CheckList> {
   constructor(http: HttpClient) {
     super(http);
   }
-
-
- public crear(checkList: CheckList): Observable<any> {
-
-  return this.http.post<any>(this.url, checkList);
-}
 
 getAllClientes(): Observable<Client[]> {
   return this.http.get<Client[]>(this.urlClient.concat("all"));
@@ -63,6 +58,7 @@ getById(id:any):Observable<CheckList>{
 
 
 public savePallets(palletSave:PalletSave): Observable<any> {
+
   return this.http.post<any>(this.urlPallet, palletSave);
 }
 

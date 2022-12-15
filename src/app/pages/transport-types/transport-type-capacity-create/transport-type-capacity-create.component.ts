@@ -42,7 +42,7 @@ constructor(
     this.model = new TransportCapacity();
     this.model.transportType = new TransportType();
     this.redirect = '';
-    this.nombreModel = "TransportCapacity";
+    this.nombreModel = "Capacidad de Transporte";
 
   }
 
@@ -66,7 +66,6 @@ constructor(
         this.modelTransportCapacity(this.transportCapacityForm);
         super.crear();
         this.onReset();
-        super.toast("success", "Capacidad de transporte creada con éxito");
       }else {
         this.editarTransportType();
       }

@@ -59,15 +59,15 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
   get f() { return this.PersonForm.controls; }
 
   onSubmit() {
-    console.log("click")
+
     this.submitted = true;
     // stop here if form is invalid
-    console.log("form", this.PersonForm.value)
+
     if (this.PersonForm.invalid) {
       return;
     }
     if (!this.editData) {
-      console.log("form", this.PersonForm.value)
+
       this.modelClient(this.PersonForm);
       super.crear();
       this.onReset();
@@ -136,9 +136,9 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
   // la obtiene y la va a guardar en this.professions que aun no existe, hay que declararla como profession:ProfessionI[]; hasta arriba
   getAllProfessions() {
     this.service.getAllProfessions().subscribe(data => {
-      console.log("data" + data);
+
       this.professions = data;
-      console.log("professions" + this.professions);
+
     })
   }
 
@@ -148,7 +148,7 @@ export class PersonsCreateComponent extends CommonListComponent<Person, PersonSe
 
   }
   public displayProperty(value) {
-    console.log("Selected2 : ", value);
+
     if (value) {
       return value.name;
     }

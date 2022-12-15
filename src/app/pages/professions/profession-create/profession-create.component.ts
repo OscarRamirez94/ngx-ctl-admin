@@ -35,7 +35,7 @@ export class ProfessionCreateComponent extends CommonListComponent<Profession, P
 
   ngOnInit(): void {
 
-    console.log(this.editData + "data");
+
     this.setForm();
 
     this.rejectForm(this.editData);
@@ -49,16 +49,15 @@ export class ProfessionCreateComponent extends CommonListComponent<Profession, P
 
     this.submitted = true;
     // stop here if form is invalid
-    console.log("form", this.professionForm.value)
+
     if (this.professionForm.invalid) {
       return;
     }
     if (!this.editData) {
-      console.log("form", this.professionForm.value)
+
       this.modelClient(this.professionForm);
       super.crear();
       this.onReset();
-      super.toast("success", "Puesto creado con éxito");
     } else {
       this.editarClient();
     }

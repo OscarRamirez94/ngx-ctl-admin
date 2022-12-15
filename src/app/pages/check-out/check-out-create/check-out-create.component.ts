@@ -203,13 +203,9 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
           return;
       }
       if (!this.editData) {
-        console.log(this.secondFormGroup);
-
         this.modelCheckList(this.firstFormGroup,this.secondFormGroup,this.thirdFormGroup);
-        console.log("model", this.model);
         super.crear().subscribe(data =>{
           if (data){
-            super.toast("success","Se inserto con éxito");
             this.onReset();
           }else {
 
@@ -251,7 +247,6 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   rejectForm(editData:any) {
     if (editData) {
       this.status =  editData.status;
-      console.log("EDITAR::" + JSON.stringify(editData))
       this.actionBtn ="Modificar";
 
 
@@ -292,7 +287,6 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 
   // filtered TransportLines
   private _filterTransportLine(value: string): TransportLineI[] {
-    console.log("value",value);
     const filterValue = value.toLowerCase();
 
     return this.transportLines.filter(transportLine => transportLine.name.toLowerCase().includes(filterValue));
@@ -302,14 +296,12 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     this.model.transportLine.id = event.id ;
   }
   displayPropertyTransportLine(value) {
-    console.log("**",value)
     if (value) {
       return value.name;
     }
   }
   //filtered transportypes
   private _filterTransportType(value: string): TransportTypeI[] {
-    console.log("value",value);
     const filterValue = value.toLowerCase();
 
     return this.transportTypes.filter(transportType => transportType.name.toLowerCase().includes(filterValue));
@@ -331,7 +323,6 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   // filtered transportCapacities
 
   private _filterTransportCapacity(value: string): TransportCapacityI[] {
-    console.log("value",value);
     const filterValue = value.toLowerCase();
 
     return this.transportCapacities.filter(
@@ -353,7 +344,6 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   // Filtered responsibles
 
   private _filterTransportSurveillance(value: string): UserI[] {
-    console.log("value",value);
     const filterValue = value.toLowerCase();
 
     return this.surveillances.filter(
@@ -375,7 +365,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
 
   // Filtered surveillances
   private _filterTransportResponsible(value: string): UserI[] {
-    console.log("value",value);
+
     const filterValue = value.toLowerCase();
 
     return this.responsibles.filter(

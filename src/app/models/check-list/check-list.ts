@@ -30,7 +30,6 @@ export class CheckList implements Generic{
     noRampa : String;
     pallets: Pallet[];
     status:string;
-    stock:string;
     user: User;
-    stockRegistered:number;
+
 }

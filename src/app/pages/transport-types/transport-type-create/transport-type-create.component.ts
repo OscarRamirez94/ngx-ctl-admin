@@ -51,7 +51,6 @@ export class TransportTypeCreateComponent extends CommonListComponent<TransportT
       this.modelTransportType(this.transportTypeForm);
       super.crear();
       this.onReset();
-      super.toast("success", "Tipo de transporte creado con éxito");
     } else {
       this.editarTransportType();
     }

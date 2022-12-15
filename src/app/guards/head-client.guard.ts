@@ -23,7 +23,6 @@ export class HeadClientGuard implements CanActivate {
 
 
     let clientId = this.headService.getClientLS();
-      console.log(clientId);
       if (clientId) {
         return true;
       }

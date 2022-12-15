@@ -38,6 +38,6 @@ export class TransportTypeCapacityDeleteComponent extends CommonListComponent<Tr
     this.model.id = this.editData.id;
     super.delete(this.model.id);
     this.dialogRef.close("true");
-    super.toast("success", "Se elimino correctamente : " + this.editData.capacity  + this.editData.unity);
+
   }
 }

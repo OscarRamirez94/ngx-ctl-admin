@@ -134,11 +134,8 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     palletSave.checkListId = this.id;
     palletSave.palletsDTO =[];
     this.form.value['items'].map(x => palletSave.palletsDTO.push(this.addDTO(x)));
-
-    console.log("datos a guardar", palletSave)
     this.palletService.crear(palletSave).subscribe({
       next: (data) =>{
-      console.log("data0",data)
       super.paginator;
       super.calculateRange();
       this.calculaTotales();
@@ -152,7 +149,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
       if (this.response.totalRegistered>0){
         super.toast("success","Se Agregaron: "+ this.response.totalRegistered + "/" + total +" con éxito");
         this.closedRemision(this.checkList.remision,this.checkList.id);
-        console.log("this.remision",this.checkList.remision);
       }
       if (this.response.totalDuplicated>0){
         super.toast("danger","Se encontraron: "+ this.response.totalDuplicated + "/"+ total + " duplicados");
@@ -173,7 +169,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
 
 
   addDTO(x:any):Pallet{
-    console.log("x", x)
     let pallet:PalletSave2;
     let pallettoDto:Pallet = new Pallet();
     pallettoDto.ua = x.ua;
@@ -190,8 +185,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
   }
   addCreds() {
     const formArray = this.form.controls.items as FormArray;
-    console.log("***",formArray.value);
-
     this.attachmentArP.forEach((item) => {
       formArray.push(this.fb.group({
           amount: [item.amount,[RxwebValidators.numeric({acceptValue:NumericValueType.PositiveNumber  ,allowDecimal:false }),Validators.required]],
@@ -219,8 +212,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     let producto = this.formTemplate.get('producto').value;
     let codigo   = this.formTemplate.get('codigo').value;
 
-
-    console.log("cantidad", cantidad)
     for (let step = 0; step < cantidad; step++) {
 
       let pallet:Pallett =  new Pallett();
@@ -268,7 +259,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
   }
 
   private _filterProduct(value: string): ProductoI[] {
-    console.log("value",value);
     const filterValue = value.toLowerCase();
 
     return this.products.filter(product =>
@@ -326,7 +316,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
   }
   calculaTotales(){
     this.service.totalByCheckList(this.id).subscribe(data =>{
-      console.log("data",data);
       let data2 :any =  data as any;
       this.totalPalletDTO.total = data2.total;
       this.totalPalletDTO.productoTotal = data2.productoTotal;
@@ -351,7 +340,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     const dialogRef = this.dialog.open(CheckListPalletDeleteComponent, {
       data:element
     }).afterClosed().subscribe(data =>{
-      console.log("data", data);
       if (data) {
         super.calculateRange();
         this.calculaTotales();
@@ -361,7 +349,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
   }
 
   closedRemision(element:any,checkListId:any){
-    console.log('{} {}',element,checkListId)
     this.dialog.open(CheckListPalletCloseComponent,{
 
       data: element
@@ -369,7 +356,6 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
       next: (data) =>{
         if (data){
           this.checkListService.updateStatus(this.id).subscribe(data =>{
-            console.log(data, "status");
             super.toast("success","Se finalizó la remision con éxito: " + element)
             super.calculateRange();
             this.checkList = data as CheckList;

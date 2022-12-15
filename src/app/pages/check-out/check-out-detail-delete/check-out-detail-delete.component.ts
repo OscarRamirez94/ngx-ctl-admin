@@ -17,7 +17,7 @@ export class CheckOutDetailDeleteComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log("this.editData",this.editData);
+
   }
 
 

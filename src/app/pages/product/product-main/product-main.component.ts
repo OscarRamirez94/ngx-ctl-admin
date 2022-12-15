@@ -33,7 +33,6 @@ export class ProductMainComponent extends CommonListClientComponent<Product, Pro
 
 
   openDialog(): void {
-    console.log("clientName", this.clientName);
     const dialogRef = this.dialog.open(ProductCreateComponent, {
       width: '35%'
     }).afterClosed().subscribe(data => {

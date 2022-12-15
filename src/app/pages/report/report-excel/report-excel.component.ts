@@ -31,7 +31,7 @@ export class ReportExcelComponent implements OnInit {
     if (this.searchForm.invalid) {
       return;
     }
-    console.log("is valid form");
+
     this.loading = true;
     let name :string = "Report.xls";
     if (this.option ==="TODOS"){
@@ -89,7 +89,7 @@ export class ReportExcelComponent implements OnInit {
   }
 
   optionSelectedTypeSearch(event){
-    console.log("1",event.option.value);
+
     this.option = event.option.value;
     if (event.option.value ==="TODOS"){
       this.searchForm.controls.dateBefore.clearValidators();

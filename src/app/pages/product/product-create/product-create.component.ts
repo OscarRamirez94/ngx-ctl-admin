@@ -88,7 +88,7 @@ export class ProductCreateComponent  extends CommonListClientComponent<Product, 
     this.modelTransportLine(this.productForm);
     super.editar();
     this.onReset();
-    super.toast("success", "Product modificado con éxito");
+    super.toast("success", "Producto modificado con éxito");
   }
 
   modelTransportLine(productForm: any) {
