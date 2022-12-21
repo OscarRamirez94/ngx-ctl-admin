@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { ClientsRoutingModule } from './clients-routing.module';
+import { CotizacionesRoutingModule } from './cotizaciones-routing.module';
+import { CotizacionesComponent } from './cotizaciones.component';
+import { CotizacionesMainComponent } from './cotizaciones-main/cotizaciones-main.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { ClientsComponent } from './clients.component';
-
 import { NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbSpinnerModule, NbTagModule, NbUserModule } from '@nebular/theme';
-import { ClientMainComponent } from './client-main/client-main.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule } from '@angular/material/form-field';
@@ -20,23 +18,20 @@ import {MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
 import {BidiModule} from '@angular/cdk/bidi';
-import { ClientCreateComponent } from './client-create/client-create.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatChipsModule} from '@angular/material/chips';
-import { ClientDeleteComponent } from './client-delete/client-delete.component';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 @NgModule({
   declarations: [
-    ClientsComponent,
-    ClientDeleteComponent,
-    ClientCreateComponent,
-    ClientMainComponent,
-
+    CotizacionesComponent,
+    CotizacionesMainComponent
   ],
   imports: [
     CommonModule,
-    ClientsRoutingModule,
+    CotizacionesRoutingModule,
+    CommonModule,
     ThemeModule,
     NbButtonModule,
     NbCardModule,
@@ -64,7 +59,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     NbTagModule,
     NbBadgeModule,
     NbSpinnerModule
-  ],
-
+  ]
 })
-export class ClientsModule { }
+export class CotizacionesModule { }

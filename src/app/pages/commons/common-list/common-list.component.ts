@@ -25,7 +25,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   error: any;
   protected redirect: string;
   protected nombreModel: string;
-
+  protected loading:boolean;
 
   sortedData: Object[];
   // config pagination
@@ -67,7 +67,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   public calculateRange(){
-
+    this.loading = true;
     const search: SearchCriteriaClient = new SearchCriteriaClient();
     search.pageNumber = this.paginaActual;
     search.pageSize = this.totalPorPagina;
@@ -87,7 +87,10 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
         console.error("error",e.error.status)
         this.toast("danger", "Ocurrio un error");
       },
-      complete: () => console.info("complete")
+      complete: () => {
+        this.loading = false;
+        console.info("complete")
+      }
     });
   }
 

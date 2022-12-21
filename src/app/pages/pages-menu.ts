@@ -9,6 +9,8 @@ export const MENU_ITEMS: NbMenuItem[] = [
     home: true,
   },
 
+
+
  /* {
     title: 'Modulos',
     icon: 'edit-2-outline',
@@ -63,6 +65,19 @@ export const MENU_ITEMS: NbMenuItem[] = [
       },
 */
 
+    ],
+  },
+
+  {
+    title: 'Cotizaciones',
+    icon: 'book-open-outline',
+
+    children: [
+      {
+        title: 'Cotizaciones',
+        icon: 'person-done-outline',
+        link: '/pages/cotizaciones/cotizaciones',
+      }
     ],
   },
 

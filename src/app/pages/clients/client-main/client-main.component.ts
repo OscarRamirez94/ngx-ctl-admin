@@ -23,6 +23,7 @@ export class ClientMainComponent extends CommonListComponent<Client,ClientServic
   name: string;
   titulo:string = "Clientes";
   displayedColumns: string[] = ['name','direccion','attention','isActive','actions'];
+  loading:boolean = true;
 
   constructor( service:ClientService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,

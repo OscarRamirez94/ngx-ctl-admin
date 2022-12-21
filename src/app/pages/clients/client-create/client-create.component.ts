@@ -25,8 +25,8 @@ export class ClientCreateComponent extends CommonListComponent<Client, ClientSer
   isChecked;
   clientOg:string;
   clientO:string = this.headService.getNameClientLS();
-
   localId:string;
+
   constructor(
     service: ClientService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder:FormBuilder, private  dialogRef: MatDialogRef<ClientCreateComponent>,

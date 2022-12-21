@@ -89,6 +89,12 @@ const routes: Routes = [{
         .then(m => m.ReportModule),
     },
     {
+      path: 'cotizaciones',
+
+      loadChildren: () => import('./cotizaciones/cotizaciones.module')
+        .then(m => m.CotizacionesModule),
+    },
+    {
       path: 'users',
       loadChildren: () => import('./users/users.module')
         .then(m => m.UsersModule),
