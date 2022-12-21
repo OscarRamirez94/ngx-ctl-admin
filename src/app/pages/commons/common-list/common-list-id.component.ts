@@ -86,6 +86,7 @@ export abstract class CommonListIdComponent<E extends Generic, S extends CommonS
   }
 
   applyFilter(event: Event) {
+    this.paginaActual = 0;
     const fil:string  = (event.target as HTMLInputElement).value;
     if(fil !==null && fil !== ''){
         this.filterValue = fil;

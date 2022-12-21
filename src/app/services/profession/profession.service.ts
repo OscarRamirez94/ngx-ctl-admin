@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AppSettings } from '../../constant/app-settings';
 import { Profession } from '../../models/profession/profession';
 import { CommonService } from '../commons.service';
 
@@ -7,7 +8,7 @@ import { CommonService } from '../commons.service';
   providedIn: 'root'
 })
 export class ProfessionService extends CommonService<Profession>  {
-  protected url = 'http://localhost:8081/microservice-ctl/profession/';
+  protected url = AppSettings.API_ENDPOINT+'/profession/';
 
   constructor(http: HttpClient) {
     super(http);

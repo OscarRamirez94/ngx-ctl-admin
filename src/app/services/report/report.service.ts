@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppSettings } from '../../constant/app-settings';
 import { CheckOut } from '../../models/check-out/check-out';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportService  {
-  private url = 'http://localhost:8081/microservice-ctl/report-out/';
+  private url = AppSettings.API_ENDPOINT+'/report-out/';
 
   constructor(private http: HttpClient) {
 

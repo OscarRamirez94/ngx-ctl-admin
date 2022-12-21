@@ -44,7 +44,7 @@
               "src/app/@theme/styles/styles.scss"
             ],
             "scripts": [
-        
+
             ],
             "allowedCommonJsDependencies": [
               "angular2-chartjs",
@@ -65,7 +65,7 @@
               "budgets": [
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "6kb"
+                  "maximumWarning": "11kb"
                 }
               ],
               "optimization": true,

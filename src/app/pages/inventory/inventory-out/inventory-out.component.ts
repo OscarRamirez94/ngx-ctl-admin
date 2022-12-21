@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NbToastrService } from '@nebular/theme';
-import { CheckList } from '../../../models/check-list/check-list';
 import { CheckOutDetail } from '../../../models/check-out-detail/check-out-detail';
 import { CheckOutDeatailService } from '../../../services/check-out-detail/check-out-detail.service';
 import { HeadService } from '../../../services/head/head.service';

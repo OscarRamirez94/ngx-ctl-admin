@@ -52,6 +52,7 @@ import { StatsProgressBarService } from './mock/stats-progress-bar.service';
 import { VisitorsAnalyticsService } from './mock/visitors-analytics.service';
 import { SecurityCamerasService } from './mock/security-cameras.service';
 import { MockDataModule } from './mock/mock-data.module';
+import { AppSettings } from '../constant/app-settings';
 
 const socialLinks = [
   {
@@ -109,7 +110,7 @@ export const NB_CORE_PROVIDERS = [
       NbPasswordAuthStrategy.setup({
         name: 'email',
 
-        baseEndpoint: 'http://localhost:8081/microservice-ctl',
+        baseEndpoint: AppSettings.API_ENDPOINT,
 
         token: {
           class: NbAuthJWTToken,

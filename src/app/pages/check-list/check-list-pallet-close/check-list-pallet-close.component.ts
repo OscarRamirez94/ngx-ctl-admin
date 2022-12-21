@@ -15,8 +15,7 @@ export class CheckListPalletCloseComponent implements OnInit{
   constructor(
 
     private  dialogRef: MatDialogRef<CheckListPalletCloseComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData:any,
-    headService:HeadService) {}
+    @Inject(MAT_DIALOG_DATA) public editData:any) {}
 
   ngOnInit(): void {
     this.contentDelete = this.editData;

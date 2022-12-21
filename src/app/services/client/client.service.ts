@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppSettings } from '../../constant/app-settings';
 import { ResponsePrefix } from '../../interfaces/ResponsePrefix';
 
 import { Client } from '../../models/client';
@@ -12,7 +13,7 @@ import { CommonService } from '../commons.service';
   providedIn: 'root'
 })
 export class ClientService extends CommonService<Client> {
- protected url = 'http://localhost:8081/microservice-ctl/partner/';
+ protected url = AppSettings.API_ENDPOINT+'/partner/';
 
  constructor(http: HttpClient) {
   super(http);

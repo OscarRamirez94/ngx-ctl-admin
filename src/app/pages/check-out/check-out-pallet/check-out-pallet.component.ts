@@ -1,24 +1,11 @@
-import { SelectionModel } from '@angular/cdk/collections';
-import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NbToastrService } from '@nebular/theme';
-import { PalletI } from '../../../interfaces/pallet-i';
+
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CheckOutSave } from '../../../models/check-out/CheckOutSave';
 import { Pallet } from '../../../models/pallet/pallet';
-import { Product } from '../../../models/product/product';
-import { SearchCriteriaClient } from '../../../models/searchs/search-criteria-client';
-import { TransportLine } from '../../../models/transport-line/transport-line';
 import { CheckOutService } from '../../../services/check-out/check-out.service';
-import { HeadService } from '../../../services/head/head.service';
-import { PalletService } from '../../../services/pallet/pallet.service';
-import { ProductService } from '../../../services/product/product.service';
-import { TransportLineService } from '../../../services/transport-line/transport-line.service';
-import { CommonListPalletComponent } from '../../commons/common-list/common-list.component-pallet';
+
 
 
 @Component({

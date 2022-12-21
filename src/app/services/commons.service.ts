@@ -1,11 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
+import { AppSettings } from "../constant/app-settings";
 import { Generic } from "../models/generic/generic";
 import { SearchCriteriaClient } from "../models/searchs/search-criteria-client";
 
 
 export abstract class CommonService<E extends Generic> {
-
+  urlCheckOut = AppSettings.API_ENDPOINT+'/check-out-detail/';
   searach:SearchCriteriaClient
   protected url: string;
   protected cabeceras: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -151,4 +152,19 @@ export abstract class CommonService<E extends Generic> {
   public eliminar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}${id}`);
   }
+
+  getFilterCriteriaLiberadosByCheckOut(search:SearchCriteriaClient,clientName,checkOutId): Observable<any> {
+    const params = new HttpParams()
+      .set('pageNumber', search.pageNumber)
+      .set('pageSize', search.pageSize)
+      .set('sortDirection',search.sortDirection)
+      .set('sortBy',search.sortBy)
+      .set('searchBy',search.searchBy);
+
+    return this.http.get<any>(
+      this.urlCheckOut.concat("all/",clientName,"/",checkOutId,"/"),
+       { params: params });
+    }
+
+
 }

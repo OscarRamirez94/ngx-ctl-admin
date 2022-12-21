@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AppSettings } from '../../constant/app-settings';
 import { Unity } from '../../models/unity/unity';
 import { CommonService } from '../commons.service';
 
@@ -7,7 +8,7 @@ import { CommonService } from '../commons.service';
   providedIn: 'root'
 })
 export class UnityService extends CommonService<Unity> {
-  protected url = 'http://localhost:8081/microservice-ctl/unity/';
+  protected url = AppSettings.API_ENDPOINT+'/unity/';
 
   constructor(http: HttpClient) {
    super(http);

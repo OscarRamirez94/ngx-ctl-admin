@@ -6,7 +6,6 @@ import { NbToastrService } from '@nebular/theme';
 import { TransportLine } from '../../../models/transport-line/transport-line';
 import { HeadService } from '../../../services/head/head.service';
 import { TransportLineService } from '../../../services/transport-line/transport-line.service';
-import { CommonListComponent } from '../../commons/common-list/common-list.component';
 import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
 import { TransportLineCreateComponent } from '../transport-line-create/transport-line-create.component';
 import { TransportLineDeleteComponent } from '../transport-line-delete/transport-line-delete.component';

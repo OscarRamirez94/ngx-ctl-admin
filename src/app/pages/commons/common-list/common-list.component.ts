@@ -31,10 +31,10 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   // config pagination
   totalRegistros=0;
   paginaActual = 0;
-  totalPorPagina = 10;
+  totalPorPagina =25;
   orderBy ="ASC";
   column ="id";
-  pageSizeOptions = [10, 25,50,100];
+  pageSizeOptions = [25,50,100];
   ariaLabel="Select page";
   filterValue ="";
   lista: E[];
@@ -92,6 +92,7 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
   }
 
   applyFilter(event: Event) {
+    this.paginaActual = 0;
     const fil:string  = (event.target as HTMLInputElement).value;
     if(fil !==null && fil !== ''){
         this.filterValue = fil;
@@ -237,14 +238,11 @@ export abstract class CommonListComponent<E extends Generic, S extends CommonSer
       error: (err) =>{
         if(err.status === 400){
           this.error = err.error;
-          console.log(this.error);
         }
         if(err.status === 404){
           this.error = err.error;
-          console.log(this.error);
-
         }
-        this.toast("danger","Ocurrio un error inesperado")
+        this.toast("danger","No se puede eliminar, se encuentra en uso.")
       },
       complete: () => console.info("complete")
     });

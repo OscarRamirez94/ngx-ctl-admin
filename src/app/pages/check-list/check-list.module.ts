@@ -43,6 +43,9 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { CheckListDeleteComponent } from './check-list-delete/check-list-delete.component';
 import { CheckListPalletValidateComponent } from './check-list-pallet-validate/check-list-pallet-validate.component';
 import { CheckListPalletCloseComponent } from './check-list-pallet-close/check-list-pallet-close.component';
+import { NbSpinnerModule } from '../../../../nebular/src/framework/theme/public_api';
+import { CheckListPalletAddComponent } from './check-list-pallet-add/check-list-pallet-add.component';
+import { CheckListPalletRemoveComponent } from './check-list-pallet-remove/check-list-pallet-remove.component';
 @NgModule({
   declarations: [
     CheckListComponent,
@@ -50,6 +53,8 @@ import { CheckListPalletCloseComponent } from './check-list-pallet-close/check-l
     CheckListCreateComponent,
     CheckListPalletComponent,
     CheckListPalletCreateComponent,
+    CheckListPalletAddComponent,
+    CheckListPalletRemoveComponent,
     CheckListPalletDeleteComponent,
     CheckListDeleteComponent,
     CheckListPalletValidateComponent,
@@ -97,7 +102,8 @@ import { CheckListPalletCloseComponent } from './check-list-pallet-close/check-l
     NbListModule,
     MatBadgeModule,
     NbTagModule,
-    NbTooltipModule
+    NbTooltipModule,
+    NbSpinnerModule
   ]
 })
 export class CheckListModule { }

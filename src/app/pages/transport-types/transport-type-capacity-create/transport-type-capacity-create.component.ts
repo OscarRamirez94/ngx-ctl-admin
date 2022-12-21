@@ -33,8 +33,7 @@ constructor(
     service: TransportCapacityService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder: FormBuilder, private dialogRef: MatDialogRef<TransportTypeCapacityCreateComponent>,
     @Inject(MAT_DIALOG_DATA) public editData: any,
-    headService:HeadService,
-    private transportTypeService: TransportTypeService,
+    headService:HeadService
 
   ) {
     super(service, router, route, toastrService,headService);

@@ -69,7 +69,6 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
       super.crear().subscribe(data =>{
         if (data){
           this.onReset();
-          super.toast("success", "Usuario creado con éxito");
           this.loading = false;
         } else {
 

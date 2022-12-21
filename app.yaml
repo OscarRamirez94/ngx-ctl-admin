@@ -1,0 +1,29 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+handlers:
+# index files
+  - url: /([^.]+)/?$  # urls with no dot in them
+    static_files: dist/index.html
+    upload: dist/index.html
+
+# site root
+  - url: /
+    static_files: dist/index.html
+    upload: dist/index.html
+
+# everything else
+  - url: /(.*)
+    static_files: dist/\1
+    upload: dist/(.*)
+
+skip_files:
+  - e2e/
+  - node_modules/
+  - src/
+  - coverage
+  - ^(.*/)?\..*$
+  - ^(.*/)?.*\.json$
+  - ^(.*/)?.*\.md$
+  - ^(.*/)?.*\.yaml$
+  - ^LICENSE

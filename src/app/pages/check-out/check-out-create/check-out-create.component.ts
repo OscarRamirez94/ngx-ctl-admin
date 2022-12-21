@@ -2,13 +2,13 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbAuthService, NbAuthToken } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
 import { map, Observable, startWith } from 'rxjs';
 import { TransportCapacityI } from '../../../interfaces/transport-capacity-i';
 import { TransportLineI } from '../../../interfaces/transport-line-i';
 import { TransportTypeI } from '../../../interfaces/transport-type-i';
 import { UserI } from '../../../interfaces/user-i';
-import { CheckList } from '../../../models/check-list/check-list';
 import { CheckOut } from '../../../models/check-out/check-out';
 import { Client } from '../../../models/client';
 import { Person } from '../../../models/person/person';
@@ -18,7 +18,6 @@ import { TransportCapacity } from '../../../models/transport_capacity/transport-
 import { TransportType } from '../../../models/transport_type/transport-type';
 import { User } from '../../../models/user/user';
 import { AuthRoleService } from '../../../services/auth/auth-role.service';
-import { CheckListService } from '../../../services/check-list/check-list.service';
 import { CheckOutService } from '../../../services/check-out/check-out.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
@@ -30,6 +29,10 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
   styleUrls: ['./check-out-create.component.scss']
 })
 export class CheckOutCreateComponent extends CommonListComponent<CheckOut, CheckOutService> implements OnInit  {
+  nbAuthToken:NbAuthToken;
+  authorities:any =[];
+  isSuper:boolean = false;
+
   clients:Client[];
 
   transportLines:TransportLineI[] = [];
@@ -60,7 +63,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
   constructor(service:CheckOutService,router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private _formBuilder:FormBuilder,private authRoleService:AuthRoleService,headService:HeadService,
     private  dialogRef: MatDialogRef<CheckOutCreateComponent>,
-    @Inject(MAT_DIALOG_DATA) public editData:any,)
+    @Inject(MAT_DIALOG_DATA) public editData:any,private authService: NbAuthService)
     {
       super(service, router, route,toastrService,headService);
       this.model = new CheckOut();
@@ -73,6 +76,9 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
       this.titulo = 'Agregar Salida';
       this.redirect = '/pages/clients/clientes';
       this.nombreModel = "Registro";
+      this.authService.onTokenChange().subscribe(data =>{
+        this.authorities = data.getPayload()['authorities']
+    })
     }
 
   get f() { return this.firstFormGroup.controls; }
@@ -89,6 +95,9 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
     this.getResponsibles();
     this.rejectForm(this.editData);
     super.paginator;
+    if (this.hasRole(['ROLE_SUPER'])){
+      this.isSuper = true;
+    };
   }
 
   initForm(){
@@ -384,4 +393,7 @@ export class CheckOutCreateComponent extends CommonListComponent<CheckOut, Check
       return value.firstName + ' ' + value.additionalName  + ' ' + value.lastName + ' ' + value.secondName;
     }
   }
+  hasRole(roles:String[]):Boolean{
+    return roles.some(r=> this.authorities.includes(r));
+ }
 }

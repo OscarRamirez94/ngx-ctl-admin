@@ -326,7 +326,10 @@
               <mat-dialog-actions align="end">
                 <button nbButton hero shape="semi-round" size="small" status="warning" matStepperPrevious>Regresar</button>
                 <button nbButton hero shape="semi-round" size="small" status="danger" (click)="stepper.reset()" *ngIf="editData===null">Limpiar</button>
-                <button nbButton hero shape="semi-round" size="small" status="primary" [disabled]="status === 'close'" (click)='onSubmit()' >{{actionBtn}}</button>
+
+                <button *ngIf="!isSuper" nbButton hero shape="semi-round" size="small" status="primary" [disabled]="status === 'close'" (click)='onSubmit()' >{{actionBtn}}</button>
+
+                <button *ngIf="isSuper"  nbButton hero shape="semi-round" size="small" status="primary" (click)='onSubmit()' >{{actionBtn}}</button>
               </mat-dialog-actions>
 
           </div>

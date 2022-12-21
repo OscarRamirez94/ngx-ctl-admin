@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbAuthService, NbAuthToken } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
-import { CheckList } from '../../../models/check-list/check-list';
 import { CheckOut } from '../../../models/check-out/check-out';
-import { CheckListService } from '../../../services/check-list/check-list.service';
 import { CheckOutService } from '../../../services/check-out/check-out.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListCheckComponent } from '../../commons/common-list/common-list.component-check';
-import { CommonListClientComponent } from '../../commons/common-list/common-list.component-client';
 import { CheckOutCreateComponent } from '../check-out-create/check-out-create.component';
 import { CheckOutDeleteComponent } from '../check-out-delete/check-out-delete.component';
 
@@ -19,6 +17,9 @@ import { CheckOutDeleteComponent } from '../check-out-delete/check-out-delete.co
 })
 export class CheckOutMainComponent  extends CommonListCheckComponent<CheckOut,CheckOutService> {
   hidden = false;
+  nbAuthToken:NbAuthToken;
+  authorities:any =[];
+  isSuper:boolean = false;
 
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
@@ -31,10 +32,16 @@ export class CheckOutMainComponent  extends CommonListCheckComponent<CheckOut,Ch
   clientName =  this.headService.getClientLS();
   constructor( service:CheckOutService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,
-    headService:HeadService) {
+    headService:HeadService,private authService: NbAuthService) {
     super(service,router, route,toastrService,headService);
     this.redirect = '/pages/clients/clientes';
     this.nombreModel = "Salida";
+    this.authService.onTokenChange().subscribe(data =>{
+      this.authorities = data.getPayload()['authorities']
+  });
+  if (this.hasRole(['ROLE_SUPER'])){
+    this.isSuper = true;
+  };
   }
 
   openDialog(): void {
@@ -90,5 +97,7 @@ export class CheckOutMainComponent  extends CommonListCheckComponent<CheckOut,Ch
     });
 
   }
-
+  hasRole(roles:String[]):Boolean{
+    return roles.some(r=> this.authorities.includes(r));
+ }
 }

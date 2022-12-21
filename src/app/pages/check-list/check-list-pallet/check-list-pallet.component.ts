@@ -2,9 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbAuthService, NbAuthToken } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
 import { NumericValueType, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { map, Observable, startWith } from 'rxjs';
+
 import { ProductoI } from '../../../interfaces/product-i';
 import { CheckList } from '../../../models/check-list/check-list';
 import { Pallet } from '../../../models/pallet/pallet';
@@ -21,10 +23,11 @@ import { PalletService } from '../../../services/pallet/pallet.service';
 import { ProductService } from '../../../services/product/product.service';
 import { UnityService } from '../../../services/unity/unity.service';
 import { CommonListIdComponent } from '../../commons/common-list/common-list-id.component';
+import { CheckListPalletAddComponent } from '../check-list-pallet-add/check-list-pallet-add.component';
 import { CheckListPalletCloseComponent } from '../check-list-pallet-close/check-list-pallet-close.component';
 import { CheckListPalletCreateComponent } from '../check-list-pallet-create/check-list-pallet-create.component';
 import { CheckListPalletDeleteComponent } from '../check-list-pallet-delete/check-list-pallet-delete.component';
-import { CheckListPalletValidateComponent } from '../check-list-pallet-validate/check-list-pallet-validate.component';
+import { CheckListPalletRemoveComponent } from '../check-list-pallet-remove/check-list-pallet-remove.component';
 
 
 @Component({
@@ -63,8 +66,9 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
   step = 0;
   registrado:string;
   filteredProducto: Observable<ProductoI[]>;
-
-
+  isSuper:boolean = false;
+  nbAuthToken:NbAuthToken;
+  authorities:any =[];
   constructor( service:PalletService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,
     private checkListService:CheckListService,
@@ -73,12 +77,15 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     private productService:ProductService,
     private unityService:UnityService,
     private palletService:PalletSave2Service,
-
+    private authService: NbAuthService
     ) {
     super(service,router, route,toastrService);
     this.model = new Pallet();
     this.model.id = this.id;
     this.nombreModel = "Pallets";
+    this.authService.onTokenChange().subscribe(data =>{
+      this.authorities = data.getPayload()['authorities']
+  })
   }
 
   ngOnInit(): void {
@@ -101,7 +108,9 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     this.getUnities();
     this.template();
     this.calculaTotales();
-
+    if (this.hasRole(['ROLE_SUPER'])){
+      this.isSuper = true;
+    };
   }
 
   initForm(){
@@ -336,6 +345,30 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
       });
   }
 
+  editAddPalletsDialog(element:any): void {
+    const dialogRef = this.dialog.open(CheckListPalletAddComponent, {
+      width: '65%',
+      data:element
+    }).afterClosed().subscribe(data =>{
+      if (data) {
+        super.calculateRange();
+        this.calculaTotales();
+      }
+      });
+  }
+
+  editRemovePalletsDialog(element:any): void {
+    const dialogRef = this.dialog.open(CheckListPalletRemoveComponent, {
+      width: '65%',
+      data:element
+    }).afterClosed().subscribe(data =>{
+      if (data) {
+        super.calculateRange();
+        this.calculaTotales();
+      }
+      });
+  }
+
   deleteDialog(element:any): void {
     const dialogRef = this.dialog.open(CheckListPalletDeleteComponent, {
       data:element
@@ -372,4 +405,7 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     });
 
   }
+  hasRole(roles:String[]):Boolean{
+    return roles.some(r=> this.authorities.includes(r));
+ }
 }

@@ -65,7 +65,10 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef > ACCIONES </th>
             <td mat-cell *matCellDef="let element">
-              <button mat-icon-button color="primary" (click)="addPallet(element)"[disabled]="element.status === 'close'">
+              <button *ngIf="!isSuper" mat-icon-button color="primary" (click)="addPallet(element)"[disabled]="element.status === 'close'">
+                <mat-icon nbTooltip="Agrega Pallets">library_add</mat-icon>
+              </button>
+              <button *ngIf="isSuper" mat-icon-button color="primary" (click)="addPallet(element)">
                 <mat-icon nbTooltip="Agrega Pallets">library_add</mat-icon>
               </button>
 

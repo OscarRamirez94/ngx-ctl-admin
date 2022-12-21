@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppSettings } from '../../constant/app-settings';
 import { CheckOutDetail } from '../../models/check-out-detail/check-out-detail';
 import { CheckOutDetailRequest } from '../../models/check-out-detail/check-out-detail-request';
 import { CommonService } from '../commons.service';
@@ -11,7 +12,7 @@ import { CommonService } from '../commons.service';
 })
 export class CheckOutDeatailService extends CommonService<CheckOutDetail> {
 
-  url = 'http://localhost:8081/microservice-ctl/check-out-detail/';
+  url = AppSettings.API_ENDPOINT+'/check-out-detail/';
 
   constructor(http: HttpClient) {
     super(http);

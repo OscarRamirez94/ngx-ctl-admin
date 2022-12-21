@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppSettings } from '../../constant/app-settings';
 import { TransportType } from '../../models/transport_type/transport-type';
 import { CommonService } from '../commons.service';
 
@@ -9,8 +10,8 @@ import { CommonService } from '../commons.service';
 })
 export class TransportTypeService extends CommonService<TransportType>{
 
-  protected url = 'http://localhost:8081/microservice-ctl/transport-type/';
-  protected urlCapacity = 'http://localhost:8081/microservice-ctl/transport-capacity/';
+  protected url = AppSettings.API_ENDPOINT+'/transport-type/';
+  protected urlCapacity = AppSettings.API_ENDPOINT+'/transport-capacity/';
   constructor(http: HttpClient) {
     super(http);
   }

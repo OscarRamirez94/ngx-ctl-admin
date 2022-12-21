@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppSettings } from '../../constant/app-settings';
 import { ProfessionI } from '../../interfaces/profession-i';
-import { User } from '../../models/user/user';
 import { UserPost } from '../../models/user/user-post';
 import { CommonService } from '../commons.service';
 
@@ -11,9 +11,9 @@ import { CommonService } from '../commons.service';
 })
 export class UserPostService extends CommonService<UserPost>  {
 
-  protected url = 'http://localhost:8081/microservice-ctl/users/';
+  protected url = AppSettings.API_ENDPOINT+'/users/';
 
-  private urlProfession = 'http://localhost:8081/microservice-ctl/profession/';
+  private urlProfession = AppSettings.API_ENDPOINT+'/profession/';
   constructor(http: HttpClient) {
     super(http);
   }

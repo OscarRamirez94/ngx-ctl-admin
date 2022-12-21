@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbAuthService, NbAuthToken } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
 import { CheckList } from '../../../models/check-list/check-list';
 import { ResponseCheckList } from '../../../models/check-list/response-check-list';
-import { CheckListService } from '../../../services/check-list/check-list.service';
 import { ResponseCheckListService } from '../../../services/check-list/response-check-list.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonResponseCheckList } from '../../commons/common-list/check-list-response.ts/common-response-check-list';
@@ -20,10 +20,14 @@ import { CheckListPalletValidateComponent } from '../check-list-pallet-validate/
 })
 export class CheckListMainComponent extends CommonResponseCheckList<ResponseCheckList,ResponseCheckListService> {
   hidden = false;
-
+  nbAuthToken:NbAuthToken;
+  authorities:any =[];
+  isSuper:boolean = false;
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
   }
+
+  loading =false;
   name: string;
   processTypeId:string ="1";
   titulo:string = "Entrada";
@@ -31,10 +35,16 @@ export class CheckListMainComponent extends CommonResponseCheckList<ResponseChec
   clientName =  this.headService.getClientLS();
   constructor( service:ResponseCheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,
-    headService:HeadService) {
+    headService:HeadService,private authService: NbAuthService) {
     super(service,router, route,toastrService,headService);
     this.redirect = '/pages/clients/clientes';
     this.nombreModel = "Entrada";
+    this.authService.onTokenChange().subscribe(data =>{
+      this.authorities = data.getPayload()['authorities']
+  })
+  if (this.hasRole(['ROLE_SUPER'])){
+    this.isSuper = true;
+  };
   }
 
   openDialog(): void {
@@ -94,6 +104,8 @@ export class CheckListMainComponent extends CommonResponseCheckList<ResponseChec
         }
       })
   }
-
+  hasRole(roles:String[]):Boolean{
+    return roles.some(r=> this.authorities.includes(r));
+ }
 
 }

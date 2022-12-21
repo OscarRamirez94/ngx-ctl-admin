@@ -32,10 +32,10 @@ export abstract class CommonListPalletOutComponent<E extends Generic, S extends 
  // config pagination
  totalRegistros=0;
  paginaActual = 0;
- totalPorPagina = 50;
+ totalPorPagina = 25;
  orderBy ="ASC";
  column ="id";
- pageSizeOptions = [50,100];
+ pageSizeOptions = [25,50,100];
  ariaLabel="Select page";
  filterValue ="";
  lista: PalletI[];
@@ -104,6 +104,7 @@ export abstract class CommonListPalletOutComponent<E extends Generic, S extends 
  }
 
  applyFilter(event: Event) {
+  this.paginaActual = 0;
    const fil:string  = (event.target as HTMLInputElement).value;
    if(fil !==null && fil !== ''){
        this.filterValue = fil;

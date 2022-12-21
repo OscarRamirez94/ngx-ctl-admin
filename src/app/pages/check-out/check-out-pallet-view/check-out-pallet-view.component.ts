@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
-import { PalletI } from '../../../interfaces/pallet-i';
 import { CheckOut } from '../../../models/check-out/check-out';
 import { CheckOutService } from '../../../services/check-out/check-out.service';
 import { ReportService } from '../../../services/report/report.service';

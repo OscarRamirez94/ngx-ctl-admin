@@ -13,11 +13,11 @@ import { UnityService } from '../../../services/unity/unity.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
 
 @Component({
-  selector: 'ngx-check-list-pallet-create',
-  templateUrl: './check-list-pallet-create.component.html',
-  styleUrls: ['./check-list-pallet-create.component.scss']
+  selector: 'ngx-check-list-pallet-remove',
+  templateUrl: './check-list-pallet-remove.component.html',
+  styleUrls: ['./check-list-pallet-remove.component.scss']
 })
-export class CheckListPalletCreateComponent extends CommonListComponent<Pallet, PalletService> implements OnInit  {
+export class CheckListPalletRemoveComponent extends CommonListComponent<Pallet, PalletService> implements OnInit  {
 
   palletForm !: FormGroup;
   submitted = false;
@@ -32,7 +32,7 @@ export class CheckListPalletCreateComponent extends CommonListComponent<Pallet, 
 
   constructor(
     service: PalletService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
-    private formBuilder:FormBuilder, private  dialogRef: MatDialogRef<CheckListPalletCreateComponent>,
+    private formBuilder:FormBuilder, private  dialogRef: MatDialogRef<CheckListPalletRemoveComponent>,
     @Inject(MAT_DIALOG_DATA) public editData:any,
     headService:HeadService,
     private productService:ProductService,
@@ -112,7 +112,9 @@ export class CheckListPalletCreateComponent extends CommonListComponent<Pallet, 
 
   editarClient() {
     this.modelClient(this.palletForm);
-    super.editar();
+    this.service.removeStockPallet(this.model).subscribe(data => {
+
+    });
     this.onReset();
     super.toast("success","Pallet modificado con éxito");
 

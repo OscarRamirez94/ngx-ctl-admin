@@ -4,8 +4,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NbComponentStatus, NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrConfig, NbToastrService } from '@nebular/theme';
-import { stringify } from 'querystring';
+import { NbGlobalLogicalPosition, NbGlobalPhysicalPosition, NbGlobalPosition, NbToastrConfig, NbToastrService } from '@nebular/theme';
 import { Observable, Subject } from 'rxjs';
 import { PalletI } from '../../../interfaces/pallet-i';
 import { Generic } from '../../../models/generic/generic';
@@ -16,8 +15,8 @@ import { HeadService } from '../../../services/head/head.service';
 @Directive()
 export abstract class  CommonListPalletComponent<E extends Generic, S extends CommonService<E>> implements OnInit,AfterViewInit {
 
-  // disponibles
-  @ViewChild(MatPaginator)
+   // disponibles
+   @ViewChild(MatPaginator)
    paginator :MatPaginator;
 
   @ViewChild(MatSort)
@@ -61,7 +60,7 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
   paginaActualRegistered = 0;
   totalPorPaginaRegistered = 22;
   orderByRegistered ="ASC";
-  columnRegistered ="date";
+  columnRegistered ="id";
   pageSizeOptionsRegistered = [22, 44, 66,100];
   filterValueRegistered ="";
   listaRegistered: PalletI[];
@@ -82,7 +81,7 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
   }
 
   ngOnInit(): void {
-
+  console.log('checkOutId',this.checkOutId)
   this.clientName =  this.headService.getClientLS();
   this.calculateRange();
   //refistered
@@ -133,10 +132,12 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
 
     this.service.getFilterCriteriaClientOut(search,this.clientName,this.option,this.filterBy)
     .subscribe(paginator => {
+      console.log(paginator.totalElements)
       this.lista = paginator.content as PalletI[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
+      console.log("LISTA -DISPONIBLES", this.lista);
       this.loading = false;
 
     });
@@ -154,7 +155,7 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
       search.sortDirection =this.orderByRegistered;
 
 
-      this.service.getFilterCriteriaClientOutRegistered(search,this.clientName,this.checkOutId)
+      this.service.getFilterCriteriaLiberadosByCheckOut(search,this.clientName,this.checkOutId)
       .subscribe(paginator => {
 
         this.listaRegistered = paginator.content as PalletI[];
@@ -163,8 +164,10 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
         this.dataSourceRegistered = new MatTableDataSource(this.listaRegistered);
 
         this.loading = false;
-
+        console.log("LISTA -REGISTRADOS", this.listaRegistered);
       });
+
+
     }
 
   // disponibles
@@ -239,7 +242,7 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
     var subject = new Subject<boolean>();
     this.service.crear(this.model).subscribe(m => {
       subject.next(true);
-
+      console.log(m);
     }, err => {
       if(err.status === 400){
         this.error = err.error;
@@ -251,7 +254,7 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
   }
 
   public editar(): void {
-
+    console.log("update" + JSON.stringify(this.model));
     this.service.editar(this.model).subscribe(m => {
     }, err => {
       if(err.status === 400){

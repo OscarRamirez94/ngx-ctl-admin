@@ -1,6 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NbGlobalPosition, NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService, NbToastrService } from '@nebular/theme';
-
 import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
 import { map, startWith, takeUntil } from 'rxjs/operators';
@@ -12,8 +11,6 @@ import { HeadService } from '../../../services/head/head.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-import { Notification } from '../../../models/notification/notification';
-import { Console } from 'console';
 import { ClientI } from '../../../interfaces/client-i';
 import { ToastrService } from '../../../services/toastr/toastr.service';
 

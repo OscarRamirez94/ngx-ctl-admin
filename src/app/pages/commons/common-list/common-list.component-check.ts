@@ -100,6 +100,7 @@ export abstract class CommonListCheckComponent<E extends Generic, S extends Comm
   }
 
   applyFilter(event: Event) {
+    this.paginaActual = 0;
     const fil:string  = (event.target as HTMLInputElement).value;
     if(fil !==null && fil !== ''){
         this.filterValue = fil;

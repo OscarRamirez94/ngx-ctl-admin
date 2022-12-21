@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 import { ReportService } from '../../../services/report/report.service';
-import { multi } from './datos';
 export interface Tile {
   color: string;
   cols: number;
@@ -15,7 +14,7 @@ export interface Tile {
 })
 export class TableroMainComponent   implements OnInit {
   multi: any[];
-  view: [number,number] = [500, 400];
+  view: [number,number] = [1100, 400];
   // options
 // options
 showXAxis: boolean = true;

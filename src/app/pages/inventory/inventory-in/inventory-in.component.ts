@@ -29,10 +29,7 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
 
   constructor(service: PalletService, router: Router, route: ActivatedRoute,
      private dialog: MatDialog, toastrService: NbToastrService,
-     headService:HeadService,
-     private productService:ProductService,
-     private transportLineService:TransportLineService,
-     private reportService:ReportService) {
+     headService:HeadService) {
     super(service, router, route, toastrService,headService);
   }
 

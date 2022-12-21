@@ -127,8 +127,9 @@
               <div class="col-sm-3">
                 <div class="form-group">
                   <button nbButton hero shape="semi-round" size="small" status="warning" (click)="resetTemplate()">Limpiar</button>
-                  <button nbButton hero shape="semi-round" size="small" status="primary" [disabled]="temple()===true" [disabled]="checkList?.status === 'close'">Generar</button>
-
+                  <button *ngIf="!isSuper" nbButton hero shape="semi-round" size="small" status="primary" [disabled]="temple()===true"
+                  [disabled]="checkList?.status === 'close' || checkList?.status === 'close-sys'">Generar</button>
+                  <button *ngIf="isSuper" nbButton hero shape="semi-round" size="small" status="primary" >Generar</button>
                 </div>
               </div>
             </div>
@@ -246,8 +247,8 @@
               <div class="col-sm-10">
               </div>
               <div class="col-sm-2">
-                <button nbButton hero shape="semi-round" size="small" status="primary"  type="submit" (click)="submit()" [disabled]="status === 'close'">Guardar</button>
-
+                <button *ngIf="!isSuper" nbButton hero shape="semi-round" size="small" status="primary"  type="submit" (click)="submit()" [disabled]="status === 'close' || status === 'close-sys' ">Guardar</button>
+                <button *ngIf="isSuper" nbButton hero shape="semi-round" size="small" status="primary"  type="submit" (click)="submit()" >Guardar</button>
               </div>
 
             </div>
@@ -330,9 +331,19 @@
                 <ng-container matColumnDef="actions">
                   <th mat-header-cell *matHeaderCellDef > ACCIONES </th>
                   <td mat-cell *matCellDef="let element">
-                    <button mat-icon-button color="primary" (click)="editDialog(element)" [disabled]="checkList?.status === 'close'"><mat-icon>edit</mat-icon>
+                    <button *ngIf="!isSuper" mat-icon-button color="primary" (click)="editDialog(element)"
+                     [disabled]="checkList?.status === 'close' || checkList?.status === 'close-sys'"><mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn" (click)="deleteDialog(element)" [disabled]="checkList?.status === 'close'">
+                    <button *ngIf="!isSuper" mat-icon-button color="warn" (click)="deleteDialog(element)"
+                     [disabled]="checkList?.status === 'close' || checkList?.status === 'close-sys'">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+
+                    <button *ngIf="isSuper" mat-icon-button color="primary" (click)="editAddPalletsDialog(element)"><mat-icon>add_circle</mat-icon>
+                    </button>
+                    <button *ngIf="isSuper" mat-icon-button color="primary" (click)="editRemovePalletsDialog(element)"><mat-icon>remove_circle</mat-icon>
+                    </button>
+                    <button *ngIf="isSuper" mat-icon-button color="warn" (click)="deleteDialog(element)">
                       <mat-icon>delete</mat-icon>
                     </button>
                   </td>

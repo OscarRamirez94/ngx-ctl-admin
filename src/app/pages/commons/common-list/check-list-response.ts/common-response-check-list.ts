@@ -26,16 +26,16 @@ export abstract class CommonResponseCheckList<E extends Generic, S extends Commo
   error: any;
   protected redirect: string;
   protected nombreModel: string;
-  loading :boolean = false;
+  protected loading:boolean;
   processTypeId:string;
   sortedData: Object[];
   // config pagination
   totalRegistros=0;
   paginaActual = 0;
-  totalPorPagina = 10;
+  totalPorPagina = 25;
   orderBy ="ASC";
   column ="id";
-  pageSizeOptions = [10, 25,50,100];
+  pageSizeOptions = [25,50,100];
   ariaLabel="Select page";
   filterValue ="";
   lista: E[];
@@ -85,21 +85,28 @@ export abstract class CommonResponseCheckList<E extends Generic, S extends Commo
     search.sortDirection =this.orderBy;
 
 
-    this.service.getFilterCriteriaClientProcess(search,clientName,this.processTypeId)
-    .subscribe(paginator => {
-
+    this.service.getFilterCriteriaClientProcess(search,clientName,this.processTypeId).subscribe({
+    next: (paginator) =>{
       this.lista = paginator.content as E[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-      this.loading = false;
+      },
+      error: (e) =>{
+        console.error("error",e.error.status)
+        this.toast("danger", "Ocurrio un error");
+
+      },
+      complete: () => {
+        this.loading = false;
+      }
 
     });
-
 
   }
 
   applyFilter(event: Event) {
+    this.paginaActual = 0;
     const fil:string  = (event.target as HTMLInputElement).value;
     if(fil !==null && fil !== ''){
         this.filterValue = fil;

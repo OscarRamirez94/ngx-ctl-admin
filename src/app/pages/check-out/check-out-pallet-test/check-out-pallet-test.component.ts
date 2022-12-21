@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NbAuthService, NbAuthToken } from '@nebular/auth';
 import { NbToastrService } from '@nebular/theme';
 import { NumericValueType, RxwebValidators } from '@rxweb/reactive-form-validators';
 import { map, Observable, startWith } from 'rxjs';
@@ -16,7 +17,6 @@ import { CheckOutDeatailService } from '../../../services/check-out-detail/check
 import { HeadService } from '../../../services/head/head.service';
 import { PalletService } from '../../../services/pallet/pallet.service';
 import { ProductService } from '../../../services/product/product.service';
-import { ReportService } from '../../../services/report/report.service';
 import { TransportLineService } from '../../../services/transport-line/transport-line.service';
 import { CommonListPalletComponent } from '../../commons/common-list/common-list.component-pallet';
 import { CheckOutDetailDeleteComponent } from '../check-out-detail-delete/check-out-detail-delete.component';
@@ -29,6 +29,10 @@ import { CheckOutPalletComponent } from '../check-out-pallet/check-out-pallet.co
   styleUrls: ['./check-out-pallet-test.component.scss']
 })
 export class CheckOutPalletTestComponent extends CommonListPalletComponent<Pallet, PalletService> implements OnInit  {
+  nbAuthToken:NbAuthToken;
+  authorities:any =[];
+  isSuper:boolean = false;
+
   searchForm !: FormGroup;
   detailForm !: FormGroup;
   attachmentArP:CheckOutDetailForm[] = [];
@@ -62,16 +66,23 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   'name','code','ua','amount','amountStock','um','lote','expiration','actions'];
 
 
-  displayedColumnsRegistered: string[] =  ['remision','transportLine','name','code','amount','stock','ua','um','lote'];
+  displayedColumnsRegistered: string[] = ['remisionSalida','remision','transportLine','name','code','amount','stock','ua','um','lote','actions'];
 
   checkOutDetail:CheckOutDetail[] = [];
   checkOutDetailRequest:CheckOutDetailRequest= new CheckOutDetailRequest();
 
   constructor(
     service: PalletService, router: Router, route: ActivatedRoute,private dialog: MatDialog, toastrService: NbToastrService,
-    private formBuilder: FormBuilder,private reportService:ReportService,headService:HeadService,private detailService:CheckOutDeatailService,
-    private transportLineService:TransportLineService,private productService:ProductService) {
+    private formBuilder: FormBuilder,headService:HeadService,private detailService:CheckOutDeatailService,
+    private transportLineService:TransportLineService,private productService:ProductService,private authService: NbAuthService) {
       super(service, router, route, toastrService,headService);
+      this.nombreModel ="Remision";
+      this.authService.onTokenChange().subscribe(data =>{
+        this.authorities = data.getPayload()['authorities']
+    });
+    if (this.hasRole(['ROLE_SUPER'])){
+      this.isSuper = true;
+    };
      }
 
 
@@ -433,7 +444,6 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
       if (data) {
 
         super.calculateRange();
-        super.calculateRangeRegistered();
         super.toast("success","Se agregaron con éxito pallets a la remision: " + this.checkOutRemision);
       }
     });
@@ -565,6 +575,9 @@ pushForm(ar:any){
     this.detailForm.reset();
     this.attachmentArP =[];
     this.checkOutDetail =[];
-    this.calculateRangeRegistered();
+
   }
+  hasRole(roles:String[]):Boolean{
+    return roles.some(r=> this.authorities.includes(r));
+ }
 }
