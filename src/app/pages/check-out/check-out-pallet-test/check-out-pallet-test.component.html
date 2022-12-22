@@ -5,7 +5,7 @@
       <!--Init buscador-->
       <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
         <mat-dialog-content>
-          <nb-card status="primary"   [nbSpinner]="loading" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Cargando ...">
+          <nb-card status="primary"   [nbSpinner]="loading1" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Cargando ...">
             <nb-card-header>Busqueda</nb-card-header>
             <nb-card-body>
             <!-- grid -->
@@ -92,7 +92,7 @@
 
             <mat-dialog-actions align="end">
               <button nbButton hero shape="semi-round" size="small" status="danger" [mat-dialog-close]="false" (click)="limpiar()">Limpiar</button>
-              <button type="submit" [disabled]="loading" nbButton  hero shape="semi-round" size="small" status="primary"
+              <button type="submit" [disabled]="loading1" nbButton  hero shape="semi-round" size="small" status="primary"
                       cdkFocusInitial style="float: left;">{{actionBtn}}
               </button>
             </mat-dialog-actions>
@@ -320,7 +320,7 @@
     </mat-step>
 
     <mat-step *ngIf="isSuper" label="Pallets Registrados">
-      <nb-card status="primary">
+      <nb-card status="primary" [nbSpinner]="loading2" nbSpinnerStatus="primary" nbSpinnerSize="large" nbSpinnerMessage="Cargando ...">
         <nb-card-header>Pallets Registrados</nb-card-header>
         <nb-card-body>
             <section>

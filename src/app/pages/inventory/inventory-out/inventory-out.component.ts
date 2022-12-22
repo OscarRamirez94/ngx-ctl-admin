@@ -25,7 +25,7 @@ export class InventoryOutComponent extends CommonListPalletOutComponent<CheckOut
   clientName =  this.headService.getClientLS();
   option:string ="TODOS";
   filterBy:string =  "TODOS";
-
+  loading:boolean = true;
   remisionVisible:boolean=false;
   fechaVisible:boolean=false;
   transportLineVisible:boolean=false;

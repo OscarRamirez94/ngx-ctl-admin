@@ -20,7 +20,7 @@ import { TransportLineDeleteComponent } from '../transport-line-delete/transport
 })
 export class TransportLineMainComponent extends CommonListClientComponent<TransportLine, TransportLineService> implements OnInit  {
 
-
+  loading:boolean = true;
   name: string;
   titulo: string = "Lineas de Transporte";
   displayedColumns: string[] = ['name','isActive', 'actions'];

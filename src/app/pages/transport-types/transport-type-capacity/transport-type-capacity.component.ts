@@ -17,6 +17,7 @@ import { TransportTypeCapacityDeleteComponent } from '../transport-type-capacity
 })
 export class TransportTypeCapacityComponent  extends CommonListIdComponent<TransportCapacity, TransportCapacityService> {
 
+  loading:boolean = true;
   name: string;
   titulo: string = "Capacidad de Transporte";
   displayedColumns: string[] = ['id', 'capacity', 'unity','isActive','actions'];

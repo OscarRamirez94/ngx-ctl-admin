@@ -37,7 +37,9 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   detailForm !: FormGroup;
   attachmentArP:CheckOutDetailForm[] = [];
   submitted = false;
-  loading = false;
+  loading:boolean = true;
+  loading1 = false;
+  loading2:boolean = true;
   disables = false;
   fechaVisible:boolean=false;
   remisionVisible:boolean=false;
@@ -120,7 +122,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
       return;
     }
 
-    this.loading = true;
+    this.loading1 = true;
     let name :string = "Report.xls";
     if (this.option ==="TODOS"){
       this.filterBy = "TODOS";
@@ -173,7 +175,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
     this.transportLineVisible=false;
     this.productVisible = false;
     this.loteVisible = false;
-    this.loading = false;
+    this.loading1 = false;
     this.filterBy = null;
   }
 
@@ -430,7 +432,7 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
     this.filterBy = "TODOS";
     this.option = "TODOS";
     this.calculateRange();
-    this.loading = false;
+    this.loading1 = false;
     this.detailForm.reset;
     this.attachmentArP = [];
   }

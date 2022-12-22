@@ -3,7 +3,7 @@ import { AuthGuard } from '../guards/auth-guard.service';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'Tablero',
+    title: 'Inicio',
     icon: 'shopping-cart-outline',
     link: '/pages/dashboard',
     home: true,

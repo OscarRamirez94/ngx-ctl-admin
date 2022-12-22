@@ -26,7 +26,7 @@ va  por  un service generico
 ---CommonListComponent  trae la funcionalidad de l paginator, refrescar, buscador, order by
 */
 export class ProfessionMainComponent extends CommonListComponent<Profession, ProfessionService> {
-
+  loading: boolean =true;
   name: string;
   titulo: string = "Puestos";
   displayedColumns: string[] = ['name', 'isActive', 'actions'];

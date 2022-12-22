@@ -29,7 +29,7 @@
 
   </div>
    <div class="col-md-12 col-lg-12 col-xxxl-12" *ngIf="topCharts.length > 0">
-    <nb-card status="primary" [nbSpinner]="loading"
+    <nb-card status="primary" [nbSpinner]="loadingTop"
     nbSpinnerStatus="primary"
     nbSpinnerSize="large"
     nbSpinnerMessage="Cargando ...">
@@ -49,7 +49,7 @@
   </div>
   <div class="row">
   <div class="col-md-12 col-lg-12col-xxxl-12" *ngIf="productCharts.length > 0">
-    <nb-card status="primary" [nbSpinner]="loading"
+    <nb-card status="primary" [nbSpinner]="loadingProducto"
     nbSpinnerStatus="primary"
     nbSpinnerSize="large"
     nbSpinnerMessage="Cargando ...">
@@ -77,7 +77,7 @@
     </nb-card>
   </div>
   <div class="col-md-12 col-lg-12 col-xxxl-12" *ngIf="transportCharts.length>0">
-    <nb-card status="primary" [nbSpinner]="loading"
+    <nb-card status="primary" [nbSpinner]="loadingLinea"
     nbSpinnerStatus="primary"
     nbSpinnerSize="large"
     nbSpinnerMessage="Cargando ...">

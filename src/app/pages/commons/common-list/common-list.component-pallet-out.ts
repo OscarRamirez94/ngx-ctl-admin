@@ -26,7 +26,8 @@ export abstract class CommonListPalletOutComponent<E extends Generic, S extends 
  error: any;
  protected redirect: string;
  protected nombreModel: string;
- loading :boolean = false;
+ protected loading: boolean;
+
  processTypeId:string;
  sortedData: Object[];
  // config pagination
@@ -88,17 +89,22 @@ export abstract class CommonListPalletOutComponent<E extends Generic, S extends 
    search.sortDirection =this.orderBy;
 
 
-   this.service.getFilterCriteriaLiberados(search,this.clientName)
-   .subscribe(paginator => {
-
-     this.lista = paginator.content as PalletI[];
-     this.totalRegistros = paginator.totalElements as number;
-     this.paginator._intl.itemsPerPageLabel ="Registros";
-     this.dataSource = new MatTableDataSource(this.lista);
-
-     this.loading = false;
-
-   });
+   this.service.getFilterCriteriaLiberados(search,this.clientName).subscribe({
+    next: (paginator) =>{
+      this.lista = paginator.content as PalletI[];
+      this.totalRegistros = paginator.totalElements as number;
+      this.paginator._intl.itemsPerPageLabel ="Registros";
+      this.dataSource = new MatTableDataSource(this.lista);
+    },
+    error: (e) =>{
+      console.error("error",e.error.status)
+      this.toast("danger", "Ocurrio un error");
+    },
+    complete: () => {
+      this.loading = false;
+      console.info("complete")
+    }
+  });
 
 
  }

@@ -34,7 +34,8 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
   error: any;
   protected redirect: string;
   protected nombreModel: string;
-  loading :boolean = false;
+  protected loading: boolean;
+  protected loading2: boolean;
   processTypeId:string;
   sortedData: Object[];
 
@@ -128,25 +129,30 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
     search.searchBy =this.filterValue;
     search.sortBy=this.column;
     search.sortDirection =this.orderBy;
-
-
-    this.service.getFilterCriteriaClientOut(search,this.clientName,this.option,this.filterBy)
-    .subscribe(paginator => {
-      console.log(paginator.totalElements)
+    this.service.getFilterCriteriaClientOut(search,this.clientName,this.option,this.filterBy).subscribe({
+      next: (paginator) =>{
+        console.log(paginator.totalElements)
       this.lista = paginator.content as PalletI[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
       console.log("LISTA -DISPONIBLES", this.lista);
-      this.loading = false;
-
+      },
+      error: (e) =>{
+        console.error("error",e.error.status)
+        this.toast("danger", "Ocurrio un error");
+      },
+      complete: () => {
+        this.loading = false;
+        console.info("complete")
+      }
     });
   }
 
     //Registered
     public calculateRangeRegistered(){
 
-      this.loading = true;
+      this.loading2 = true;
       const search: SearchCriteriaClient = new SearchCriteriaClient();
       search.pageNumber = this.paginaActualRegistered;
       search.pageSize = this.totalPorPaginaRegistered;
@@ -155,18 +161,26 @@ export abstract class  CommonListPalletComponent<E extends Generic, S extends Co
       search.sortDirection =this.orderByRegistered;
 
 
-      this.service.getFilterCriteriaLiberadosByCheckOut(search,this.clientName,this.checkOutId)
-      .subscribe(paginator => {
 
+      this.service.getFilterCriteriaLiberadosByCheckOut(search,this.clientName,this.checkOutId).subscribe({
+      next: (paginator) =>{
         this.listaRegistered = paginator.content as PalletI[];
         this.totalRegistrosRegistered = paginator.totalElements as number;
         this.paginatorRegistered._intl.itemsPerPageLabel ="Registros";
         this.dataSourceRegistered = new MatTableDataSource(this.listaRegistered);
 
-        this.loading = false;
-        console.log("LISTA -REGISTRADOS", this.listaRegistered);
-      });
+        this.loading2 = false;
 
+      },
+      error: (e) =>{
+        console.error("error",e.error.status)
+        this.toast("danger", "Ocurrio un error");
+      },
+      complete: () => {
+        this.loading2 = false;
+        console.info("complete")
+      }
+    });
 
     }
 

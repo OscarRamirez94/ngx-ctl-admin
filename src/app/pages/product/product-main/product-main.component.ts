@@ -16,7 +16,7 @@ import { ProductDeleteComponent } from '../product-delete/product-delete.compone
 })
 export class ProductMainComponent extends CommonListClientComponent<Product, ProductService> implements OnInit  {
 
-
+  loading: boolean = true;
   name: string;
   titulo: string = "Productos";
   displayedColumns: string[] = ['name','code', 'isActive', 'actions'];

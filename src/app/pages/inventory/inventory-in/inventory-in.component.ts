@@ -5,17 +5,15 @@ import { NbToastrService } from '@nebular/theme';
 import { Pallet } from '../../../models/pallet/pallet';
 import { HeadService } from '../../../services/head/head.service';
 import { PalletService } from '../../../services/pallet/pallet.service';
-import { ProductService } from '../../../services/product/product.service';
-import { TransportLineService } from '../../../services/transport-line/transport-line.service';
-import { CommonListPalletComponent } from '../../commons/common-list/common-list.component-pallet';
-import { saveAs } from 'file-saver';
-import { ReportService } from '../../../services/report/report.service';
+import { CommonListPalletInventoryInComponent } from '../../commons/common-list/common-list.component-inventory-in';
+
+
 @Component({
   selector: 'ngx-inventory-in',
   templateUrl: './inventory-in.component.html',
   styleUrls: ['./inventory-in.component.scss']
 })
-export class InventoryInComponent extends CommonListPalletComponent<Pallet, PalletService>  {
+export class InventoryInComponent extends CommonListPalletInventoryInComponent<Pallet, PalletService>  {
 
   actionBtn:String = "Buscar";
   name: string;
@@ -25,7 +23,7 @@ export class InventoryInComponent extends CommonListPalletComponent<Pallet, Pall
   option:string ="TODOS";
   filterBy:string =  "TODOS";
   pageSizeOptions = [25,50,100];
-
+  loading:boolean = true;
 
   constructor(service: PalletService, router: Router, route: ActivatedRoute,
      private dialog: MatDialog, toastrService: NbToastrService,

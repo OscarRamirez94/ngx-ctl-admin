@@ -42,7 +42,10 @@ productCharts:any[]= [];
 transportCharts:any[]= [];
 topCharts:any[]= [];
 loading = false;
-loadingMaster = false;
+loadingMaster:boolean = true;
+loadingTop:boolean = true;
+loadingProducto:boolean = true;
+loadingLinea:boolean = true;
   constructor(private theme: NbThemeService,
     private reportService:ReportService) {
 
@@ -82,67 +85,94 @@ onResize(event) {
 }
 
 getPieChart(){
-  this.reportService.getPieChart().subscribe(data =>{
-  let datos: any[] = [];
-    data.forEach( p=>{
-      datos.push({
-        "name": p.name,
-          "series":[
-            {
-              "name": "stock",
-              "value": +p.checkin
 
-            },
-            {
-              "name": "Out",
-              "value": +p.checkout
+  this.reportService.getPieChart().subscribe({
+    next: (data) =>{
+      let datos: any[] = [];
+      data.forEach( p=>{
+        datos.push({
+          "name": p.name,
+            "series":[
+              {
+                "name": "stock",
+                "value": +p.checkin
 
-            },
-            {
-              "name": "Total",
-              "value": +p.total
+              },
+              {
+                "name": "Out",
+                "value": +p.checkout
 
-            },
-          ]
+              },
+              {
+                "name": "Total",
+                "value": +p.total
+
+              },
+            ]
+        });
+      this.data = datos;
       });
-    this.data = datos;
-    this.loading = true;
-    });
-    this.loadingMaster = false;
-  })
+
+    },
+    error: (e) =>{
+      console.error("error",e.error.status)
+
+    },
+    complete: () => {
+      this.loadingMaster = false;
+      console.info("complete")
+    }
+  });
 }
 
 getProductChart(client:string){
-  this.reportService.getProductChart(client).subscribe(data =>{
-    let datos: any[] = [];
-    this.productCharts = datos;
-      data.forEach( p=>{
-        datos.push({
-          "name": p.name,
-          "series":[
-            {
-              "name": "Registrado",
-              "value": +p.checkin
+  this.loadingProducto = true;
+  this.reportService.getProductChart(client).subscribe({
+    next: (data) =>{
+      let datos: any[] = [];
+      this.productCharts = datos;
+        data.forEach( p=>{
+          datos.push({
+            "name": p.name,
+            "series":[
+              {
+                "name": "Registrado",
+                "value": +p.checkin
 
-            },
-            {
-              "name": "Liberado",
-              "value": +p.checkout
+              },
+              {
+                "name": "Liberado",
+                "value": +p.checkout
 
-            },
-            {
-              "name": "Total",
-              "value": +p.total
+              },
+              {
+                "name": "Total",
+                "value": +p.total
 
-            },
-        ]});
-    this.productCharts = datos;
-    });
-  })
+              },
+          ]});
+      this.productCharts = datos;
+      });
+
+    },
+    error: (e) =>{
+      console.error("error",e.error.status)
+
+    },
+    complete: () => {
+      this.loadingProducto = false;
+      console.info("complete")
+    }
+  });
+
+
 }
 
 getTransportChart(client:string){
-    this.reportService.getTransportChart(client).subscribe(data =>{
+
+  this.loadingLinea = true;
+  this.reportService.getTransportChart(client).subscribe({
+    next: (data) =>{
     let datos: any[] = [];
     this.transportCharts = datos;
       data.forEach( p=>{
@@ -167,13 +197,25 @@ getTransportChart(client:string){
         ]});
     this.transportCharts = datos;
     });
-  })
+    },
+    error: (e) =>{
+      console.error("error",e.error.status)
+
+    },
+    complete: () => {
+      this.loadingLinea = false;
+      console.info("complete")
+    }
+  });
+
 }
 
 getListTopChart(client:string){
-  this.reportService.getListTopChart(client).subscribe(data =>{
-    let datos: any[] = [];
-    this.topCharts = datos;
+  this.loadingTop = true;
+  this.reportService.getListTopChart(client).subscribe({
+    next: (data) =>{
+      let datos: any[] = [];
+      this.topCharts = datos;
       data.forEach( p=>{
         datos.push(
             {
@@ -182,6 +224,15 @@ getListTopChart(client:string){
             });
     this.topCharts = datos;
     });
-  })
+    },
+    error: (e) =>{
+      console.error("error",e.error.status)
+
+    },
+    complete: () => {
+      this.loadingTop = false;
+      console.info("complete")
+    }
+  });
 }
-v}
+}

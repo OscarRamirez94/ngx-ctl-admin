@@ -27,7 +27,7 @@ export class CheckListMainComponent extends CommonResponseCheckList<ResponseChec
     this.hidden = !this.hidden;
   }
 
-  loading =false;
+  loading: boolean = true;
   name: string;
   processTypeId:string ="1";
   titulo:string = "Entrada";

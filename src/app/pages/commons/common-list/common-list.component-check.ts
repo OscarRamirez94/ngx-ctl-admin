@@ -25,7 +25,7 @@ export abstract class CommonListCheckComponent<E extends Generic, S extends Comm
   error: any;
   protected redirect: string;
   protected nombreModel: string;
-  loading :boolean = false;
+  protected loading :boolean = false;
   processTypeId:string;
   sortedData: Object[];
   // config pagination
@@ -83,19 +83,22 @@ export abstract class CommonListCheckComponent<E extends Generic, S extends Comm
     search.sortBy=this.column;
     search.sortDirection =this.orderBy;
 
-
-    this.service.getFilterCriteriaClientProcess(search,clientName,this.processTypeId)
-    .subscribe(paginator => {
-
-      this.lista = paginator.content as E[];
-      this.totalRegistros = paginator.totalElements as number;
-      this.paginator._intl.itemsPerPageLabel ="Registros";
-      this.dataSource = new MatTableDataSource(this.lista);
-
-      this.loading = false;
-
+    this.service.getFilterCriteriaClientProcess(search,clientName,this.processTypeId).subscribe({
+      next: (paginator) =>{
+        this.lista = paginator.content as E[];
+        this.totalRegistros = paginator.totalElements as number;
+        this.paginator._intl.itemsPerPageLabel ="Registros";
+        this.dataSource = new MatTableDataSource(this.lista);
+      },
+      error: (e) =>{
+        console.error("error",e.error.status)
+        this.toast("danger", "Ocurrio un error");
+      },
+      complete: () => {
+        this.loading = false;
+        console.info("complete")
+      }
     });
-
 
   }
 

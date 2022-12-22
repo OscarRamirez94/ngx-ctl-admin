@@ -27,7 +27,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   isUser;
   roleList: string[] = ['ROLE_ADMIN', 'ROLE_USERS', 'ROLE_SUPER'];
   selectedOptions: string[] = [];
-  loading = false;
+  loadingCreate = false;
   filteredProfessions: Observable<ProfessionI[]>;
   constructor(
     service: UserPostService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
@@ -62,17 +62,17 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     if (this.userForm.invalid) {
       return;
     }
-    this.loading = true;
+    this.loadingCreate = true;
     if (!this.editData) {
 
       this.modelClient(this.userForm);
       super.crear().subscribe(data =>{
         if (data){
           this.onReset();
-          this.loading = false;
+          this.loadingCreate = false;
         } else {
 
-          this.loading = false;
+          this.loadingCreate = false;
         }
       });
 
@@ -147,14 +147,14 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
     }
   }
   editarClient() {
-    this.loading = true;
+    this.loadingCreate = true;
     this.modelClient(this.userForm);
     super.editar().subscribe(data =>{
 
       if (data){
         this.onReset();
         super.toast("success", "Modificado  con éxito");
-        this.loading= false;
+        this.loadingCreate= false;
       }
 
     });

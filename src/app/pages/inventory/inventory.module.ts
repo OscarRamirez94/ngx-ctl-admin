@@ -6,7 +6,7 @@ import { InventoryComponent } from './inventory.component';
 import { InventoryInComponent } from './inventory-in/inventory-in.component';
 import { InventoryOutComponent } from './inventory-out/inventory-out.component';
 import { ThemeModule } from '../../@theme/theme.module';
-import { NbAccordionModule, NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbListModule, NbTagModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
+import { NbAccordionModule, NbActionsModule, NbBadgeModule, NbButtonModule, NbCardModule, NbIconModule, NbListModule, NbSpinnerModule, NbTagModule, NbTooltipModule, NbUserModule } from '@nebular/theme';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatFormFieldModule } from '@angular/material/form-field';
@@ -82,7 +82,8 @@ import { MatBadgeModule } from '@angular/material/badge';
     NbListModule,
     MatBadgeModule,
     NbTagModule,
-    NbTooltipModule
+    NbTooltipModule,
+    NbSpinnerModule
   ]
 })
 export class InventoryModule { }

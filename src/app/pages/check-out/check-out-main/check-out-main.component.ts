@@ -20,7 +20,7 @@ export class CheckOutMainComponent  extends CommonListCheckComponent<CheckOut,Ch
   nbAuthToken:NbAuthToken;
   authorities:any =[];
   isSuper:boolean = false;
-
+  loading:boolean = true;
   toggleBadgeVisibility() {
     this.hidden = !this.hidden;
   }

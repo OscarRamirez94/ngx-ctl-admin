@@ -25,7 +25,7 @@ export class TransportTypeMainComponent extends CommonListComponent<TransportTyp
   titulo: string = "Lineas de Transporte";
   showTable:boolean = false;
   isById = false;
-
+  loading:boolean = true;
   displayedColumns: string[] = ['name', 'isActive','capacities', 'actions'];
   constructor(service: TransportTypeService, router: Router, route: ActivatedRoute,
     private dialog: MatDialog, toastrService: NbToastrService,

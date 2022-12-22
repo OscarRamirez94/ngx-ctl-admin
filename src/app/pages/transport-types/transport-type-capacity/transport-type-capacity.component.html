@@ -1,4 +1,7 @@
-<nb-card status="primary">
+<nb-card status="primary" [nbSpinner]="loading"
+nbSpinnerStatus="primary"
+nbSpinnerSize="large"
+nbSpinnerMessage="Cargando ...">
   <nb-card-header>Capicidades de transporte
     <nb-badge text={{transportType?.name}} status="danger" style="position: relative;"></nb-badge>
   </nb-card-header>
