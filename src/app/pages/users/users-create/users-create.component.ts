@@ -25,7 +25,7 @@ export class UserCreateComponent extends CommonListComponent<UserPost, UserPostS
   isChecked;
   isResponsible;
   isUser;
-  roleList: string[] = ['ROLE_ADMIN', 'ROLE_USERS', 'ROLE_SUPER'];
+  roles: string[] = ['ROLE_ADMIN', 'ROLE_USERS', 'ROLE_SUPER'];
   selectedOptions: string[] = [];
   loadingCreate = false;
   filteredProfessions: Observable<ProfessionI[]>;

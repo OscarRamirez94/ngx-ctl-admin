@@ -35,7 +35,7 @@
            [attr.aria-invalid]="email.invalid && email.touched ? true : null">
     <ng-container *ngIf="email.invalid && email.touched">
       <p class="caption status-danger" *ngIf="email.errors?.required">
-        Email is required!
+        Email es requerido!
       </p>
       <p class="caption status-danger" *ngIf="email.errors?.pattern">
         Email should be the real one!
@@ -46,7 +46,6 @@
   <div class="form-control-group">
     <span class="label-with-link">
       <label class="label" for="input-password">Password:</label>
-      <a class="forgot-password caption-2" routerLink="../request-password">Forgot Password?</a>
     </span>
     <input nbInput
            fullWidth
@@ -64,7 +63,7 @@
            [attr.aria-invalid]="password.invalid && password.touched ? true : null">
     <ng-container *ngIf="password.invalid && password.touched ">
       <p class="caption status-danger" *ngIf="password.errors?.required">
-        Password is required!
+        Password es requerido!
       </p>
       <p class="caption status-danger" *ngIf="password.errors?.minlength || password.errors?.maxlength">
         Password should contain
@@ -76,7 +75,7 @@
   </div>
 
   <div class="form-control-group accept-group">
-    <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Remember me</nb-checkbox>
+    <nb-checkbox name="rememberMe" [(ngModel)]="user.rememberMe" *ngIf="rememberMe">Recordar</nb-checkbox>
   </div>
 
   <button nbButton
@@ -85,34 +84,8 @@
           size="large"
           [disabled]="submitted || !form.valid"
           [class.btn-pulse]="submitted">
-    Log In
+    Iniciar
   </button>
 </form>
 
-<section *ngIf="socialLinks && socialLinks.length > 0" class="links" aria-label="Social sign in">
-  or enter with:
-  <div class="socials">
-    <ng-container *ngFor="let socialLink of socialLinks">
-      <a *ngIf="socialLink.link"
-         [routerLink]="socialLink.link"
-         [attr.target]="socialLink.target"
-         [attr.class]="socialLink.icon"
-         [class.with-icon]="socialLink.icon">
-        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>
-        <ng-template #title>{{ socialLink.title }}</ng-template>
-      </a>
-      <a *ngIf="socialLink.url"
-         [attr.href]="socialLink.url"
-         [attr.target]="socialLink.target"
-         [attr.class]="socialLink.icon"
-         [class.with-icon]="socialLink.icon">
-        <nb-icon *ngIf="socialLink.icon; else title" [icon]="socialLink.icon"></nb-icon>
-        <ng-template #title>{{ socialLink.title }}</ng-template>
-      </a>
-    </ng-container>
-  </div>
-</section>
 
-<section class="another-action" aria-label="Register">
-  Don't have an account? <a class="text-link" routerLink="../register">Register</a>
-</section>

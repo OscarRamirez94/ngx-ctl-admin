@@ -9,7 +9,7 @@ import { CotizacionesService } from '../../../services/cotizaciones/cotizacionez
   styleUrls: ['./cotizaciones-main.component.scss']
 })
 export class CotizacionesMainComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'email','phone','message','fecha'];
+  displayedColumns: string[] = ['name','message', 'email','phone','fecha'];
   lista: CotizacionesI[];
   dataSource: MatTableDataSource<CotizacionesI>;
   loading:boolean = true;

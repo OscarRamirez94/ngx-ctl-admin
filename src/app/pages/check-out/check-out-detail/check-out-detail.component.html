@@ -26,9 +26,9 @@
                   <div class="form-group">
                     <mat-form-field appearance="legacy">
                       <mat-label>Cantidad</mat-label>
-                      <input matInput  formControlName="cantidad" placeholder="Digita Cantidad">
+                      <input matInput  formControlName="amount" placeholder="Digita Cantidad">
 
-                      <mat-error *ngIf="f.cantidad.errors.maxNumber">La cantidad supera al stock</mat-error>
+                      <mat-error *ngIf="f.amount.errors">La cantidad supera al stock</mat-error>
                     </mat-form-field>
                   </div>
                 </div>

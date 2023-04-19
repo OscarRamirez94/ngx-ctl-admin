@@ -1,11 +1,8 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
-
 import { PagesComponent } from './pages.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { RoleGuard } from '../guards/role.guard';
-import { HeadClientGuard } from '../guards/head-client.guard';
-import { AuthGuard } from '../guards/auth-guard.service';
+
 
 
 
@@ -19,13 +16,6 @@ const routes: Routes = [{
       loadChildren: () => import('./dashboard/dashboard.module')
         .then(m => m.DashboardModule),
     },
-
-    {
-      path: 'forms',
-      loadChildren: () => import('./forms/forms.module')
-        .then(m => m.FormsModule),
-    },
-
     {
       path: 'clients',
 
@@ -43,11 +33,6 @@ const routes: Routes = [{
         .then(m => m.TransportTypesModule),
     },
     {
-      path: 'address',
-      loadChildren: () => import('./address/address.module')
-        .then(m => m.AddressModule),
-    },
-    {
       path: 'professions',
       loadChildren: () => import('./professions/professions.module')
         .then(m => m.ProfessionsModule),
@@ -56,11 +41,6 @@ const routes: Routes = [{
       path: 'product',
       loadChildren: () => import('./product/product.module')
         .then(m => m.ProductModule),
-    },
-    {
-      path: 'persons',
-      loadChildren: () => import('./persons/persons.module')
-        .then(m => m.PersonsModule),
     },
     {
       path: 'checklist',
@@ -103,12 +83,6 @@ const routes: Routes = [{
       path: '',
       redirectTo: 'dashboard',
       pathMatch: 'full',
-    },
-    {
-      path: 'init',
-
-      loadChildren: () => import('./init/init.module')
-        .then(m => m.InitModule),
     },
     {
       path: 'tablero',

@@ -62,7 +62,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private sidebarService: NbSidebarService,
               private menuService: NbMenuService,
               private themeService: NbThemeService,
-              private userService: UserData,
               private layoutService: LayoutService,
               private breakpointService: NbMediaBreakpointsService,
               private authService: NbAuthService,
@@ -70,12 +69,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
               private headService:HeadService,
               private toastrService: ToastrService ,
               private route:Router,
-              private dialog: MatDialog) {
+              ) {
 
       this.authService.onTokenChange().subscribe((token: NbAuthJWTToken) => {
         if (token.isValid()) {
           this.user = "Bienvenido " + token.getPayload()['sub'];
-          this.username = token.getPayload()['username'];
+          this.username = token.getPayload()['username'].replace("-"," ").toUpperCase();
+
         }
       });
 

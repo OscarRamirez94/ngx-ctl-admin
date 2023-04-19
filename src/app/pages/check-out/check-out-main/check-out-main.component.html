@@ -36,7 +36,7 @@ nbSpinnerMessage="Cargando ...">
           </ng-container>
 
           <ng-container matColumnDef="transportType">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>TIPO TRANSPORTE </th>
+            <th mat-header-cell *matHeaderCellDef >TIPO TRANSPORTE </th>
             <td mat-cell *matCellDef="let element">
               {{element.transportCapacity.transportType.name}}
               {{element.transportCapacity.capacity}}
@@ -45,7 +45,7 @@ nbSpinnerMessage="Cargando ...">
           </ng-container>
 
           <ng-container matColumnDef="noSello">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header >NO. SELLO </th>
+            <th mat-header-cell *matHeaderCellDef >NO. SELLO </th>
             <td mat-cell *matCellDef="let element"> {{element.noSello}} </td>
           </ng-container>
           <!--           <ng-container matColumnDef="pallets">

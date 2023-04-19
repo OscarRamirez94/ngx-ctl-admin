@@ -31,7 +31,7 @@ export class CheckListMainComponent extends CommonResponseCheckList<ResponseChec
   name: string;
   processTypeId:string ="1";
   titulo:string = "Entrada";
-  displayedColumns: string[] = ["#",'remision','date','transportLine','transportType','noSello','status','pallets','stock','actions' ];
+  displayedColumns: string[] = ['remision','date','transportLine','transportType','noSello','status','pallets','stock','actions' ];
   clientName =  this.headService.getClientLS();
   constructor( service:ResponseCheckListService,router: Router,route: ActivatedRoute,private dialog: MatDialog,
     toastrService: NbToastrService,

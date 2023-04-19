@@ -18,14 +18,10 @@
 
 
 </div>
-
-<div class="header-container">
-  <nb-actions size="small">
-
-
-    <nb-action class="user-action">
-      <form class="example-form">
-        <mat-form-field #field  appearance="legacy" class="example-full-width" >
+<nb-actions>
+    <nb-action>
+      <form>
+        <mat-form-field #field  appearance="legacy">
           <mat-label>Cliente</mat-label>
           <input type="text"
                 placeholder="Selecciona Cliente"
@@ -42,33 +38,15 @@
           </mat-option>
           </mat-autocomplete>
           </mat-form-field>
-
-
       </form>
       <button mat-icon-button color="warn" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
       </button>
+      <nb-badge *ngIf="currentClient" text="Cliente Seleccionado : {{currentClient}}" status="success" style="position:sticky;"></nb-badge>
+      <nb-badge *ngIf="!currentClient" text="Selecciona Un Cliente" status="danger" style="position:sticky;"></nb-badge>
     </nb-action>
+    <nb-action class="user-action">
+        <nb-user [nbContextMenu]="userMenu" [name]="username"></nb-user>
+      </nb-action>
+    </nb-actions>
 
-    <nb-action class="user-action" *ngIf="currentClient">
-      <nb-badge text="Cliente Seleccionado : {{currentClient}}" status="success" style="position:static;"></nb-badge>
-
-    </nb-action>
-
-    <nb-action class="user-action" *ngIf="!currentClient">
-      <nb-badge text="Selecciona Un Cliente" status="danger" style="position:static;"></nb-badge>
-
-    </nb-action>
-
-
-    <nb-action class="user-action" *nbIsGranted="['view', 'user']" >
-      <nb-user [nbContextMenu]="userMenu"
-               [onlyPicture]="userPictureOnly"
-               [name]="user"
-               [picture]="user">
-      </nb-user>
-    </nb-action>
-
-  </nb-actions>
-
-</div>

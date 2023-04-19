@@ -64,8 +64,8 @@ export class CheckOutPalletTestComponent extends CommonListPalletComponent<Palle
   filterBy:string =  "TODOS";
   checkOutId:number;
   checkOutRemision:string;
-  displayedColumns: string[] = ['select','id','remision','transportLine','date',
-  'name','code','ua','amount','amountStock','um','lote','expiration','actions'];
+  displayedColumns: string[] = ['select','remision','transportLine','date',
+  'name','code','ua','amount','amountStock','um','lote','expiration'];
 
 
   displayedColumnsRegistered: string[] = ['remisionSalida','remision','transportLine','name','code','amount','stock','ua','um','lote','actions'];

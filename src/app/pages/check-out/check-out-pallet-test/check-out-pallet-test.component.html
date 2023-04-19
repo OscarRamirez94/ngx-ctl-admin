@@ -131,11 +131,11 @@
               </td>
             </ng-container>
 
-            <ng-container matColumnDef="id">
+            <!-- <ng-container matColumnDef="id">
               <th mat-header-cell *matHeaderCellDef >ID</th>
               <td mat-cell *matCellDef="let element">{{element.id}}</td>
             </ng-container>
-
+          -->
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef>PRODUCTO</th>
               <td mat-cell *matCellDef="let element">{{element.product.name}}</td>
@@ -162,7 +162,7 @@
             </ng-container>
 
             <ng-container matColumnDef="ua">
-              <th mat-header-cell *matHeaderCellDef>LINCENCIA</th>
+              <th mat-header-cell *matHeaderCellDef>LICENCIA</th>
               <td mat-cell *matCellDef="let element">{{element.ua}}</td>
             </ng-container>
 
@@ -191,13 +191,13 @@
               <td mat-cell *matCellDef="let element">{{element.amountStock}}</td>
             </ng-container>
 
-            <ng-container matColumnDef="actions">
+           <!-- <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
             <td mat-cell *matCellDef="let element">
             <button mat-icon-button color="primary" (click)="salidaPallet(element)"><mat-icon>edit</mat-icon></button>
             </td>
             </ng-container>
-
+-->
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
             <!-- Row shown when there is no matching data. -->

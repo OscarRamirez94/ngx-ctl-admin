@@ -9,7 +9,7 @@ import { ProductComponent } from './product.component';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard,HeadClientGuard,RoleGuard],data: { role: ['ROLE_ADMIN','ROLE_SUPER'] },
+    canActivate: [HeadClientGuard,RoleGuard],data: { role: ['ROLE_ADMIN','ROLE_SUPER'] },
     component: ProductComponent,
     children: [
       {

@@ -1,5 +1,4 @@
 import { NbMenuItem } from '@nebular/theme';
-import { AuthGuard } from '../guards/auth-guard.service';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
@@ -8,33 +7,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },
-
-
-
- /* {
-    title: 'Modulos',
-    icon: 'edit-2-outline',
-    children: [
-      {
-        title: 'Form Inputs',
-        link: '/pages/forms/inputs',
-      },
-      {
-        title: 'Form Layouts',
-        link: '/pages/forms/layouts',
-      },
-      {
-        title: 'Buttons',
-        link: '/pages/forms/buttons',
-      },
-      {
-        title: 'Datepicker',
-        link: '/pages/forms/datepicker',
-      },
-
-    ],
-  },
-*/
   {
     title: 'Registros',
     icon: 'book-open-outline',
@@ -50,21 +22,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'person-done-outline',
         link: '/pages/checkout/checkout',
       },
-     /*
-      {
-        title: 'Agregar',
-
-        icon: 'car-outline',
-        link: '/pages/checklist/checklist-create',
-      },
-      {
-        title: 'Pallet',
-
-        icon: 'car-outline',
-        link: '/pages/checklist/pallet-main',
-      },
-*/
-
     ],
   },
 
@@ -135,13 +92,7 @@ export const MENU_ITEMS: NbMenuItem[] = [
         icon: 'car-outline',
         link: '/pages/transport-types/transport-types',
       },
-      /*
-      {
-        title: 'Personal',
-        icon: 'person-outline',
-        link: '/pages/persons/persons',
-      },
-      */
+
       {
         title: 'Puestos',
         icon: 'menu',

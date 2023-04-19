@@ -56,14 +56,15 @@ export class CheckOutDetailComponent implements OnInit {
   }
 
   setForm() {
-    let amount =this.editData[0].amountStock;
+    console.log("*****",this.editData[0].amount)
+    let amount =this.editData[0].amount;
     this.palletForm = this.formBuilder.group({
 
       //^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/g;
       //name :['',[Validators.required,RxwebValidators.alpha()]],
       id:['',Validators.required],
       checkOutId:['',Validators.required],
-      cantidad:['', RxwebValidators.maxNumber({value:amount })],
+      amount:['', RxwebValidators.maxNumber({value:amount })],
 
 
 
@@ -92,7 +93,7 @@ export class CheckOutDetailComponent implements OnInit {
     pallet.id =  palletForm.get('id').value;
     checkOutDetail.checkOut = checkout;
     checkOutDetail.pallet = pallet;
-    checkOutDetail.amount = palletForm.get('cantidad').value;
+    checkOutDetail.amount = palletForm.get('amount').value;
 
     this.checkOutDetailService.crear(checkOutDetail).subscribe({
       next: (v) =>{

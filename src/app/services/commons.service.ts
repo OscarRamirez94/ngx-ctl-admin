@@ -9,23 +9,8 @@ export abstract class CommonService<E extends Generic> {
   urlCheckOut = AppSettings.API_ENDPOINT+'/check-out-detail/';
   searach:SearchCriteriaClient
   protected url: string;
-  protected cabeceras: HttpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
   constructor(protected http: HttpClient) { }
-
-  getAll(): Observable<E[]> {
-    return this.http.get<E[]>(this.url.concat("all"));
-  }
-
-  getAllPageable(page: string, size: string,orderBy: string, column: string): Observable<any> {
-    const params = new HttpParams()
-      .set('page', page)
-      .set('size', size)
-      .set('sort',orderBy)
-      .set('column',column);
-
-    return this.http.get<any>(this.url.concat("/pageable/column"), { params: params });
-  }
-
+  /** search catalogos pageable */
   getFilterCriteria(search:SearchCriteriaClient): Observable<any> {
     const params = new HttpParams()
       .set('pageNumber', search.pageNumber)
@@ -36,6 +21,12 @@ export abstract class CommonService<E extends Generic> {
 
     return this.http.get<any>(this.url.concat("all/search/"), { params: params });
   }
+
+  getAll(): Observable<E[]> {
+    return this.http.get<E[]>(this.url.concat("all"));
+  }
+
+
 
   getFilterCriteriaClient(search:SearchCriteriaClient,clientName:string): Observable<any> {
     const params = new HttpParams()
@@ -140,13 +131,11 @@ export abstract class CommonService<E extends Generic> {
   }
 
   public crear(e: E): Observable<E> {
-    return this.http.post<E>(this.url, e,
-      { headers: this.cabeceras });
+    return this.http.post<E>(this.url, e);
   }
 
   public editar(e: E): Observable<E> {
-    return this.http.put<E>(`${this.url}${e.id}`, e,
-      { headers: this.cabeceras });
+    return this.http.put<E>(`${this.url}${e.id}`, e);
   }
 
   public eliminar(id: number): Observable<void> {

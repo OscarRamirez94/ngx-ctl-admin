@@ -46,6 +46,7 @@ import {MatInputModule} from '@angular/material/input';
 import { FormsModule as ngFormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButton, MatButtonModule } from '@angular/material/button';
+import {MatToolbarModule} from '@angular/material/toolbar';
 const NB_MODULES = [
   NbLayoutModule,
   NbMenuModule,
