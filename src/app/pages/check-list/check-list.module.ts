@@ -46,6 +46,7 @@ import { CheckListPalletCloseComponent } from './check-list-pallet-close/check-l
 
 import { CheckListPalletAddComponent } from './check-list-pallet-add/check-list-pallet-add.component';
 import { CheckListPalletRemoveComponent } from './check-list-pallet-remove/check-list-pallet-remove.component';
+import { CheckListOpenComponent } from './check-list-open/check-list-open.component';
 @NgModule({
   declarations: [
     CheckListComponent,
@@ -59,6 +60,7 @@ import { CheckListPalletRemoveComponent } from './check-list-pallet-remove/check
     CheckListDeleteComponent,
     CheckListPalletValidateComponent,
     CheckListPalletCloseComponent,
+    CheckListOpenComponent
 
   ],
   imports: [

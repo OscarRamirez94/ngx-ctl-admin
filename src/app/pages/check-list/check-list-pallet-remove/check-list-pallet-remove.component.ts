@@ -85,12 +85,14 @@ export class CheckListPalletRemoveComponent extends CommonListComponent<Pallet, 
   setForm() {
     this.palletForm = this.formBuilder.group({
           amount: ['',Validators.required],
-          lote:   ['',Validators.required],
-          producto :['',Validators.required],
+          lote:   [{ value : '',disabled: true},Validators.required],
+          producto :[{ value : '',disabled: true},Validators.required],
           codigo :[{ value : '',disabled: true},Validators.required],
-          um: ['',Validators.required],
-          ua: ['',Validators.required],
-          expiration:[''],
+          um: [{ value : '',disabled: true},Validators.required,Validators.required],
+          ua: [{ value : '',disabled: true},Validators.required,Validators.required],
+          expiration:[{ value : '',disabled: true},Validators.required],
+          ubication:[{ value : '',disabled: true},Validators.required],
+          juliana:[{ value : '',disabled: true},Validators.required]
     });
   }
 
@@ -105,6 +107,8 @@ export class CheckListPalletRemoveComponent extends CommonListComponent<Pallet, 
       this.palletForm.controls['um'].setValue(editData.um);
       this.palletForm.controls['ua'].setValue(editData.ua);
       this.palletForm.controls['expiration'].setValue(editData.expiration);
+      this.palletForm.controls['ubication'].setValue(editData.ubication);
+      this.palletForm.controls['juliana'].setValue(editData.juliana);
       this.model.id = editData.id;
       this.isChecked = editData.isActive;
     }
@@ -127,6 +131,8 @@ export class CheckListPalletRemoveComponent extends CommonListComponent<Pallet, 
     this.model.ua = clientForm.get('ua').value;
     this.model.expiration = clientForm.get('expiration').value;
     this.model.um = clientForm.get('um').value;
+    this.model.juliana = clientForm.get('juliana').value;
+    this.model.ubication = clientForm.get('ubication').value;
   }
 
   getProducts(){

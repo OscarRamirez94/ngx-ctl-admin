@@ -19,4 +19,5 @@ export class Pallett implements Generic {
   ua:string;
   checkOut:CheckOut;
   ubication:string;
+  juliana:string;
 }

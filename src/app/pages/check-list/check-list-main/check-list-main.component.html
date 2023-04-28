@@ -78,18 +78,26 @@ nbSpinnerMessage="Cargando ...">
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef > ACCIONES </th>
         <td mat-cell *matCellDef="let element">
+
           <button mat-icon-button color="primary" (click)="addPallet(element)">
             <mat-icon nbTooltip="Agrega Pallets">library_add</mat-icon>
           </button>
+
           <button *ngIf="!isSuper" mat-icon-button [disabled]="element.status === 'close' || element.status === 'close-sys'" color="primary" (click)="closeRemision(element)">
-            <mat-icon nbTooltip="Cerrar Remisión">done_outline</mat-icon>
+            <mat-icon nbTooltip="Cerrar Remisión">lock</mat-icon>
           </button>
+
+          <button *ngIf="isSuper" mat-icon-button [disabled]="element.status === 'open'" color="primary" (click)="openRemision(element)">
+            <mat-icon nbTooltip="Abrir Remisión">lock_open</mat-icon>
+          </button>
+
           <button *ngIf="isSuper" mat-icon-button [disabled]="element.status === 'close'" color="primary" (click)="closeRemision(element)">
-            <mat-icon nbTooltip="Cerrar Remisión">done_outline</mat-icon>
+            <mat-icon nbTooltip="Cerrar Remisión">lock</mat-icon>
           </button>
-            <button mat-icon-button color="primary" (click)="editarClient(element)">
+
+          <button mat-icon-button color="primary" (click)="editarClient(element)">
               <mat-icon nbTooltip="Editar Remisión">edit</mat-icon>
-            </button>
+          </button>
             <!--
               <button mat-icon-button color="warn" (click)="deleteClient(element)" [disabled]="element.status === 'close'">
               <mat-icon nbTooltip="Eliminar Remisión">delete</mat-icon>

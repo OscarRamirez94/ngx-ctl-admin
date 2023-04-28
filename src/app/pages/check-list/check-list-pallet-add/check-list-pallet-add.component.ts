@@ -30,6 +30,7 @@ export class CheckListPalletAddComponent extends CommonListComponent<Pallet, Pal
   product:Product;
   unity:Unity;
 
+
   constructor(
     service: PalletService, router: Router, route: ActivatedRoute, toastrService: NbToastrService,
     private formBuilder:FormBuilder, private  dialogRef: MatDialogRef<CheckListPalletAddComponent>,
@@ -91,8 +92,12 @@ export class CheckListPalletAddComponent extends CommonListComponent<Pallet, Pal
           um: ['',Validators.required],
           ua: ['',Validators.required],
           expiration:[''],
+          ubication:[''],
+          juliana:['']
     });
   }
+
+
 
   rejectForm(editData:any) {
     if (editData) {
@@ -105,6 +110,8 @@ export class CheckListPalletAddComponent extends CommonListComponent<Pallet, Pal
       this.palletForm.controls['um'].setValue(editData.um);
       this.palletForm.controls['ua'].setValue(editData.ua);
       this.palletForm.controls['expiration'].setValue(editData.expiration);
+      this.palletForm.controls['ubication'].setValue(editData.ubication);
+      this.palletForm.controls['juliana'].setValue(editData.juliana);
       this.model.id = editData.id;
       this.isChecked = editData.isActive;
     }
@@ -127,6 +134,9 @@ export class CheckListPalletAddComponent extends CommonListComponent<Pallet, Pal
     this.model.ua = clientForm.get('ua').value;
     this.model.expiration = clientForm.get('expiration').value;
     this.model.um = clientForm.get('um').value;
+    this.model.juliana = clientForm.get('juliana').value;
+    this.model.ubication = clientForm.get('ubication').value;
+
   }
 
   getProducts(){
@@ -167,5 +177,7 @@ export class CheckListPalletAddComponent extends CommonListComponent<Pallet, Pal
       return value.name;
     }
   }
+
+
 
 }

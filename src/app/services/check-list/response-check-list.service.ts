@@ -66,5 +66,8 @@ updateStatus(checkListId:any): Observable<any> {
   return this.http.put<any>(this.url.concat("status/",checkListId),null);
 }
 
+openStatus(checkListId:any): Observable<any> {
+  return this.http.put<any>(this.url.concat("status/open/",checkListId),null);
+}
 
 }

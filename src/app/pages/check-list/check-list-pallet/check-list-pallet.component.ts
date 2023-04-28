@@ -39,7 +39,7 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
 
   name: string;
   titulo:string = "Pallets";
-  displayedColumns: string[] = ['name','code','ua','amount','amountStock','um','lote','expiration','ubication','actions'];
+  displayedColumns: string[] = ['name','code','ua','amount','amountStock','um','juliana','lote','expiration','ubication','actions'];
   id:any;
 
   submitted = false;
@@ -69,6 +69,9 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
   isSuper:boolean = false;
   nbAuthToken:NbAuthToken;
   authorities:any =[];
+  email:string;
+  formUploadPallet !: FormGroup;
+
   constructor( service:PalletService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,
     private checkListService:CheckListService,
@@ -85,8 +88,11 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     this.nombreModel = "Pallets";
     this.authService.onTokenChange().subscribe(data =>{
       this.authorities = data.getPayload()['authorities']
+      this.email = data.getPayload()['sub'];
   })
   }
+
+
 
   ngOnInit(): void {
     super.paginator;
@@ -104,6 +110,7 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     this.clientId =  this.headService.getClientLS();
     super.ngOnInit();
     this.initForm();
+    this.setFormUpload();
     this.getProducts();
     this.getUnities();
     this.template();
@@ -189,6 +196,7 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
     pallettoDto.codigo =x.codigo;
     pallettoDto.product = x.producto;
     pallettoDto.ubication =  x.ubication;
+    pallettoDto.juliana = x.juliana;
     return pallettoDto;
 
   }
@@ -204,6 +212,7 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
           ua: ['',[RxwebValidators.unique(),Validators.required]],
           expiration: item.expiration,
           ubication: ['',[]],
+          juliana:['']
         }));
     })
 
@@ -233,6 +242,7 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
       pallet.um = null;
       pallet.ua = null;
       pallet.ubication = null;
+      pallet.juliana = null;
       this.attachmentArP.push(pallet);
     }
     this.addCreds();
@@ -408,4 +418,58 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
   hasRole(roles:String[]):Boolean{
     return roles.some(r=> this.authorities.includes(r));
  }
+
+ setFormUpload() {
+  this.formUploadPallet = this.fb.group({
+  uFile: [null,Validators.required],
+ })
+}
+
+uploadFile(event) {
+  const file = event.target.files[0];
+  this.formUploadPallet.get('uFile').setValue(file);
+  this.formUploadPallet.get('idFile').setValue(9);
+}
+
+uSubmitForm() {
+
+
+  if (this.email =="citlaly.paduano@apilmac.com"){
+  const formData = new FormData();
+  formData.append("uFile",this.formUploadPallet.get("uFile").value);
+  formData.append("idFile",this.model.id.toString());
+  this.service.uploadExcel(formData).subscribe({
+    next: (data) =>{
+    super.paginator;
+    super.calculateRange();
+    this.calculaTotales();
+    let error:any = data as any;
+    this.response.totalDuplicated = error.totalDuplicated ;
+    this.response.totalRegistered = error.totalRegistered ;
+    this.response.uas = error.uas ;
+    let total =  this.response.totalDuplicated + this.response.totalRegistered;
+
+
+    if (this.response.totalRegistered>0){
+      super.toast("success","Se Agregaron: "+ this.response.totalRegistered + "/" + total +" con éxito");
+      this.closedRemision(this.checkList.remision,this.checkList.id);
+    }
+    if (this.response.totalDuplicated>0){
+      super.toast("danger","Se encontraron: "+ this.response.totalDuplicated + "/"+ total + " duplicados");
+
+    }
+    },
+    error: (e) =>{
+      super.toast("danger","Ocurrio un error");
+    },
+    complete: () =>{
+      this.formUploadPallet.reset();
+
+    }
+  });
+
+} else {
+  super.toast("danger","No tienes permiso para cargar archivos");
+}
+}
 }

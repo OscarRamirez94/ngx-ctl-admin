@@ -30,4 +30,8 @@ export class PalletService extends CommonService<Pallet> {
   public removeStockPallet(e: any): Observable<any> {
     return this.http.put<any>(this.url+'remove-stock/'+e.id, e);
   }
+
+  public uploadExcel(uFile: any):Observable<any>{
+    return this.http.post<any>(this.url+'upload', uFile);
+  }
 }

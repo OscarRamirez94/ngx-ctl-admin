@@ -3,7 +3,7 @@
       <div class="row" style="position: relative;">
         <div class="col-md-12 col-lg-12 col-xxxl-12" style="position: relative;">
           <nb-card status="primary">
-            <nb-card-header>Pallet
+            <nb-card-header>Palletss
               <!--
               <nb-badge text={{checkOut?.date}} status="danger" position="top left"></nb-badge>
               -->
@@ -14,7 +14,7 @@
                 <div class="col-sm-3">
                   <mat-form-field appearance="legacy">
                     <mat-label>Lincecia</mat-label>
-                    <input matInput  formControlName="ua">
+                    <input matInput [disabled]="true"   formControlName="ua">
                   </mat-form-field>
               </div>
               <div class="col-sm-3">
@@ -26,7 +26,7 @@
               <div class="col-sm-3">
                   <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
                     <mat-label>UM</mat-label>
-                    <input type="text"
+                    <input type="text" [disabled]="true"
                            placeholder="Selecciona UM"
                            matInput
                            formControlName="um"
@@ -44,7 +44,7 @@
               <div class="col-sm-3">
                   <mat-form-field appearance="legacy">
                     <mat-label>lote</mat-label>
-                    <input matInput  formControlName="lote">
+                    <input matInput  [disabled]="true"  formControlName="lote">
                   </mat-form-field>
               </div>
               </div>
@@ -52,7 +52,7 @@
               <div class="col-sm-3">
                   <mat-form-field appearance="legacy">
                     <mat-label>Caducidad</mat-label>
-                    <input matInput type="date"  formControlName="expiration">
+                    <input matInput [disabled]="true"  type="date"  formControlName="expiration">
                   </mat-form-field>
               </div>
 
@@ -61,7 +61,7 @@
                     <mat-label>Producto</mat-label>
                     <input type="text"
                            placeholder="Selecciona Producto"
-                           matInput
+                           matInput [disabled]="true"
                            formControlName="producto"
                            [matAutocomplete]="autoProducto">
                     <mat-autocomplete #autoProducto="matAutocomplete"
@@ -79,7 +79,22 @@
                   <input matInput [disabled]="true" formControlName="codigo">
                 </mat-form-field>
             </div>
-              </div>
+
+            <div class="col-sm-2">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Ubicacion</mat-label>
+                  <input matInput [disabled]="true" formControlName="ubication">
+                </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Juliana</mat-label>
+                  <input matInput [disabled]="true" formControlName="juliana">
+                </mat-form-field>
+                </div>
+            </div>
             </nb-card-body>
           </nb-card>
         </div>

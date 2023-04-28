@@ -11,6 +11,7 @@ import { CommonResponseCheckList } from '../../commons/common-list/check-list-re
 import { CheckListCreateComponent } from '../check-list-create/check-list-create.component';
 import { CheckListDeleteComponent } from '../check-list-delete/check-list-delete.component';
 import { CheckListPalletValidateComponent } from '../check-list-pallet-validate/check-list-pallet-validate.component';
+import { CheckListOpenComponent } from '../check-list-open/check-list-open.component';
 
 
 @Component({
@@ -99,6 +100,20 @@ export class CheckListMainComponent extends CommonResponseCheckList<ResponseChec
         if (data) {
           this.service.updateStatus(element.id).subscribe(data =>{
             super.toast("success","Se finalizó la remision con éxito: " + element.remision)
+            super.calculateRange(this.clientName);
+          });
+        }
+      })
+  }
+
+  openRemision(element:any){
+    this.dialog.open(CheckListOpenComponent,{
+
+      data: element
+    }).afterClosed().subscribe(data =>{
+        if (data) {
+          this.service.openStatus(element.id).subscribe(data =>{
+            super.toast("success","Se modificó el estatus a open con éxito: " + element.remision)
             super.calculateRange(this.clientName);
           });
         }

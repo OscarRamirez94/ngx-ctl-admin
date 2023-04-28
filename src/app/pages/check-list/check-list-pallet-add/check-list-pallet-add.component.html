@@ -49,37 +49,51 @@
               </div>
               </div>
               <div class="row">
-              <div class="col-sm-3">
-                  <mat-form-field appearance="legacy">
-                    <mat-label>Caducidad</mat-label>
-                    <input matInput type="date"  formControlName="expiration">
-                  </mat-form-field>
-              </div>
+                <div class="col-sm-3">
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Caducidad</mat-label>
+                      <input matInput type="date"  formControlName="expiration">
+                    </mat-form-field>
+                </div>
 
-              <div class="col-sm-3">
-                  <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
-                    <mat-label>Producto</mat-label>
-                    <input type="text"
-                           placeholder="Selecciona Producto"
-                           matInput
-                           formControlName="producto"
-                           [matAutocomplete]="autoProducto">
-                    <mat-autocomplete #autoProducto="matAutocomplete"
-                    (optionSelected)="optionSelectedProductSave($event.option.value)"
-                    [displayWith]="displayPropertyProduct">
-                      <mat-option *ngFor="let option of products" [value]="option">
-                        {{option.name}}
-                      </mat-option>
-                    </mat-autocomplete>
+                <div class="col-sm-3">
+                    <mat-form-field class="example-full-width" #field floatLabel="always" appearance="legacy" >
+                      <mat-label>Producto</mat-label>
+                      <input type="text"
+                            placeholder="Selecciona Producto"
+                            matInput [disabled]="true"
+                            formControlName="producto"
+                            [matAutocomplete]="autoProducto">
+                      <mat-autocomplete #autoProducto="matAutocomplete"
+                      (optionSelected)="optionSelectedProductSave($event.option.value)"
+                      [displayWith]="displayPropertyProduct">
+                        <mat-option *ngFor="let option of products" [value]="option">
+                          {{option.name}}
+                        </mat-option>
+                      </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-3">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Codigo</mat-label>
+                    <input matInput [disabled]="true" formControlName="codigo">
                   </mat-form-field>
-              </div>
-              <div class="col-sm-3">
+                </div>
+                <div class="col-sm-2">
                 <mat-form-field appearance="legacy">
-                  <mat-label>Codigo</mat-label>
-                  <input matInput [disabled]="true" formControlName="codigo">
+                  <mat-label>Ubicacion</mat-label>
+                  <input matInput [disabled]="true" formControlName="ubication">
                 </mat-form-field>
+                </div>
             </div>
-              </div>
+            <div class="row">
+              <div class="col-sm-2">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Juliana</mat-label>
+                  <input matInput [disabled]="true" formControlName="juliana">
+                </mat-form-field>
+                </div>
+            </div>
             </nb-card-body>
           </nb-card>
         </div>
@@ -95,3 +109,5 @@
 
     </mat-dialog-actions>
     </form>
+
+
