@@ -23,7 +23,9 @@
                   </div>
                 </div>
 
-          <!--
+
+
+ <!--
               <div class="col-sm-3">
                 <div class="form-group">
                   <mat-form-field appearance="legacy">
@@ -71,6 +73,28 @@
                   </mat-form-field>
                 </div>
               </div>
+              <div class="col-sm-3">
+                <div class="form-group">
+                <!--
+                  <mat-form-field appearance="legacy">
+                  <mat-label>Fecha Registro</mat-label>
+                  <input matInput type="datetime-local"  formControlName="date" placeholder="Fecha Registro" [ngClass]="{ 'is-invalid':
+                  f.date.errors }">
+                  <mat-error *ngIf="f.date.errors" >Campo Requerido</mat-error>
+                </mat-form-field>
+                -->
+                <div class="col-sm-2">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Fecha Registro</mat-label>
+                    <input matInput type="date"  formControlName="date">
+                  </mat-form-field>
+                  <mat-error *ngIf="f.date.errors" >Campo Requerido</mat-error>
+              </div>
+
+
+              </div>
+            </div>
+
             </div>
             <mat-dialog-actions align="end">
                   <button nbButton hero shape="semi-round" size="small" status="primary" matStepperNext>Siguiente</button>

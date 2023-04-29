@@ -56,7 +56,6 @@ export class CheckOutDetailComponent implements OnInit {
   }
 
   setForm() {
-    console.log("*****",this.editData[0].amount)
     let amount =this.editData[0].amount;
     this.palletForm = this.formBuilder.group({
 

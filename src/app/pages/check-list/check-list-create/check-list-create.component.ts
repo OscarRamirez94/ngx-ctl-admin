@@ -21,6 +21,8 @@ import { AuthRoleService } from '../../../services/auth/auth-role.service';
 import { CheckListService } from '../../../services/check-list/check-list.service';
 import { HeadService } from '../../../services/head/head.service';
 import { CommonListComponent } from '../../commons/common-list/common-list.component';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -31,7 +33,6 @@ import { CommonListComponent } from '../../commons/common-list/common-list.compo
 export class CheckListCreateComponent extends CommonListComponent<CheckList, CheckListService> implements OnInit  {
   nbAuthToken:NbAuthToken;
   authorities:any =[];
-
   clients:Client[];
   transportLines:TransportLineI[] = [];
   transportCapacities:TransportCapacityI[] = [];
@@ -57,6 +58,9 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
   filteredSurveillances: Observable<UserI[]>;
   filteredResponsibles: Observable<UserI[]>;
   isSuper:boolean = false;
+
+  dateModel: Date = new Date();
+  stringDateModel: string = new Date().toString();
 
 
 
@@ -110,6 +114,7 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
       remision:['',Validators.required],
       partner :[{ value : this.partner,disabled: true},Validators.required],
       processType :[{ value : this.processType.name,disabled: true},Validators.required],
+      date:['',Validators.required]
     });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -236,10 +241,10 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     }
 
   modelCheckList(firstFormGroup:any, secondFormGroup:any,thirdFormGroup:any){
-
     this.model.remision = firstFormGroup.get('remision').value;
     this.model.partner.id =this.clientId;
     this.model.processType = this.processType;
+    this.model.date = firstFormGroup.get('date').value  ;
     this.model.operator = secondFormGroup.get('operator').value;
     this.model.ecoTracto = secondFormGroup.get('ecoTracto').value;
     this.model.tractoPlacas = secondFormGroup.get('tractoPlacas').value;
@@ -262,10 +267,17 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
 
   rejectForm(editData:any) {
     if (editData) {
+
+
+      const format = 'yyyy-MM-dd';
+      const locale = 'en-MX';
+      const formattedDate = formatDate(editData.date, format, locale);
+
       this.status =  editData.status;
       this.actionBtn ="Modificar";
       this.firstFormGroup.controls['remision'].setValue(editData.remision);
       this.firstFormGroup.controls['partner'].setValue(this.partner);
+      this.firstFormGroup.controls['date'].setValue(formattedDate);
       this.secondFormGroup.controls['transportLine'].setValue(editData.transportLine);
       this.secondFormGroup.controls['operator'].setValue(editData.operator);
       this.secondFormGroup.controls['ecoTracto'].setValue(editData.ecoTracto);
@@ -402,7 +414,6 @@ export class CheckListCreateComponent extends CommonListComponent<CheckList, Che
     hasRole(roles:String[]):Boolean{
       return roles.some(r=> this.authorities.includes(r));
    }
-
 
 
 }

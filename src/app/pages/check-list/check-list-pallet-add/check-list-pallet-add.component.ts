@@ -87,13 +87,14 @@ export class CheckListPalletAddComponent extends CommonListComponent<Pallet, Pal
     this.palletForm = this.formBuilder.group({
           amount: ['',Validators.required],
           lote:   ['',Validators.required],
-          producto :['',Validators.required],
+          producto:   [{ value : '',disabled: true},Validators.required],
           codigo :[{ value : '',disabled: true},Validators.required],
-          um: ['',Validators.required],
-          ua: ['',Validators.required],
+          um:   [{ value : '',disabled: true},Validators.required],
+          ua:   [{ value : '',disabled: true},Validators.required],
           expiration:[''],
           ubication:[''],
           juliana:['']
+
     });
   }
 
@@ -101,7 +102,6 @@ export class CheckListPalletAddComponent extends CommonListComponent<Pallet, Pal
 
   rejectForm(editData:any) {
     if (editData) {
-
       this.actionBtn ="Modificar";
       this.palletForm.controls['amount'].setValue(editData.amount);
       this.palletForm.controls['lote'].setValue(editData.lote);

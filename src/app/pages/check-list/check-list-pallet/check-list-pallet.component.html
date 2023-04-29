@@ -378,7 +378,11 @@
      Carga Excel
     </nb-accordion-item-header>
     <nb-accordion-item-body>
-      <nb-card accent="primary">
+      <nb-card status="primary"   [nbSpinner]="loadingExcel"
+      nbSpinnerStatus="primary"
+      nbSpinnerSize="large"
+      nbSpinnerMessage="Cargando ...">
+
         <nb-card-header>Selecciona Excel</nb-card-header>
         <nb-card-body>
 
@@ -387,7 +391,7 @@
               <input formControlName="uFile" type="file" id="uFile" name="uFile" (change)="uploadFile($event)">
             </div>
             <div class="form-group">
-              <button nbButton  hero shape="semi-round" size="small" status="primary"
+              <button nbButton  hero shape="semi-round" size="small" status="primary" [disabled]="loadingExcel"
               cdkFocusInitial style="float: left;">{{actionBtn}}</button>
             </div>
           </form>

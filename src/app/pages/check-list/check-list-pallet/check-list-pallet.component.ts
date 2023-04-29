@@ -71,7 +71,7 @@ export class CheckListPalletComponent   extends CommonListIdComponent<Pallet,Pal
   authorities:any =[];
   email:string;
   formUploadPallet !: FormGroup;
-
+  loadingExcel = false;
   constructor( service:PalletService,router: Router,route: ActivatedRoute,
     private dialog: MatDialog,toastrService: NbToastrService,
     private checkListService:CheckListService,
@@ -438,6 +438,7 @@ uSubmitForm() {
   const formData = new FormData();
   formData.append("uFile",this.formUploadPallet.get("uFile").value);
   formData.append("idFile",this.model.id.toString());
+  this.loadingExcel = true;
   this.service.uploadExcel(formData).subscribe({
     next: (data) =>{
     super.paginator;
@@ -458,13 +459,14 @@ uSubmitForm() {
       super.toast("danger","Se encontraron: "+ this.response.totalDuplicated + "/"+ total + " duplicados");
 
     }
+
     },
     error: (e) =>{
       super.toast("danger","Ocurrio un error");
     },
     complete: () =>{
       this.formUploadPallet.reset();
-
+      this.loadingExcel = false;
     }
   });
 

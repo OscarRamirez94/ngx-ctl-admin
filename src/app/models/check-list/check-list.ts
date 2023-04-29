@@ -13,7 +13,7 @@ export class CheckList implements Generic{
     name: string;
     search :string;
     remision: String;
-    date: string;
+    date: Date;
     processType:ProcessType;
     partner: Client;
     transportLine:TransportLine;

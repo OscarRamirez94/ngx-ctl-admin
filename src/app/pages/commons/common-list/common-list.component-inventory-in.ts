@@ -65,7 +65,6 @@ export abstract class  CommonListPalletInventoryInComponent<E extends Generic, S
   }
 
   ngOnInit(): void {
-  console.log('checkOutId',this.checkOutId)
   this.clientName =  this.headService.getClientLS();
   this.calculateRange();
 
@@ -102,12 +101,10 @@ export abstract class  CommonListPalletInventoryInComponent<E extends Generic, S
     search.sortDirection =this.orderBy;
     this.service.getFilterCriteriaClientOut(search,this.clientName,this.option,this.filterBy).subscribe({
       next: (paginator) =>{
-        console.log(paginator.totalElements)
       this.lista = paginator.content as PalletI[];
       this.totalRegistros = paginator.totalElements as number;
       this.paginator._intl.itemsPerPageLabel ="Registros";
       this.dataSource = new MatTableDataSource(this.lista);
-      console.log("LISTA -DISPONIBLES", this.lista);
       },
       error: (e) =>{
         console.error("error",e.error.status)
@@ -163,11 +160,11 @@ export abstract class  CommonListPalletInventoryInComponent<E extends Generic, S
     var subject = new Subject<boolean>();
     this.service.crear(this.model).subscribe(m => {
       subject.next(true);
-      console.log(m);
+
     }, err => {
       if(err.status === 400){
         this.error = err.error;
-        console.log(this.error);
+
       }
       subject.next(false);
     });
@@ -175,12 +172,11 @@ export abstract class  CommonListPalletInventoryInComponent<E extends Generic, S
   }
 
   public editar(): void {
-    console.log("update" + JSON.stringify(this.model));
+
     this.service.editar(this.model).subscribe(m => {
     }, err => {
       if(err.status === 400){
         this.error = err.error;
-        console.log(this.error);
       }
     });
   }
