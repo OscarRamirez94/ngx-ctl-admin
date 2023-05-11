@@ -3,7 +3,7 @@ import { NbMenuItem } from '@nebular/theme';
 export const MENU_ITEMS: NbMenuItem[] = [
   {
     title: 'Inicio',
-    icon: 'shopping-cart-outline',
+    icon: 'home',
     link: '/pages/dashboard',
     home: true,
   },

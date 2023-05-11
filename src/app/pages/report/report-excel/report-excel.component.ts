@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReportService } from '../../../services/report/report.service';
 import { saveAs } from 'file-saver';
 import { HeadService } from '../../../services/head/head.service';
+import { NbToastrService } from '@nebular/theme';
+import { ToastrService } from '../../../services/toastr/toastr.service';
 @Component({
   selector: 'ngx-report-excel',
   templateUrl: './report-excel.component.html',
@@ -17,7 +19,9 @@ export class ReportExcelComponent implements OnInit {
   options: string[] = ['TODOS','FECHA'];
   option;
   clientName =  this.headService.getClientLS();
-  constructor(private formBuilder: FormBuilder, private reportService:ReportService,private headService:HeadService) { }
+  constructor(private formBuilder: FormBuilder, private reportService:ReportService,
+    private headService:HeadService,
+    private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.setForm();
@@ -25,36 +29,54 @@ export class ReportExcelComponent implements OnInit {
   get f() { return this.searchForm.controls; }
 
   onSubmit() {
-
-    this.submitted = true;
-
     if (this.searchForm.invalid) {
       return;
     }
 
     this.loading = true;
     let name :string = "Report.xls";
+
+
+
     if (this.option ==="TODOS"){
-
-        this.reportService.downloadReportIn(this.clientName).subscribe(data =>{
-          const blob =new Blob([data],{type: "application/excel"});
-        saveAs(blob, name);
-        this.loading = false;
+      this.reportService.downloadReportIn(this.clientName).subscribe({
+          next: (data) =>{
+            const blob =new Blob([data],{type: "application/excel"});
+            saveAs(blob, name);
+            this.toastrService.toast("success","Excel","Descarga Finalizada")
+          },
+          error: (err) =>{
+            this.toastrService.toast("danger","Excel","Ocurrio un error")
+          },
+          complete: () => {
+            this.submitted= false;
+            this.loading = false;
+            this.onReset()
+          }
         });
-
 
     }
     if (this.option ==="FECHA"){
       let dateBefore = this.searchForm.get('dateBefore').value;
       let dateAfter = this.searchForm.get('dateAfter').value;
 
-      this.reportService.downloadReportDate(this.clientName,dateBefore,dateAfter).subscribe(data =>{
-        const blob =new Blob([data],{type: "application/excel"});
-      saveAs(blob, name);
-
+      this.reportService.downloadReportDate(this.clientName,dateBefore,dateAfter).subscribe({
+        next: (data) =>{
+          const blob =new Blob([data],{type: "application/excel"});
+          saveAs(blob, name);
+          this.toastrService.toast("success","Excel","Descarga Finalizada")
+        },
+        error: (err) =>{
+          this.toastrService.toast("danger","Excel","Ocurrio un error")
+        },
+        complete: () =>{
+          this.loading = false;
+          this.submitted= false;
+          this.onReset();
+        }
       });
     }
-    this.onReset();
+
     //this.modelClient(this.userForm);
     /*
     super.crear().subscribe(data =>{
@@ -66,17 +88,18 @@ export class ReportExcelComponent implements OnInit {
       });
 */
 
+
   }
 
   onReset() {
-    this.submitted = false;
+    //this.submitted = true;
     this.searchForm.reset();
     this.searchForm.controls.dateBefore.clearValidators();
     this.searchForm.controls.dateBefore.updateValueAndValidity();
     this.searchForm.controls.dateAfter.clearValidators();
     this.searchForm.controls.dateAfter.updateValueAndValidity();
     this.fechaVisible=false;
-    this.loading = false;
+   // this.loading = true;
   }
 
   setForm() {

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NbAuthJWTToken, NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
+import { NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from '@nebular/auth';
 
 @Component({
   selector: 'ngx-login',
@@ -8,7 +8,7 @@ import { NbAuthJWTToken, NbAuthService, NbLoginComponent, NB_AUTH_OPTIONS } from
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent  extends NbLoginComponent implements OnInit  {
-  priv
+
   constructor(service: NbAuthService,
     @Inject(NB_AUTH_OPTIONS) options:{},
      cd: ChangeDetectorRef, router: Router){

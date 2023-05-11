@@ -79,7 +79,7 @@ export class CheckListMainComponent extends CommonResponseCheckList<ResponseChec
       })
   }
 
-  deleteClient(element:any){
+  deleteRemision(element:any){
     this.dialog.open(CheckListDeleteComponent,{
       width:'25%',
       data: element
