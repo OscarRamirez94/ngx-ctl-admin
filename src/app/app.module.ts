@@ -38,7 +38,6 @@ registerLocaleData(localeEsMX, 'es-MX');
     HttpClientModule,
     AppRoutingModule,
     NbAuthModule,
-
     NbSidebarModule.forRoot(),
     NbMenuModule.forRoot(),
     NbDatepickerModule.forRoot(),
@@ -46,8 +45,6 @@ registerLocaleData(localeEsMX, 'es-MX');
     NbWindowModule.forRoot(),
     NbToastrModule.forRoot(),
     NgxChartsModule,
-
-
     NbChatModule.forRoot({
       messageGoogleMapKey: 'AIzaSyA_wNuCzia92MAmdLRzmqitRGvCF7wCZPY',
     }),

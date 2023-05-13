@@ -3,10 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../../guards/auth-guard.service';
 import { HeadClientGuard } from '../../guards/head-client.guard';
 import { CheckOutMainComponent } from './check-out-main/check-out-main.component';
-import { CheckOutPalletTestComponent } from './check-out-pallet-test/check-out-pallet-test.component';
 import { CheckOutPalletViewComponent } from './check-out-pallet-view/check-out-pallet-view.component';
 import { CheckOutPalletComponent } from './check-out-pallet/check-out-pallet.component';
 import { CheckOutComponent } from './check-out.component';
+import { CheckOutPalletOutComponent } from './check-out-pallet-out/check-out-pallet-out.component';
 
 const routes: Routes = [
   {
@@ -23,8 +23,8 @@ const routes: Routes = [
         component: CheckOutPalletComponent
       },
       {
-        path: 'pallet-main-test/:id/:remision',
-        component: CheckOutPalletTestComponent
+        path: 'pallet-main-out/:id/:remision',
+        component: CheckOutPalletOutComponent
       },
       {
         path: 'pallet-view/:id',
